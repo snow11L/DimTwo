@@ -1,0 +1,52 @@
+import { Gizmos } from "../core/debug/gizmos/gizmos";
+import { SYSTEM_STATE } from "../core/gears/ecs/system";
+import Time from "../core/time/time";
+import { ENGINE } from "../engine/engine.manager";
+import { ECS } from "../engine/TwoD";
+import { GameMain } from "../game/game.main";
+
+await GameMain();
+
+const time = new Time();
+
+// const debug = document.querySelector("#debug")!;
+
+time.on("start", () => {
+  ECS.System.callStart(SYSTEM_STATE);
+});
+
+time.on("fixedUpdate", () => {
+  ECS.System.callFixedUpdate(SYSTEM_STATE);
+
+});
+
+time.on("update", () => {
+  ECS.System.callUpdate(SYSTEM_STATE);
+  ECS.System.callLateUpdate(SYSTEM_STATE);
+});
+
+time.on("render", () => {
+  ENGINE.WEB_GL.clearColor(0, 0, 0, 1);
+  ENGINE.WEB_GL.clear(ENGINE.WEB_GL.COLOR_BUFFER_BIT);
+  ECS.System.callRender(SYSTEM_STATE);
+
+  Gizmos.gizmosActive = true;
+   Gizmos.drawGizmos();
+  ECS.System.callDrawGizmos(SYSTEM_STATE);
+ 
+  Gizmos.gizmosActive = false;
+});
+
+time.start();
+
+window.addEventListener('wheel', (e) => {
+  if (e.ctrlKey) e.preventDefault();
+}, { passive: false });
+
+
+['gesturestart', 'gesturechange', 'gestureend'].forEach(event => {
+  window.addEventListener(event, e => e.preventDefault());
+});
+
+
+
