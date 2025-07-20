@@ -26,6 +26,14 @@ export function mult(out: Vec3, a: Vec3, b: Vec3): Vec3 {
     return out;
 }
 
+export function scale(out: Vec3, a: Vec3, scalar: number): Vec3 {
+    out.x = a.x * scalar;
+    out.y = a.y * scalar;
+    out.z = a.z * scalar;
+    return out;
+}
+
+
 export function subVec3(a: Vec3, b: Vec3): Vec3 {
     return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
 }
@@ -71,6 +79,7 @@ function create(x = 0, y = 0, z = 0): Vec3 {
 
 export const Vec3 = {
     create,
-     add,
-    mult
+    add,
+    mult,
+    scale
 }

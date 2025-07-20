@@ -1,5 +1,5 @@
 import { ComponentType } from "../../types/component-type";
-import { SpatialHash } from "../../algorithms/SpatialHash";
+import { SpatialHash } from "../../lib/SpatialHash";
 import type { CircleColliderComponent } from "../../collider/types/CircleCollider";
 import type { ColliderComponent } from "../../collider/types/Collider";
 import { testOverlap } from "../../collider/overlap/testOverlap";
@@ -12,6 +12,8 @@ import type { BoxColliderComponent } from "./box/BoxCollider";
 import type { TransformComponent } from "../transform";
 import type { RigidBodyComponent } from "../rigid_body/rigid.body";
 import type { GameEntity } from "../../types/EngineEntity";
+import { get_transform } from "../../builders/get_component";
+import { Collision } from "../../collider/types/LayerMask";
 
 
 
@@ -122,18 +124,16 @@ function detectCollisions(
 
     for (let i = 0; i < length; i++) {
       const colliderA = collidersInCell[i];
-      const aT = ECS.Component.getComponent<TransformComponent>(componentState, colliderA.gameEntity, ComponentType.TRANSFORM);
+      const aT = get_transform(colliderA.gameEntity);
       if (!aT) continue;
 
       for (let j = i + 1; j < length; j++) {
         const colliderB = collidersInCell[j];
         if (colliderA.gameEntity.id === colliderB.gameEntity.id) continue;
+        
+        if(!Collision.shouldLayersCollide(colliderA.collisionMask, colliderB.collisionMask)) continue;
 
-       
-
-
-
-        const bT = ECS.Component.getComponent<TransformComponent>(componentState, colliderB.gameEntity, ComponentType.TRANSFORM);
+        const bT = get_transform(colliderB.gameEntity);
         if (!bT) continue;
 
         const pairKey = makePairKey(colliderA.instance, colliderB.instance);

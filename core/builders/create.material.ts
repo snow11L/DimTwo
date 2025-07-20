@@ -1,9 +1,9 @@
 import { ENGINE } from "../../engine/engine.manager";
-import { rgba, type Color } from "../../game/systems/procedural-world/biome";
+import { Color } from "../../game/systems/procedural-world/color";
 import { generic_manager_add, generic_manager_get } from "../managers/generic_manager";
 import type { Material } from "../webgl/material/material";
 
-export function material_create(name: string, color: Color = rgba(255, 255, 255, 1)) {
+export function material_create(name: string, color: Color = Color.WHITE) {
     const material: Material = {
         name: name,
         shaderName: null,

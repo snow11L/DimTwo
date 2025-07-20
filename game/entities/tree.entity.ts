@@ -2,6 +2,7 @@ import { Builders, ECS, Types } from "../../engine/TwoD";
 import type { Sprite } from "../../engine/types";
 import { Vec3 } from "../../core/webgl/vec3";
 import { createBoxColliderComponent } from "../../engine/builders";
+import { Collision, CollisionMask } from "../../core/collider/types/LayerMask";
 
 export function createTreeEntity(
     componentState: Types.ECSComponentState,
@@ -26,7 +27,9 @@ export function createTreeEntity(
 
     ECS.Component.addComponent(componentState, gameEntity, spriteRener);
 
-    const boxCollider = createBoxColliderComponent(gameEntity, { isTrigger: true, size: Vec3.create(1, 1, 1) });
+    const boxCollider = createBoxColliderComponent(gameEntity, { collisionMask: CollisionMask.TREE, isTrigger: true, size: Vec3.create(1, 1, 1) });
+    Collision.setCollision(CollisionMask.TREE, CollisionMask.TREE, false);
+
     ECS.Component.addComponent(componentState, gameEntity, boxCollider);
     return gameEntity;
 }

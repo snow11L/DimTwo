@@ -1,6 +1,7 @@
 import { SLIME_ANIMATOR_CONTROLLER } from "../controllers/slime.animator.controller";
 import type { ECSComponentState } from "../../core/gears/ecs/component";
 import { Builders, ECS } from "../../engine/TwoD";
+import { SLIME_SPRITE } from "../sprites/slime.sprite";
 
 export function createSlime(componentState: ECSComponentState, name: string) {
   const gameEntity = Builders.createGameEntity(name, "Enemy");
@@ -8,7 +9,7 @@ export function createSlime(componentState: ECSComponentState, name: string) {
   const transform = Builders.createTransformComponent(gameEntity);
   ECS.Component.addComponent(componentState, gameEntity, transform);
 
-  const spriteReder = Builders.createSpriteRenderComponent(gameEntity, { layer: 1, materialName: "advanced_material" });
+  const spriteReder = Builders.createSpriteRenderComponent(gameEntity, { sprite: SLIME_SPRITE,  layer: 1, materialName: "advanced_material" });
   ECS.Component.addComponent(componentState, gameEntity, spriteReder);
 
   const animator = Builders.createAnimatorComponent(gameEntity, { controller: SLIME_ANIMATOR_CONTROLLER });

@@ -7,5 +7,4 @@ export interface GameEntity extends EngineEntity {
     active: boolean;
     name: string;
     parent: GameEntity | null;
-    layerMask: number;
 }

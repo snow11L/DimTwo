@@ -1,4 +1,4 @@
-import { SimplexNoise } from "../../../core/algorithms/SimplexNoise";
+import { SimplexNoise } from "../../../core/lib/SimplexNoise";
 import type { Vec3 } from "../../../core/webgl/vec3";
 import { BiomeName, classifyBiomes } from "./biome";
 

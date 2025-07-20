@@ -1,6 +1,6 @@
 import { Color } from "../../../game/systems/procedural-world/color";
 import { get_transform, get_type } from "../../builders/get_component";
-import { type BoxColliderComponent } from "../../gears/collider/box/BoxCollider";
+import type { CircleColliderComponent } from "../../collider/types/CircleCollider";
 import type { System } from "../../gears/ecs/system";
 import { ComponentType } from "../../types/component-type";
 import { Vec3 } from "../../webgl/vec3";
@@ -11,9 +11,9 @@ const rotation = { x: 0, y: 0, z: 0, w: 1 };
 export function boxColliderGizmosSystem(): System {
     return {
         onDrawGizmos() {
-            const boxColliders = get_type<BoxColliderComponent>(ComponentType.BOX_COLLIDER);
+            const circleColliders = get_type<CircleColliderComponent>(ComponentType.CIRCLE_COLLIDER);
 
-            for (const boxCollider of boxColliders) {
+            for (const boxCollider of circleColliders) {
                 const transform = get_transform(boxCollider.gameEntity);
                 if (!transform) continue;
 
@@ -21,7 +21,7 @@ export function boxColliderGizmosSystem(): System {
                 Vec3.add(pos, transform.position, boxCollider.center);
 
                 const size = { x: 0, y: 0, z: 0 }
-                Vec3.mult(size, transform.scale, boxCollider.size);
+                Vec3.scale(size, transform.scale, boxCollider.radius);
 
                 const isColliding = boxCollider.isColliding;
 

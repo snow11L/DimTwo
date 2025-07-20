@@ -18,13 +18,13 @@ import { simple_material_system } from "../core/webgl/material/simple_material_s
 import { advanced_material_system } from "../core/webgl/material/advanced_material_system";
 import { water_material_system } from "../core/webgl/material/water_material_system";
 import { createSlime } from "./entities/slime.entity";
-import { rgba } from "./systems/procedural-world/biome";
 import { ENGINE } from "../engine/engine.manager";
 import { type ShaderFile, type TextureFile } from "../core/managers/shaderLoader";
 import { createQuadLineMesh, createQuadMesh } from "../core/assets/geometries/quadMesh";
 import { VAO_MANAGER } from "../core/managers/vao_manager";
 import { createInstancedMeshVAO, createMeshVAO } from "../core/webgl/mesh_gl";
 import { boxColliderGizmosSystem } from "../core/debug/gizmos/boxColliderGizmosSystem";
+import { Color } from "./systems/procedural-world/color";
 
 function material_create_and_link(name: string, shader: string) {
 
@@ -32,7 +32,7 @@ function material_create_and_link(name: string, shader: string) {
         name: name,
         shaderName: shader,
         props: [
-            { name: "uColor", type: "color", value: rgba(255, 255, 255, 1) }
+            { name: "uColor", type: "color", value: Color.rgba(255, 255, 255, 1) }
         ]
     };
 
@@ -101,7 +101,7 @@ async function LoadResources() {
         shaderName: "advanced",
 
         props: [
-            { name: "uColor", type: "color", value: rgba(255, 255, 255, 1) }
+            { name: "uColor", type: "color", value: Color.rgba(255, 255, 255, 1) }
         ]
     };
 
@@ -141,19 +141,4 @@ export async function GameMain() {
     ECS.System.addSystem(SYSTEM_STATE, ColliderSystem(componentState, SYSTEM_STATE));
     ECS.System.addSystem(SYSTEM_STATE, PhysicsSystem(componentState));
     ECS.System.addSystem(SYSTEM_STATE, boxColliderGizmosSystem());
-    // window.addEventListener("resize", () => {
-    //     canvas.width = window.innerWidth;
-    //     canvas.height = window.innerHeight;
-
-    //     const cam = ECS.Component.getComponent<CameraComponent>(componentState, camera, ComponentType.CAMERA);
-
-    //     if (cam) {
-    //         cam.aspec = canvas.width / canvas.height;
-    //         const matrix = generic_manager_get(MANAGER.MAT4, cam.instance);
-    //         if (!matrix) return;
-    //         mat4_create_projection(matrix, cam.fov, cam.aspec, cam.near, cam.far);
-
-    //     }
-    //     gl.viewport(0, 0, canvas.width, canvas.height);
-    // });
 }

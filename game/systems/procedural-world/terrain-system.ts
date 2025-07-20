@@ -9,7 +9,7 @@ import { ChunkManager } from "./chunk/ChunkManager";
 import { World, type TerrainCell } from "./Word";
 import { OAK_TRE_0 } from "../../sprites/oak.trees.sprite";
 import { BiomeName, getBiomeColor } from "./biome";
-import { Mulberry32 } from "../../../core/algorithms/mulberry32";
+import { Mulberry32 } from "../../../core/lib/mulberry32";
 import { createTreeEntity } from "../../entities/tree.entity";
 import { get_transform } from "../../../core/builders/get_component";
 

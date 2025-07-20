@@ -6,7 +6,7 @@ import type { TransformComponent } from "../../transform";
 import { generic_manager_get } from "../../../managers/generic_manager";
 import { VAO_MANAGER } from "../../../managers/vao_manager";
 import { SHADER_SYSTEM_MANAGER } from "../../../managers/shader_system_manager";
-import { material_get } from "../../../builders/create_material";
+import { material_get } from "../../../builders/create.material";
 import { ENGINE } from "../../../../engine/engine.manager";
 
 export function SpriteRenderSystem(): System {
@@ -57,8 +57,6 @@ export function SpriteRenderSystem(): System {
 
         webGL.bindVertexArray(vao.vao);
         webGL.drawElements(webGL.TRIANGLES, vao.indexCount, webGL.UNSIGNED_SHORT, 0);
-
-        webGL.drawElements(webGL.LINES, vao.indexCount, webGL.UNSIGNED_SHORT, 0);
         webGL.bindVertexArray(null);
       }
     },

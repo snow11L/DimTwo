@@ -31,22 +31,19 @@ time.on("render", () => {
   ECS.System.callRender(SYSTEM_STATE);
 
   Gizmos.gizmosActive = true;
-   Gizmos.drawGizmos();
+  Gizmos.drawGizmos();
   ECS.System.callDrawGizmos(SYSTEM_STATE);
- 
+
   Gizmos.gizmosActive = false;
 });
 
 time.start();
 
-window.addEventListener('wheel', (e) => {
-  if (e.ctrlKey) e.preventDefault();
-}, { passive: false });
+// window.addEventListener('wheel', (e) => {
+//   if (e.ctrlKey) e.preventDefault();
+// }, { passive: false });
 
 
-['gesturestart', 'gesturechange', 'gestureend'].forEach(event => {
-  window.addEventListener(event, e => e.preventDefault());
-});
-
-
-
+// ['gesturestart', 'gesturechange', 'gestureend'].forEach(event => {
+//   window.addEventListener(event, e => e.preventDefault());
+// });

@@ -1,3 +1,4 @@
+import { CollisionMask } from "../collider/types/LayerMask";
 import type { BoxColliderComponent, BoxColliderOptions } from "../gears/collider/box/BoxCollider";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
@@ -13,6 +14,7 @@ export function createBoxColliderComponent(gameEntity: GameEntity, options?: Box
         ignoreSelfCollisions: true,
         instance: createIncrementalId(),
         isTrigger: false,
+        collisionMask: CollisionMask.DEFAULT,
         center: { x: 0, y: 0, z: 0 },
         size: { x: 0.5, y: 0.5, z: 0 },
         ...options

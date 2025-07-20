@@ -1,5 +1,5 @@
 import { ENGINE } from "../../../engine/engine.manager";
-import { rgb } from "../../../game/systems/procedural-world/biome";
+import { Color } from "../../../game/systems/procedural-world/color";
 import { get_category, get_sprite_render, get_transform } from "../../builders/get_component";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { ComponentType } from "../../types/component-type";
@@ -43,7 +43,7 @@ export function water_material_system(material: Material): ShaderSystem {
             mat4_create_TRS(modelMatrix, transform.position, transform.rotation, transform.scale);
             shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
 
-            spriteRender.color = rgb(1, 161, 253);
+            spriteRender.color = Color.rgba(1, 161, 253, 1);
 
             shader_set_uniform_4f(
                 shader,

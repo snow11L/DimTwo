@@ -9,7 +9,6 @@ export function getBoundsCenterInto(bounds: Bounds, out: Vec2): void {
 }
 
 export function getBounds(pos: Vec2, size: Vec2): Bounds {
-
   const x = pos.x - size.x / 2;
   const y = pos.y - size.y / 2;
 
@@ -45,8 +44,6 @@ export function getBoundsInto(
   out.top = top;
   out.bottom = bottom;
 }
-
-
 
 export function distanceSq(a: Vec2, b: Vec2): number {
   const dx = a.x - b.x;
