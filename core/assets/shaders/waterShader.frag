@@ -10,91 +10,73 @@ uniform vec2 uWorldOffset;  // Offset global em unidades do mundo
 uniform vec2 uTileSize;     // Tamanho do tile em unidades do mundo
 uniform float uWaveScale;   // Densidade das ondas
 
-
-// Hash simples que gera valor pseudoaleatório a partir de uma posição 2D
+// Ruído hash rápido
 float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 }
 
-// Noise interpolado 2D (value noise)
+// Ruído value noise simplificado
 float noise(vec2 p) {
     vec2 i = floor(p);
     vec2 f = fract(p);
-
     float a = hash(i);
     float b = hash(i + vec2(1.0, 0.0));
     float c = hash(i + vec2(0.0, 1.0));
     float d = hash(i + vec2(1.0, 1.0));
-
     vec2 u = f * f * (3.0 - 2.0 * f);
-
     return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
 
-float fbm(vec2 p) {
-    float total = 0.0;
-    float amplitude = 0.5;
-    float frequency = 1.0;
-
-    for (int i = 0; i < 5; i++) {
-        total += noise(p * frequency) * amplitude;
-        frequency *= 2.0;
-        amplitude *= 0.5;
-    }
-    return total;
+// Geração de ondas cartoon
+float cartoonWaves(vec2 uv, float time) {
+    float wave = 0.0;
+    wave += 0.2 * sin(uv.x * 6.0 + time);
+    wave += 0.1 * sin(uv.y * 8.0 + time * 1.2);
+    wave += 0.05 * sin((uv.x + uv.y) * 10.0 - time * 0.8);
+    wave += 0.05 * noise(uv * 2.0 + time * 0.1);
+    return wave;
 }
 
-
-float waveHeight(vec2 uv, float time) {
-    float phaseShift = fbm(uv * 2.0 + time * 0.5) * 6.2831; // 0 a 2π
-    float h = 0.0;
-    h += 0.15 * sin(dot(uv, vec2(0.8, 0.6)) * 4.0 - time * 1.0 + phaseShift);
-    h += 0.1 * sin(dot(uv, vec2(-0.5, 1.0)) * 7.0 - time * 1.5 + phaseShift * 1.3);
-    h += 0.05 * sin(dot(uv, vec2(1.0, -0.3)) * 10.0 - time * 2.0 + phaseShift * 0.7);
-    h += 0.05 * fbm(uv * 3.0 + time * 0.2);
-    return h;
-}
-
-
-
-// Normal via gradiente
+// Normal cartoon simplificado
 vec3 computeNormal(vec2 uv, float time) {
-    float e = 0.01;
-    float c = waveHeight(uv, time);
-    float cx = waveHeight(uv + vec2(e,0.0), time);
-    float cy = waveHeight(uv + vec2(0.0,e), time);
+    float e = 0.02;
+    float c = cartoonWaves(uv, time);
+    float cx = cartoonWaves(uv + vec2(e, 0.0), time);
+    float cy = cartoonWaves(uv + vec2(0.0, e), time);
     vec3 n = normalize(vec3(cx - c, cy - c, e));
     return n;
 }
 
 void main() {
-    float time = uTime;
+    float time = uTime * 0.7;
 
     vec2 uvGlobal = vUV * uTileSize + uWorldOffset;
     vec2 uv = uvGlobal * uWaveScale;
 
     vec3 normal = computeNormal(uv, time);
 
-    vec3 viewDir = normalize(vec3(0.0, 0.0, 1.0));
-    float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 2.0) * 0.8 + 0.2;
+    vec3 viewDir = vec3(0.0, 0.0, 1.0);
+    float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), 2.0) * 0.6 + 0.4;
 
-    float eta = 1.0 /1.3;
-    vec3 refracted = refract(-viewDir, normal, eta);
+    // Cores cartoon saturadas
+    vec3 shallowColor = vec3(0.0, 0.6, 0.9);
+    vec3 deepColor = vec3(0.0, 0.2, 0.5);
 
-    vec2 refractUV = vUV + refracted.xy * 0.05;
+    float depth = 0.5 + 0.5 * cartoonWaves(uv * 0.3, time * 0.5);
+    vec3 waterColor = mix(shallowColor, deepColor, depth);
 
-    // Fundo do mar amostrado via refractUV para efeito de refração
-    vec3 seabedColor = vec3(0.0, 0.05, 0.1) + 0.15 * fbm(uvGlobal * 2.0  * 10.0 + time * 0.1);
+    vec3 skyColor = vec3(0.4, 0.7, 1.0);
 
-    vec3 waterColor = mix(seabedColor, uColor.rgb, 0.6);
-
-    vec3 skyColor = vec3(0.0f, 0.67f, 1.0f);
-
+    // Reflexo cartoon leve
     vec3 reflectedColor = mix(waterColor, skyColor, fresnel);
 
+    // Brilho cartoon suave
     vec3 lightDir = normalize(vec3(-0.3, 0.5, 0.7));
-    float highlight = pow(max(dot(reflect(-lightDir, normal), viewDir), 0.0), 30.0) * 0.5;
-    reflectedColor += vec3(1.0f, 0.98f, 0.92f) * highlight;
+    float highlight = pow(max(dot(reflect(-lightDir, normal), viewDir), 0.0), 20.0) * 0.4;
+    reflectedColor += vec3(1.0, 0.9, 0.7) * highlight;
+
+    // Ajusta saturação com uColor
+    reflectedColor = mix(reflectedColor, uColor.rgb, 0.3);
 
     outColor = vec4(reflectedColor, uColor.a);
 }

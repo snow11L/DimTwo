@@ -28,7 +28,7 @@ export function createGameEntity(
     layerMask
   };
 
-  generic_manager_add(MANAGER.GAME_ENTITY, gameEntity.id, gameEntity);
+  // generic_manager_add(MANAGER.GAME_ENTITY, gameEntity.id, gameEntity);
 
   return gameEntity;
 }

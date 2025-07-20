@@ -3,7 +3,7 @@ import type { GameEntity } from "../../../types/EngineEntity";
 import { addToCategory, removeFromCategory } from "./ecs.component.category.functions";
 import type { ECSComponentState } from "./ecs.component.types";
 
-export function createState(): ECSComponentState {
+export function createComponentState(): ECSComponentState {
   return {
     persistent: new Map(),
     transient: new Map(),

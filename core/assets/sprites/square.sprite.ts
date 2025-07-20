@@ -1,0 +1,9 @@
+import type { Types } from "../../../engine/TwoD";
+
+export const SQUARE_SPRITE: Types.Sprite = {
+    meshName: null,
+    textureName: "primitives",
+    origin: { x: 0, y: 0 },
+    position: { x: 512 + 8, y: 0 },
+    size: { x: 512, y: 512 },
+}

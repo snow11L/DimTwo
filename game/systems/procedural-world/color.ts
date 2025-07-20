@@ -24,9 +24,19 @@ export function rgbaNoclamp(r: number, g: number, b: number, a: number = 1): Col
     };
 }
 
+export function random(alpha: boolean = false): Color {
+    return {
+        r: Math.random(),
+        g: Math.random(),
+        b: Math.random(),
+        a: alpha ? Math.random() : 1.0,
+    };
+}
+
 
 export const Color = {
     rgba,
+    random,
 
     RED: Object.freeze(rgba(255, 0, 0, 1)),
     GREEN: Object.freeze(rgba(0, 255, 0, 1)),

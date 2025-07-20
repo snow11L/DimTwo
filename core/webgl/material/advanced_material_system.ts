@@ -87,6 +87,7 @@ export function advanced_material_system(material: Material): ShaderSystem {
             );
 
             shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
+            shader_set_uniform_4f(shader, "uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
 
             const texture = generic_manager_get(TEXTURE_MANAGER, spriteRender.sprite.textureName)!;
             shader_set_uniform_texture(shader, "uTexture", texture, 0);
@@ -98,8 +99,6 @@ export function advanced_material_system(material: Material): ShaderSystem {
             const uvOffsetX = spriteRender.sprite.position.x / texture.width;
             const uvOffsetY = (texture.height - spriteRender.sprite.position.y - spriteRender.sprite.size.y) / texture.height;
             shader_set_uniform_2f(shader, "uUVOffset", uvOffsetX, uvOffsetY);
-            set_props(material, shader);
-
         },
 
     };

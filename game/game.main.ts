@@ -61,6 +61,9 @@ async function LoadResources() {
         },
         oakTree: {
             path: "game/assets/images/OakTree.png"
+        },
+        primitives: {
+            path: "/core/assets/images/primitive_sprites.png"
         }
     }
 
