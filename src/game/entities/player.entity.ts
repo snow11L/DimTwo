@@ -1,0 +1,60 @@
+import { ComponentType } from "../../../api/enums";
+import { Builders } from "../../../api/TwoD";
+import { createTextRenderComponent } from "../../../core/generators/create.text.render.component";
+import { Vec3 } from "../../../core/math/vec3/vec3";
+import { addComponents } from "../../../core/types/EngineEntity";
+import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
+import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
+
+export function createPlayer(
+  name: string,
+) {
+  const gameEntity = Builders.createGameEntity(name, "Player");
+
+  const transform = Builders.createTransformComponent(gameEntity);
+
+
+  const character_controler: CharacterControlerComponent = {
+    instanceID: Builders.createIncrementalId(),
+    gameEntity: gameEntity,
+    type: ComponentType.CharacterController,
+    category: ComponentType.Controller,
+    enabled: true,
+    facing: "side",
+    state: "idle",
+    direction: { x: 0, y: 0 },
+    moving: false,
+    speed: 0.5,
+    runSpeed: 1,
+  };
+
+  const rigidBody = Builders.createRigidBodyComponent(gameEntity, {
+    useGravity: false,
+    mass: 70
+  });
+
+  const spriteRender = Builders.createSpriteRenderComponent(gameEntity, {
+    layer: 1,
+    material: "advanced_material",
+  });
+
+  const animator = Builders.createAnimatorComponent(gameEntity, {
+    controller: PLAYER_ANIMATOR_CONTROLLER,
+  });
+
+  const boxCollider = Builders.createBoxCollider2D(gameEntity, { center: Vec3.create(0, 0.1) });
+
+  const textRender = createTextRenderComponent(gameEntity);
+
+  addComponents(gameEntity,
+    transform,
+    character_controler,
+    rigidBody,
+    boxCollider,
+    animator,
+    spriteRender,
+    textRender
+  );
+
+  return gameEntity;
+}

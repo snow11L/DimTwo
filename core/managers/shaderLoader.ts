@@ -1,5 +1,5 @@
-import { ENGINE } from "../../engine/engine.manager";
-import { createShader } from "../webgl/shader";
+import { ENGINE } from "../../api/engine.manager";
+import { createShader } from "../resources/shader";
 import { generic_manager_add } from "./generic_manager";
 
 export interface ShaderFileEntry {

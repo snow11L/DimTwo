@@ -1,14 +1,15 @@
+import { get_transform } from "../../generators/get_component";
+import type { Vec2 } from "../../math/vec2/Vec2";
+import Vec2Math from "../../math/vec2/vec2-math";
+import { Vec3 } from "../../math/vec3/vec3";
+import type { BoxCollider2D } from "../../components/box-collider-2d/BoxCollider2DTypes";
 import { ComponentType } from "../../types/component-type";
-import type { Vec2 } from "../../math/vector2/Vec2";
+import type { Bounds } from "../types/Bounds";
 import type { ColliderComponent } from "../types/Collider";
+import { getBounds } from "../util/getCircleCenter";
 import { isOfType } from "../util/isOfType";
 import { resolveBoxBoxOverlap } from "./resolveBoxBoxCollision";
-import { getBounds } from "../util/getCircleCenter";
-import type { AABB2D } from "../../gears/collider/box/BoxCollider";
-import Vec2Math from "../../math/vector2/vec2-math";
-import type { Bounds } from "../types/Bounds";
-import { get_transform } from "../../components/get_component";
-import { Vec3 } from "../../webgl/vec3";
+
 
 export interface CollisionResolution {
   dx: number;
@@ -20,8 +21,8 @@ const tempSizeB = Vec3.create();
 
 
 export function resolveOverlap(aPos: Vec2, a: ColliderComponent, bPos: Vec2, b: ColliderComponent): Vec2 | null {
-  if (isOfType<AABB2D>(a, ComponentType.BOX_COLLIDER) &&
-    isOfType<AABB2D>(b, ComponentType.BOX_COLLIDER)) {
+  if (isOfType<BoxCollider2D>(a, ComponentType.BoxCollider2D) &&
+    isOfType<BoxCollider2D>(b, ComponentType.BoxCollider2D)) {
 
     const offsetA = Vec2Math.add(aPos, a.center);
     const offsetB = Vec2Math.add(bPos, b.center);

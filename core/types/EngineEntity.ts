@@ -1,4 +1,4 @@
-import type { Component } from "../gears/component/component";
+import type { Component } from "../components/component/component";
 
 export interface EngineEntity {
     readonly id: number;

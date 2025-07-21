@@ -1,1 +1,0 @@
-export * as SpriteRender from "./sprite_render/sprite.render.types";

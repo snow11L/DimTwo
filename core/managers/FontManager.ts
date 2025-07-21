@@ -1,4 +1,4 @@
-import { ENGINE } from "../../engine/engine.manager";
+import { ENGINE } from "../../api/engine.manager";
 import { createTexture, type Texture } from "../webgl/texture";
 import { generic_manager_add } from "./generic_manager";
 

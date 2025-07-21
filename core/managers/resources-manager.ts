@@ -1,15 +1,14 @@
-import { ENGINE } from "../../engine/engine.manager";
-import { createShader } from "../webgl/shader";
+import { ENGINE } from "../../api/engine.manager";
+import { createShader } from "../resources/shader";
 import { createTexture } from "../webgl/texture";
 import { generic_manager_add } from "./generic_manager";
-import type { ShaderFile } from "./shaderLoader";
+import type { ImageFile, ShaderFile } from "./shaderLoader";
 
 
 export interface Resource {
   name: string;
   path: string;
 }
-export type ImageFile = Resource;
 export type TextFile = Resource;
 
 export class ResourceManager {

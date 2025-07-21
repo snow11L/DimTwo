@@ -1,6 +1,6 @@
+import type { Vec2 } from "../../math/vec2/Vec2";
 import type { Bounds } from "../types/Bounds";
 import { getClosestPoint, distanceSq } from "../util/getCircleCenter";
-import type { Vec2 } from "../../math/vector2/Vec2";
 
 
 const closestPointResult: Vec2 = { x: 0, y: 0 };

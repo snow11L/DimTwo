@@ -1,8 +1,9 @@
-import type { Mesh } from "./mesh";
-import { Vec3, vec3Tof32Arr } from "./vec3";
-import { type Vec2 } from "../math/vector2/Vec2";
+import type { Mesh } from "../resources/mesh/mesh";
+import { Vec3, vec3Tof32Arr } from "../math/vec3/vec3";
+import { type Vec2 } from "../math/vec2/Vec2";
 import type { FontData } from "../managers/FontManager";
-import { vec2ArrayTof32Array } from "../math/vector2/Vector2Conversors";
+import { vec2ArrayTof32Array } from "../math/vec2/Vector2Conversors";
+import { createIncrementalId } from "../generators/create.incremental.id";
 
 export interface GLVAO {
     vao: WebGLVertexArrayObject;
@@ -199,6 +200,7 @@ export function createTextMesh(
     }
 
     const mesh: Mesh = {
+        instanceID: createIncrementalId(),
         name: "text_mesh",
         normals: [],
         vertices: positions,

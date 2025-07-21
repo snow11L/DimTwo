@@ -1,12 +1,14 @@
-import { ENGINE } from "../../../engine/engine.manager";
-import type { Color } from "../../../game/systems/procedural-world/color";
-import { get_category, get_mat4, get_transform } from "../../components/get_component";
+import { ENGINE } from "../../../api/engine.manager";
+import { get_category, get_mat4, get_transform } from "../../generators/get_component";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { ComponentType } from "../../types/component-type";
-import { mat4_create_TRS, mat4_identity } from "../../webgl/mat4";
-import type { Quat } from "../../webgl/quat";
-import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../../webgl/shader";
-import type { Vec3 } from "../../webgl/vec3";
+import { mat4_create_TRS, mat4_identity } from "../../math/mat4/mat4";
+import type { Quat } from "../../math/quat/quat";
+import { Meshs } from "../../assets/meshs/Meshs";
+import type { Color } from "../../math/color/color";
+import type { Vec3 } from "../../math/vec3/vec3";
+import { shader_set_uniform_mat4, shader_set_uniform_4f } from "../../resources/shader";
+
 
 interface GizmosTransform {
     position: Vec3;
@@ -31,18 +33,18 @@ const identity = mat4_identity();
 
 function drawGizmos() {
     const gl = ENGINE.WEB_GL;
-    const cameras = get_category(ComponentType.CAMERA);
+    const cameras = get_category(ComponentType.Camera);
     if (cameras.length === 0) return;
     const camera = cameras[0];
 
-    const projectionMatrix = get_mat4(camera.instance);
+    const projectionMatrix = get_mat4(camera.instanceID);
     if (projectionMatrix == null) return;
     const transform = get_transform(camera.gameEntity);
     if (transform == null) return;
-    const viewMatrix = get_mat4(transform.instance);
+    const viewMatrix = get_mat4(transform.instanceID);
     if (viewMatrix == null) return;
 
-    const vao = generic_manager_get(ENGINE.MANAGER.VAO, "wire_square_instanced");
+    const vao = generic_manager_get(ENGINE.MANAGER.VAO, Meshs.wireSquare.instanceID);
     if (!vao) return;
 
     const shader = generic_manager_get(ENGINE.MANAGER.SHADER, "gizmos");

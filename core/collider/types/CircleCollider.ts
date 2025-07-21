@@ -1,4 +1,4 @@
-import type { ComponentOptions } from "../../gears/component/component";
+import type { ComponentOptions } from "../../components/component/component";
 import type { ColliderComponent } from "./Collider";
 
 export type CircleColliderOptions = ComponentOptions<CircleColliderComponent>;

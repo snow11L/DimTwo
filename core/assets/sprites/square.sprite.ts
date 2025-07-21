@@ -1,4 +1,4 @@
-import type { Types } from "../../../engine/TwoD";
+import type { Types } from "../../../api/TwoD";
 
 export const SQUARE_SPRITE: Types.Sprite = {
     meshName: null,

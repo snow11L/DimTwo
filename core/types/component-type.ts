@@ -1,14 +1,17 @@
-export enum ComponentType {
-    Animator = "ANIMATOR_COMPONENT",
-    TRANSFORM = "TRANSFORM_COMPONENT",
-    CAMERA = "CAMERA_COMPONENT",
-    ANIMATOR_CONTROLLER = "ANIMATOR_CONTROLLER_COMPONENT",
-    CHARACTER_CONTROLLER = "CHARACTER_CONTROLLER_COMPONENT",
-    SPRITE_RENDER = "SPRITE_RENDER_COMPONENT",
-    RENDER = "RENDER",
-    TEXT_RENDER = "TEXT_RENDER",
-    BOX_COLLIDER = "BOX_COLLIDER_COMPONENT",
-    COLLIDER = "COLLIDER_COMPONENT",
-    CIRCLE_COLLIDER = "CIRCLE_COLLIDER_COMPONENT",
-    RigidBody = "RigidBody"
-}
+export const ComponentType = {
+    Animator: "Animator",
+    Transform: "Transform",
+    Camera: "Camera",
+    AnimatorController: "AnimatorController",
+    CharacterController: "CharacterController",
+    Controller: "Controller",
+    SpriteRender: "SpriteRender",
+    Render: "Render",
+    TextMesh: "TextMesh",
+    BoxCollider2D: "BoxCollider2D",
+    Collider: "Collider",
+    CircleCollider2D: "CircleCollider2D",
+    RigidBody: "RigidBody",
+} as const;
+
+export type ComponentType = typeof ComponentType[keyof typeof ComponentType];

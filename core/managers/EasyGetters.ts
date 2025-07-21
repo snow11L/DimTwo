@@ -1,6 +1,6 @@
-import { ENGINE } from "../../engine/engine.manager";
-import type { Mat4 } from "../webgl/mat4";
-import type { Mesh } from "../webgl/mesh";
+import { ENGINE } from "../../api/engine.manager";
+import type { Mat4 } from "../math/mat4/mat4";
+import type { Mesh } from "../resources/mesh/mesh";
 import type { GLVAO } from "../webgl/mesh_gl";
 import { generic_manager_get } from "./generic_manager";
 
@@ -8,11 +8,11 @@ function getMat4(key: number): Mat4 | null {
     return generic_manager_get(ENGINE.MANAGER.MAT4, key);
 }
 
-function getMesh(key: string): Mesh | null {
+function getMesh(key: number): Mesh | null {
     return generic_manager_get(ENGINE.MANAGER.MESH, key)
 }
 
-function getVAO(key: string) : GLVAO | null {
+function getVAO(key: number) : GLVAO | null {
     return generic_manager_get(ENGINE.MANAGER.VAO, key);
 }
 
@@ -21,6 +21,3 @@ export const EasyGetter = {
     getMesh,
     getVAO
 }
-
-
-// function getTransform(key: number): TransformComponent | null;

@@ -1,9 +1,9 @@
-import { Color } from "../../../game/systems/procedural-world/color";
-import { get_transform, get_type } from "../../components/get_component";
-import { type AABB2D } from "../../gears/collider/box/BoxCollider";
-import type { System } from "../../gears/ecs/system";
+import { get_transform, get_type } from "../../generators/get_component";
+import { Color } from "../../math/color/color";
+import { Vec3 } from "../../math/vec3/vec3";
+import { type BoxCollider2D } from "../../components/box-collider-2d/BoxCollider2DTypes";
+import type { System } from "../../components/ecs/system";
 import { ComponentType } from "../../types/component-type";
-import { Vec3 } from "../../webgl/vec3";
 import { Gizmos } from "./gizmos";
 
 const rotation = { x: 0, y: 0, z: 0, w: 1 };
@@ -11,7 +11,7 @@ const rotation = { x: 0, y: 0, z: 0, w: 1 };
 export function boxColliderGizmosSystem(): System {
     return {
         onDrawGizmos() {
-            const boxColliders = get_type<AABB2D>(ComponentType.BOX_COLLIDER);
+            const boxColliders = get_type<BoxCollider2D>(ComponentType.BoxCollider2D);
 
             for (const boxCollider of boxColliders) {
                 const transform = get_transform(boxCollider.gameEntity);
