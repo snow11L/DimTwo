@@ -1,4 +1,4 @@
-import type { Vec2 } from "../../../core/Vec2/Vec2";
+import type { Vec2 } from "../../../core/math/vector2/Vec2";
 import type { Component } from "../../../core/gears/component/component";
 
 export type CharacterState = "idle" | "walking" | "attacking";

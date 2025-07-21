@@ -1,4 +1,4 @@
-import type { Vec2 } from "../../Vec2/Vec2";
+import type { Vec2 } from "../../math/vector2/Vec2";
 import type { Bounds } from "../types/Bounds";
 import { clamp } from "./clamp";
 

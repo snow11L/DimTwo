@@ -1,38 +1,57 @@
 import type { CollisionEvent, TriggerEvent } from "../../../types/collision-event";
+import { Scene } from "../../scene/scene";
 import type { ECSSystemState } from "./ecs.system.types";
 
-export function callStart(state: ECSSystemState): void {
-  for (const system of state.systems) {
+export function callStart(): void {
+  const scene = Scene.getCurrentScene();
+  if (scene == null) return;
+
+  for (const system of scene.SYSTEM_STATE.systems) {
     system.start?.();
   }
 }
 
-export function callFixedUpdate(state: ECSSystemState): void {
-  for (const system of state.systems) {
+export function callFixedUpdate(): void {
+  const scene = Scene.getCurrentScene();
+  if (scene == null) return;
+
+  for (const system of scene.SYSTEM_STATE.systems) {
     system.fixedUpdate?.();
   }
 }
 
-export function callUpdate(state: ECSSystemState): void {
-  for (const system of state.systems) {
+export function callUpdate(): void {
+  const scene = Scene.getCurrentScene();
+  if (scene == null) return;
+
+  for (const system of scene.SYSTEM_STATE.systems) {
     system.update?.();
   }
 }
 
-export function callLateUpdate(state: ECSSystemState): void {
-  for (const system of state.systems) {
+export function callLateUpdate(): void {
+  const scene = Scene.getCurrentScene();
+  if (scene == null) return;
+
+  for (const system of scene.SYSTEM_STATE.systems) {
     system.lateUpdate?.();
   }
 }
 
-export function callRender(state: ECSSystemState): void {
-  for (const system of state.systems) {
+export function callRender(): void {
+  const scene = Scene.getCurrentScene();
+  if (scene == null) return;
+
+  for (const system of scene.SYSTEM_STATE.systems) {
     system.render?.();
   }
 }
 
-export function callDrawGizmos(state: ECSSystemState): void {
-  for (const system of state.systems) {
+export function callDrawGizmos(): void {
+  const scene = Scene.getCurrentScene();
+  if (scene == null) return;
+
+  for (const system of scene.SYSTEM_STATE.systems) {
     system.onDrawGizmos?.();
   }
 }

@@ -1,8 +1,7 @@
 import { ENGINE } from "../../../engine/engine.manager";
 import type { Color } from "../../../game/systems/procedural-world/color";
-import { get_category, get_mat4, get_transform } from "../../builders/get_component";
+import { get_category, get_mat4, get_transform } from "../../components/get_component";
 import { generic_manager_get } from "../../managers/generic_manager";
-import { VAO_MANAGER } from "../../managers/vao_manager";
 import { ComponentType } from "../../types/component-type";
 import { mat4_create_TRS, mat4_identity } from "../../webgl/mat4";
 import type { Quat } from "../../webgl/quat";
@@ -43,7 +42,7 @@ function drawGizmos() {
     const viewMatrix = get_mat4(transform.instance);
     if (viewMatrix == null) return;
 
-    const vao = generic_manager_get(VAO_MANAGER, "wire_square_instanced");
+    const vao = generic_manager_get(ENGINE.MANAGER.VAO, "wire_square_instanced");
     if (!vao) return;
 
     const shader = generic_manager_get(ENGINE.MANAGER.SHADER, "gizmos");

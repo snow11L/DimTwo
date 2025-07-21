@@ -3,7 +3,7 @@ import { generic_manager_get } from "../../managers/generic_manager";
 import { mat4_create_TR, mat4_create_TRS } from "../mat4";
 import type { ShaderSystem } from "../system/shader_system";
 import { shader_set_uniform_mat4, shader_set_uniform_4f } from "../shader";
-import { get_category, get_sprite_render, get_transform } from "../../builders/get_component";
+import { get_category, get_sprite_render, get_transform } from "../../components/get_component";
 import { ENGINE } from "../../../engine/engine.manager";
 
 export function simple_material_system(shaderName: string): ShaderSystem {

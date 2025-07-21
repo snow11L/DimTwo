@@ -1,5 +1,4 @@
 import { Gizmos } from "../core/debug/gizmos/gizmos";
-import { SYSTEM_STATE } from "../core/gears/ecs/system";
 import Time from "../core/time/time";
 import { ENGINE } from "../engine/engine.manager";
 import { ECS } from "../engine/TwoD";
@@ -9,30 +8,28 @@ await GameMain();
 
 const time = new Time();
 
-// const debug = document.querySelector("#debug")!;
-
 time.on("start", () => {
-  ECS.System.callStart(SYSTEM_STATE);
+  ECS.System.callStart();
 });
 
 time.on("fixedUpdate", () => {
-  ECS.System.callFixedUpdate(SYSTEM_STATE);
+  ECS.System.callFixedUpdate();
 
 });
 
 time.on("update", () => {
-  ECS.System.callUpdate(SYSTEM_STATE);
-  ECS.System.callLateUpdate(SYSTEM_STATE);
+  ECS.System.callUpdate();
+  ECS.System.callLateUpdate();
 });
 
 time.on("render", () => {
   ENGINE.WEB_GL.clearColor(0, 0, 0, 1);
   ENGINE.WEB_GL.clear(ENGINE.WEB_GL.COLOR_BUFFER_BIT);
-  ECS.System.callRender(SYSTEM_STATE);
+  ECS.System.callRender();
 
   Gizmos.gizmosActive = true;
   Gizmos.drawGizmos();
-  ECS.System.callDrawGizmos(SYSTEM_STATE);
+  ECS.System.callDrawGizmos();
 
   Gizmos.gizmosActive = false;
 });

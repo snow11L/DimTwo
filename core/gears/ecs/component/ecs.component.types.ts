@@ -10,3 +10,7 @@ export interface ECSComponentState {
 }
 
 export const COMPONENT_STATE = createComponentState();
+
+
+
+

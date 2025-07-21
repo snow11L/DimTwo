@@ -8,6 +8,8 @@ export type SpriteRenderOptions = ComponentOptions<SpriteRenderComponent>;
 export interface Render extends Component {
   color: Color;
   alpha?: number;
+  material: string;
+  mesh: string;
 }
 
 export interface SpriteRenderComponent extends Render {
@@ -15,8 +17,6 @@ export interface SpriteRenderComponent extends Render {
   rotation?: number;
   flipHorizontal?: boolean;
   flipVertical?: boolean;
-  materialName: string;
-  meshName: string;
   layer: number;
 }
 

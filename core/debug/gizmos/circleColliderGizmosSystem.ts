@@ -1,5 +1,5 @@
 import { Color } from "../../../game/systems/procedural-world/color";
-import { get_transform, get_type } from "../../builders/get_component";
+import { get_transform, get_type } from "../../components/get_component";
 import type { CircleColliderComponent } from "../../collider/types/CircleCollider";
 import type { System } from "../../gears/ecs/system";
 import { ComponentType } from "../../types/component-type";

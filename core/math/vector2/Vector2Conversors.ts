@@ -1,9 +1,6 @@
-export interface Vec2 {
-  x: number;
-  y: number;
-}
+import type { Vec2 } from "./Vec2";
 
-export function vec2Tof32Arr(vectors: Vec2[], out?: Float32Array): Float32Array {
+export function vec2ArrayTof32Array(vectors: Vec2[], out?: Float32Array): Float32Array {
   if (!out || out.length < vectors.length * 2) {
     out = new Float32Array(vectors.length * 2);
   }

@@ -8,10 +8,10 @@ export function createSpriteRenderComponent(
   options: SpriteRenderOptions = {}
 ): SpriteRenderComponent {
   return {
-    materialName: "simple_material",
-    meshName: "quad_mesh",
+    material: "simple_material",
+    mesh: "quad_mesh",
     instance: createIncrementalId(),
-    category: ComponentType.SPRITE_RENDER,
+    category: ComponentType.RENDER,
     type: ComponentType.SPRITE_RENDER,
     gameEntity: gameEntity,
     sprite: null,

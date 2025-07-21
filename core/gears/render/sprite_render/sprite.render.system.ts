@@ -1,35 +1,28 @@
 import { ComponentType } from "../../../types/component-type";
-import type { SpriteRenderComponent } from "./sprite.render.types";
+import type { Render, SpriteRenderComponent } from "./sprite.render.types";
 import type { System } from "../../ecs/system";
 import { ECS } from "../../../../engine/TwoD";
 import type { TransformComponent } from "../../transform";
 import { generic_manager_get } from "../../../managers/generic_manager";
-import { VAO_MANAGER } from "../../../managers/vao_manager";
-import { SHADER_SYSTEM_MANAGER } from "../../../managers/shader_system_manager";
-import { material_get } from "../../../builders/create.material";
+import { material_get } from "../../../components/create.material";
 import { ENGINE } from "../../../../engine/engine.manager";
+import type { ECSComponentState } from "../../ecs/component";
 
-export function SpriteRenderSystem(): System {
-  
+export function SpriteRenderSystem(state: ECSComponentState): System {
+
   const webGL = ENGINE.WEB_GL;
-  const state = ENGINE.DEFAULT_COMPONENT_STATE;
 
   return {
     render() {
       webGL.enable(webGL.BLEND);
       webGL.blendFunc(webGL.SRC_ALPHA, webGL.ONE_MINUS_SRC_ALPHA);
 
-      let spriteRenderers = ECS.Component.getComponentsByType<SpriteRenderComponent>(
-        state,
-        ComponentType.SPRITE_RENDER
-      );
+      const spriteRenders = ECS.Component.getComponentsByType<SpriteRenderComponent>(state, ComponentType.SPRITE_RENDER);
 
-      spriteRenderers = spriteRenderers.sort((a, b) => a.layer - b.layer);
-   
-      for (const spriteRender of spriteRenderers) {
+      for (const spriteRender of spriteRenders) {
         if (!spriteRender.enabled) continue;
 
-        const material = material_get(spriteRender.materialName);
+        const material = material_get(spriteRender.material);
         if (!material) continue;
 
         const shader = generic_manager_get(ENGINE.MANAGER.SHADER, material.shaderName)!;
@@ -43,16 +36,16 @@ export function SpriteRenderSystem(): System {
 
         if (!transform) continue;
 
-        const shaderSystem = generic_manager_get(SHADER_SYSTEM_MANAGER, material.name);
+        const shaderSystem = generic_manager_get(ENGINE.MANAGER.SHADER_SYSTEM, material.name);
         if (!shaderSystem) continue;
         shaderSystem.global?.();
 
         shaderSystem.local?.(spriteRender.gameEntity);
 
-        const mesh = generic_manager_get(ENGINE.MANAGER.MESH, spriteRender.meshName);
+        const mesh = generic_manager_get(ENGINE.MANAGER.MESH, spriteRender.mesh);
         if (!mesh) continue;
 
-        const vao = generic_manager_get(VAO_MANAGER, mesh.name);
+        const vao = generic_manager_get(ENGINE.MANAGER.VAO, mesh.name);
         if (!vao) continue;
 
         webGL.bindVertexArray(vao.vao);

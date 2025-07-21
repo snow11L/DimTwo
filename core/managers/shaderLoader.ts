@@ -11,9 +11,21 @@ export interface TextureFileEntry {
     path: string;
 }
 
-export interface TextureFile {
+export interface ImageFile {
     [key: string]: TextureFileEntry;
 }
+
+
+export interface FontFileEntry {
+    csv: string;
+    image: string;
+}
+
+export interface FontFile {
+    [key: string]: FontFileEntry;
+}
+
+
 
 export interface ShaderFile {
     [key: string]: ShaderFileEntry;
@@ -21,7 +33,7 @@ export interface ShaderFile {
 
 export class ShaderLoader {
     static async load_and_create_shaders(shaders: ShaderFile) {
-      
+
         for (const [shaderName, paths] of Object.entries(shaders)) {
             const vertResponse = await fetch(paths.vert);
             const fragResponse = await fetch(paths.frag);

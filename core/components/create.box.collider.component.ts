@@ -1,10 +1,10 @@
 import { CollisionMask } from "../collider/types/LayerMask";
-import type { BoxColliderComponent, BoxColliderOptions } from "../gears/collider/box/BoxCollider";
+import type { AABB2D, BoxColliderOptions } from "../gears/collider/box/BoxCollider";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createBoxColliderComponent(gameEntity: GameEntity, options?: BoxColliderOptions): BoxColliderComponent {
+export function createBoxColliderComponent(gameEntity: GameEntity, options?: BoxColliderOptions): AABB2D {
     return {
         isColliding: false,
         gameEntity: gameEntity,

@@ -4,40 +4,10 @@ import { mat4_create_TR, mat4_create_TRS } from "../mat4";
 import type { ShaderSystem } from "../system/shader_system";
 import type { Vec3 } from "../vec3";
 import type { Material } from "./material";
-import type { Shader } from "../shader/shader";
-import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_3f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
-import { get_category, get_sprite_render, get_transform } from "../../builders/get_component";
-import { matrix_get } from "../../managers/helper";
-import { TEXTURE_MANAGER } from "../../managers/texture_manager";
+import { shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
+import { get_category, get_sprite_render, get_transform } from "../../components/get_component";
 import { ENGINE } from "../../../engine/engine.manager";
-
-function set_props(material: Material, shader: Shader) {
-
-    const props = material.props;
-    if (!props) return;
-
-    for (const prop of props) {
-        switch (prop.type) {
-            case "float":
-                shader_set_uniform_1f(shader, prop.name, prop.value);
-                break;
-            case "int":
-                break;
-            case "bool":
-                break;
-            case "vec3":
-                shader_set_uniform_3f(shader, prop.name, prop.value.x, prop.value.y, prop.value.z);
-                break;
-            case "color":
-                shader_set_uniform_4f(shader, prop.name, prop.value.r, prop.value.g, prop.value.b, prop.value.a);
-                break;
-            case "texture":
-                break;
-            default:
-                console.warn(`Unknown material prop type: ${(prop as any).type}`);
-        }
-    }
-}
+import { EasyGetter } from "../../managers/EasyGetters";
 
 export function advanced_material_system(material: Material): ShaderSystem {
     const shader = generic_manager_get(ENGINE.MANAGER.SHADER, material.shaderName);
@@ -72,7 +42,7 @@ export function advanced_material_system(material: Material): ShaderSystem {
 
             if (!spriteRender.sprite) return;
 
-            const modelMatrix = matrix_get(transform.instance)!;
+            const modelMatrix = EasyGetter.getMat4(transform.instance)!;
 
             flip_cache.x = spriteRender.flipHorizontal ? -transform.scale.x : transform.scale.x;
             flip_cache.y = spriteRender.flipVertical ? -transform.scale.y : transform.scale.y;
@@ -89,7 +59,7 @@ export function advanced_material_system(material: Material): ShaderSystem {
             shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
             shader_set_uniform_4f(shader, "uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
 
-            const texture = generic_manager_get(TEXTURE_MANAGER, spriteRender.sprite.textureName)!;
+            const texture = generic_manager_get(ENGINE.MANAGER.TEXTURE, spriteRender.sprite.textureName)!;
             shader_set_uniform_texture(shader, "uTexture", texture, 0);
 
             const uvScaleX = spriteRender.sprite.size.x / texture.width;

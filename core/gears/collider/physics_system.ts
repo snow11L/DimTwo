@@ -5,8 +5,7 @@ import type { TransformComponent } from "../transform";
 import type { RigidBodyComponent } from "../rigid_body/rigid.body";
 import { ComponentType } from "../../types/component-type";
 import Time from "../../time/time";
-
-const GRAVITY = { x: 0, y: 9.8 };
+import { ENGINE_CONFIG } from "../../config/engine.config";
 
 export function PhysicsSystem(componentState: ECSComponentState): System {
     return {
@@ -28,8 +27,8 @@ export function PhysicsSystem(componentState: ECSComponentState): System {
                 if (!transform) continue;
 
                 if (rigid.useGravity) {
-                    rigid.velocity.x += GRAVITY.x * Time.fixedDeltaTime;
-                    rigid.velocity.y += GRAVITY.y * Time.fixedDeltaTime;
+                    rigid.velocity.x += ENGINE_CONFIG.PHYSICS.gravity.x * Time.fixedDeltaTime;
+                    rigid.velocity.y += ENGINE_CONFIG.PHYSICS.gravity.y * Time.fixedDeltaTime;
                 }
      
                 const decay = Math.exp(-rigid.drag * Time.fixedDeltaTime);

@@ -1,14 +1,14 @@
-import { Builders, ECS, Types } from "../../engine/TwoD";
+import { GameEntity } from "../../core/types/EngineEntity";
+import { Builders } from "../../engine/TwoD";
 
-export function createCamera(componentState: Types.ECSComponentState) {
+export function createCamera() {
 
   const entity = Builders.createGameEntity("camera", "MainCamera");
 
   const camera = Builders.createCameraComponent(entity);
-  ECS.Component.addComponent(componentState, entity, camera);
-
   const transform = Builders.createTransformComponent(entity, { position: { x: 0, y: 0, z: 5 } });
-  ECS.Component.addComponent(componentState, entity, transform);
+
+  GameEntity.addComponents(entity, camera, transform);
 
   return entity;
 }

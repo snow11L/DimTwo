@@ -1,16 +1,19 @@
+import { createTextRenderComponent } from "../../core/components/create.text.render.component";
+import type { TextMeshXComponent } from "../../core/gears/text_render/TextRender";
+import { addComponents } from "../../core/types/EngineEntity";
 import { Vec3 } from "../../core/webgl/vec3";
-import { Builders, ECS, Types } from "../../engine/TwoD";
+import { ComponentType } from "../../engine/enums";
+import { Builders } from "../../engine/TwoD";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
 
 export function createPlayer(
-  componentState: Types.ECSComponentState,
   name: string,
 ) {
   const gameEntity = Builders.createGameEntity(name, "Player");
 
   const transform = Builders.createTransformComponent(gameEntity);
-  ECS.Component.addComponent(componentState, gameEntity, transform);
+
 
   const character_controler: CharacterControlerComponent = {
     instance: Builders.createIncrementalId(),
@@ -25,26 +28,34 @@ export function createPlayer(
     speed: 0.5,
     runSpeed: 1,
   };
-  ECS.Component.addComponent(componentState, gameEntity, character_controler);
 
   const rigidBody = Builders.createRigidBodyComponent(gameEntity, {
     useGravity: false,
     mass: 70
   });
-  ECS.Component.addComponent(componentState, gameEntity, rigidBody);
 
-  const spriteRener = Builders.createSpriteRenderComponent(gameEntity, {
+  const spriteRender = Builders.createSpriteRenderComponent(gameEntity, {
     layer: 1,
-    materialName: "advanced_material",
+    material: "advanced_material",
   });
-  ECS.Component.addComponent(componentState, gameEntity, spriteRener);
 
   const animator = Builders.createAnimatorComponent(gameEntity, {
     controller: PLAYER_ANIMATOR_CONTROLLER,
   });
-  ECS.Component.addComponent(componentState, gameEntity, animator);
 
-  const boxCollider = Builders.createBoxColliderComponent(gameEntity, {center: Vec3.create(0, 0.1)});
-  ECS.Component.addComponent(componentState, gameEntity, boxCollider);
+  const boxCollider = Builders.createBoxColliderComponent(gameEntity, { center: Vec3.create(0, 0.1) });
+
+  const textRender = createTextRenderComponent(gameEntity);
+
+  addComponents(gameEntity,
+    transform,
+    character_controler,
+    rigidBody,
+    boxCollider,
+    animator,
+    spriteRender,
+    textRender
+  );
+
   return gameEntity;
 }

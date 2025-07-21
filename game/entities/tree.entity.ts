@@ -22,7 +22,7 @@ export function createTreeEntity(
     const spriteRener = Builders.createSpriteRenderComponent(gameEntity, {
         sprite: sprite,
         layer: 1,
-        materialName: "advanced_material",
+        material: "advanced_material",
     });
 
     ECS.Component.addComponent(componentState, gameEntity, spriteRener);

@@ -1,4 +1,4 @@
-import type { Color } from "../../../game/systems/procedural-world/biome";
+import type { Color } from "../../../game/systems/procedural-world/color";
 import type { Vec3 } from "../vec3";
 
 export type MaterialPropType = "float" | "int" | "bool" | "vec3" | "color" | "texture";

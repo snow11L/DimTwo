@@ -1,3 +1,5 @@
+import { ECS } from "../../../engine/TwoD";
+import type { GameEntity } from "../../types/EngineEntity";
 import type { ECSComponentState } from "../ecs/component";
 import type { ECSSystemState } from "../ecs/system";
 
@@ -7,14 +9,26 @@ export interface Scene {
     readonly SYSTEM_STATE: ECSSystemState;
 }
 
-const scenes: Map<string, Scene> = new Map();
-const current: string = "default";
+
+let current: Scene | null = null;
 
 function getCurrentScene() {
-    return scenes.get(current) ?? null;
+    return current;
+}
+
+function setCurrentScene(scene: Scene) {
+    return current = scene;
 }
 
 
+function addToScene(scene: Scene, entity: GameEntity) {
+    for (const component of entity.components) {
+        ECS.Component.addComponent(scene.COMPONENT_STATE, entity, component);
+    }
+}
+
 export const Scene = {
-    getCurrentScene
+    getCurrentScene,
+    setCurrentScene,
+    addToScene
 }

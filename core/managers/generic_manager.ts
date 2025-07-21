@@ -1,27 +1,25 @@
-// Interface usando chave genérica K corretamente
-export interface GenericManager<T, K> {
+export interface GenericManager<K, T> {
     name: string;
     values: Map<K, T>;
 }
 
-export function createGenericManager<T, K>(name: string): GenericManager<T, K> {
+export function createGenericManager<K, T>(name: string): GenericManager<K, T> {
     return {
         name: name,
         values: new Map<K, T>(),
     };
 }
 
-export function generic_manager_set<T, K>(
-    manager: GenericManager<T, K>,
+export function generic_manager_set<K, T>(
+    manager: GenericManager<K, T>,
     key: K,
     value: T
 ): void {
     manager.values.set(key, value);
 }
 
-
-export function generic_manager_add<T, K>(
-    manager: GenericManager<T, K>,
+export function generic_manager_add<K, T>(
+    manager: GenericManager<K, T>,
     key: K,
     value: T
 ): void {
@@ -32,8 +30,8 @@ export function generic_manager_add<T, K>(
     manager.values.set(key, value);
 }
 
-export function generic_manager_get<T, K>(
-    manager: GenericManager<T, K>,
+export function generic_manager_get<K, T>(
+    manager: GenericManager<K, T>,
     key: K
 ): T | null {
     const value = manager.values.get(key);
@@ -44,23 +42,22 @@ export function generic_manager_get<T, K>(
     return value;
 }
 
-
-export function generic_manager_has<T, K>(
-    manager: GenericManager<T, K>,
+export function generic_manager_has<K, T>(
+    manager: GenericManager<K, T>,
     key: K
 ): boolean {
     return manager.values.has(key);
 }
 
-export function generic_manager_remove<T, K>(
-    manager: GenericManager<T, K>,
+export function generic_manager_remove<K, T>(
+    manager: GenericManager<K, T>,
     key: K
 ): void {
     manager.values.delete(key);
 }
 
-export function generic_manager_get_all<T, K>(
-    manager: GenericManager<T, K>
+export function generic_manager_get_all<K, T>(
+    manager: GenericManager<K, T>
 ): T[] {
     return Array.from(manager.values.values());
 }

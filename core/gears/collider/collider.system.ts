@@ -4,15 +4,15 @@ import type { CircleColliderComponent } from "../../collider/types/CircleCollide
 import type { ColliderComponent } from "../../collider/types/Collider";
 import { testOverlap } from "../../collider/overlap/testOverlap";
 import { resolveOverlap } from "../../collider/resolution/resolveOverlap";
-import type { Vec2 } from "../../Vec2/Vec2";
+import type { Vec2 } from "../../math/vector2/Vec2";
 import { ECS } from "../../../engine/TwoD";
 import type { ECSComponentState } from "../ecs/component";
 import type { System } from "../ecs/system";
-import type { BoxColliderComponent } from "./box/BoxCollider";
+import type { AABB2D } from "./box/BoxCollider";
 import type { TransformComponent } from "../transform";
 import type { RigidBodyComponent } from "../rigid_body/rigid.body";
 import type { GameEntity } from "../../types/EngineEntity";
-import { get_transform } from "../../builders/get_component";
+import { get_transform } from "../../components/get_component";
 import { Collision } from "../../collider/types/LayerMask";
 
 
@@ -39,7 +39,7 @@ function getColliderMinMax(
   const centerY = position.y + offset.y;
 
   if (collider.type === ComponentType.BOX_COLLIDER) {
-    const box = collider as BoxColliderComponent;
+    const box = collider as AABB2D;
     const halfW = box.size.x / 2;
     const halfH = box.size.y / 2;
 
