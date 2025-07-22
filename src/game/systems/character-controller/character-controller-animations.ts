@@ -1,7 +1,6 @@
-import { Input } from "../../../../api/TwoD";
-import { Animator, ComponentState, type AnimatorType, type ComponentStateType, type SpriteRenderType, type System } from "../../../../TwoD";
+import { Animator, ComponentState, Input, type AnimatorType, type ComponentStateType, type SpriteRenderType, type System } from "../../../../TwoD";
+import { globalKeyState } from "../../../../TwoD/systems/InputSystem";
 import { ComponentType } from "../../../../TwoD/types/component-type";
-import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
 

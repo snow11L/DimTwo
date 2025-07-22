@@ -16,12 +16,12 @@ import { textShaderSystem } from "../TwoD/resources/material/text_shader_system"
 import { water_material_system } from "../TwoD/resources/material/water_material_system";
 import type { Mesh } from "../TwoD/resources/mesh/mesh";
 import { Scene } from "../TwoD/resources/scene/scene";
+import { InputSystem } from "../TwoD/systems/InputSystem";
 import { ComponentType } from "../TwoD/types/component-type";
 import { createMeshVAO } from "../TwoD/webgl/mesh_gl";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
-import { InputSystem } from "./game/input/input.system";
 import { CameraSystem } from "./game/systems/camera_system";
 import CharacterControllerAnimationSystem from "./game/systems/character-controller/character-controller-animations";
 import CharacterControlerSystem from "./game/systems/character-controller/character-controller-system";

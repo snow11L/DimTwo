@@ -1,12 +1,11 @@
-import { Input } from "../../../../api/TwoD";
-import { ComponentState, type ComponentStateType, type System, type TransformType } from "../../../../TwoD";
+import { ComponentState, Input, type ComponentStateType, type System, type TransformType } from "../../../../TwoD";
 import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
 import { get_component } from "../../../../TwoD/generators/get_component";
 import Vec2Math from "../../../../TwoD/math/vec2/vec2-math";
 import { Scene } from "../../../../TwoD/resources/scene/scene";
+import { globalKeyState } from "../../../../TwoD/systems/InputSystem";
 import Time from "../../../../TwoD/time/time";
 import { ComponentType } from "../../../../TwoD/types/component-type";
-import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
 

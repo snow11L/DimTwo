@@ -1,7 +1,6 @@
-import { Input } from "../../../api/TwoD";
-import type { System } from "../../../TwoD";
-import type { KeyInputState } from "../../../TwoD/resources/input/key/key.input.type";
-import type { MouseInputState } from "../../../TwoD/resources/input/mouse/mouse.input.types";
+import { Input, type System } from "..";
+import type { KeyInputState } from "../input/key/types";
+import type { MouseInputState } from "../input/mouse/mouse.input.types";
 
 
 export const globalMouseState: MouseInputState = Input.createMouseInputState();

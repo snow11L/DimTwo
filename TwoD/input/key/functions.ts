@@ -1,4 +1,4 @@
-import type { KeyInputState } from "./key.input.type";
+import type { KeyInputState } from "./types";
 
 export function createKeyInputState(): KeyInputState {
   return {

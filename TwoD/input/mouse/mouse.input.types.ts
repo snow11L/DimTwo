@@ -1,4 +1,4 @@
-import type { Vec2 } from "../../../math/vec2/Vec2";
+import type { Vec2 } from "../../math/vec2/Vec2";
 
 export interface MouseInputState {
     readonly button: Map<number, boolean>;
