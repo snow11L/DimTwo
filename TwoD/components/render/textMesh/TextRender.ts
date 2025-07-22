@@ -1,5 +1,6 @@
 import type { Render } from "../../../base/Render";
-import type { Color } from "../../../math/color/color";
+import type { Color } from "../../../math/color/types";
+
 
 export interface TextMeshXComponent extends Render {
     text: string;

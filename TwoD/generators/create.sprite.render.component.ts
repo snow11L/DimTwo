@@ -4,7 +4,7 @@ import type { SpriteRenderOptions, SpriteRenderType } from "../components/render
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createSpriteRenderComponent(
+export function SpriteRender(
   gameEntity: GameEntity,
   options: SpriteRenderOptions = {}
 ): SpriteRenderType {

@@ -1,13 +1,11 @@
-
-import { Components, Input, type Types } from "../../../../api/TwoD";
-import type { ComponentStateType } from "../../../../api/types";
-import { ComponentState, type AnimatorType } from "../../../../TwoD";
+import { Input } from "../../../../api/TwoD";
+import { Animator, ComponentState, type AnimatorType, type ComponentStateType, type SpriteRenderType, type System } from "../../../../TwoD";
 import { ComponentType } from "../../../../TwoD/types/component-type";
 import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
 
-export default function CharacterControllerAnimationSystem(state: ComponentStateType): Types.System {
+export default function CharacterControllerAnimationSystem(state: ComponentStateType): System {
 
   return {
     lateUpdate() {
@@ -16,7 +14,7 @@ export default function CharacterControllerAnimationSystem(state: ComponentState
 
       for (const characterControler of characterControlers) {
 
-        const spriteRender = ComponentState.getComponent<Types.SpriteRenderType>(
+        const spriteRender = ComponentState.getComponent<SpriteRenderType>(
           state,
           characterControler.gameEntity,
           ComponentType.SpriteRender
@@ -35,15 +33,15 @@ export default function CharacterControllerAnimationSystem(state: ComponentState
 
         if (dir.x !== 0 || dir.y !== 0) {
           if (dir.x !== 0) {
-            Components.Animator.setAnimatorState(animator, "walk_side");
+            Animator.setAnimatorState(animator, "walk_side");
           } else if (dir.y < 0) {
-            Components.Animator.setAnimatorState(animator, "walk_back");
+            Animator.setAnimatorState(animator, "walk_back");
           } else if (dir.y > 0) {
-            Components.Animator.setAnimatorState(animator, "walk_front");
+            Animator.setAnimatorState(animator, "walk_front");
 
           }
         } else {
-          Components.Animator.setAnimatorState(animator, "idle");
+          Animator.setAnimatorState(animator, "idle");
         }
       }
     },

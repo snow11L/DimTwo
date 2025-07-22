@@ -1,6 +1,5 @@
-import { Input, Types } from "../../../../api/TwoD";
-import type { ComponentStateType } from "../../../../api/types";
-import { ComponentState } from "../../../../TwoD";
+import { Input } from "../../../../api/TwoD";
+import { ComponentState, type ComponentStateType, type System, type TransformType } from "../../../../TwoD";
 import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
 import { get_component } from "../../../../TwoD/generators/get_component";
 import Vec2Math from "../../../../TwoD/math/vec2/vec2-math";
@@ -29,7 +28,7 @@ function getGameEntityByName(name: string) {
 //   updateDynamicMesh(ENGINE.WEB_GL, VAO, newMesh);
 // }
 
-export default function CharacterControlerSystem(state: ComponentStateType): Types.System {
+export default function CharacterControlerSystem(state: ComponentStateType): System {
 
   let textMesh: TextMeshXComponent | null = null;
 
@@ -49,7 +48,7 @@ export default function CharacterControlerSystem(state: ComponentStateType): Typ
       );
       for (const characterControler of characterControlers) {
 
-        const characterTransform = ComponentState.getComponent<Types.TransformType>(
+        const characterTransform = ComponentState.getComponent<TransformType>(
           state,
           characterControler.gameEntity,
           ComponentType.Transform

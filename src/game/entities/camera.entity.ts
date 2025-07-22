@@ -1,12 +1,12 @@
-import { Builders } from "../../../api/TwoD";
+import { Create } from "../../../TwoD";
 import { GameEntity } from "../../../TwoD/base/GameEntity";
 
 export function createCamera() {
 
-  const entity = Builders.createGameEntity("camera", "MainCamera");
+  const entity = Create.Entity("camera", "MainCamera");
 
-  const camera = Builders.createCameraComponent(entity);
-  const transform = Builders.createTransformComponent(entity, { position: { x: 0, y: 0, z: 5} });
+  const camera = Create.Camera(entity);
+  const transform = Create.Transform(entity, { position: { x: 0, y: 0, z: 5} });
 
   GameEntity.addComponents(entity, camera, transform);
 

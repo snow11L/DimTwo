@@ -3,7 +3,7 @@ import type { CameraType } from "../components";
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createCameraComponent(gameEntity: GameEntity) {
+export function Camera(gameEntity: GameEntity) {
     const camera: CameraType = {
         category: ComponentType.Camera,
         gameEntity: gameEntity,

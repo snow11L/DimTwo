@@ -1,12 +1,11 @@
-import { Builders } from "../../../api/TwoD";
-import type { Sprite } from "../../../api/types";
-import { ComponentState } from "../../../TwoD";
+import { ComponentState, Create } from "../../../TwoD";
 import { CIRCLE_SPRITE } from "../../../TwoD/assets/sprites/circle.sprite";
 import { SQUARE_SPRITE } from "../../../TwoD/assets/sprites/square.sprite";
 import { TRIANGLE_SPRITE } from "../../../TwoD/assets/sprites/triangle.sprite";
 import { Color } from "../../../TwoD/math";
 
 import { Scene } from "../../../TwoD/resources/scene/scene";
+import type { Sprite } from "../../../TwoD/resources/sprite";
 
 export function createPrimitive(
   name: string,
@@ -19,12 +18,12 @@ export function createPrimitive(
 
   const componentState = scene.components;
 
-  const gameEntity = Builders.createGameEntity(name, "Player");
+  const gameEntity = Create.Entity(name, "Player");
 
-  const transform = Builders.createTransformComponent(gameEntity);
+  const transform = Create.Transform(gameEntity);
   ComponentState.addComponent(componentState, gameEntity, transform);
 
-  const spriteRender = Builders.createSpriteRenderComponent(gameEntity, {
+  const spriteRender = Create.SpriteRender(gameEntity, {
     layer: 1,
     material: "advanced_material",
     sprite: sprite,

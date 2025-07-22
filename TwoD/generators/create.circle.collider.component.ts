@@ -5,7 +5,7 @@ import { CollisionMask } from "../components/physics/collisionMatrix/CollisionMa
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createCircleColliderComponent(gameEntity: GameEntity, options?: CircleColliderOptions): CircleCollider2DType {
+export function CircleCollider2D(gameEntity: GameEntity, options?: CircleColliderOptions): CircleCollider2DType {
     return {
         gameEntity: gameEntity,
         category: ComponentType.Collider,

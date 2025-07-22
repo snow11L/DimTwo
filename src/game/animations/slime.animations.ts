@@ -1,7 +1,6 @@
-import { type Types, Resources } from "../../../api/TwoD";
+import { createAnimationClip, type AnimationClip } from "../../../TwoD/resources/animation";
 
-const SLIME_IDLE_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const SLIME_IDLE_CLIP: AnimationClip = createAnimationClip(
     "idle",
     "slime",
     4,
@@ -12,8 +11,7 @@ const SLIME_IDLE_CLIP: Types.AnimationClip = Resources.Animation
     12,
   );
 
-const SLIME_MOVE_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const SLIME_MOVE_CLIP: AnimationClip = createAnimationClip(
     "move",
     "slime",
     6,
@@ -24,8 +22,7 @@ const SLIME_MOVE_CLIP: Types.AnimationClip = Resources.Animation
     12,
   );
 
-const SLIME_DEAD_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const SLIME_DEAD_CLIP: AnimationClip = createAnimationClip(
     "dead",
     "slime",
     5,

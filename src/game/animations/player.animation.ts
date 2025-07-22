@@ -1,7 +1,7 @@
-import { type Types, Resources } from "../../../api/TwoD";
+import { createAnimationClip, type AnimationClip, } from "../../../TwoD/resources/animation";
 
-const PLAYER_IDLE_DOWN_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+
+const PLAYER_IDLE_DOWN_CLIP: AnimationClip = createAnimationClip(
     "idle",
     "player",
     6,
@@ -12,8 +12,7 @@ const PLAYER_IDLE_DOWN_CLIP: Types.AnimationClip = Resources.Animation
     12,
   );
 
-const PLAYER_WALK_UP_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const PLAYER_WALK_UP_CLIP: AnimationClip = createAnimationClip(
     "walk_back",
     "player",
     6,
@@ -24,8 +23,7 @@ const PLAYER_WALK_UP_CLIP: Types.AnimationClip = Resources.Animation
     8,
   );
 
-const PLAYER_WALK_SIDE_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const PLAYER_WALK_SIDE_CLIP: AnimationClip = createAnimationClip(
     "walk_side",
     "player",
     6,
@@ -36,8 +34,7 @@ const PLAYER_WALK_SIDE_CLIP: Types.AnimationClip = Resources.Animation
     8,
   );
 
-const PLAYER_WALK_DOWN_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const PLAYER_WALK_DOWN_CLIP: AnimationClip = createAnimationClip(
     "walk_front",
     "player",
     6,
@@ -48,8 +45,7 @@ const PLAYER_WALK_DOWN_CLIP: Types.AnimationClip = Resources.Animation
     8,
   );
 
-const PLAYER_ATTACK_DOWN_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const PLAYER_ATTACK_DOWN_CLIP: AnimationClip = createAnimationClip(
     "attack_down",
     "player",
     4,
@@ -60,8 +56,7 @@ const PLAYER_ATTACK_DOWN_CLIP: Types.AnimationClip = Resources.Animation
     16,
   );
 
-const PLAYER_ATTACK_UP_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const PLAYER_ATTACK_UP_CLIP: AnimationClip = createAnimationClip(
     "attack_up",
     "player",
     4,
@@ -72,8 +67,7 @@ const PLAYER_ATTACK_UP_CLIP: Types.AnimationClip = Resources.Animation
     16,
   );
 
-const PLAYER_ATTACK_SIDE_CLIP: Types.AnimationClip = Resources.Animation
-  .createAnimationClip(
+const PLAYER_ATTACK_SIDE_CLIP: AnimationClip = createAnimationClip(
     "attack_side",
     "player",
     4,

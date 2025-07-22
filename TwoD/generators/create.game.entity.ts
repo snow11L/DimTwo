@@ -3,7 +3,7 @@ import { generic_manager_add } from "../managers/generic_manager";
 import { Scene } from "../resources/scene/scene";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createGameEntity(
+export function Entity(
   name: string,
   tag = "untagged",
 ): GameEntity {

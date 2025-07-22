@@ -1,12 +1,16 @@
-import { type Types, Input } from "../../../api/TwoD";
+import { Input } from "../../../api/TwoD";
+import type { System } from "../../../TwoD";
+import type { KeyInputState } from "../../../TwoD/resources/input/key/key.input.type";
+import type { MouseInputState } from "../../../TwoD/resources/input/mouse/mouse.input.types";
 
-export const globalMouseState: Types.MouseInputState = Input.createMouseInputState();
-export const globalKeyState: Types.KeyInputState = Input.createKeyInputState();
+
+export const globalMouseState: MouseInputState = Input.createMouseInputState();
+export const globalKeyState: KeyInputState = Input.createKeyInputState();
 
 Input.attachKeyInputListeners(globalKeyState);
 Input.attachMouseInputListeners(globalMouseState);
 
-export function InputSystem(): Types.System {
+export function InputSystem(): System {
 
     return {
         lateUpdate() {

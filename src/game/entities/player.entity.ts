@@ -1,8 +1,8 @@
-import { createCircleColliderComponent } from "../../../api/builders";
-import { Builders } from "../../../api/TwoD";
+
+import { Create } from "../../../TwoD";
 import { addComponents } from "../../../TwoD/base/GameEntity";
-import { createTextRenderComponent } from "../../../TwoD/generators/create.text.render.component";
-import { Vec3 } from "../../../TwoD/math/vec3/vec3";
+import { TextMesh } from "../../../TwoD/generators/create.text.render.component";
+import { Vec3 } from "../../../TwoD/math";
 import { ComponentType } from "../../../TwoD/types/component-type";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
@@ -10,12 +10,12 @@ import type { CharacterControlerComponent } from "../systems/character-controlle
 export function createPlayer(
   name: string,
 ) {
-  const gameEntity = Builders.createGameEntity(name, "Player");
+  const gameEntity = Create.Entity(name, "Player");
 
-  const transform = Builders.createTransformComponent(gameEntity  );
+  const transform = Create.Transform(gameEntity  );
 
   const character_controler: CharacterControlerComponent = {
-    instanceID: Builders.createIncrementalId(),
+    instanceID: Create.createIncrementalId(),
     gameEntity: gameEntity,
     type: ComponentType.CharacterController,
     category: ComponentType.Controller,
@@ -28,23 +28,23 @@ export function createPlayer(
     runSpeed: 1,
   };
 
-  const rigidBody = Builders.createRigidBodyComponent(gameEntity, {
+  const rigidBody = Create.RigidBody2D(gameEntity, {
     useGravity: false,
     mass: 70
   });
 
-  const spriteRender = Builders.createSpriteRenderComponent(gameEntity, {
+  const spriteRender = Create.SpriteRender(gameEntity, {
     layer: 1,
     material: "advanced_material",
   });
 
-  const animator = Builders.createAnimatorComponent(gameEntity, {
+  const animator = Create.Animator(gameEntity, {
     controller: PLAYER_ANIMATOR_CONTROLLER,
   });
 
-  const boxCollider = Builders.createBoxCollider2D(gameEntity, { center: Vec3.create(0, 0.1) });
-  const textRender = createTextRenderComponent(gameEntity);
-  const circleCollider = createCircleColliderComponent(gameEntity);
+  const boxCollider = Create.BoxCollider2D(gameEntity, { center: Vec3.create(0, 0.1) });
+  const textRender = TextMesh(gameEntity);
+  const circleCollider = Create.CircleCollider2D(gameEntity);
 
   addComponents(
     gameEntity,

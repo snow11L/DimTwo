@@ -1,7 +1,5 @@
-import { Animator } from "../../api/components";
-import type { ComponentStateType, SpriteRenderType, System } from "../../api/types";
-import type { AnimatorType } from "../components";
-import { ComponentState } from "../ecs";
+import { Animator, type AnimatorType, type SpriteRenderType } from "../components";
+import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import Time from "../time/time";
 import { ComponentType } from "../types/component-type";
 

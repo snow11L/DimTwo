@@ -5,7 +5,7 @@ import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
 
-export function createBoxCollider2D(gameEntity: GameEntity, options?: BoxColliderOptions): BoxCollider2DType {
+export function BoxCollider2D(gameEntity: GameEntity, options?: BoxColliderOptions): BoxCollider2DType {
     return {
         isColliding: false,
         gameEntity: gameEntity,

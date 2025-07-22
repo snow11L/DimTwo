@@ -3,7 +3,7 @@ import type { RigidBody2DType, RigidBodyOptions } from "../components";
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createRigidBodyComponent(
+export function RigidBody2D(
     gameEntity: GameEntity,
     options: RigidBodyOptions = {}
 ): RigidBody2DType {

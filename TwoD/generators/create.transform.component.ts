@@ -3,7 +3,7 @@ import type { TransformOptions, TransformType } from "../components";
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function createTransformComponent(
+export function Transform(
     entity: GameEntity,
     options?: TransformOptions
 ): TransformType {

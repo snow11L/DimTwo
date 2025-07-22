@@ -1,6 +1,4 @@
-import { Transform } from "../../../api/components";
-import type { System } from "../../../api/resources";
-import type { TransformType } from "../../../api/types";
+import { Transform, type System, type TransformType } from "../../../TwoD";
 import type { GameEntity } from "../../../TwoD/base/GameEntity";
 import { vec3_lerp } from "../../../TwoD/math/vec3/vec3";
 import Time from "../../../TwoD/time/time";

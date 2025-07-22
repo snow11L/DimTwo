@@ -73,7 +73,7 @@ export function vec3Tof32Arr(vectors: Vec3[], out?: Float32Array): Float32Array 
 }
 
 
-function create(x = 0, y = 0, z = 0): Vec3 {
+export function create(x = 0, y = 0, z = 0): Vec3 {
     return { x, y, z }
 }
 

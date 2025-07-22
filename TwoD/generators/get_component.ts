@@ -1,6 +1,6 @@
-import type { SpriteRenderType } from "../../api/types";
 import type { Component } from "../base/Component";
 import type { GameEntity } from "../base/GameEntity";
+import type { SpriteRenderType } from "../components";
 
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { ComponentState } from "../ecs";
