@@ -1,16 +1,16 @@
-import type { RigidBodyComponent, RigidBodyOptions } from "../components/rigid-body-2d/RigidBody2D";
+import type { GameEntity } from "../base/GameEntity";
+import type { RigidBody2D, RigidBodyOptions } from "../components/types";
 import { ComponentType } from "../types/component-type";
-import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";
 
 export function createRigidBodyComponent(
     gameEntity: GameEntity,
     options: RigidBodyOptions = {}
-): RigidBodyComponent {
+): RigidBody2D {
     return {
         instanceID: createIncrementalId(),
-        type: ComponentType.RigidBody,
-        category: ComponentType.RigidBody,
+        type: ComponentType.RigidBody2D,
+        category: ComponentType.RigidBody2D,
         gameEntity,
         mass: 1,
         velocity: { x: 0, y: 0 },

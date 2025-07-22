@@ -1,6 +1,6 @@
+import type { GameEntity } from "../../../../../core/base/GameEntity";
 import type { Vec2 } from "../../../../../core/math/vec2/Vec2";
 import { EventEmitter, type EventCallback } from "../../../../../core/time/emitter";
-import type { GameEntity } from "../../../../../core/types/EngineEntity";
 import type { TerrainCell, World } from "../Word";
 
 

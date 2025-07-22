@@ -2,10 +2,10 @@ import { createGameEntity, createSpriteRenderComponent, createTransformComponent
 import type { System } from "../../../../api/resources";
 import { ECS } from "../../../../api/TwoD";
 import type { ECSComponentState } from "../../../../api/types";
+import type { GameEntity } from "../../../../core/base/GameEntity";
 import { get_transform } from "../../../../core/generators/get_component";
 import { Mulberry32 } from "../../../../core/lib/mulberry32";
 import type { Vec2 } from "../../../../core/math/vec2/Vec2";
-import type { GameEntity } from "../../../../core/types/EngineEntity";
 import { createTreeEntity } from "../../entities/tree.entity";
 import { OAK_TRE_0 } from "../../sprites/oak.trees.sprite";
 import { BiomeName, getBiomeColor } from "./biome";

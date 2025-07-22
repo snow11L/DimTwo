@@ -1,13 +1,13 @@
 import type { Vec2 } from "../../../math/vec2/Vec2";
-import type { TransformComponent } from "../../transform";
-import type { RigidBodyComponent } from "./RigidBody2D";
+import type { Transform } from "../../transform";
+import type { RigidBody2D } from "./RigidBody2DTypes";
 
 
 export function resolve(
-  aTransform: TransformComponent,
-  bTransform: TransformComponent,
-  aRigid: RigidBodyComponent,
-  bRigid: RigidBodyComponent,
+  aTransform: Transform,
+  bTransform: Transform,
+  aRigid: RigidBody2D,
+  bRigid: RigidBody2D,
   resolution: Vec2
 ) {
   if (aRigid.isStatic && bRigid.isStatic) return;

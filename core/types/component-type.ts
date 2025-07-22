@@ -11,7 +11,7 @@ export const ComponentType = {
     BoxCollider2D: "BoxCollider2D",
     Collider: "Collider",
     CircleCollider2D: "CircleCollider2D",
-    RigidBody: "RigidBody",
+    RigidBody2D: "RigidBody2D",
 } as const;
 
 export type ComponentType = typeof ComponentType[keyof typeof ComponentType];

@@ -1,18 +1,18 @@
-import { Animator } from "../..";
+
+import type { Types } from "../..";
+import { Animator } from "../../../../api/components";
 import { ECS } from "../../../../api/TwoD";
 import type { ECSComponentState } from "../../../resources/ecs/component";
 import type { System } from "../../../resources/ecs/system";
 import Time from "../../../time/time";
 import { ComponentType } from "../../../types/component-type";
-import type { SpriteRenderComponent } from "../../render/sprite-render";
-import type { AnimatorComponent } from "./animator.types";
-
+import type { SpriteRenderComponent } from "../../types";
 
 export function AnimatorSystem(componentState: ECSComponentState): System {
   return {
     lateUpdate() {
 
-      const animators = ECS.Component.getComponentsByType<AnimatorComponent>(componentState, ComponentType.Animator);
+      const animators = ECS.Component.getComponentsByType<Types.Animator>(componentState, ComponentType.Animator);
 
       for (const animator of animators) {
         if (!animator.enabled || !animator.controller) continue;

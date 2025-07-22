@@ -1,18 +1,21 @@
 import { ECS } from "../../api/TwoD";
 import type { Collider } from "../base/Collider";
-import { RigidBody2D, Types } from "../components";
-import { Collision } from "../components/physics/collider/CollisionMatrix";
+import type { GameEntity } from "../base/GameEntity";
+
+
+import { Types } from "../components";
+
+
+import { RigidBody2D } from "../components/physics";
 import { resolveOverlap } from "../components/physics/collider/CollisionResolver";
 import { testOverlap } from "../components/physics/collider/CollisionTester";
-import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
-import type { TransformComponent } from "../components/transform";
+import type { Transform } from "../components/transform";
 import { get_transform } from "../generators/get_component";
 import { SpatialHash } from "../lib/SpatialHash";
 import type { Vec2 } from "../math/vec2/Vec2";
 import type { ECSComponentState } from "../resources/ecs/component";
 import type { System } from "../resources/ecs/system";
 import { ComponentType } from "../types/component-type";
-import type { GameEntity } from "../types/EngineEntity";
 
 // Util
 function makePairKey(id1: number, id2: number): string {
@@ -47,7 +50,7 @@ function getColliderMinMax(
   }
 
   else if (collider.type === ComponentType.CircleCollider2D) {
-    const circle = collider as Types.CircleCollider2D;
+    const circle = collider as  Types.CircleCollider2D;
     const r = circle.radius;
 
     outMin.x = centerX - r;
@@ -95,7 +98,7 @@ export function ColliderSystem(componentState: ECSComponentState, state: ECS.Sys
 
         if (!collider.enabled) continue;
 
-        const transform = ECS.Component.getComponent<TransformComponent>(componentState, collider.gameEntity, ComponentType.Transform);
+        const transform = ECS.Component.getComponent<Transform>(componentState, collider.gameEntity, ComponentType.Transform);
         if (!transform) continue;
 
         getColliderMinMax(collider, transform.position, tempMin, tempMax);
@@ -130,7 +133,7 @@ function detectCollisions(
         const colliderB = collidersInCell[j];
         if (colliderA.gameEntity.id === colliderB.gameEntity.id) continue;
         
-        if(!Collision.shouldLayersCollide(colliderA.collisionMask, colliderB.collisionMask)) continue;
+        // if(!Collision.shouldLayersCollide(colliderA.collisionMask, colliderB.collisionMask)) continue;
 
         const bT = get_transform(colliderB.gameEntity);
         if (!bT) continue;
@@ -212,13 +215,13 @@ export function resolve_rigid_body(
   bEntity: GameEntity,
   resolution: Vec2
 ) {
-  const aTransform = ECS.Component.getComponent<TransformComponent>(
+  const aTransform = ECS.Component.getComponent<Transform>(
     componentState,
     aEntity,
     ComponentType.Transform
   );
 
-  const bTransform = ECS.Component.getComponent<TransformComponent>(
+  const bTransform = ECS.Component.getComponent<Transform>(
     componentState,
     bEntity,
     ComponentType.Transform
@@ -226,16 +229,16 @@ export function resolve_rigid_body(
 
   if (!aTransform || !bTransform) return;
 
-  const aRigid = ECS.Component.getComponent<RigidBodyComponent>(
+  const aRigid = ECS.Component.getComponent<Types.RigidBody2D>(
     componentState,
     aEntity,
-    ComponentType.RigidBody
+    ComponentType.RigidBody2D
   );
 
-  const bRigid = ECS.Component.getComponent<RigidBodyComponent>(
+  const bRigid = ECS.Component.getComponent<Types.RigidBody2D>(
     componentState,
     bEntity,
-    ComponentType.RigidBody
+    ComponentType.RigidBody2D
   );
 
   if (!aRigid && !bRigid) {
@@ -262,8 +265,8 @@ export function resolve_rigid_body(
 }
 
 function resolve_without_rigidbody(
-  aTransform: TransformComponent,
-  bTransform: TransformComponent,
+  aTransform: Transform,
+  bTransform: Transform,
   resolution: Vec2
 ) {
   aTransform.position.x += resolution.x * 0.5;

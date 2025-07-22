@@ -2,7 +2,7 @@ import type { AnimationClip } from "../../../resources/animation";
 import type { Component, ComponentOptions } from "../../types";
 
 
-export interface AnimatorComponent extends Component {
+export interface Animator extends Component {
   controller: AnimatorController | null;
   currentClip: AnimationClip | null;
   isPlaying: boolean;
@@ -25,4 +25,4 @@ export interface AnimatorController {
   syncCollider?: boolean;
 }
 
-export type AnimatorOptions = ComponentOptions<AnimatorComponent>;
+export type AnimatorOptions = ComponentOptions<Animator>;

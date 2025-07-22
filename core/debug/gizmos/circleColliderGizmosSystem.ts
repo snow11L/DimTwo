@@ -1,10 +1,10 @@
+import type { CircleCollider2D } from "../../components/types";
 import { get_transform, get_type } from "../../generators/get_component";
-import type { CircleCollider2D } from "../../components/circle-collider-2d/circle.collider.2d.types";
+import { Color } from "../../math/color/color";
+import { Vec3 } from "../../math/vec3/vec3";
 import type { System } from "../../resources/ecs/system";
 import { ComponentType } from "../../types/component-type";
 import { Gizmos } from "./gizmos";
-import { Color } from "../../math/color/color";
-import { Vec3 } from "../../math/vec3/vec3";
 
 const rotation = { x: 0, y: 0, z: 0, w: 1 };
 

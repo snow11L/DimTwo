@@ -1,10 +1,7 @@
-import type { Component } from "../base/Component";
+import type { Component } from "./Component";
+import type { Entity } from "./Entity";
 
-export interface EngineEntity {
-    readonly id: number;
-}
-
-export interface GameEntity extends EngineEntity {
+export interface GameEntity extends Entity {
     tag: string;
     active: boolean;
     name: string;

@@ -1,4 +1,4 @@
-export * from "../core/components/render/sprite-render/sprite.render.types";
+export * from "../core/components/render/spriteRender/sprite.render.types";
 export * from "../core/components/transform/transform.types";
 export * from "../core/resources/animation/animation.types";
 export * from "../core/resources/ecs/component/ecs.component.types";

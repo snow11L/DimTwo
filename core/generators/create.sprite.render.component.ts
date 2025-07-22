@@ -1,7 +1,7 @@
 import { Meshs } from "../assets/meshs/Meshs";
-import type { SpriteRenderComponent, SpriteRenderOptions } from "../components/render/sprite-render/sprite.render.types";
+import type { GameEntity } from "../base/GameEntity";
+import type { SpriteRenderComponent, SpriteRenderOptions } from "../components/render/spriteRender/sprite.render.types";
 import { ComponentType } from "../types/component-type";
-import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";
 
 export function createSpriteRenderComponent(

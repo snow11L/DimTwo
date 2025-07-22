@@ -1,7 +1,7 @@
 import { ECS } from "../../../api/TwoD";
+import type { GameEntity } from "../../base/GameEntity";
 import { createGenericManager, type GenericManager } from "../../managers/generic_manager";
 import type { Mat4 } from "../../math/mat4/mat4";
-import type { GameEntity } from "../../types/EngineEntity";
 import { type GLVAO } from "../../webgl/mesh_gl";
 import { createComponentState, type ECSComponentState } from "../ecs/component";
 import { createSystemState, type ECSSystemState } from "../ecs/system";

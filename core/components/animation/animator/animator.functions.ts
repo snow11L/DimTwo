@@ -1,9 +1,9 @@
 import { Result } from "../../../managers/result";
 import type { AnimationClip } from "../../../resources/animation";
-import type { SpriteRenderComponent } from "../../render/sprite-render";
-import type { AnimatorComponent, AnimatorState } from "./animator.types";
+import type { SpriteRenderComponent } from "../../types";
+import type { Animator, AnimatorState } from "./animator.types";
 
-function startClip(animator: AnimatorComponent, clip: AnimationClip, lock: boolean) {
+function startClip(animator: Animator, clip: AnimationClip, lock: boolean) {
   animator.currentClip = clip;
   animator.currentFrameIndex = 0;
   animator.time = 0;
@@ -11,12 +11,12 @@ function startClip(animator: AnimatorComponent, clip: AnimationClip, lock: boole
   animator.locked = lock;
 }
 
-export function setAnimation(animator: AnimatorComponent, animationClip: AnimationClip, lock = false) {
+export function setAnimation(animator: Animator, animationClip: AnimationClip, lock = false) {
   if (animator.currentClip === animationClip || animator.locked) return;
   startClip(animator, animationClip, lock);
 }
 
-export function setAnimatorState(animator: AnimatorComponent, newStateName: string, lock: boolean = false) {
+export function setAnimatorState(animator: Animator, newStateName: string, lock: boolean = false) {
   const controller = animator.controller;
   if (!controller || animator.locked || controller.currentState === newStateName) return;
 
@@ -32,7 +32,7 @@ export function setAnimatorState(animator: AnimatorComponent, newStateName: stri
 
 
 export function advanceFrame(
-  animator: AnimatorComponent,
+  animator: Animator,
   state: AnimatorState,
   delta: number
 ) {
@@ -59,7 +59,7 @@ export function advanceFrame(
   }
 }
 
-export function updateSprite(animator: AnimatorComponent, state: AnimatorState, spriteRender: SpriteRenderComponent) {
+export function updateSprite(animator: Animator, state: AnimatorState, spriteRender: SpriteRenderComponent) {
   const animationClip = state.clip;
   if (!animationClip) return;
 
@@ -71,7 +71,7 @@ export function updateSprite(animator: AnimatorComponent, state: AnimatorState, 
 }
 
 
-export function getAnimatorState(animator: AnimatorComponent): Result<AnimatorState> {
+export function getAnimatorState(animator: Animator): Result<AnimatorState> {
   const controller = animator.controller;
   if (!controller) return Result.err("No controller assigned to animator.");
 

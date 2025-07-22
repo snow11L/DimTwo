@@ -1,7 +1,7 @@
 import { ENGINE } from "../../api/engine.manager";
 import { ECS } from "../../api/TwoD";
-import type { SpriteRenderComponent } from "../components/render/sprite-render";
-import type { TransformComponent } from "../components/transform";
+import type { Transform } from "../components/transform";
+import type { SpriteRenderComponent } from "../components/types";
 import { material_get } from "../generators/create.material";
 import { EasyGetter } from "../managers/EasyGetters";
 import { generic_manager_get } from "../managers/generic_manager";
@@ -29,7 +29,7 @@ export function SpriteRenderSystem(state: ECSComponentState): System {
         const shader = generic_manager_get(ENGINE.MANAGER.SHADER, material.shaderName)!;
         webGL.useProgram(shader.program);
 
-        const transform = ECS.Component.getComponent<TransformComponent>(
+        const transform = ECS.Component.getComponent<Transform>(
           state,
           spriteRender.gameEntity,
           ComponentType.Transform

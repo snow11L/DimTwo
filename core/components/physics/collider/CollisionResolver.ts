@@ -1,5 +1,6 @@
 
-import { BoxCollider2D, CircleCollider2D, Types } from "../..";
+import { BoxCollider2D, CircleCollider2D } from "..";
+import { Types } from "../..";
 import { get_transform } from "../../../generators/get_component";
 import { getBounds, type Bounds } from "../../../math/geometry/Bounds";
 import type { Vec2 } from "../../../math/vec2/Vec2";

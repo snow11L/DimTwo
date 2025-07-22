@@ -1,4 +1,4 @@
-import { createFillSquareMesh, createWireCircleMesh, createWireSquareMesh } from "./Square";
+import { createFillSquareMesh, createWireCircleMesh, createWireSquareMesh } from "../geometries/Square";
 
 export const Meshs = {
     square: createFillSquareMesh("square_mesh", { x: 1, y: 1, z: 0 }),

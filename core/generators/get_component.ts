@@ -1,18 +1,18 @@
 import { ECS } from "../../api/TwoD";
 import type { Component } from "../base/Component";
+import type { GameEntity } from "../base/GameEntity";
 import type { CameraComponent } from "../components/render/camera";
-import type { SpriteRenderComponent } from "../components/render/sprite-render";
-import type { TextMeshXComponent } from "../components/render/text-mesh/TextRender";
-import type { TransformComponent } from "../components/transform";
+import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
+import type { Transform } from "../components/transform";
+import type { SpriteRenderComponent } from "../components/types";
 import { Scene } from "../resources/scene/scene";
 import { ComponentType } from "../types/component-type";
-import type { GameEntity } from "../types/EngineEntity";
 
-export function get_transform(gameEntity: GameEntity): TransformComponent | null {
+export function get_transform(gameEntity: GameEntity): Transform | null {
     const scene = Scene.getCurrentScene();
     if (scene == null) return null;
 
-    return ECS.Component.getComponent<TransformComponent>(
+    return ECS.Component.getComponent<Transform>(
         scene.components,
         gameEntity,
         ComponentType.Transform

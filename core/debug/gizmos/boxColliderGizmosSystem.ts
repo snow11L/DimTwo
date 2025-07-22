@@ -1,4 +1,4 @@
-import { type BoxCollider2D } from "../../components/physics/box-collider-2d/box.collider.2d.types";
+import { type BoxCollider2D } from "../../components/physics/boxCollider2D/BoxCollider2DTypes";
 import { get_transform, get_type } from "../../generators/get_component";
 import { Color } from "../../math/color/color";
 import { Vec3 } from "../../math/vec3/vec3";

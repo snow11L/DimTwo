@@ -4,8 +4,7 @@ import { ComponentType } from "../api/enums";
 import { ECS } from "../api/TwoD";
 import type { Render } from "../core/base/Render";
 import { AnimatorSystem } from "../core/components/animation/animator";
-import { SpriteRenderSystem } from "../core/components/render/sprite-render";
-import { TextMeshRenderSystem } from "../core/components/render/text-mesh/textMeshRender";
+import { SpriteRenderSystem } from "../core/components/render/spriteRender";
 import { boxColliderGizmosSystem } from "../core/debug/gizmos/boxColliderGizmosSystem";
 import { circleColliderGizmosSystem } from "../core/debug/gizmos/circleColliderGizmosSystem";
 import { get_category } from "../core/generators/get_component";
@@ -176,9 +175,6 @@ ECS.System.addSystem(scene.systems, PhysicsSystem(scene.components));
 ECS.System.addSystem(scene.systems, InputSystem());
 ECS.System.addSystem(scene.systems, boxColliderGizmosSystem());
 ECS.System.addSystem(scene.systems, circleColliderGizmosSystem());
-
-ECS.System.addSystem(scene.systems, TextMeshRenderSystem(scene.components));
-
 
 engine.start();
 

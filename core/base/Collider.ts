@@ -1,4 +1,4 @@
-import type { CollisionMask } from "../components/physics/collider/CollisionMatrix";
+import type { CollisionMask } from "../components/types";
 import type { Vec3 } from "../math/vec3/vec3";
 import type { Component } from "./Component";
 
