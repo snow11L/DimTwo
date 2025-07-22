@@ -1,5 +1,5 @@
-import type { Bounds } from "../../collider/types/Bounds";
-import { distanceSq, getClosestPoint } from "../../collider/util/getCircleCenter";
+
+import { distanceSq, getClosestPoint, type Bounds } from "../../math/geometry/Bounds";
 import type { Vec2 } from "../../math/vec2/Vec2";
 import Vec2Math from "../../math/vec2/vec2-math";
 

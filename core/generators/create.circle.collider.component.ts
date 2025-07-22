@@ -1,5 +1,5 @@
 import type { CircleCollider2D, CircleColliderOptions } from "../components/circle-collider-2d/circle.collider.2d.types";
-import { CollisionMask } from "../collider/types/LayerMask";
+import { CollisionMask } from "../physics/collision/CollisionMatrix";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";

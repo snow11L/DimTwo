@@ -1,19 +1,19 @@
-import { ComponentType } from "../types/component-type";
-import { SpatialHash } from "../lib/SpatialHash";
+import { ECS } from "../../api/TwoD";
 import type { CircleCollider2D } from "../components/circle-collider-2d/circle.collider.2d.types";
 import type { Collider } from "../components/collider/collider.types";
-import { testOverlap } from "../collider/overlap/testOverlap";
-import { resolveOverlap } from "../collider/resolution/resolveOverlap";
-import { ECS } from "../../api/TwoD";
+import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
+import type { TransformComponent } from "../components/transform";
+import type { BoxCollider2D } from "../components/types";
+import { get_transform } from "../generators/get_component";
+import { SpatialHash } from "../lib/SpatialHash";
+import type { Vec2 } from "../math/vec2/Vec2";
+import { Collision } from "../physics/collision/CollisionMatrix";
+import { resolveOverlap } from "../physics/collision/CollisionResolver";
+import { testOverlap } from "../physics/collision/CollisionTester";
 import type { ECSComponentState } from "../resources/ecs/component";
 import type { System } from "../resources/ecs/system";
-import type { TransformComponent } from "../components/transform";
-import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
+import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
-import { get_transform } from "../generators/get_component";
-import { Collision } from "../collider/types/LayerMask";
-import type { Vec2 } from "../math/vec2/Vec2";
-import type { BoxCollider2D } from "../components/types";
 
 // Util
 function makePairKey(id1: number, id2: number): string {
