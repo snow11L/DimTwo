@@ -1,13 +1,13 @@
-import type { GameEntity } from "../base/GameEntity";
+import type { GameEntityType } from "../base/GameEntity";
 import { generic_manager_add } from "../managers/generic_manager";
 import { Scene } from "../resources/scene/scene";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function Entity(
+export function GameEntity(
   name: string,
   tag = "untagged",
-): GameEntity {
-  const gameEntity: GameEntity = {
+): GameEntityType {
+  const gameEntity: GameEntityType = {
     parent: null,
     id: createIncrementalId(),
     name,

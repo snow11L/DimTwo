@@ -1,9 +1,9 @@
-import type { GameEntity } from "../base/GameEntity";
+import type { GameEntityType } from "../base/GameEntity";
 import type { CameraType } from "../components";
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function Camera(gameEntity: GameEntity) {
+export function Camera(gameEntity: GameEntityType) {
     const camera: CameraType = {
         category: ComponentType.Camera,
         gameEntity: gameEntity,

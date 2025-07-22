@@ -1,5 +1,5 @@
 
-import type { GameEntity } from "../../base/GameEntity";
+import type { GameEntityType } from "../../base/GameEntity";
 import { CollisionMatrix, type CollisionMatrixType } from "../../components";
 import { ComponentState, type ComponentStateType, type SystemStateType } from "../../ecs";
 import { createComponentState } from "../../ecs/componentState";
@@ -14,8 +14,8 @@ export interface Scene {
     readonly components: ComponentStateType;
     readonly systems: SystemStateType;
     readonly collisionMatrix: CollisionMatrixType;
-    readonly entitiesById: GenericManager<number, GameEntity>;
-    readonly entitiesByName: GenericManager<string, GameEntity>;
+    readonly entitiesById: GenericManager<number, GameEntityType>;
+    readonly entitiesByName: GenericManager<string, GameEntityType>;
     readonly mat4: GenericManager<number, Mat4>;
     readonly vao: GenericManager<number, GLVAO>;
 }
@@ -34,7 +34,7 @@ function setCurrentScene(scene: Scene) {
     return current = scene;
 }
 
-function addToScene(scene: Scene, entity: GameEntity) {
+function addToScene(scene: Scene, entity: GameEntityType) {
     for (const component of entity.components) {
         ComponentState.addComponent(scene.components, entity, component);
     }
@@ -46,8 +46,8 @@ export function create(name: string): Scene {
         collisionMatrix: CollisionMatrix.createCollisionMatrix(32),
         components: createComponentState(),
         systems: createSystemState(),
-        entitiesById: createGenericManager<number, GameEntity>("game_entity_by_id_manager"),
-        entitiesByName: createGenericManager<string, GameEntity>("game_entity_by_name_manager"),
+        entitiesById: createGenericManager<number, GameEntityType>("game_entity_by_id_manager"),
+        entitiesByName: createGenericManager<string, GameEntityType>("game_entity_by_name_manager"),
         mat4: createGenericManager<number, Mat4>("mat4_manager"),
         vao: createGenericManager<number, GLVAO>("vao_manager"),
     };

@@ -1,6 +1,6 @@
-import type { GameEntity } from "../../base/GameEntity";
+import type { GameEntityType } from "../../base/GameEntity";
 
 export interface ShaderSystem {
     global?: () => void;
-    local?: (gameEntity: GameEntity) => void;
+    local?: (gameEntity: GameEntityType) => void;
 }

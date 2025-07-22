@@ -1,9 +1,9 @@
 import { Transform, type System, type TransformType } from "../../../TwoD";
-import type { GameEntity } from "../../../TwoD/base/GameEntity";
+import type { GameEntityType } from "../../../TwoD/base/GameEntity";
 import { vec3_lerp } from "../../../TwoD/math/vec3/vec3";
 import Time from "../../../TwoD/time/time";
 
-export function CameraSystem(cameraEntity: GameEntity, targetEntity: GameEntity): System {
+export function CameraSystem(cameraEntity: GameEntityType, targetEntity: GameEntityType): System {
 
     let cameraTransform: TransformType | null = null;
     let targetTransform: TransformType | null = null;

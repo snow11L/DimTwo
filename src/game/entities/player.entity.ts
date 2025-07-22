@@ -10,7 +10,7 @@ import type { CharacterControlerComponent } from "../systems/character-controlle
 export function createPlayer(
   name: string,
 ) {
-  const gameEntity = Create.Entity(name, "Player");
+  const gameEntity = Create.GameEntity(name, "Player");
 
   const transform = Create.Transform(gameEntity  );
 

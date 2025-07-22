@@ -1,11 +1,11 @@
-import type { GameEntity } from "../base/GameEntity";
+import type { GameEntityType } from "../base/GameEntity";
 import type { CircleCollider2DType, CircleColliderOptions } from "../components";
 import { CollisionMask } from "../components/physics/collisionMatrix/CollisionMaskTypes";
 
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function CircleCollider2D(gameEntity: GameEntity, options?: CircleColliderOptions): CircleCollider2DType {
+export function CircleCollider2D(gameEntity: GameEntityType, options?: CircleColliderOptions): CircleCollider2DType {
     return {
         gameEntity: gameEntity,
         category: ComponentType.Collider,

@@ -10,7 +10,7 @@ export function createTreeEntity(
     sprite: Sprite,
     position: Vec3
 ) {
-    const gameEntity = Create.Entity(name, "Tree");
+    const gameEntity = Create.GameEntity(name, "Tree");
 
     const transform = Create.Transform(gameEntity, {
         position: position,

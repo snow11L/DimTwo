@@ -2,7 +2,7 @@ import { createGameEntity, createSpriteRenderComponent, createTransformComponent
 import type { System } from "../../../../api/resources";
 import { ECS } from "../../../../api/TwoD";
 import type { ComponentStateType } from "../../../../api/types";
-import type { GameEntity } from "../../../../TwoD/base/GameEntity";
+import type { GameEntityType } from "../../../../TwoD/base/GameEntity";
 import { get_transform } from "../../../../TwoD/generators/get_component";
 import { Mulberry32 } from "../../../../TwoD/lib/mulberry32";
 import type { Vec2 } from "../../../../TwoD/math/vec2/Vec2";
@@ -13,7 +13,7 @@ import { ChunkManager } from "./chunk/ChunkManager";
 import { World, type TerrainCell } from "./Word";
 
 
-export function TerrainSystem(componentState: ComponentStateType, player: GameEntity): System {
+export function TerrainSystem(componentState: ComponentStateType, player: GameEntityType): System {
   let playerPos: Vec2;
   const world = new World(1221435);
   return {
@@ -55,7 +55,7 @@ export function TerrainSystem(componentState: ComponentStateType, player: GameEn
 function generateTerrainEntities(
   componentState: ComponentStateType,
   terrainCells: TerrainCell[],
-  gameEntities: GameEntity[],
+  gameEntities: GameEntityType[],
 ): void {
   for (const cell of terrainCells) {
 
@@ -72,7 +72,7 @@ function generateTerrainEntities(
       // gameEntities.push(gameEntity);
     } else {
 
-      const gameEntity: GameEntity = createGameEntity(`ground`, "Ground");
+      const gameEntity: GameEntityType = createGameEntity(`ground`, "Ground");
 
       const transform = createTransformComponent(gameEntity, { position: cell.position });
       ECS.Component.addComponent(componentState, gameEntity, transform, false);
@@ -94,7 +94,7 @@ function seedFromXY(x: number, y: number): number {
 export function generateTrees(
   componentState: ComponentStateType,
   terrainCells: TerrainCell[],
-  gameEntities: GameEntity[],
+  gameEntities: GameEntityType[],
   chunkPos: Vec2
 ) {
 

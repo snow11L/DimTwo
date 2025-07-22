@@ -1,4 +1,4 @@
-import type { GameEntity } from "../../../../../TwoD/base/GameEntity";
+import type { GameEntityType } from "../../../../../TwoD/base/GameEntity";
 import type { Vec2 } from "../../../../../TwoD/math/vec2/Vec2";
 import { EventEmitter, type EventCallback } from "../../../../../TwoD/time/emitter";
 import type { TerrainCell, World } from "../Word";
@@ -7,7 +7,7 @@ import type { TerrainCell, World } from "../Word";
 interface Chunk {
     position: Vec2;
     cells: TerrainCell[];
-    gameEntities: GameEntity[];
+    gameEntities: GameEntityType[];
 }
 
 interface ChunkEvents {

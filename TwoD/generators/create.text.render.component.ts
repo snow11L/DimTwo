@@ -1,10 +1,10 @@
-import type { GameEntity } from "../base/GameEntity";
+import type { GameEntityType } from "../base/GameEntity";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { Colors } from "../math/color";
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function TextMesh(entity: GameEntity, text: string = "this is a text") {
+export function TextMesh(entity: GameEntityType, text: string = "this is a text") {
     const textRender: TextMeshXComponent = {
         color: Colors.GRAY,
         alpha: 1.0,

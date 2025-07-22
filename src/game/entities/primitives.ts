@@ -18,7 +18,7 @@ export function createPrimitive(
 
   const componentState = scene.components;
 
-  const gameEntity = Create.Entity(name, "Player");
+  const gameEntity = Create.GameEntity(name, "Player");
 
   const transform = Create.Transform(gameEntity);
   ComponentState.addComponent(componentState, gameEntity, transform);

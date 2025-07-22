@@ -1,21 +1,21 @@
 import type { Component } from "./Component";
 import type { Entity } from "./Entity";
 
-export interface GameEntity extends Entity {
+export interface GameEntityType extends Entity {
     tag: string;
     active: boolean;
     name: string;
-    parent: GameEntity | null;
+    parent: GameEntityType | null;
     components: Component[];
 }
 
 
-export function addComponents(entity: GameEntity, ...components: Component[]) {
+export function addComponents(entity: GameEntityType, ...components: Component[]) {
     for (const component of components) {
         entity.components.push(component);
     }
 }
 
-export const GameEntity = {
+export const GameEntityType = {
     addComponents
 }

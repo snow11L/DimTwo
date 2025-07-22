@@ -1,4 +1,4 @@
-import type { GameEntity } from "../base/GameEntity";
+import type { GameEntityType } from "../base/GameEntity";
 
 import {
   type BoxCollider2DType,
@@ -239,8 +239,8 @@ function detectCollisions(
 
 export function resolve_rigid_body(
   componentState: ComponentStateType,
-  aEntity: GameEntity,
-  bEntity: GameEntity,
+  aEntity: GameEntityType,
+  bEntity: GameEntityType,
   resolution: Vec2,
 ) {
   const aTransform = ComponentState.getComponent<TransformType>(

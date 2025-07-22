@@ -6,7 +6,7 @@ import { ENGINE } from "../managers/engine.manager";
 import { generic_manager_get } from "../managers/generic_manager";
 import { ComponentType } from "../types/component-type";
 
-export function SpriteRenderSystem(state: ComponentStateType): System {
+export function RenderSystem(state: ComponentStateType): System {
 
   const webGL = ENGINE.WEB_GL;
 
@@ -45,8 +45,6 @@ export function SpriteRenderSystem(state: ComponentStateType): System {
 
         const vao = EasyGetter.getVAO(mesh.instanceID);
         if (!vao) continue;
-
-        console.log("test")
 
         webGL.bindVertexArray(vao.vao);
         webGL.drawElements(webGL.TRIANGLES, vao.indexCount, webGL.UNSIGNED_SHORT, 0);
