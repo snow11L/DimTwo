@@ -1,7 +1,7 @@
 import type { GameEntityType } from "../../../base/gameEntity/types";
 import { ComponentState } from "../../../ecs";
 import { Scene } from "../../../resources/scene/scene";
-import { ComponentType } from "../../../types/component-type";
+import { ComponentTypes } from "../../../types/component-type";
 import type { TransformType } from "./types";
 
 export function getTransform(gameEntity: GameEntityType): TransformType | null {
@@ -10,6 +10,6 @@ export function getTransform(gameEntity: GameEntityType): TransformType | null {
     return ComponentState.getComponent<TransformType>(
         scene.components,
         gameEntity,
-        ComponentType.Transform
+        ComponentTypes.Transform
     );
 }

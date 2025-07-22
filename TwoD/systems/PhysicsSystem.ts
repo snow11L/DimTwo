@@ -1,15 +1,15 @@
 import type { RigidBody2DType, TransformType } from "../components";
-import { EngineConfig } from "../global/config/EngineConfig";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
+import { EngineConfig } from "../global/config/EngineConfig";
 import Time from "../time/time";
-import { ComponentType } from "../types/component-type";
+import { ComponentTypes } from "../types/component-type";
 
 export function PhysicsSystem(componentState: ComponentStateType): System {
     return {
         fixedUpdate() {
             const rigidbodies = ComponentState.getComponentsByCategory<RigidBody2DType>(
                 componentState,
-                ComponentType.RigidBody2D
+                ComponentTypes.RigidBody2D
             );
 
             for (const rigid of rigidbodies) {
@@ -18,7 +18,7 @@ export function PhysicsSystem(componentState: ComponentStateType): System {
                 const transform = ComponentState.getComponent<TransformType>(
                     componentState,
                     rigid.gameEntity,
-                    ComponentType.Transform
+                    ComponentTypes.Transform
                 );
 
                 if (!transform) continue;

@@ -1,10 +1,10 @@
+import { Mathf } from "../..";
 import { Transform } from "../../components";
 import { get_category, get_textRender } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
-import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
-import { ComponentType } from "../../types/component-type";
+import { ComponentTypes } from "../../types/component-type";
 import { shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";
@@ -15,7 +15,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
 
     return {
         global() {
-            const cameras = get_category(ComponentType.Camera);
+            const cameras = get_category(ComponentTypes.Camera);
             if (cameras.length === 0) return;
             const camera = cameras[0];
 
@@ -23,7 +23,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            mat4_create_TR(viewMatrix, transform.position, transform.rotation);
+            Mathf.Mat4.createTR(viewMatrix, transform.position, transform.rotation);
             shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
 
             const projectionMatrix =  EasyGetter.getMat4(camera.instanceID)!;
@@ -37,7 +37,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
 
             const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
 
-            mat4_create_TRS(
+            Mathf.Mat4.createTRS(
                 modelMatrix,
                 transform.position,
                 transform.rotation,

@@ -5,7 +5,7 @@ import Vec2Math from "../../../../TwoD/math/vec2/vec2-math";
 import { Scene } from "../../../../TwoD/resources/scene/scene";
 import { globalKeyState } from "../../../../TwoD/systems/InputSystem";
 import Time from "../../../../TwoD/time/time";
-import { ComponentType } from "../../../../TwoD/types/component-type";
+import { ComponentTypes } from "../../../../TwoD/types/component-type";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
 
@@ -36,21 +36,21 @@ export default function CharacterControlerSystem(state: ComponentStateType): Sys
     start() {
       const entity = getGameEntityByName("player");
       if (!entity) return;
-      textMesh = get_component<TextMeshXComponent>(entity, ComponentType.TextMesh);
+      textMesh = get_component<TextMeshXComponent>(entity, ComponentTypes.TextMesh);
     },
 
 
     update() {
       const characterControlers = ComponentState.getComponentsByType<CharacterControlerComponent>(
         state,
-        ComponentType.CharacterController
+        ComponentTypes.CharacterController
       );
       for (const characterControler of characterControlers) {
 
         const characterTransform = ComponentState.getComponent<TransformType>(
           state,
           characterControler.gameEntity,
-          ComponentType.Transform
+          ComponentTypes.Transform
         );
         if (!characterTransform) continue;
 

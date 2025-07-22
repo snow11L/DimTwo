@@ -1,13 +1,13 @@
-import type { Component, ComponentOptions } from "../../../base/Component";
+import type { Mathf } from "../../..";
+import type { Component } from "../../../base/Component";
 import type { Quat } from "../../../math/quat/quat";
-import type { Vec3 } from "../../../math/vec3/vec3";
 
-export type TransformOptions = ComponentOptions<TransformType>;
+
 
 export interface TransformType extends Component {
-    position: Vec3;
+    position: Mathf.Vec3Type;
     rotation: Quat;
-    scale: Vec3;
+    scale: Mathf.Vec3Type;
 }
 
 

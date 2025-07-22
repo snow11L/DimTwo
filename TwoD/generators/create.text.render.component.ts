@@ -1,7 +1,7 @@
 import type { GameEntityType } from "../base/gameEntity/types";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { Colors } from "../math/color";
-import { ComponentType } from "../types/component-type";
+import { ComponentTypes } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
 export function TextMesh(entity: GameEntityType, text: string = "this is a text") {
@@ -12,12 +12,12 @@ export function TextMesh(entity: GameEntityType, text: string = "this is a text"
         subMeshs: null,
         font: "roboto",
         material: "text_material",
-        category: ComponentType.Render,
+        category: ComponentTypes.Render,
         enabled: true,
         gameEntity: entity,
         instanceID: createIncrementalId(),
         text: text,
-        type: ComponentType.TextMesh
+        type: ComponentTypes.TextMesh
     }
 
     return textRender;

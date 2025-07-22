@@ -5,7 +5,7 @@ import { ComponentState, type ComponentStateType, type SystemStateType } from ".
 import { createComponentState } from "../../ecs/componentState";
 import { createSystemState } from "../../ecs/systemState";
 import { createGenericManager, type GenericManager } from "../../managers/generic_manager";
-import type { Mat4 } from "../../math/mat4/mat4";
+import type { Mat4Type } from "../../math/mat4/types";
 import { type GLVAO } from "../../webgl/mesh_gl";
 
 
@@ -16,7 +16,7 @@ export interface Scene {
     readonly collisionMatrix: CollisionMatrixType;
     readonly entitiesById: GenericManager<number, GameEntityType>;
     readonly entitiesByName: GenericManager<string, GameEntityType>;
-    readonly mat4: GenericManager<number, Mat4>;
+    readonly mat4: GenericManager<number, Mat4Type>;
     readonly vao: GenericManager<number, GLVAO>;
 }
 
@@ -48,7 +48,7 @@ export function create(name: string): Scene {
         systems: createSystemState(),
         entitiesById: createGenericManager<number, GameEntityType>("game_entity_by_id_manager"),
         entitiesByName: createGenericManager<string, GameEntityType>("game_entity_by_name_manager"),
-        mat4: createGenericManager<number, Mat4>("mat4_manager"),
+        mat4: createGenericManager<number, Mat4Type>("mat4_manager"),
         vao: createGenericManager<number, GLVAO>("vao_manager"),
     };
 }

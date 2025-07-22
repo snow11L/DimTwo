@@ -1,28 +1,28 @@
-import { Meshs } from "../../assets/meshs/Meshs";
-import { Transform } from "../../components";
-import { Global } from "../../managers/engine.manager";
 
+
+import { Mathf, Transform } from "../..";
+import { Meshs } from "../../assets/meshs/Meshs";
 import { get_category } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
+import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import type { Color } from "../../math/color/types";
-import { Mat4, mat4_create_TRS } from "../../math/mat4/mat4";
+
 import type { Quat } from "../../math/quat/quat";
-import type { Vec3 } from "../../math/vec3/vec3";
 import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../../resources/shader";
-import { ComponentType } from "../../types/component-type";
+import { ComponentTypes } from "../../types/component-type";
 
 interface GizmosTransform {
     type: "square" | "circle";
-    position: Vec3;
+    position: Mathf.Vec3Type;
     rotation: Quat;
-    scale: Vec3;
+    scale: Mathf.Vec3Type;
     color: Color;
 }
 
 const gizmosTransform: GizmosTransform[] = [];
 
-function draw_wire_square(position: Vec3, rotation: Quat, scale: Vec3, color: Color) {
+function draw_wire_square(position: Mathf.Vec3Type, rotation: Quat, scale: Mathf.Vec3Type, color: Color) {
     if (!Gizmos.gizmosActive) return;
     gizmosTransform.push({
         type: "square",
@@ -33,7 +33,7 @@ function draw_wire_square(position: Vec3, rotation: Quat, scale: Vec3, color: Co
     });
 }
 
-function draw_wire_circle(position: Vec3, rotation: Quat, scale: Vec3, color: Color) {
+function draw_wire_circle(position: Mathf.Vec3Type, rotation: Quat, scale: Mathf.Vec3Type, color: Color) {
     if (!Gizmos.gizmosActive) return;
     gizmosTransform.push({
         type: "circle",
@@ -45,11 +45,11 @@ function draw_wire_circle(position: Vec3, rotation: Quat, scale: Vec3, color: Co
 }
 
 
-const CACHE_MATRIX = Mat4.createIdentity();
+const CACHE_MATRIX = Mathf.Mat4.createIdentity();
 
 function drawGizmos() {
     const gl = Global.WebGL;
-    const cameras = get_category(ComponentType.Camera);
+    const cameras = get_category(ComponentTypes.Camera);
     if (cameras.length === 0) return;
     const camera = cameras[0];
 
@@ -80,7 +80,7 @@ function drawGizmos() {
 
         gl.bindVertexArray(vao.vao);
 
-        mat4_create_TRS(CACHE_MATRIX, gizmo.position, gizmo.rotation, gizmo.scale);
+        Mathf.Mat4.createTRS(CACHE_MATRIX, gizmo.position, gizmo.rotation, gizmo.scale);
         shader_set_uniform_mat4(shader, "uModel", CACHE_MATRIX.value);
         shader_set_uniform_4f(shader, "uColor", gizmo.color.r, gizmo.color.g, gizmo.color.b, gizmo.color.a);
 

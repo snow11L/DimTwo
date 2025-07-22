@@ -1,3 +1,3 @@
 export * as Transform from "./transform";
-export type { TransformOptions, TransformType } from "./transform/types";
+export type { TransformType } from "./transform/types";
 

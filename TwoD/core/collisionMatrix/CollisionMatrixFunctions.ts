@@ -1,4 +1,4 @@
-import type { CollisionMask } from "./CollisionMaskTypes";
+import type { CollisionMask } from "../collisionMask/types";
 import type { CollisionMatrixType } from "./types";
 
 export function createCollisionMatrix(size: number): CollisionMatrixType {

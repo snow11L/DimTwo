@@ -1,16 +1,18 @@
 import type { GameEntityType } from "../base/gameEntity/types";
-import type { BoxCollider2DType, BoxColliderOptions } from "../components";
-import { CollisionMask } from "../components/physics/collisionMatrix/CollisionMaskTypes";
-import { ComponentType } from "../types/component-type";
+import type { BoxCollider2DType } from "../components";
+import { CollisionMask } from "../core/collisionMask/types";
+import { ComponentTypes } from "../types/component-type";
+
 import { createIncrementalId } from "./create.incremental.id";
+import type { BoxColliderOptions } from "./types";
 
 
 export function BoxCollider2D(gameEntity: GameEntityType, options?: BoxColliderOptions): BoxCollider2DType {
     return {
         isColliding: false,
         gameEntity: gameEntity,
-        category: ComponentType.Collider,
-        type: ComponentType.BoxCollider2D,
+        category: ComponentTypes.Collider,
+        type: ComponentTypes.BoxCollider2D,
         enabled: true,
         ignoreSelfCollisions: true,
         instanceID: createIncrementalId(),

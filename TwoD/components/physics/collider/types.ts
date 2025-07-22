@@ -1,11 +1,10 @@
 import type { Component } from "../../../base/Component";
-import type { Vec3 } from "../../../math/vec3/vec3";
-import type { CollisionMask } from "../collisionMatrix/CollisionMaskTypes";
+import type { CollisionMask } from "../../../core/collisionMask/types";
 
 
 export interface ColliderType extends Component {
   isColliding: boolean;
-  center: Vec3;
+  center: Mathf.Vec3Type;
   isTrigger: boolean;
   collisionMask: CollisionMask;
   ignoreSelfCollisions: boolean;

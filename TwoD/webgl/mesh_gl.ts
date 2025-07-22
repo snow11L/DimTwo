@@ -1,8 +1,9 @@
+import type { Mathf } from "..";
 import { createIncrementalId } from "../generators/create.incremental.id";
 import type { FontData } from "../managers/FontManager";
 import { type Vec2 } from "../math/vec2/Vec2";
 import { vec2ArrayTof32Array } from "../math/vec2/Vector2Conversors";
-import { Vec3, vec3Tof32Arr } from "../math/vec3/vec3";
+import { vec3Tof32Arr } from "../math/vec3/functions";
 import type { MeshType } from "../resources/mesh/types";
 
 export interface GLVAO {
@@ -142,7 +143,7 @@ export function createTextMesh(
     lineHeight: number = 100,
     spacement: number = 64
 ): MeshType {
-    const positions: Vec3[] = [];
+    const positions: Mathf.Vec3Type[] = [];
     const uvs: Vec2[] = [];
     const indices: number[] = [];
 

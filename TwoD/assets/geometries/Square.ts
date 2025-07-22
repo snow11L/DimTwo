@@ -1,16 +1,16 @@
+import type { Mathf } from "../..";
 import { createMesh } from "../../generators/create.mesh";
 import type { Vec2 } from "../../math/vec2/Vec2";
-import type { Vec3 } from "../../math/vec3/vec3";
 import type { MeshType } from "../../resources/mesh/types";
 
-export function createFillSquareMesh(name: string, size: Vec3): MeshType {
+export function createFillSquareMesh(name: string, size: Mathf.Vec3Type): MeshType {
     const halfSize = {
         x: size.x * 0.5,
         y: size.y * 0.5,
         z: size.z * 0.5,
     };
 
-    const vertices: Vec3[] = [
+    const vertices: Mathf.Vec3Type[] = [
         { x: -halfSize.x, y: -halfSize.y, z: 0 },
         { x: halfSize.x, y: -halfSize.y, z: 0 },
         { x: halfSize.x, y: halfSize.y, z: 0 },
@@ -22,7 +22,7 @@ export function createFillSquareMesh(name: string, size: Vec3): MeshType {
         2, 3, 0,
     ]
 
-    const normals: Vec3[] = [
+    const normals: Mathf.Vec3Type[] = [
         { x: 0, y: 0, z: 1 },
         { x: 0, y: 0, z: 1 },
         { x: 0, y: 0, z: 1 },
@@ -39,14 +39,14 @@ export function createFillSquareMesh(name: string, size: Vec3): MeshType {
     return createMesh(name, vertices, indices, normals, uvs);
 }
 
-export function createWireSquareMesh(name: string, size: Vec3): MeshType {
+export function createWireSquareMesh(name: string, size: Mathf.Vec3Type): MeshType {
     const halfSize = {
         x: size.x * 0.5,
         y: size.y * 0.5,
         z: size.z * 0.5,
     };
 
-    const vertices: Vec3[] = [
+    const vertices: Mathf.Vec3Type[] = [
         { x: -halfSize.x, y: -halfSize.y, z: 0 },
         { x: halfSize.x, y: -halfSize.y, z: 0 },
         { x: halfSize.x, y: halfSize.y, z: 0 },
@@ -60,14 +60,14 @@ export function createWireSquareMesh(name: string, size: Vec3): MeshType {
         3, 0,
     ];
 
-    const normals: Vec3[] = [];
+    const normals:Mathf.Vec3Type[] = [];
     const uvs: Vec2[] = []; 
 
     return createMesh(name, vertices, indices, normals, uvs);
 }
 
 export function createWireCircleMesh(name: string, radius: number, divisions: number): MeshType {
-    const vertices: Vec3[] = [];
+    const vertices:Mathf.Vec3Type[] = [];
     const indices: number[] = [];
 
     const angleStep = (Math.PI * 2) / divisions;
@@ -85,7 +85,7 @@ export function createWireCircleMesh(name: string, radius: number, divisions: nu
         indices.push(i, (i + 1) % divisions);
     }
 
-    const normals: Vec3[] = [];
+    const normals: Mathf.Vec3Type[] = [];
     const uvs: Vec2[] = [];
 
     return createMesh(name, vertices, indices, normals, uvs);

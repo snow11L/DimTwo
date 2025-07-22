@@ -3,7 +3,7 @@ import type { System } from "../../ecs";
 import { get_type } from "../../generators/get_component";
 import { Vec3 } from "../../math";
 import { Colors } from "../../math/color/color";
-import { ComponentType } from "../../types/component-type";
+import { ComponentTypes } from "../../types/component-type";
 import { Gizmos } from "./Gizmos";
 
 const rotation = { x: 0, y: 0, z: 0, w: 1 };
@@ -11,7 +11,7 @@ const rotation = { x: 0, y: 0, z: 0, w: 1 };
 export function boxColliderGizmosSystem(): System {
     return {
         onDrawGizmos() {
-            const boxColliders = get_type<BoxCollider2DType>(ComponentType.BoxCollider2D);
+            const boxColliders = get_type<BoxCollider2DType>(ComponentTypes.BoxCollider2D);
 
             for (const boxCollider of boxColliders) {
                 const transform = Transform.getTransform(boxCollider.gameEntity);

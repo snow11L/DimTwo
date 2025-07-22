@@ -1,9 +1,5 @@
+import type { Mathf } from "../..";
 import type { Quat } from "../quat/quat";
-import { type Vec3 } from "../vec3/vec3";
-
-export interface Mat4 {
-    value: Float32Array;
-}
 
 export function createMat4(
     m00: number = 1.0, m10: number = 0.0, m20: number = 0.0, m30: number = 0.0,
@@ -11,7 +7,7 @@ export function createMat4(
     m02: number = 0.0, m12: number = 0.0, m22: number = 1.0, m32: number = 0.0,
     m03: number = 0.0, m13: number = 0.0, m23: number = 0.0, m33: number = 1.0) {
 
-    const mat4: Mat4 = { value: new Float32Array(16) };
+    const mat4: Mathf.Mat4Type = { value: new Float32Array(16) };
 
     mat4.value.set([
         m00, m10, m20, m30,
@@ -23,9 +19,8 @@ export function createMat4(
     return mat4;
 }
 
-
 export function createIdentity() {
-    const mat4: Mat4 = { value: new Float32Array(16) };
+    const mat4: Mathf.Mat4Type = { value: new Float32Array(16) };
     mat4.value.set([
         1, 0, 0, 0,
         0, 1, 0, 0,
@@ -35,7 +30,7 @@ export function createIdentity() {
     return mat4;
 }
 
-export function mat4_create_TRS(m: Mat4, t: Vec3, r: Quat, s: Vec3) {
+export function createTRS(m: Mathf.Mat4Type, t: Mathf.Vec3Type, r: Quat, s: Mathf.Vec3Type) {
     const x = r.x, y = r.y, z = r.z, w = r.w;
 
     const x2 = x + x;
@@ -79,7 +74,7 @@ export function mat4_create_TRS(m: Mat4, t: Vec3, r: Quat, s: Vec3) {
     e[15] = 1;
 }
 
-export function mat4_create_TR(m: Mat4, t: Vec3, r: Quat) {
+export function createTR(m: Mathf.Mat4Type, t: Mathf.Vec3Type, r: Quat) {
     const x = r.x, y = r.y, z = r.z, w = r.w;
 
     const x2 = x + x;
@@ -121,7 +116,7 @@ export function mat4_create_TR(m: Mat4, t: Vec3, r: Quat) {
     e[15] = 1;
 }
 
-export function creatrProjection(m: Mat4, fovY: number, aspect: number, near: number, far: number) {
+export function creatrProjection(m: Mathf.Mat4Type, fovY: number, aspect: number, near: number, far: number) {
     const fovRadians = (fovY * Math.PI) / 180;
     const f = 1.0 / Math.tan(fovRadians / 2);
     const nf = 1 / (near - far);
@@ -133,10 +128,4 @@ export function creatrProjection(m: Mat4, fovY: number, aspect: number, near: nu
     e[11] = -1;
     e[14] = (2 * far * near) * nf;
     e[15] = 0;
-}
-
-
-export const Mat4 = {
-    createIdentity,
-    creatrProjection
 }

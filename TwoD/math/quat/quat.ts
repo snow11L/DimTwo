@@ -1,5 +1,4 @@
 import { math_cos, math_deg_to_rad, math_sin } from "../../webgl/math";
-import type { Vec3 } from "../vec3/vec3";
 
 export interface Quat {
     x: number;
@@ -8,7 +7,7 @@ export interface Quat {
     w: number;
 }
 
-export function euler_to_quat(q: Quat, v: Vec3): void {
+export function euler_to_quat(q: Quat, v: Mathf.Vec3Type): void {
     const rollRad = math_deg_to_rad(v.x) * 0.5;
     const pitchRad = math_deg_to_rad(v.y) * 0.5;
     const yawRad = math_deg_to_rad(v.z) * 0.5;

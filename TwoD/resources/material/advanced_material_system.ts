@@ -1,19 +1,18 @@
-import { Camera, Transform } from "../../components";
+import { Camera, Mathf, Transform, type MaterialType } from "../..";
+
 import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
-import { Mat4, mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
-import type { Vec3 } from "../../math/vec3/vec3";
 import { shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
-import type { MaterialType } from "./types";
+
 
 export function advanced_material_system(material: MaterialType): ShaderSystem {
     const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, material.shaderName);
     if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
 
-    let flip_cache: Vec3 = { x: 0, y: 0, z: 0 };
+    let flip_cache:  Mathf.Vec3Type = { x: 0, y: 0, z: 0 };
 
     return {
         global() {
@@ -25,11 +24,11 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            mat4_create_TR(viewMatrix, transform.position, transform.rotation);
+            Mathf.Mat4.createTR(viewMatrix, transform.position, transform.rotation);
             shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
-            Mat4.creatrProjection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
+            Mathf.Mat4.creatrProjection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
             shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
         },
 
@@ -49,7 +48,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
             flip_cache.y = spriteRender.flipVertical ? -transform.scale.y : transform.scale.y;
             flip_cache.z = transform.scale.z;
 
-            mat4_create_TRS(
+            Mathf.Mat4.createTRS(
                 modelMatrix,
                 transform.position,
                 transform.rotation,

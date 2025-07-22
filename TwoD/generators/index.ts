@@ -10,3 +10,5 @@ export * from "./create.box.collider.2D.component";
 export * from "./create.circle.collider.component";
 export * from "./create.rigid.body.component";
 
+export type { AnimatorOptions, BoxColliderOptions, CircleColliderOptions, ComponentOptions, RigidBodyOptions, SpriteRenderOptions, TransformOptions } from "./types";
+

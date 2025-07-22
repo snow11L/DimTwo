@@ -5,7 +5,7 @@ import { material_get } from "../generators/create.material";
 import { EasyGetter } from "../managers/EasyGetters";
 import { Global } from "../managers/engine.manager";
 import { generic_manager_get } from "../managers/generic_manager";
-import { ComponentType } from "../types/component-type";
+import { ComponentTypes } from "../types/component-type";
 
 export function RenderSystem(state: ComponentStateType): System {
 
@@ -16,7 +16,7 @@ export function RenderSystem(state: ComponentStateType): System {
       webGL.enable(webGL.BLEND);
       webGL.blendFunc(webGL.SRC_ALPHA, webGL.ONE_MINUS_SRC_ALPHA);
 
-      const renders = ComponentState.getComponentsByType<Render>(state, ComponentType.Render);
+      const renders = ComponentState.getComponentsByCategory<Render>(state, ComponentTypes.Render);
 
       for (const render of renders) {
         if (!render.enabled) continue;
@@ -30,7 +30,7 @@ export function RenderSystem(state: ComponentStateType): System {
         const transform = ComponentState.getComponent<TransformType>(
           state,
           render.gameEntity,
-          ComponentType.Transform
+          ComponentTypes.Transform
         );
 
         if (!transform) continue;

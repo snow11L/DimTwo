@@ -5,7 +5,7 @@ import type { SpriteRenderType } from "../components";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { ComponentState } from "../ecs";
 import { Scene } from "../resources/scene/scene";
-import { ComponentType } from "../types/component-type";
+import { ComponentTypes } from "../types/component-type";
 
 
 export function get_textRender(gameEntity: GameEntityType): TextMeshXComponent | null {
@@ -15,7 +15,7 @@ export function get_textRender(gameEntity: GameEntityType): TextMeshXComponent |
     return ComponentState.getComponent<TextMeshXComponent>(
         scene.components,
         gameEntity,
-        ComponentType.TextMesh
+        ComponentTypes.TextMesh
     );
 }
 
@@ -58,7 +58,7 @@ export function get_sprite_render(gameEntity: GameEntityType): SpriteRenderType 
     return ComponentState.getComponent<SpriteRenderType>(
         scene.components,
         gameEntity,
-        ComponentType.SpriteRender
+        ComponentTypes.SpriteRender
     );
 }
 

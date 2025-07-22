@@ -15,7 +15,7 @@ import { ComponentState, type ComponentStateType, type System, SystemState, type
 import { SpatialHash } from "../lib/SpatialHash";
 import type { Vec2 } from "../math/vec2/Vec2";
 import { Scene } from "../resources/scene/scene";
-import { ComponentType } from "../types/component-type";
+import { ComponentTypes } from "../types/component-type";
 
 // Util
 function makePairKey(id1: number, id2: number): string {
@@ -37,7 +37,7 @@ function getColliderMinMax(
   const centerX = position.x + offset.x;
   const centerY = position.y + offset.y;
 
-  if (collider.type === ComponentType.BoxCollider2D) {
+  if (collider.type === ComponentTypes.BoxCollider2D) {
     const box = collider as BoxCollider2DType;
     const halfW = box.size.x / 2;
     const halfH = box.size.y / 2;
@@ -46,7 +46,7 @@ function getColliderMinMax(
     outMin.y = centerY - halfH;
     outMax.x = centerX + halfW;
     outMax.y = centerY + halfH;
-  } else if (collider.type === ComponentType.CircleCollider2D) {
+  } else if (collider.type === ComponentTypes.CircleCollider2D) {
     const circle = collider as CircleCollider2DType;
     const r = circle.radius;
 
@@ -89,7 +89,7 @@ export function ColliderSystem(
 
       const colliders = ComponentState.getComponentsByCategory<ColliderType>(
         componentState,
-        ComponentType.Collider,
+        ComponentTypes.Collider,
       );
 
       for (const collider of colliders) {
@@ -98,7 +98,7 @@ export function ColliderSystem(
         const transform = ComponentState.getComponent<TransformType>(
           componentState,
           collider.gameEntity,
-          ComponentType.Transform,
+          ComponentTypes.Transform,
         );
         if (!transform) continue;
 
@@ -209,13 +209,13 @@ function detectCollisions(
           const aRigid = ComponentState.getComponent<RigidBody2DType>(
             componentState,
             colliderA.gameEntity,
-            ComponentType.RigidBody2D,
+            ComponentTypes.RigidBody2D,
           );
 
           const bRigid = ComponentState.getComponent<RigidBody2DType>(
             componentState,
             colliderB.gameEntity,
-            ComponentType.RigidBody2D,
+            ComponentTypes.RigidBody2D,
           );
 
           if (!aRigid || !bRigid) return;

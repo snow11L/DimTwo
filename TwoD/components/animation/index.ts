@@ -1,3 +1,3 @@
 export * as Animator from "./animator";
-export type { AnimatorController, AnimatorOptions, AnimatorState, AnimatorType } from "./animator/types";
+export type { AnimatorController, AnimatorState, AnimatorType } from "./animator/types";
 

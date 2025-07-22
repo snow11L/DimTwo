@@ -1,7 +1,9 @@
-import type { GameEntityType } from "../base/gameEntity/types";
-import type { TransformOptions, TransformType } from "../components";
-import { ComponentType } from "../types/component-type";
+import type { GameEntityType } from "../base";
+import type { TransformType } from "../components";
+import { ComponentTypes } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
+import type { TransformOptions } from "./types";
+
 
 export function Transform(
     entity: GameEntityType,
@@ -9,9 +11,9 @@ export function Transform(
 ): TransformType {
 
     const transform: TransformType = {
-        category: ComponentType.Transform,
+        category: ComponentTypes.Transform,
         instanceID: createIncrementalId(),
-        type: ComponentType.Transform,
+        type: ComponentTypes.Transform,
         enabled: true,
         gameEntity: entity,
         position: { x: 0, y: 0, z: 0 },

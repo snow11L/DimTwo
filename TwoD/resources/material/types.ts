@@ -1,5 +1,6 @@
+import type { Mathf } from "../..";
 import type { Color } from "../../math/color/types";
-import type { Vec3 } from "../../math/vec3/vec3";
+
 
 export type MaterialPropType = "float" | "int" | "bool" | "vec3" | "color" | "texture";
 
@@ -7,7 +8,7 @@ type TypeMap = {
     float: number;
     int: number;
     bool: boolean;
-    vec3: Vec3;
+    vec3: Mathf.Vec3Type;
     color: Color;
     texture: string;
 };

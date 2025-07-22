@@ -1,4 +1,4 @@
-export const ComponentType = {
+export const ComponentTypes = {
     Animator: "Animator",
     Transform: "Transform",
     Camera: "Camera",
@@ -14,4 +14,4 @@ export const ComponentType = {
     RigidBody2D: "RigidBody2D",
 } as const;
 
-export type ComponentType = typeof ComponentType[keyof typeof ComponentType];
+export type ComponentTypes = typeof ComponentTypes[keyof typeof ComponentTypes];

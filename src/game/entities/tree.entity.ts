@@ -1,14 +1,13 @@
-
-import { Builder } from "../../../TwoD";
-import { CollisionMask } from "../../../TwoD/components/physics/collisionMatrix/CollisionMaskTypes";
+import { Builder, Mathf } from "../../../TwoD";
+import { CollisionMask } from "../../../TwoD/core/collisionMask/types";
 import { BoxCollider2D } from "../../../TwoD/generators";
-import { Vec3 } from "../../../TwoD/math/vec3/vec3";
+
 import type { SpriteType } from "../../../TwoD/resources/sprite";
 
 export function createTreeEntity(
     name: string,
     sprite: SpriteType,
-    position: Vec3
+    position:  Mathf.Vec3Type
 ) {
     const gameEntity = Builder.BuildGameEntity(name, "Tree");
 
@@ -23,7 +22,7 @@ export function createTreeEntity(
         material: "advanced_material",
     });
 
-    const boxCollider = BoxCollider2D(gameEntity, { collisionMask: CollisionMask.TREE, isTrigger: true, size: Vec3.create(1, 1, 1) });
+    const boxCollider = BoxCollider2D(gameEntity, { collisionMask: CollisionMask.TREE, isTrigger: true, size: Mathf.Vec3.create(1, 1, 1) });
     // CollisionMatrix.setCollision(CollisionMask.TREE, CollisionMask.TREE, false);
 
     gameEntity.components = [

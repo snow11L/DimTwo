@@ -1,3 +1,4 @@
+import type { Mathf } from "..";
 import type { Vec2 } from "../math/vec2/Vec2";
 
 interface Vec3 {
@@ -8,7 +9,7 @@ interface Vec3 {
 
 export class SimplexNoise {
 
-  private grad3: Vec3[] = [
+  private grad3: Mathf.Vec3Type[] = [
     { x: 1, y: 1, z: 0 },
     { x: -1, y: 1, z: 0 },
     { x: 1, y: -1, z: 0 },
@@ -169,11 +170,11 @@ export class SimplexNoise {
     return [i1, j1, k1, i2, j2, k2];
   }
 
-  private dot3(g: Vec3, x: number, y: number, z: number): number {
+  private dot3(g: Mathf.Vec3Type, x: number, y: number, z: number): number {
     return g.x * x + g.y * y + g.z * z;
   }
 
-  private cornerContribution3D(grad: Vec3, x: number, y: number, z: number): number {
+  private cornerContribution3D(grad: Mathf.Vec3Type, x: number, y: number, z: number): number {
     const t = 0.6 - x * x - y * y - z * z;
     if (t < 0) return 0;
     const t2 = t * t;

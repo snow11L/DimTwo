@@ -1,11 +1,11 @@
+import { Mathf } from "../..";
 import { Transform } from "../../components";
 import { get_category, get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { Color } from "../../math";
-import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
-import { ComponentType } from "../../types/component-type";
+import { ComponentTypes } from "../../types/component-type";
 import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";
@@ -16,7 +16,7 @@ export function water_material_system(material: MaterialType): ShaderSystem {
     return {
         global() {
 
-            const cameras = get_category(ComponentType.Camera);
+            const cameras = get_category(ComponentTypes.Camera);
             if (cameras.length === 0) return;
             const camera = cameras[0];
 
@@ -24,7 +24,7 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             if (cameraTransform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(cameraTransform.instanceID)!;
-            mat4_create_TR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
+            Mathf.Mat4.createTR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
             shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
@@ -42,7 +42,7 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             if (spriteRender == null) return;
 
             const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            mat4_create_TRS(modelMatrix, transform.position, transform.rotation, transform.scale);
+            Mathf.Mat4.createTRS(modelMatrix, transform.position, transform.rotation, transform.scale);
             shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
 
             spriteRender.color = Color.rgba(1, 161, 253, 1);

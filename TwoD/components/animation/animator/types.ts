@@ -1,4 +1,4 @@
-import type { Component, ComponentOptions } from "../../../base/Component";
+import type { Component } from "../../../base/Component";
 import type { AnimationClip } from "../../../resources/animation";
 
 export interface AnimatorType extends Component {
@@ -24,4 +24,3 @@ export interface AnimatorController {
   syncCollider?: boolean;
 }
 
-export type AnimatorOptions = ComponentOptions<AnimatorType>;

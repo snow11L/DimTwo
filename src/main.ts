@@ -17,7 +17,7 @@ import { water_material_system } from "../TwoD/resources/material/water_material
 import type { MeshType } from "../TwoD/resources/mesh/types";
 import { Scene } from "../TwoD/resources/scene/scene";
 import { InputSystem } from "../TwoD/systems/InputSystem";
-import { ComponentType } from "../TwoD/types/component-type";
+import { ComponentTypes } from "../TwoD/types/component-type";
 import { createMeshVAO } from "../TwoD/webgl/mesh_gl";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
@@ -171,7 +171,7 @@ SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 engine.start();
 
 export function getMeshesUsedInScene(): Set<MeshType> {
-    const renderers = get_category<Render>(ComponentType.Render);
+    const renderers = get_category<Render>(ComponentTypes.Render);
     const meshesUsed = new Set<MeshType>();
     for (const render of renderers) {
         const mesh = generic_manager_get(Global.ResourcesManager.MeshManager, render.meshID);
