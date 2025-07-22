@@ -1,5 +1,5 @@
 import { Meshs } from "../assets/meshs/Meshs";
-import type { SpriteRenderComponent, SpriteRenderOptions } from "../components/sprite-render/sprite.render.types";
+import type { SpriteRenderComponent, SpriteRenderOptions } from "../components/render/sprite-render/sprite.render.types";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";

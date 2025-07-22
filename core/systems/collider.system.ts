@@ -1,14 +1,14 @@
 import { ECS } from "../../api/TwoD";
+import type { Collider } from "../base/Collider";
 import { RigidBody2D, Types } from "../components";
-import type { Collider } from "../components/collider/collider.types";
+import { Collision } from "../components/physics/collider/CollisionMatrix";
+import { resolveOverlap } from "../components/physics/collider/CollisionResolver";
+import { testOverlap } from "../components/physics/collider/CollisionTester";
 import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
 import type { TransformComponent } from "../components/transform";
 import { get_transform } from "../generators/get_component";
 import { SpatialHash } from "../lib/SpatialHash";
 import type { Vec2 } from "../math/vec2/Vec2";
-import { Collision } from "../physics/collision/CollisionMatrix";
-import { resolveOverlap } from "../physics/collision/CollisionResolver";
-import { testOverlap } from "../physics/collision/CollisionTester";
 import type { ECSComponentState } from "../resources/ecs/component";
 import type { System } from "../resources/ecs/system";
 import { ComponentType } from "../types/component-type";

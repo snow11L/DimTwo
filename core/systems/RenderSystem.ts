@@ -1,6 +1,6 @@
 import { ENGINE } from "../../api/engine.manager";
 import { ECS } from "../../api/TwoD";
-import type { SpriteRenderComponent } from "../components/sprite-render";
+import type { SpriteRenderComponent } from "../components/render/sprite-render";
 import type { TransformComponent } from "../components/transform";
 import { material_get } from "../generators/create.material";
 import { EasyGetter } from "../managers/EasyGetters";

@@ -1,4 +1,4 @@
-import type { Component } from "../components/component/component.types";
+import type { Component } from "../base/Component";
 
 export interface EngineEntity {
     readonly id: number;

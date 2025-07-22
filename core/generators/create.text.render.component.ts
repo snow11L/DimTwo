@@ -1,4 +1,4 @@
-import type { TextMeshXComponent } from "../components/text-mesh/TextRender";
+import type { TextMeshXComponent } from "../components/render/text-mesh/TextRender";
 import { Color } from "../math/color/color";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";

@@ -1,4 +1,4 @@
-import type { CameraComponent } from "../components/camera";
+import type { CameraComponent } from "../components/render/camera";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";

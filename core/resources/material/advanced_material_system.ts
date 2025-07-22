@@ -1,6 +1,6 @@
 import { ENGINE } from "../../../api/engine.manager";
 import { ComponentType } from "../../../api/enums";
-import type { CameraComponent } from "../../components/camera";
+import type { CameraComponent } from "../../components/render/camera";
 import { get_category, get_sprite_render, get_transform } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { generic_manager_get } from "../../managers/generic_manager";

@@ -1,7 +1,7 @@
 import { ComponentType } from "../../../../api/enums";
 import { ECS, Enums, Input, Types } from "../../../../api/TwoD";
 import type { ECSComponentState } from "../../../../api/types";
-import type { TextMeshXComponent } from "../../../../core/components/text-mesh/TextRender";
+import type { TextMeshXComponent } from "../../../../core/components/render/text-mesh/TextRender";
 import { get_component } from "../../../../core/generators/get_component";
 import Vec2Math from "../../../../core/math/vec2/vec2-math";
 import { Scene } from "../../../../core/resources/scene/scene";

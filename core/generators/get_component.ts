@@ -1,8 +1,8 @@
 import { ECS } from "../../api/TwoD";
-import type { CameraComponent } from "../components/camera";
-import type { Component } from "../components/component/component.types";
-import type { SpriteRenderComponent } from "../components/sprite-render";
-import type { TextMeshXComponent } from "../components/text-mesh/TextRender";
+import type { Component } from "../base/Component";
+import type { CameraComponent } from "../components/render/camera";
+import type { SpriteRenderComponent } from "../components/render/sprite-render";
+import type { TextMeshXComponent } from "../components/render/text-mesh/TextRender";
 import type { TransformComponent } from "../components/transform";
 import { Scene } from "../resources/scene/scene";
 import { ComponentType } from "../types/component-type";

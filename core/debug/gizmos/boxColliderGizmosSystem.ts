@@ -1,7 +1,7 @@
+import { type BoxCollider2D } from "../../components/physics/box-collider-2d/box.collider.2d.types";
 import { get_transform, get_type } from "../../generators/get_component";
 import { Color } from "../../math/color/color";
 import { Vec3 } from "../../math/vec3/vec3";
-import { type BoxCollider2D } from "../../components/box-collider-2d/box.collider.2d.types";
 import type { System } from "../../resources/ecs/system";
 import { ComponentType } from "../../types/component-type";
 import { Gizmos } from "./gizmos";

@@ -1,5 +1,5 @@
-import type { BoxCollider2D, BoxColliderOptions } from "../components/box-collider-2d/box.collider.2d.types";
-import { CollisionMask } from "../physics/collision/CollisionMatrix";
+import type { BoxCollider2D, BoxColliderOptions } from "../components/physics/box-collider-2d/box.collider.2d.types";
+import { CollisionMask } from "../components/physics/collider/CollisionMatrix";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";
