@@ -1,7 +1,7 @@
 import { Transform, type CircleCollider2DType } from "../../components";
 import type { System } from "../../ecs";
 import { get_type } from "../../generators/get_component";
-import { Color } from "../../math/color/color";
+import { Colors } from "../../math/color/color";
 import { Vec3 } from "../../math/vec3/vec3";
 import { ComponentType } from "../../types/component-type";
 import { Gizmos } from "./Gizmos";
@@ -25,7 +25,7 @@ export function circleColliderGizmosSystem(): System {
 
                 const isColliding = boxCollider.isColliding;
 
-                const color = isColliding ? Color.ORANGE : Color.GREEN;
+                const color = isColliding ? Colors.ORANGE : Colors.GREEN;
                 Gizmos.draw_wire_circle(pos, rotation, size, color);
             }
         },

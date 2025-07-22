@@ -1,7 +1,8 @@
-import { ComponentType } from "../../../../api/enums";
-import { Components, Enums, Input, type Types } from "../../../../api/TwoD";
+
+import { Components, Input, type Types } from "../../../../api/TwoD";
 import type { ComponentStateType } from "../../../../api/types";
 import { ComponentState, type AnimatorType } from "../../../../TwoD";
+import { ComponentType } from "../../../../TwoD/types/component-type";
 import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
@@ -18,11 +19,11 @@ export default function CharacterControllerAnimationSystem(state: ComponentState
         const spriteRender = ComponentState.getComponent<Types.SpriteRenderType>(
           state,
           characterControler.gameEntity,
-          Enums.ComponentType.SpriteRender
+          ComponentType.SpriteRender
         );
         if (!spriteRender) continue;
 
-        const animator = ComponentState.getComponent<AnimatorType>(state, characterControler.gameEntity, Enums.ComponentType.Animator);
+        const animator = ComponentState.getComponent<AnimatorType>(state, characterControler.gameEntity, ComponentType.Animator);
         if (!animator) continue;
 
         animator.playbackSpeed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft) ? 1.5 : 1.0;

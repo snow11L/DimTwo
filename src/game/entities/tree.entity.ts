@@ -1,11 +1,10 @@
 import { createBoxCollider2D } from "../../../api/builders";
-import { type Types, Builders, ECS } from "../../../api/TwoD";
+import { Builders } from "../../../api/TwoD";
 import type { Sprite } from "../../../api/types";
-import { Collision, CollisionMask } from "../../../TwoD/collider/types/LayerMask";
+import { CollisionMask } from "../../../TwoD/components/physics/collisionMatrix/CollisionMaskTypes";
 import { Vec3 } from "../../../TwoD/math/vec3/vec3";
 
 export function createTreeEntity(
-    componentState: Types.ComponentStateType,
     name: string,
     sprite: Sprite,
     position: Vec3
@@ -17,19 +16,20 @@ export function createTreeEntity(
         scale: { x: 2, y: 3, z: 0 }
     });
 
-    ECS.Component.addComponent(componentState, gameEntity, transform);
-
     const spriteRener = Builders.createSpriteRenderComponent(gameEntity, {
         sprite: sprite,
         layer: 1,
         material: "advanced_material",
     });
 
-    ECS.Component.addComponent(componentState, gameEntity, spriteRener);
-
     const boxCollider = createBoxCollider2D(gameEntity, { collisionMask: CollisionMask.TREE, isTrigger: true, size: Vec3.create(1, 1, 1) });
-    Collision.setCollision(CollisionMask.TREE, CollisionMask.TREE, false);
+    // CollisionMatrix.setCollision(CollisionMask.TREE, CollisionMask.TREE, false);
 
-    ECS.Component.addComponent(componentState, gameEntity, boxCollider);
+    gameEntity.components = [
+        transform,
+        spriteRener,
+        boxCollider
+    ]
+
     return gameEntity;
 }

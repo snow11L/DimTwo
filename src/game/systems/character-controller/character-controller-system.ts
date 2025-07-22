@@ -1,5 +1,4 @@
-import { ComponentType } from "../../../../api/enums";
-import { Enums, Input, Types } from "../../../../api/TwoD";
+import { Input, Types } from "../../../../api/TwoD";
 import type { ComponentStateType } from "../../../../api/types";
 import { ComponentState } from "../../../../TwoD";
 import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
@@ -7,6 +6,7 @@ import { get_component } from "../../../../TwoD/generators/get_component";
 import Vec2Math from "../../../../TwoD/math/vec2/vec2-math";
 import { Scene } from "../../../../TwoD/resources/scene/scene";
 import Time from "../../../../TwoD/time/time";
+import { ComponentType } from "../../../../TwoD/types/component-type";
 import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
@@ -52,7 +52,7 @@ export default function CharacterControlerSystem(state: ComponentStateType): Typ
         const characterTransform = ComponentState.getComponent<Types.TransformType>(
           state,
           characterControler.gameEntity,
-          Enums.ComponentType.Transform
+          ComponentType.Transform
         );
         if (!characterTransform) continue;
 

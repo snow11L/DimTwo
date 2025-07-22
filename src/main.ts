@@ -1,5 +1,4 @@
 import { engine } from "../api/engine.main";
-import { ComponentType } from "../api/enums";
 import { SystemState } from "../TwoD";
 import type { Render } from "../TwoD/base/Render";
 import { SpriteRenderSystem } from "../TwoD/components/render/spriteRender";
@@ -20,6 +19,7 @@ import { Scene } from "../TwoD/resources/scene/scene";
 import { AnimatorSystem } from "../TwoD/systems/animator.system";
 import { ColliderSystem } from "../TwoD/systems/collider.system";
 import { PhysicsSystem } from "../TwoD/systems/PhysicsSystem";
+import { ComponentType } from "../TwoD/types/component-type";
 import { createMeshVAO } from "../TwoD/webgl/mesh_gl";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";

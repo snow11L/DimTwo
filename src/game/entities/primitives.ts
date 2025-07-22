@@ -1,9 +1,11 @@
-import { Builders, ECS } from "../../../api/TwoD";
+import { Builders } from "../../../api/TwoD";
 import type { Sprite } from "../../../api/types";
+import { ComponentState } from "../../../TwoD";
 import { CIRCLE_SPRITE } from "../../../TwoD/assets/sprites/circle.sprite";
 import { SQUARE_SPRITE } from "../../../TwoD/assets/sprites/square.sprite";
 import { TRIANGLE_SPRITE } from "../../../TwoD/assets/sprites/triangle.sprite";
-import { Color } from "../../../TwoD/math/color/color";
+import { Color } from "../../../TwoD/math";
+
 import { Scene } from "../../../TwoD/resources/scene/scene";
 
 export function createPrimitive(
@@ -20,7 +22,7 @@ export function createPrimitive(
   const gameEntity = Builders.createGameEntity(name, "Player");
 
   const transform = Builders.createTransformComponent(gameEntity);
-  ECS.Component.addComponent(componentState, gameEntity, transform);
+  ComponentState.addComponent(componentState, gameEntity, transform);
 
   const spriteRender = Builders.createSpriteRenderComponent(gameEntity, {
     layer: 1,
@@ -28,7 +30,7 @@ export function createPrimitive(
     sprite: sprite,
     color: Color.random()
   });
-  ECS.Component.addComponent(componentState, gameEntity, spriteRender);
+  ComponentState.addComponent(componentState, gameEntity, spriteRender);
 
   return gameEntity;
 }

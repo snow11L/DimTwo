@@ -1,9 +1,9 @@
 import { createCircleColliderComponent } from "../../../api/builders";
-import { ComponentType } from "../../../api/enums";
 import { Builders } from "../../../api/TwoD";
 import { addComponents } from "../../../TwoD/base/GameEntity";
 import { createTextRenderComponent } from "../../../TwoD/generators/create.text.render.component";
 import { Vec3 } from "../../../TwoD/math/vec3/vec3";
+import { ComponentType } from "../../../TwoD/types/component-type";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
 

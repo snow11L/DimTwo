@@ -1,6 +1,5 @@
-import { ComponentType } from "../../../api/enums";
-import { Transform, type CameraType } from "../../components";
-import { get_category, get_sprite_render } from "../../generators/get_component";
+import { Camera, Transform } from "../../components";
+import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { ENGINE } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
@@ -18,9 +17,9 @@ export function advanced_material_system(material: Material): ShaderSystem {
 
     return {
         global() {
-            const cameras = get_category<CameraType>(ComponentType.Camera);
-            if (cameras.length === 0) return;
-            const camera = cameras[0];
+
+            const camera = Camera.getActivedCamera();
+            if (!camera) return;
 
             const transform = Transform.getTransform(camera.gameEntity);
             if (transform == null) return;
@@ -30,7 +29,7 @@ export function advanced_material_system(material: Material): ShaderSystem {
             shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
-            Mat4.creatrProjection(projectionMatrix, camera.fov, window.innerWidth/window.innerHeight, camera.near, camera.far)
+            Mat4.creatrProjection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
             shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
         },
 

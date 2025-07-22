@@ -1,7 +1,7 @@
-import type { Types } from "../../../api/TwoD";
+import type { AnimatorController } from "../../../TwoD";
 import { SLIME_ANIMATIONS } from "../animations/slime.animations";
 
-export const SLIME_ANIMATOR_CONTROLLER: Types.AnimatorController = {
+export const SLIME_ANIMATOR_CONTROLLER: AnimatorController = {
 
   name: "slimeController",
   currentState: "idle",

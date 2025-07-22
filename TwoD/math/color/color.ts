@@ -1,9 +1,4 @@
-export interface Color {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-}
+import type { Color } from "./types";
 
 export function rgba(r: number, g: number, b: number, a: number = 1): Color {
     return {
@@ -23,7 +18,7 @@ export function random(alpha: boolean = false): Color {
     };
 }
 
-export const Color = {
+export const Colors = {
     rgba,
     random,
 

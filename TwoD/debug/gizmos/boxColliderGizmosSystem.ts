@@ -1,7 +1,8 @@
 import { Transform, type BoxCollider2DType } from "../../components";
 import type { System } from "../../ecs";
 import { get_type } from "../../generators/get_component";
-import { Color, Vec3 } from "../../math";
+import { Vec3 } from "../../math";
+import { Colors } from "../../math/color/color";
 import { ComponentType } from "../../types/component-type";
 import { Gizmos } from "./Gizmos";
 
@@ -24,7 +25,7 @@ export function boxColliderGizmosSystem(): System {
 
                 const isColliding = boxCollider.isColliding;
 
-                const color = isColliding ? Color.ORANGE : Color.GREEN;
+                const color = isColliding ? Colors.ORANGE : Colors.GREEN;
                 Gizmos.draw_wire_square(pos, rotation, size, color);
             }
         },

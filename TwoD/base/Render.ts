@@ -1,4 +1,4 @@
-import type { Color } from "../math/color/color";
+import type { Color } from "../math/color/types";
 import type { Component } from "./Component";
 
 export interface Render extends Component {

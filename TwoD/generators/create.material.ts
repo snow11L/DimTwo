@@ -1,9 +1,10 @@
 import { ENGINE } from "../managers/engine.manager";
 import { generic_manager_add, generic_manager_get } from "../managers/generic_manager";
-import { Color } from "../math/color/color";
+import { Colors } from "../math/color";
+import type { Color } from "../math/color/types";
 import type { Material } from "../resources/material/material";
 
-export function material_create(name: string, color: Color = Color.WHITE) {
+export function material_create(name: string, color: Color = Colors.WHITE) {
     const material: Material = {
         name: name,
         shaderName: null,

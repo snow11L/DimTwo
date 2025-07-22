@@ -1,10 +1,10 @@
-import { ComponentType } from "../../../api/enums";
 import { Transform } from "../../components";
 import { get_category, get_textRender } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { ENGINE } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
+import { ComponentType } from "../../types/component-type";
 import { shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { Material } from "./material";

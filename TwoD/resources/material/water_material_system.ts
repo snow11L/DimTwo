@@ -1,10 +1,9 @@
-
 import { Transform } from "../../components";
 import { get_category, get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { ENGINE } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
-import { Color } from "../../math/color/color";
+import { Color } from "../../math";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
 import { ComponentType } from "../../types/component-type";
 import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";

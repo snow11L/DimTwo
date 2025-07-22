@@ -14,7 +14,7 @@ export function AnimatorSystem(componentState: ComponentStateType): System {
       for (const animator of animators) {
         if (!animator.enabled || !animator.controller) continue;
 
-        const spriteRender = ComponentState.getComponent<SpriteRenderType>(componentState,animator.gameEntity, ComponentType.SpriteRender);
+        const spriteRender = ComponentState.getComponent<SpriteRenderType>(componentState, animator.gameEntity, ComponentType.SpriteRender);
         if (!spriteRender) continue;
 
         const result = Animator.getAnimatorState(animator);
@@ -26,8 +26,8 @@ export function AnimatorSystem(componentState: ComponentStateType): System {
 
         const state = result.value;
 
-       Animator.advanceFrame(animator, state, Time.deltaTime);
-       Animator.updateSprite(animator, state, spriteRender);
+        Animator.advanceFrame(animator, state, Time.deltaTime);
+        Animator.updateSprite(animator, state, spriteRender);
 
       }
     }

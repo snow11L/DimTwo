@@ -1,6 +1,5 @@
-import { ComponentType } from "../../../api/enums";
-import { Transform } from "../../components";
-import { get_category, get_sprite_render } from "../../generators/get_component";
+import { Camera, Transform } from "../../components";
+import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { ENGINE } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
@@ -15,9 +14,8 @@ export function simple_material_system(shaderName: string): ShaderSystem {
 
         global() {
 
-            const cameras = get_category(ComponentType.Camera);
-            if (cameras.length === 0) return;
-            const camera = cameras[0];
+            const camera = Camera.getActivedCamera();
+            if(!camera) return;
 
             const transform = Transform.getTransform(camera.gameEntity);
             if (transform == null) return;
