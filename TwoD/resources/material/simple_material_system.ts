@@ -1,14 +1,14 @@
 import { Camera, Transform } from "../../components";
 import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
-import { ENGINE } from "../../managers/engine.manager";
+import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
 import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
 export function simple_material_system(shaderName: string): ShaderSystem {
-    const shader = generic_manager_get(ENGINE.MANAGER.SHADER, shaderName)!;
+    const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, shaderName)!;
 
     return {
 

@@ -5,11 +5,10 @@ export interface Instantiable {
     instanceID: number;
 }
 
-export interface Mesh extends Instantiable {
+export interface MeshType extends Instantiable {
     name: string;
     vertices: Vec3[];
     indices: number[];
     normals: Vec3[];
     uvs: Vec2[];
 }
-

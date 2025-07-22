@@ -1,17 +1,17 @@
-import { ENGINE } from "../../managers/engine.manager";
-import type { Texture } from "../../webgl/texture";
-import type { Shader } from "./ShaderTypes";
+import { Global } from "../../managers/engine.manager";
+import type { TextureType } from "../texture/types";
+import type { ShaderType } from "./types";
 
-function warnIfUniformNotFound(shader: Shader, type: string, name: string) {
+function warnIfUniformNotFound(shader: ShaderType, type: string, name: string) {
   console.warn(`Uniform:${type} '${name}' not found in shader program '${shader.name}'.`);
 }
 
-export function shader_get_uniform(shader: Shader, name: string): WebGLUniformLocation | null {
+export function shader_get_uniform(shader: ShaderType, name: string): WebGLUniformLocation | null {
   return shader.uniforms.get(name) ?? null;
 }
 
-export function shader_set_uniform_mat4(shader: Shader, name: string, matrix: Float32Array) {
-  const gl = ENGINE.WEB_GL;
+export function shader_set_uniform_mat4(shader: ShaderType, name: string, matrix: Float32Array) {
+  const gl = Global.WebGL;
   const location = shader_get_uniform(shader, name);
   if (!location) {
     warnIfUniformNotFound(shader, "mat4", name);
@@ -20,8 +20,8 @@ export function shader_set_uniform_mat4(shader: Shader, name: string, matrix: Fl
   gl.uniformMatrix4fv(location, false, matrix);
 }
 
-export function shader_set_uniform_4f(shader: Shader, name: string, x: number, y: number, z: number, w: number) {
-  const gl = ENGINE.WEB_GL;
+export function shader_set_uniform_4f(shader: ShaderType, name: string, x: number, y: number, z: number, w: number) {
+  const gl = Global.WebGL;
   const location = shader_get_uniform(shader, name);
   if (!location) {
     warnIfUniformNotFound(shader, "4f", name);
@@ -30,8 +30,8 @@ export function shader_set_uniform_4f(shader: Shader, name: string, x: number, y
   gl.uniform4f(location, x, y, z, w);
 }
 
-export function shader_set_uniform_3f(shader: Shader, name: string, x: number, y: number, z: number) {
-  const gl = ENGINE.WEB_GL;
+export function shader_set_uniform_3f(shader: ShaderType, name: string, x: number, y: number, z: number) {
+  const gl = Global.WebGL;
   const location = shader_get_uniform(shader, name);
   if (!location) {
     warnIfUniformNotFound(shader, "3f", name);
@@ -40,8 +40,8 @@ export function shader_set_uniform_3f(shader: Shader, name: string, x: number, y
   gl.uniform3f(location, x, y, z);
 }
 
-export function shader_set_uniform_2f(shader: Shader, name: string, x: number, y: number) {
-  const gl = ENGINE.WEB_GL;
+export function shader_set_uniform_2f(shader: ShaderType, name: string, x: number, y: number) {
+  const gl = Global.WebGL;
   const location = shader_get_uniform(shader, name);
   if (!location) {
     warnIfUniformNotFound(shader, "2f", name);
@@ -50,8 +50,8 @@ export function shader_set_uniform_2f(shader: Shader, name: string, x: number, y
   gl.uniform2f(location, x, y);
 }
 
-export function shader_set_uniform_1f(shader: Shader, name: string, x: number) {
-  const gl = ENGINE.WEB_GL;
+export function shader_set_uniform_1f(shader: ShaderType, name: string, x: number) {
+  const gl = Global.WebGL;
   const location = shader_get_uniform(shader, name);
   if (!location) {
     warnIfUniformNotFound(shader, "1f", name);
@@ -60,8 +60,8 @@ export function shader_set_uniform_1f(shader: Shader, name: string, x: number) {
   gl.uniform1f(location, x);
 }
 
-export function shader_set_uniform_1i(shader: Shader, name: string, x: number) {
-  const gl = ENGINE.WEB_GL;
+export function shader_set_uniform_1i(shader: ShaderType, name: string, x: number) {
+  const gl = Global.WebGL;
   const location = shader_get_uniform(shader, name);
   if (!location) {
     warnIfUniformNotFound(shader, "1i", name);
@@ -71,12 +71,12 @@ export function shader_set_uniform_1i(shader: Shader, name: string, x: number) {
 }
 
 export function shader_set_uniform_texture(
-  shader: Shader,
+  shader: ShaderType,
   name: string,
-  texture: Texture,
+  texture: TextureType,
   unit: number = 0
 ) {
-  const gl = ENGINE.WEB_GL;
+  const gl = Global.WebGL;
   const glTexture = texture.texture;
   gl.activeTexture(gl.TEXTURE0 + unit);
   gl.bindTexture(gl.TEXTURE_2D, glTexture);

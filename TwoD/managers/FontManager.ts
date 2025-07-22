@@ -1,5 +1,5 @@
-import { createTexture, type Texture } from "../webgl/texture";
-import { ENGINE } from "./engine.manager";
+import { createTexture, type TextureType } from "../resources/texture/types";
+import { Global } from "./engine.manager";
 import { generic_manager_add } from "./generic_manager";
 
 interface Glyph {
@@ -14,7 +14,7 @@ interface Glyph {
 }
 
 export interface FontData {
-    texture: Texture;
+    texture: TextureType;
     glyphs: Map<string, Glyph>;
 }
 
@@ -23,12 +23,12 @@ export class FontManager {
 
     async loadFont(name: string, imageUrl: string, csvUrl: string) {
 
-        const gl = ENGINE.WEB_GL;
+        const gl = Global.WebGL;
       
         const image = await this.loadImage(imageUrl);
         const imageBitmap = await createImageBitmap(image);
         const texture = createTexture(gl, imageBitmap);
-        generic_manager_add(ENGINE.MANAGER.TEXTURE, name, texture);
+        generic_manager_add(Global.ResourcesManager.TextureManager, name, texture);
 
         const text = await this.loadText(csvUrl);
 

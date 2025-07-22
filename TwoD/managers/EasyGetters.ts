@@ -1,8 +1,8 @@
 import { Mat4 } from "../math/mat4/mat4";
-import type { Mesh } from "../resources/mesh/mesh";
+import type { MeshType } from "../resources/mesh/types";
 import { Scene } from "../resources/scene/scene";
 import type { GLVAO } from "../webgl/mesh_gl";
-import { ENGINE } from "./engine.manager";
+import { Global } from "./engine.manager";
 import { generic_manager_get } from "./generic_manager";
 
 function getMat4(id: number): Mat4 | null {
@@ -13,8 +13,8 @@ function getMat4(id: number): Mat4 | null {
     return scene.mat4.values.get(id) ?? null;
 }
 
-function getMesh(key: number): Mesh | null {
-    return generic_manager_get(ENGINE.MANAGER.MESH, key)
+function getMesh(key: number): MeshType | null {
+    return generic_manager_get(Global.ResourcesManager.MeshManager, key)
 }
 
 function getVAO(id: number): GLVAO | null {

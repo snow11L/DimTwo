@@ -1,7 +1,7 @@
-import { ENGINE } from "../../managers/engine.manager";
+import { Global } from "../../managers/engine.manager";
 import { WebGL } from "../../webgl/WebGL";
 
-export interface Shader {
+export interface ShaderType {
   name: string;
   program: WebGLProgram;
   vertexSource: string;
@@ -14,9 +14,9 @@ export function createShader(
   name: string,
   vertexSource: string,
   fragmentSource: string
-): Shader {
+): ShaderType {
 
-  const gl = ENGINE.WEB_GL;
+  const gl = Global.WebGL;
   const vertexShader = WebGL.compileShader(gl, gl.VERTEX_SHADER, vertexSource);
   const fragmentShader = WebGL.compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
 

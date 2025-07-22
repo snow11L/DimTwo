@@ -1,4 +1,3 @@
-import type { GameEntityType } from "../base/GameEntity";
 
 import {
   type BoxCollider2DType,
@@ -9,7 +8,7 @@ import {
   RigidBody2D,
   type RigidBody2DType,
   Transform,
-  type TransformType,
+  type TransformType
 } from "../components";
 import { ComponentState, type ComponentStateType, type System, SystemState, type SystemStateType } from "../ecs";
 
@@ -130,8 +129,8 @@ function detectCollisions(
 
     for (let i = 0; i < length; i++) {
       const colliderA = collidersInCell[i];
-      const aT = Transform.getTransform(colliderA.gameEntity);
-      if (!aT) continue;
+      const aTransform = Transform.getTransform(colliderA.gameEntity);
+      if (!aTransform) continue;
 
       for (let j = i + 1; j < length; j++) {
         const colliderB = collidersInCell[j];
@@ -145,15 +144,15 @@ function detectCollisions(
           )
         ) continue;
 
-        const bT = Transform.getTransform(colliderB.gameEntity);
-        if (!bT) continue;
+        const bTransform = Transform.getTransform(colliderB.gameEntity);
+        if (!bTransform) continue;
 
         const pairKey = makePairKey(colliderA.instanceID, colliderB.instanceID);
 
         if (collisionState.checked.has(pairKey)) continue;
         collisionState.checked.add(pairKey);
 
-        if (!Collider.testOverlap(aT.position, colliderA, bT.position, colliderB)) {
+        if (!Collider.testOverlap(aTransform.position, colliderA, bTransform.position, colliderB)) {
           continue;
         }
 
@@ -199,17 +198,33 @@ function detectCollisions(
         colliderB.isColliding = true;
 
         const resolution = Collider.resolveOverlap(
-          aT.position,
+          aTransform.position,
           colliderA,
-          bT.position,
+          bTransform.position,
           colliderB,
         );
 
         if (resolution) {
-          resolve_rigid_body(
+
+          const aRigid = ComponentState.getComponent<RigidBody2DType>(
             componentState,
             colliderA.gameEntity,
+            ComponentType.RigidBody2D,
+          );
+
+          const bRigid = ComponentState.getComponent<RigidBody2DType>(
+            componentState,
             colliderB.gameEntity,
+            ComponentType.RigidBody2D,
+          );
+
+          if (!aRigid || !bRigid) return;
+
+          RigidBody2D.resolveRigidBody(
+            aRigid,
+            aTransform,
+            bRigid,
+            bTransform,
             resolution,
           );
         }
@@ -235,71 +250,4 @@ function detectCollisions(
   for (const [pairKey, pair] of collisionState.current.entries()) {
     collisionState.previous.set(pairKey, pair);
   }
-}
-
-export function resolve_rigid_body(
-  componentState: ComponentStateType,
-  aEntity: GameEntityType,
-  bEntity: GameEntityType,
-  resolution: Vec2,
-) {
-  const aTransform = ComponentState.getComponent<TransformType>(
-    componentState,
-    aEntity,
-    ComponentType.Transform,
-  );
-
-  const bTransform = ComponentState.getComponent<TransformType>(
-    componentState,
-    bEntity,
-    ComponentType.Transform,
-  );
-
-  if (!aTransform || !bTransform) return;
-
-  const aRigid = ComponentState.getComponent<RigidBody2DType>(
-    componentState,
-    aEntity,
-    ComponentType.RigidBody2D,
-  );
-
-  const bRigid = ComponentState.getComponent<RigidBody2DType>(
-    componentState,
-    bEntity,
-    ComponentType.RigidBody2D,
-  );
-
-  if (!aRigid && !bRigid) {
-    resolve_without_rigidbody(aTransform, bTransform, resolution);
-    return;
-  }
-
-  if (aRigid && bRigid) {
-    RigidBody2D.resolve(aTransform, bTransform, aRigid, bRigid, resolution);
-    return;
-  }
-
-  if (aRigid) {
-    if (!aRigid.isStatic) {
-      aTransform.position.x += resolution.x;
-      aTransform.position.y += resolution.y;
-    }
-  } else if (bRigid) {
-    if (!bRigid.isStatic) {
-      bTransform.position.x -= resolution.x;
-      bTransform.position.y -= resolution.y;
-    }
-  }
-}
-
-function resolve_without_rigidbody(
-  aTransform: TransformType,
-  bTransform: TransformType,
-  resolution: Vec2,
-) {
-  aTransform.position.x += resolution.x * 0.5;
-  aTransform.position.y += resolution.y * 0.5;
-
-  bTransform.position.x -= resolution.x * 0.5;
-  bTransform.position.y -= resolution.y * 0.5;
 }

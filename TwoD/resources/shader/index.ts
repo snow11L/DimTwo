@@ -1,3 +1,4 @@
 export * from "./shader_attributes";
 export * from "./shader_uniforms";
-export * from "./ShaderTypes";
+export * from "./types";
+

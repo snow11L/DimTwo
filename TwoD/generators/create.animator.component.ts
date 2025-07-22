@@ -1,4 +1,4 @@
-import type { GameEntityType } from "../base/GameEntity";
+import type { GameEntityType } from "../base/gameEntity/types";
 import type { AnimatorOptions, AnimatorType } from "../components";
 import { ComponentType } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";

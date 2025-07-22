@@ -1,4 +1,4 @@
-export interface Texture {
+export interface TextureType {
     texture: WebGLTexture;
     width: number;
     height: number;
@@ -19,8 +19,8 @@ function isPowerOfTwo(value: number): boolean {
 export function createTexture(
     gl: WebGL2RenderingContext,
     image: ImageBitmap,
-    options?: Partial<Omit<Texture, "texture" | "width" | "height">>,
-): Texture {
+    options?: Partial<Omit<TextureType, "texture" | "width" | "height">>,
+): TextureType {
     const texture = gl.createTexture();
     if (!texture) throw new Error("Failed to create WebGLTexture");
 

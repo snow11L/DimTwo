@@ -1,9 +1,9 @@
-import type { GameEntityType } from "../base/GameEntity";
+import type { GameEntityType } from "../base/gameEntity/types";
 import { generic_manager_add } from "../managers/generic_manager";
 import { Scene } from "../resources/scene/scene";
 import { createIncrementalId } from "./create.incremental.id";
 
-export function GameEntity(
+export function BuildGameEntity(
   name: string,
   tag = "untagged",
 ): GameEntityType {

@@ -1,9 +1,9 @@
-import type { Mesh } from "../resources/mesh/mesh";
-import { Vec3, vec3Tof32Arr } from "../math/vec3/vec3";
-import { type Vec2 } from "../math/vec2/Vec2";
-import type { FontData } from "../managers/FontManager";
-import { vec2ArrayTof32Array } from "../math/vec2/Vector2Conversors";
 import { createIncrementalId } from "../generators/create.incremental.id";
+import type { FontData } from "../managers/FontManager";
+import { type Vec2 } from "../math/vec2/Vec2";
+import { vec2ArrayTof32Array } from "../math/vec2/Vector2Conversors";
+import { Vec3, vec3Tof32Arr } from "../math/vec3/vec3";
+import type { MeshType } from "../resources/mesh/types";
 
 export interface GLVAO {
     vao: WebGLVertexArrayObject;
@@ -14,7 +14,7 @@ export interface GLVAO {
     modelMatrixBuffer: WebGLBuffer | null;
 }
 
-export function createMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GLVAO {
+export function createMeshVAO(gl: WebGL2RenderingContext, mesh: MeshType): GLVAO {
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
 
@@ -56,7 +56,7 @@ export function createMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GLVAO {
 }
 
 
-export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GLVAO {
+export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: MeshType): GLVAO {
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
 
@@ -99,7 +99,7 @@ export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GL
     };
 }
 
-export function updateDynamicMesh(gl: WebGL2RenderingContext, meshGL: GLVAO, mesh: Mesh) {
+export function updateDynamicMesh(gl: WebGL2RenderingContext, meshGL: GLVAO, mesh: MeshType) {
     const newPositions = vec3Tof32Arr(mesh.vertices);
     const newUVs = vec2ArrayTof32Array(mesh.uvs);
     const newIndices = new Uint16Array(mesh.indices);
@@ -141,7 +141,7 @@ export function createTextMesh(
     scale: number = 1,
     lineHeight: number = 100,
     spacement: number = 64
-): Mesh {
+): MeshType {
     const positions: Vec3[] = [];
     const uvs: Vec2[] = [];
     const indices: number[] = [];
@@ -199,7 +199,7 @@ export function createTextMesh(
         cursorX += glyph.xadvance * scale;
     }
 
-    const mesh: Mesh = {
+    const mesh: MeshType = {
         instanceID: createIncrementalId(),
         name: "text_mesh",
         normals: [],

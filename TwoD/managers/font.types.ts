@@ -1,4 +1,4 @@
-import { type Texture } from "../webgl/texture";
+import { type TextureType } from "../resources/texture/types";
 
 export interface Glyph {
     char: string;
@@ -12,7 +12,7 @@ export interface Glyph {
 }
 
 export interface FontData {
-    texture: Texture;
+    texture: TextureType;
     glyphs: Map<string, Glyph>;
 }
 

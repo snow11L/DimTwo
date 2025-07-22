@@ -1,17 +1,17 @@
 import { Transform } from "../../components";
 import { get_category, get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
-import { ENGINE } from "../../managers/engine.manager";
+import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { Color } from "../../math";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
 import { ComponentType } from "../../types/component-type";
 import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
-import type { Material } from "./material";
+import type { MaterialType } from "./types";
 
-export function water_material_system(material: Material): ShaderSystem {
-    const shader = generic_manager_get(ENGINE.MANAGER.SHADER, material.shaderName)!;
+export function water_material_system(material: MaterialType): ShaderSystem {
+    const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, material.shaderName)!;
 
     return {
         global() {

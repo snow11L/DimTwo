@@ -1,5 +1,5 @@
-import type { Shader } from "./ShaderTypes";
+import type { ShaderType } from "./types";
 
-export function shader_get_attribute(shader: Shader, name: string): GLint | null {
+export function shader_get_attribute(shader: ShaderType, name: string): GLint | null {
   return shader.attributes.get(name) ?? null;
 }

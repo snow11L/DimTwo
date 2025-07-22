@@ -1,5 +1,5 @@
 import type { RigidBody2DType, TransformType } from "../components";
-import { ENGINE_CONFIG } from "../config/engine.config";
+import { EngineConfig } from "../global/config/EngineConfig";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import Time from "../time/time";
 import { ComponentType } from "../types/component-type";
@@ -24,8 +24,8 @@ export function PhysicsSystem(componentState: ComponentStateType): System {
                 if (!transform) continue;
 
                 if (rigid.useGravity) {
-                    rigid.velocity.x += ENGINE_CONFIG.PHYSICS.gravity.x * Time.fixedDeltaTime;
-                    rigid.velocity.y += ENGINE_CONFIG.PHYSICS.gravity.y * Time.fixedDeltaTime;
+                    rigid.velocity.x += EngineConfig.PHYSICS.gravity.x * Time.fixedDeltaTime;
+                    rigid.velocity.y += EngineConfig.PHYSICS.gravity.y * Time.fixedDeltaTime;
                 }
 
                 const decay = Math.exp(-rigid.drag * Time.fixedDeltaTime);

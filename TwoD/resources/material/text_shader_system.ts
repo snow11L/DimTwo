@@ -1,16 +1,16 @@
 import { Transform } from "../../components";
 import { get_category, get_textRender } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
-import { ENGINE } from "../../managers/engine.manager";
+import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
 import { ComponentType } from "../../types/component-type";
 import { shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
-import type { Material } from "./material";
+import type { MaterialType } from "./types";
 
-export function textShaderSystem(material: Material): ShaderSystem {
-    const shader = generic_manager_get(ENGINE.MANAGER.SHADER, material.shaderName);
+export function textShaderSystem(material: MaterialType): ShaderSystem {
+    const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, material.shaderName);
     if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
 
     return {
@@ -51,7 +51,7 @@ export function textShaderSystem(material: Material): ShaderSystem {
             if(textRender == null) return;
             shader_set_uniform_4f(shader, "uColor", textRender.color.r, textRender.color.g, textRender.color.b, textRender.color.a);
 
-            const texture = generic_manager_get(ENGINE.MANAGER.TEXTURE, textRender.font);
+            const texture = generic_manager_get(Global.ResourcesManager.TextureManager, textRender.font);
             if(!texture) return;
            
             shader_set_uniform_texture(shader, "uTexture", texture, 0);

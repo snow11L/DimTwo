@@ -1,4 +1,4 @@
-import type { GameEntityType } from "../../../base/GameEntity";
+import type { GameEntityType } from "../../../base/gameEntity/types";
 import { ComponentState } from "../../../ecs";
 import { Scene } from "../../../resources/scene/scene";
 import { ComponentType } from "../../../types/component-type";

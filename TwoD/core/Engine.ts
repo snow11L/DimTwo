@@ -1,7 +1,7 @@
-import { SystemState } from "../TwoD";
-import { Gizmos } from "../TwoD/debug/gizmos/Gizmos";
-import { ENGINE } from "../TwoD/managers/engine.manager";
-import Time from "../TwoD/time/time";
+import { SystemState } from "..";
+import { Gizmos } from "../debug/gizmos/Gizmos";
+import { Global } from "../managers/engine.manager";
+import Time from "../time/time";
 
 export const engine = new Time();
 
@@ -20,8 +20,10 @@ engine.on("update", () => {
 });
 
 engine.on("render", () => {
-    ENGINE.WEB_GL.clearColor(0, 0, 0, 1);
-    ENGINE.WEB_GL.clear(ENGINE.WEB_GL.COLOR_BUFFER_BIT);
+
+    const WebGL = Global.WebGL;
+    WebGL.clearColor(0, 0, 0, 1);
+    WebGL.clear(WebGL.COLOR_BUFFER_BIT);
     SystemState.callRender();
 
     Gizmos.gizmosActive = true;

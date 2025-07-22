@@ -1,6 +1,6 @@
 import { createShader } from "../resources/shader";
-import { createTexture } from "../webgl/texture";
-import { ENGINE } from "./engine.manager";
+import { createTexture } from "../resources/texture/types";
+import { Global } from "./engine.manager";
 import { generic_manager_add } from "./generic_manager";
 import type { ImageFile, ShaderFile } from "./shaderLoader";
 
@@ -19,7 +19,7 @@ export class ResourceManager {
 
   async load_images_and_create_textures(assets: ImageFile) {
 
-    const gl = ENGINE.WEB_GL;
+    const gl = Global.WebGL;
 
     const promises = Object.entries(assets).map(async ([name, path]) => {
       try {
@@ -30,7 +30,7 @@ export class ResourceManager {
         });
 
         const texture = createTexture(gl, imageBitmap);
-        generic_manager_add(ENGINE.MANAGER.TEXTURE, name, texture);
+        generic_manager_add(Global.ResourcesManager.TextureManager, name, texture);
 
         this.images.set(path.path, img);
 
@@ -53,7 +53,7 @@ export class ResourceManager {
       const frag = await fragResponse.text();
 
       const shader = createShader(shaderName, vert, frag);
-      generic_manager_add(ENGINE.MANAGER.SHADER, shaderName, shader);
+      generic_manager_add(Global.ResourcesManager.ShaderManager, shaderName, shader);
     }
   }
 

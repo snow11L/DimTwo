@@ -1,6 +1,6 @@
 
-import { Create } from "../../../TwoD";
-import { addComponents } from "../../../TwoD/base/GameEntity";
+import { Builder, GameEntity } from "../../../TwoD";
+
 import { TextMesh } from "../../../TwoD/generators/create.text.render.component";
 import { Vec3 } from "../../../TwoD/math";
 import { ComponentType } from "../../../TwoD/types/component-type";
@@ -10,12 +10,12 @@ import type { CharacterControlerComponent } from "../systems/character-controlle
 export function createPlayer(
   name: string,
 ) {
-  const gameEntity = Create.GameEntity(name, "Player");
+  const gameEntity = Builder.BuildGameEntity(name, "Player");
 
-  const transform = Create.Transform(gameEntity  );
+  const transform = Builder.Transform(gameEntity  );
 
   const character_controler: CharacterControlerComponent = {
-    instanceID: Create.createIncrementalId(),
+    instanceID: Builder.createIncrementalId(),
     gameEntity: gameEntity,
     type: ComponentType.CharacterController,
     category: ComponentType.Controller,
@@ -28,25 +28,25 @@ export function createPlayer(
     runSpeed: 1,
   };
 
-  const rigidBody = Create.RigidBody2D(gameEntity, {
+  const rigidBody = Builder.BuildRigidBody2D(gameEntity, {
     useGravity: false,
     mass: 70
   });
 
-  const spriteRender = Create.SpriteRender(gameEntity, {
+  const spriteRender = Builder.SpriteRender(gameEntity, {
     layer: 1,
     material: "advanced_material",
   });
 
-  const animator = Create.Animator(gameEntity, {
+  const animator = Builder.Animator(gameEntity, {
     controller: PLAYER_ANIMATOR_CONTROLLER,
   });
 
-  const boxCollider = Create.BoxCollider2D(gameEntity, { center: Vec3.create(0, 0.1) });
+  const boxCollider = Builder.BoxCollider2D(gameEntity, { center: Vec3.create(0, 0.1) });
   const textRender = TextMesh(gameEntity);
-  const circleCollider = Create.CircleCollider2D(gameEntity);
+  const circleCollider = Builder.CircleCollider2D(gameEntity);
 
-  addComponents(
+  GameEntity.addComponents(
     gameEntity,
 
     transform,

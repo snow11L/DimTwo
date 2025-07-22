@@ -1,23 +1,23 @@
 
-import { Create } from "../../../TwoD";
+import { Builder } from "../../../TwoD";
 import { CollisionMask } from "../../../TwoD/components/physics/collisionMatrix/CollisionMaskTypes";
 import { BoxCollider2D } from "../../../TwoD/generators";
 import { Vec3 } from "../../../TwoD/math/vec3/vec3";
-import type { Sprite } from "../../../TwoD/resources/sprite";
+import type { SpriteType } from "../../../TwoD/resources/sprite";
 
 export function createTreeEntity(
     name: string,
-    sprite: Sprite,
+    sprite: SpriteType,
     position: Vec3
 ) {
-    const gameEntity = Create.GameEntity(name, "Tree");
+    const gameEntity = Builder.BuildGameEntity(name, "Tree");
 
-    const transform = Create.Transform(gameEntity, {
+    const transform = Builder.Transform(gameEntity, {
         position: position,
         scale: { x: 2, y: 3, z: 0 }
     });
 
-    const spriteRener = Create.SpriteRender(gameEntity, {
+    const spriteRener = Builder.SpriteRender(gameEntity, {
         sprite: sprite,
         layer: 1,
         material: "advanced_material",

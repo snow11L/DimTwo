@@ -1,5 +1,5 @@
 
-import type { GameEntityType } from "../../base/GameEntity";
+import type { GameEntityType } from "../../base/gameEntity/types";
 import { CollisionMatrix, type CollisionMatrixType } from "../../components";
 import { ComponentState, type ComponentStateType, type SystemStateType } from "../../ecs";
 import { createComponentState } from "../../ecs/componentState";

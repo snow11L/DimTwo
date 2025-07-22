@@ -1,4 +1,4 @@
-export const ENGINE_CONFIG = {
+export const EngineConfig = {
     PHYSICS: {
         enabled: true,
         gravity: { x: 0, y: -9.81, z: 0 },

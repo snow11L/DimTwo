@@ -21,7 +21,7 @@ type MaterialPropUnion = {
     }
 }[MaterialPropType];
 
-export interface Material {
+export interface MaterialType {
     name: string;
     shaderName: string | null;
     props?: MaterialPropUnion[];

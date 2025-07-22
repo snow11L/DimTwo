@@ -1,11 +1,11 @@
 import { Meshs } from "../../assets/meshs/Meshs";
 import { Transform } from "../../components";
-import { ENGINE } from "../../managers/engine.manager";
+import { Global } from "../../managers/engine.manager";
 
 import { get_category } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { generic_manager_get } from "../../managers/generic_manager";
-import type { Color } from "../../math/color/color";
+import type { Color } from "../../math/color/types";
 import { Mat4, mat4_create_TRS } from "../../math/mat4/mat4";
 import type { Quat } from "../../math/quat/quat";
 import type { Vec3 } from "../../math/vec3/vec3";
@@ -48,7 +48,7 @@ function draw_wire_circle(position: Vec3, rotation: Quat, scale: Vec3, color: Co
 const CACHE_MATRIX = Mat4.createIdentity();
 
 function drawGizmos() {
-    const gl = ENGINE.WEB_GL;
+    const gl = Global.WebGL;
     const cameras = get_category(ComponentType.Camera);
     if (cameras.length === 0) return;
     const camera = cameras[0];
@@ -64,7 +64,7 @@ function drawGizmos() {
     const vaoCircle = EasyGetter.getVAO(Meshs.wireCircle.instanceID);
     if (!vaoSquare || !vaoCircle) return;
 
-    const shader = generic_manager_get(ENGINE.MANAGER.SHADER, "gizmos");
+    const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, "gizmos");
     if (!shader) return;
 
     gl.useProgram(shader.program);

@@ -1,20 +1,20 @@
-import { engine } from "../api/engine.main";
 import { AnimatorSystem, ColliderSystem, PhysicsSystem, SystemState } from "../TwoD";
 import type { Render } from "../TwoD/base/Render";
 import { RenderSystem } from "../TwoD/components/render/spriteRender";
+import { engine } from "../TwoD/core/Engine";
 import { boxColliderGizmosSystem } from "../TwoD/debug/gizmos/boxColliderGizmosSystem";
 import { circleColliderGizmosSystem } from "../TwoD/debug/gizmos/circleColliderGizmosSystem";
 import { get_category } from "../TwoD/generators/get_component";
-import { ENGINE } from "../TwoD/managers/engine.manager";
+import { Global } from "../TwoD/managers/engine.manager";
 import { generic_manager_add, generic_manager_get } from "../TwoD/managers/generic_manager";
 import { resourceManager } from "../TwoD/managers/resources-manager";
 import type { ImageFile, ShaderFile } from "../TwoD/managers/shaderLoader";
 import { advanced_material_system } from "../TwoD/resources/material/advanced_material_system";
-import type { Material } from "../TwoD/resources/material/material";
 import { simple_material_system } from "../TwoD/resources/material/simple_material_system";
 import { textShaderSystem } from "../TwoD/resources/material/text_shader_system";
+import type { MaterialType } from "../TwoD/resources/material/types";
 import { water_material_system } from "../TwoD/resources/material/water_material_system";
-import type { Mesh } from "../TwoD/resources/mesh/mesh";
+import type { MeshType } from "../TwoD/resources/mesh/types";
 import { Scene } from "../TwoD/resources/scene/scene";
 import { InputSystem } from "../TwoD/systems/InputSystem";
 import { ComponentType } from "../TwoD/types/component-type";
@@ -28,17 +28,13 @@ import CharacterControlerSystem from "./game/systems/character-controller/charac
 
 function material_create_and_link(name: string, shader: string) {
 
-    const material: Material = {
+    const material: MaterialType = {
         name: name,
         shaderName: shader
     };
 
-    generic_manager_add(ENGINE.MANAGER.MATERIAL, material.name, material);
+    generic_manager_add(Global.ResourcesManager.MaterialManager, material.name, material);
 }
-
-
-
-
 
 async function LoadResources() {
 
@@ -110,48 +106,46 @@ async function LoadResources() {
     material_create_and_link("simple_material", "simple");
 
     const simple_shader_color_system = simple_material_system("simple");
-    generic_manager_add(ENGINE.MANAGER.SHADER_SYSTEM, "simple_material", simple_shader_color_system);
+    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, "simple_material", simple_shader_color_system);
 
     // ----------------------------------------------------------------
 
 
-    const advanced_material: Material = {
+    const advanced_material: MaterialType = {
         name: "advanced_material",
         shaderName: "advanced",
     };
 
-    generic_manager_add(ENGINE.MANAGER.MATERIAL, advanced_material.name, advanced_material);
+    generic_manager_add(Global.ResourcesManager.MaterialManager, advanced_material.name, advanced_material);
     const advanced_shader_color_system = advanced_material_system(advanced_material);
-    generic_manager_add(ENGINE.MANAGER.SHADER_SYSTEM, advanced_material.name, advanced_shader_color_system);
+    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, advanced_material.name, advanced_shader_color_system);
 
 
-    const water_material: Material = {
+    const water_material: MaterialType = {
         name: "water_material",
         shaderName: "water",
 
     };
-    generic_manager_add(ENGINE.MANAGER.MATERIAL, water_material.name, water_material);
+    generic_manager_add(Global.ResourcesManager.MaterialManager, water_material.name, water_material);
 
     const simple_shader_water_system = water_material_system(water_material);
-    generic_manager_add(ENGINE.MANAGER.SHADER_SYSTEM, water_material.name, simple_shader_water_system);
+    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, water_material.name, simple_shader_water_system);
 
-    const textMaterial: Material = {
+    const textMaterial: MaterialType = {
         name: "text_material",
         shaderName: "text",
 
     }
-    generic_manager_add(ENGINE.MANAGER.MATERIAL, textMaterial.name, textMaterial);
+    generic_manager_add(Global.ResourcesManager.MaterialManager, textMaterial.name, textMaterial);
     const textSystem = textShaderSystem(textMaterial);
-    generic_manager_add(ENGINE.MANAGER.SHADER_SYSTEM, textMaterial.name, textSystem);
+    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, textMaterial.name, textSystem);
 
 }
 
 await LoadResources();
 
 const scene = Scene.create("simple_scene");
-
-console.log(scene)
-Scene.setCurrentScene(scene)
+Scene.setCurrentScene(scene);
 
 const player = createPlayer("player");
 Scene.addToScene(scene, player);
@@ -176,11 +170,11 @@ SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 
 engine.start();
 
-export function getMeshesUsedInScene(): Set<Mesh> {
+export function getMeshesUsedInScene(): Set<MeshType> {
     const renderers = get_category<Render>(ComponentType.Render);
-    const meshesUsed = new Set<Mesh>();
+    const meshesUsed = new Set<MeshType>();
     for (const render of renderers) {
-        const mesh = generic_manager_get(ENGINE.MANAGER.MESH, render.meshID);
+        const mesh = generic_manager_get(Global.ResourcesManager.MeshManager, render.meshID);
         if (mesh) meshesUsed.add(mesh);
     }
     return meshesUsed;
@@ -188,7 +182,7 @@ export function getMeshesUsedInScene(): Set<Mesh> {
 
 const meshs = getMeshesUsedInScene();
 meshs.forEach(m => {
-    const vao = createMeshVAO(ENGINE.WEB_GL, m);
+    const vao = createMeshVAO(Global.WebGL, m);
     scene.vao.values.set(m.instanceID, vao)
 
 })

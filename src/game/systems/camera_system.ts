@@ -1,5 +1,5 @@
 import { Transform, type System, type TransformType } from "../../../TwoD";
-import type { GameEntityType } from "../../../TwoD/base/GameEntity";
+import type { GameEntityType } from "../../../TwoD/base/gameEntity/types";
 import { vec3_lerp } from "../../../TwoD/math/vec3/vec3";
 import Time from "../../../TwoD/time/time";
 

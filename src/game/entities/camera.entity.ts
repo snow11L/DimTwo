@@ -1,14 +1,12 @@
-import { Create } from "../../../TwoD";
-import { GameEntityType } from "../../../TwoD/base/GameEntity";
+import { Builder, GameEntity, type CameraType, type GameEntityType, type TransformType } from "../../../TwoD";
 
-export function createCamera() {
+export function createCamera(): GameEntityType {
 
-  const entity = Create.GameEntity("camera", "MainCamera");
+  const entity: GameEntityType = Builder.BuildGameEntity("camera", "MainCamera");
+  const camera: CameraType = Builder.Camera(entity);
+  const transform: TransformType = Builder.Transform(entity, { position: { x: 0, y: 0, z: 5 } });
 
-  const camera = Create.Camera(entity);
-  const transform = Create.Transform(entity, { position: { x: 0, y: 0, z: 5} });
-
-  GameEntityType.addComponents(entity, camera, transform);
+  GameEntity.addComponents(entity, camera, transform);
 
   return entity;
 }

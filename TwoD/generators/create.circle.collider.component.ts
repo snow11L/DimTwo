@@ -1,4 +1,4 @@
-import type { GameEntityType } from "../base/GameEntity";
+import type { GameEntityType } from "../base/gameEntity/types";
 import type { CircleCollider2DType, CircleColliderOptions } from "../components";
 import { CollisionMask } from "../components/physics/collisionMatrix/CollisionMaskTypes";
 

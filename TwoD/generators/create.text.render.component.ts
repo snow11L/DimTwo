@@ -1,4 +1,4 @@
-import type { GameEntityType } from "../base/GameEntity";
+import type { GameEntityType } from "../base/gameEntity/types";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { Colors } from "../math/color";
 import { ComponentType } from "../types/component-type";
