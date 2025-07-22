@@ -1,3 +1,4 @@
+import { createCircleColliderComponent } from "../../../api/builders";
 import { ComponentType } from "../../../api/enums";
 import { Builders } from "../../../api/TwoD";
 import { createTextRenderComponent } from "../../../core/generators/create.text.render.component";
@@ -11,8 +12,7 @@ export function createPlayer(
 ) {
   const gameEntity = Builders.createGameEntity(name, "Player");
 
-  const transform = Builders.createTransformComponent(gameEntity);
-
+  const transform = Builders.createTransformComponent(gameEntity  );
 
   const character_controler: CharacterControlerComponent = {
     instanceID: Builders.createIncrementalId(),
@@ -43,15 +43,18 @@ export function createPlayer(
   });
 
   const boxCollider = Builders.createBoxCollider2D(gameEntity, { center: Vec3.create(0, 0.1) });
-
   const textRender = createTextRenderComponent(gameEntity);
+  const circleCollider = createCircleColliderComponent(gameEntity);
 
-  addComponents(gameEntity,
+  addComponents(
+    gameEntity,
+
     transform,
     character_controler,
     rigidBody,
-    boxCollider,
     animator,
+    boxCollider,
+    circleCollider,
     spriteRender,
     textRender
   );

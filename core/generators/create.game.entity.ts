@@ -1,5 +1,5 @@
-import { ENGINE } from "../../api/engine.manager";
 import { generic_manager_add } from "../managers/generic_manager";
+import { Scene } from "../resources/scene/scene";
 import type { GameEntity } from "../types/EngineEntity";
 import { createIncrementalId } from "./create.incremental.id";
 
@@ -16,12 +16,9 @@ export function createGameEntity(
     components: []
   };
 
-  if (ENGINE.MANAGER.GAME_ENTITY_BY_NAME.values.has(name)) {
-    console.warn(`GameEntity with name "${name}" already exists. Overwriting.`);
-  }
-
-  generic_manager_add(ENGINE.MANAGER.GAME_ENTITY_BY_ID, gameEntity.id, gameEntity);
-  generic_manager_add(ENGINE.MANAGER.GAME_ENTITY_BY_NAME, gameEntity.name, gameEntity);
+  const scene = Scene.getCurrentScene();
+  generic_manager_add(scene.entitiesById, gameEntity.id, gameEntity);
+  generic_manager_add(scene.entitiesByName, gameEntity.name, gameEntity);
 
   console.debug(`Created GameEntity: ${gameEntity.name} (${gameEntity.id})`);
   return gameEntity;

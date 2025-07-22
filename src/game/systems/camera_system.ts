@@ -17,9 +17,12 @@ export function CameraSystem(cameraEntity: GameEntity, targetEntity: GameEntity)
         },
 
         update() {
+
+        
             if (!targetTransform || !cameraTransform) return;
             const target = { ...targetTransform.position };
             target.z = cameraTransform.position.z;
+             
             cameraTransform.position = vec3_lerp(cameraTransform.position, cameraTransform.position, target, 1 * Time.deltaTime);
 
         },

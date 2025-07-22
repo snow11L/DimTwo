@@ -1,11 +1,11 @@
-import { ECS } from "../../../api/TwoD";
-import type { ECSComponentState } from "../ecs/component";
-import type { System } from "../ecs/system";
-import type { TransformComponent } from "../transform";
-import type { RigidBodyComponent } from "../rigid-body-2d/RigidBody2D";
-import { ComponentType } from "../../types/component-type";
-import Time from "../../time/time";
-import { ENGINE_CONFIG } from "../../config/engine.config";
+import { ECS } from "../../api/TwoD";
+import type { ECSComponentState } from "../resources/ecs/component";
+import type { System } from "../resources/ecs/system";
+import type { TransformComponent } from "../components/transform";
+import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
+import { ComponentType } from "../types/component-type";
+import Time from "../time/time";
+import { ENGINE_CONFIG } from "../config/engine.config";
 
 export function PhysicsSystem(componentState: ECSComponentState): System {
     return {
@@ -36,7 +36,7 @@ export function PhysicsSystem(componentState: ECSComponentState): System {
                 rigid.velocity.y *= decay;
 
                 transform.position.x -= rigid.velocity.x * Time.fixedDeltaTime;
-                transform.position.y -= rigid.velocity.y * Time.fixedDeltaTime;
+                transform.position.y += rigid.velocity.y * Time.fixedDeltaTime;
             }
         }
     };

@@ -1,4 +1,4 @@
-import type { Sprite } from "../sprite/sprite.types.ts";
+import type { Sprite } from "../../resources/sprite/sprite.types.ts";
 
 export interface AnimationFrame {
   sprite: Sprite;

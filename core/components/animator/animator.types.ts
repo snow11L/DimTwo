@@ -1,4 +1,4 @@
-import type { Component, ComponentOptions } from "../component/component";
+import type { Component, ComponentOptions } from "../component/component.types";
 import type { AnimationClip } from "../animation";
 
 export interface AnimatorComponent extends Component {

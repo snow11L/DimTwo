@@ -1,6 +1,6 @@
-import type { ComponentOptions } from "../component/component.ts";
+import type { ComponentOptions } from "../component/component.types.ts";
 import type { Render } from "../render/Render.ts";
-import type { Sprite } from "../sprite/sprite.types.ts";
+import type { Sprite } from "../../resources/sprite/sprite.types.ts";
 
 export type SpriteRenderOptions = ComponentOptions<SpriteRenderComponent>;
 

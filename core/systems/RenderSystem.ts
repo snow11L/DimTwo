@@ -1,12 +1,13 @@
-import { ENGINE } from "../../../api/engine.manager";
-import { ECS } from "../../../api/TwoD";
-import { material_get } from "../../generators/create.material";
-import { generic_manager_get } from "../../managers/generic_manager";
-import { ComponentType } from "../../types/component-type";
-import type { ECSComponentState } from "../ecs/component";
-import type { System } from "../ecs/system";
-import type { SpriteRenderComponent } from "../sprite-render";
-import type { TransformComponent } from "../transform";
+import { ENGINE } from "../../api/engine.manager";
+import { ECS } from "../../api/TwoD";
+import type { SpriteRenderComponent } from "../components/sprite-render";
+import type { TransformComponent } from "../components/transform";
+import { material_get } from "../generators/create.material";
+import { EasyGetter } from "../managers/EasyGetters";
+import { generic_manager_get } from "../managers/generic_manager";
+import type { ECSComponentState } from "../resources/ecs/component";
+import type { System } from "../resources/ecs/system";
+import { ComponentType } from "../types/component-type";
 
 export function SpriteRenderSystem(state: ECSComponentState): System {
 
@@ -42,11 +43,13 @@ export function SpriteRenderSystem(state: ECSComponentState): System {
 
         shaderSystem.local?.(spriteRender.gameEntity);
 
-        const mesh = generic_manager_get(ENGINE.MANAGER.MESH, spriteRender.mesh);
+        const mesh = generic_manager_get(ENGINE.MANAGER.MESH, spriteRender.meshID);
         if (!mesh) continue;
 
-        const vao = generic_manager_get(ENGINE.MANAGER.VAO, mesh.instanceID);
+        const vao = EasyGetter.getVAO(mesh.instanceID);
         if (!vao) continue;
+
+        console.log("test")
 
         webGL.bindVertexArray(vao.vao);
         webGL.drawElements(webGL.TRIANGLES, vao.indexCount, webGL.UNSIGNED_SHORT, 0);

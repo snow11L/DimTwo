@@ -24,7 +24,7 @@ export function createMat4(
 }
 
 
-export function mat4_identity() {
+export function createIdentity() {
     const mat4: Mat4 = { value: new Float32Array(16) };
     mat4.value.set([
         1, 0, 0, 0,
@@ -121,7 +121,7 @@ export function mat4_create_TR(m: Mat4, t: Vec3, r: Quat) {
     e[15] = 1;
 }
 
-export function mat4_create_projection(m: Mat4, fovY: number, aspect: number, near: number, far: number) {
+export function creatrProjection(m: Mat4, fovY: number, aspect: number, near: number, far: number) {
     const fovRadians = (fovY * Math.PI) / 180;
     const f = 1.0 / Math.tan(fovRadians / 2);
     const nf = 1 / (near - far);
@@ -133,4 +133,10 @@ export function mat4_create_projection(m: Mat4, fovY: number, aspect: number, ne
     e[11] = -1;
     e[14] = (2 * far * near) * nf;
     e[15] = 0;
+}
+
+
+export const Mat4 = {
+    createIdentity,
+    creatrProjection
 }

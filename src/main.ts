@@ -1,28 +1,31 @@
 import { engine } from "../api/engine.main";
 import { ENGINE } from "../api/engine.manager";
+import { ComponentType } from "../api/enums";
 import { ECS } from "../api/TwoD";
-import { boxColliderGizmosSystem } from "../core/debug/gizmos/boxColliderGizmosSystem";
-import { FontManager } from "../core/managers/FontManager";
-import { generic_manager_add } from "../core/managers/generic_manager";
-import { resourceManager } from "../core/managers/resources-manager";
-import type { ImageFile, ShaderFile } from "../core/managers/shaderLoader";
 import { AnimatorSystem } from "../core/components/animator";
-import { ColliderSystem } from "../core/components/collider/collider.system";
-import { PhysicsSystem } from "../core/components/collider/physics_system";
-import { createComponentState } from "../core/components/ecs/component";
-import { createSystemState } from "../core/components/ecs/system";
-import { Scene } from "../core/components/scene/scene";
+import type { Render } from "../core/components/render/Render";
 import { SpriteRenderSystem } from "../core/components/sprite-render";
 import { TextMeshRenderSystem } from "../core/components/text-mesh/textMeshRender";
+import { boxColliderGizmosSystem } from "../core/debug/gizmos/boxColliderGizmosSystem";
+import { circleColliderGizmosSystem } from "../core/debug/gizmos/circleColliderGizmosSystem";
+import { get_category } from "../core/generators/get_component";
+import { generic_manager_add, generic_manager_get } from "../core/managers/generic_manager";
+import { resourceManager } from "../core/managers/resources-manager";
+import type { ImageFile, ShaderFile } from "../core/managers/shaderLoader";
 import { advanced_material_system } from "../core/resources/material/advanced_material_system";
 import type { Material } from "../core/resources/material/material";
 import { simple_material_system } from "../core/resources/material/simple_material_system";
 import { textShaderSystem } from "../core/resources/material/text_shader_system";
 import { water_material_system } from "../core/resources/material/water_material_system";
-import { createTextMesh, createDynamicMeshVAO } from "../core/webgl/mesh_gl";
+import type { Mesh } from "../core/resources/mesh/mesh";
+import { Scene } from "../core/resources/scene/scene";
+import { ColliderSystem } from "../core/systems/collider.system";
+import { PhysicsSystem } from "../core/systems/PhysicsSystem";
+import { createMeshVAO } from "../core/webgl/mesh_gl";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
+import { InputSystem } from "./game/input/input.system";
 import { CameraSystem } from "./game/systems/camera_system";
 import CharacterControllerAnimationSystem from "./game/systems/character-controller/character-controller-animations";
 import CharacterControlerSystem from "./game/systems/character-controller/character-controller-system";
@@ -39,60 +42,28 @@ function material_create_and_link(name: string, shader: string) {
 
 
 
-
-
-
-
-
-
-
-export const fontManager = new FontManager();
-
-
-
-
-
-
-
-
-
-
 async function LoadResources() {
 
+    // export const fontManager = new FontManager();
+    // await fontManager.loadFont(
+    //     "roboto",
+    //     "/core/assets/fonts/roboto/roboto_italic.png",
+    //     "/core/assets/fonts/roboto/roboto_italic.csv"
+    // )
+    // await fontManager.loadFont(
+    //     "mono",
+    //     "/core/assets/fonts/mono/mono.png",
+    //     "/core/assets/fonts/mono/mono.csv"
+    // )
 
 
+    // const fontData = fontManager.getFont("roboto")!;
 
-    // const quadLineMesh = createQuadLineMesh("quadLine", { x: 1, y: 1, z: 0 });
-    // generic_manager_add(ENGINE.MANAGER.MESH, quadLineMesh.name, quadLineMesh);
-    // const wire_square_instanced = createMeshVAO(ENGINE.WEB_GL, quadLineMesh);
-    // generic_manager_add(ENGINE.MANAGER.VAO, "wire_square_instanced", wire_square_instanced);
+    // const mesh = createTextMesh("ola mundo", fontData, 0.004);
+    // generic_manager_add(ENGINE.MANAGER.MESH, mesh.name, mesh);
 
-
-
-
-    await fontManager.loadFont(
-        "roboto",
-        "/core/assets/fonts/roboto/roboto_italic.png",
-        "/core/assets/fonts/roboto/roboto_italic.csv"
-    )
-
-    await fontManager.loadFont(
-        "mono",
-        "/core/assets/fonts/mono/mono.png",
-        "/core/assets/fonts/mono/mono.csv"
-    )
-
-
-    const fontData = fontManager.getFont("roboto")!;
-
-    const mesh = createTextMesh("ola mundo", fontData, 0.004);
-    generic_manager_add(ENGINE.MANAGER.MESH, mesh.name, mesh);
-
-    const vao = createDynamicMeshVAO(ENGINE.WEB_GL, mesh);
-    generic_manager_add(ENGINE.MANAGER.VAO, mesh.name, vao);
-
-
-
+    // const vao = createDynamicMeshVAO(ENGINE.WEB_GL, mesh);
+    // generic_manager_add(ENGINE.MANAGER.VAO, mesh.name, vao);
 
     const images: ImageFile = {
         player: {
@@ -108,8 +79,6 @@ async function LoadResources() {
             path: "/core/assets/images/primitive_sprites.png"
         }
     }
-
-
     const shaders: ShaderFile = {
 
         text: {
@@ -168,10 +137,6 @@ async function LoadResources() {
     const simple_shader_water_system = water_material_system(water_material);
     generic_manager_add(ENGINE.MANAGER.SHADER_SYSTEM, water_material.name, simple_shader_water_system);
 
-
-
-
-
     const textMaterial: Material = {
         name: "text_material",
         shaderName: "text",
@@ -185,19 +150,14 @@ async function LoadResources() {
 
 await LoadResources();
 
+const scene = Scene.create("simple_scene");
 
-engine.start();
-
-const scene: Scene = {
-    name: "simple_scene",
-    COMPONENT_STATE: createComponentState(),
-    SYSTEM_STATE: createSystemState()
-}
-
+console.log(scene)
 Scene.setCurrentScene(scene)
 
 const player = createPlayer("player");
 Scene.addToScene(scene, player);
+
 
 const slime = createSlime("slime");
 Scene.addToScene(scene, slime);
@@ -205,13 +165,36 @@ Scene.addToScene(scene, slime);
 const camera = createCamera();
 Scene.addToScene(scene, camera);
 
-ECS.System.addSystem(scene.SYSTEM_STATE, SpriteRenderSystem(scene.COMPONENT_STATE));
-ECS.System.addSystem(scene.SYSTEM_STATE, CharacterControlerSystem(scene.COMPONENT_STATE));
-ECS.System.addSystem(scene.SYSTEM_STATE, CharacterControllerAnimationSystem(scene.COMPONENT_STATE));
-ECS.System.addSystem(scene.SYSTEM_STATE, AnimatorSystem(scene.COMPONENT_STATE));
-// ECS.System.addSystem(scene.SYSTEM_STATE, TerrainSystem(scene.COMPONENT_STATE, player));
-ECS.System.addSystem(scene.SYSTEM_STATE, CameraSystem(camera, player));
-ECS.System.addSystem(scene.SYSTEM_STATE, ColliderSystem(scene.COMPONENT_STATE, scene.SYSTEM_STATE));
-ECS.System.addSystem(scene.SYSTEM_STATE, PhysicsSystem(scene.COMPONENT_STATE));
-ECS.System.addSystem(scene.SYSTEM_STATE, boxColliderGizmosSystem());
-ECS.System.addSystem(scene.SYSTEM_STATE, TextMeshRenderSystem(scene.COMPONENT_STATE));
+ECS.System.addSystem(scene.systems, SpriteRenderSystem(scene.components));
+ECS.System.addSystem(scene.systems, CharacterControlerSystem(scene.components));
+ECS.System.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
+ECS.System.addSystem(scene.systems, AnimatorSystem(scene.components));
+// ECS.System.addSystem(scene.systems, TerrainSystem(scene.components, player));
+ECS.System.addSystem(scene.systems, CameraSystem(camera, player));
+ECS.System.addSystem(scene.systems, ColliderSystem(scene.components, scene.systems));
+ECS.System.addSystem(scene.systems, PhysicsSystem(scene.components));
+ECS.System.addSystem(scene.systems, InputSystem());
+ECS.System.addSystem(scene.systems, boxColliderGizmosSystem());
+ECS.System.addSystem(scene.systems, circleColliderGizmosSystem());
+
+ECS.System.addSystem(scene.systems, TextMeshRenderSystem(scene.components));
+
+
+engine.start();
+
+export function getMeshesUsedInScene(): Set<Mesh> {
+    const renderers = get_category<Render>(ComponentType.Render);
+    const meshesUsed = new Set<Mesh>();
+    for (const render of renderers) {
+        const mesh = generic_manager_get(ENGINE.MANAGER.MESH, render.meshID);
+        if (mesh) meshesUsed.add(mesh);
+    }
+    return meshesUsed;
+}
+
+const meshs = getMeshesUsedInScene();
+meshs.forEach(m => {
+    const vao = createMeshVAO(ENGINE.WEB_GL, m);
+    scene.vao.values.set(m.instanceID, vao)
+
+})

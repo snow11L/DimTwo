@@ -1,5 +1,5 @@
 import type { Vec2 } from "../../../../core/math/vec2/Vec2";
-import type { Component } from "../../../../core/components/component/component";
+import type { Component } from "../../../../core/components/component/component.types";
 
 export type CharacterState = "idle" | "walking" | "attacking";
 export type FacingDirection = "up" | "down" | "side";

@@ -1,20 +1,19 @@
-import { ComponentType } from "../../types/component-type";
-import { SpatialHash } from "../../lib/SpatialHash";
-import type { CircleColliderComponent } from "../../collider/types/CircleCollider";
-import type { ColliderComponent } from "../../collider/types/Collider";
-import { testOverlap } from "../../collider/overlap/testOverlap";
-import { resolveOverlap } from "../../collider/resolution/resolveOverlap";
-import { ECS } from "../../../api/TwoD";
-import type { ECSComponentState } from "../ecs/component";
-import type { System } from "../ecs/system";
-import type { TransformComponent } from "../transform";
-import type { RigidBodyComponent } from "../rigid-body-2d/RigidBody2D";
-import type { GameEntity } from "../../types/EngineEntity";
-import { get_transform } from "../../generators/get_component";
-import { Collision } from "../../collider/types/LayerMask";
-import type { Vec2 } from "../../math/vec2/Vec2";
-import type { BoxCollider2D } from "../box-collider-2d";
-
+import { ComponentType } from "../types/component-type";
+import { SpatialHash } from "../lib/SpatialHash";
+import type { CircleCollider2D } from "../components/circle-collider-2d/circle.collider.2d.types";
+import type { Collider } from "../components/collider/collider.types";
+import { testOverlap } from "../collider/overlap/testOverlap";
+import { resolveOverlap } from "../collider/resolution/resolveOverlap";
+import { ECS } from "../../api/TwoD";
+import type { ECSComponentState } from "../resources/ecs/component";
+import type { System } from "../resources/ecs/system";
+import type { TransformComponent } from "../components/transform";
+import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
+import type { GameEntity } from "../types/EngineEntity";
+import { get_transform } from "../generators/get_component";
+import { Collision } from "../collider/types/LayerMask";
+import type { Vec2 } from "../math/vec2/Vec2";
+import type { BoxCollider2D } from "../components/types";
 
 // Util
 function makePairKey(id1: number, id2: number): string {
@@ -22,13 +21,13 @@ function makePairKey(id1: number, id2: number): string {
 }
 
 interface CollisionPair {
-  a: ColliderComponent;
-  b: ColliderComponent;
+  a: Collider;
+  b: Collider;
 }
 
 
 function getColliderMinMax(
-  collider: ColliderComponent,
+  collider: Collider,
   position: Vec2,
   outMin: Vec2,
   outMax: Vec2
@@ -49,7 +48,7 @@ function getColliderMinMax(
   }
 
   else if (collider.type === ComponentType.CircleCollider2D) {
-    const circle = collider as CircleColliderComponent;
+    const circle = collider as CircleCollider2D;
     const r = circle.radius;
 
     outMin.x = centerX - r;
@@ -74,7 +73,7 @@ export function ColliderSystem(componentState: ECSComponentState, state: ECS.Sys
   const tempMin = { x: 0, y: 0 };
   const tempMax = { x: 0, y: 0 };
 
-  const spatialHash = new SpatialHash<ColliderComponent>(64);
+  const spatialHash = new SpatialHash<Collider>(64);
 
   const collisionState: CollisionState = {
     previous: new Map<string, CollisionPair>(),
@@ -91,7 +90,7 @@ export function ColliderSystem(componentState: ECSComponentState, state: ECS.Sys
       collisionState.collision.clear();
       spatialHash.clear();
 
-      const colliders = ECS.Component.getComponentsByCategory<ColliderComponent>(componentState, ComponentType.Collider);
+      const colliders = ECS.Component.getComponentsByCategory<Collider>(componentState, ComponentType.Collider);
 
       for (const collider of colliders) {
 
@@ -116,7 +115,7 @@ export function ColliderSystem(componentState: ECSComponentState, state: ECS.Sys
 
 function detectCollisions(
   componentState: ECSComponentState,
-  spatialHash: SpatialHash<ColliderComponent>,
+  spatialHash: SpatialHash<Collider>,
   collisionState: CollisionState,
   systems: ECS.System.ECSSystemState,
 ) {

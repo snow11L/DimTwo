@@ -1,12 +1,12 @@
-import { ComponentType } from "../../../api/enums";
-import { generic_manager_get } from "../../managers/generic_manager";
-import type { Material } from "./material";
-import { shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
-import { get_category, get_sprite_render, get_textRender, get_transform } from "../../generators/get_component";
 import { ENGINE } from "../../../api/engine.manager";
+import { ComponentType } from "../../../api/enums";
+import { get_category, get_textRender, get_transform } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
+import { generic_manager_get } from "../../managers/generic_manager";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
+import { shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
+import type { Material } from "./material";
 
 export function textShaderSystem(material: Material): ShaderSystem {
     const shader = generic_manager_get(ENGINE.MANAGER.SHADER, material.shaderName);
@@ -21,11 +21,11 @@ export function textShaderSystem(material: Material): ShaderSystem {
             const transform = get_transform(camera.gameEntity);
             if (transform == null) return;
 
-            const viewMatrix = generic_manager_get(ENGINE.MANAGER.MAT4, transform.instanceID)!;
+            const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
             mat4_create_TR(viewMatrix, transform.position, transform.rotation);
             shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
 
-            const projectionMatrix = generic_manager_get(ENGINE.MANAGER.MAT4, camera.instanceID)!;
+            const projectionMatrix =  EasyGetter.getMat4(camera.instanceID)!;
             shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
         },
 

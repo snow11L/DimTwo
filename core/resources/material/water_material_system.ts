@@ -1,12 +1,13 @@
 
 import { ENGINE } from "../../../api/engine.manager";
-import { get_category, get_transform, get_sprite_render } from "../../generators/get_component";
+import { get_category, get_sprite_render, get_transform } from "../../generators/get_component";
+import { EasyGetter } from "../../managers/EasyGetters";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { Color } from "../../math/color/color";
 import { mat4_create_TR, mat4_create_TRS } from "../../math/mat4/mat4";
 import { ComponentType } from "../../types/component-type";
-import type { ShaderSystem } from "../shader/ShaderSystem";
 import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
+import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { Material } from "./material";
 
 export function water_material_system(material: Material): ShaderSystem {
@@ -22,11 +23,11 @@ export function water_material_system(material: Material): ShaderSystem {
             const cameraTransform = get_transform(camera.gameEntity);
             if (cameraTransform == null) return;
 
-            const viewMatrix = generic_manager_get(ENGINE.MANAGER.MAT4, cameraTransform.instanceID)!;
+            const viewMatrix = EasyGetter.getMat4(cameraTransform.instanceID)!;
             mat4_create_TR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
             shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
 
-            const projectionMatrix = generic_manager_get(ENGINE.MANAGER.MAT4, camera.instanceID)!;
+            const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
             shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
 
             shader_set_uniform_1f(shader, "uTime", performance.now() / 2000);
@@ -40,7 +41,7 @@ export function water_material_system(material: Material): ShaderSystem {
             const spriteRender = get_sprite_render(gameEntity);
             if (spriteRender == null) return;
 
-            const modelMatrix = generic_manager_get(ENGINE.MANAGER.MAT4, transform.instanceID)!;
+            const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
             mat4_create_TRS(modelMatrix, transform.position, transform.rotation, transform.scale);
             shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
 

@@ -4,7 +4,7 @@ import { CIRCLE_SPRITE } from "../../../core/assets/sprites/circle.sprite";
 import { SQUARE_SPRITE } from "../../../core/assets/sprites/square.sprite";
 import { TRIANGLE_SPRITE } from "../../../core/assets/sprites/triangle.sprite";
 import { Color } from "../../../core/math/color/color";
-import { Scene } from "../../../core/components/scene/scene";
+import { Scene } from "../../../core/resources/scene/scene";
 
 export function createPrimitive(
   name: string,
@@ -15,7 +15,7 @@ export function createPrimitive(
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  const componentState = scene.COMPONENT_STATE;
+  const componentState = scene.components;
 
   const gameEntity = Builders.createGameEntity(name, "Player");
 

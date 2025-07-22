@@ -1,4 +1,4 @@
-import { MANAGER } from "../core/managers/manager";
+import { ResourcesManager } from "../core/managers/manager";
 
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 canvas.width = window.innerWidth;
@@ -11,6 +11,6 @@ const debug = document.querySelector("#debug") as HTMLSpanElement;
 if (!debug) throw new Error("debug not supported");
 
 export const ENGINE = {
-    MANAGER,
+    MANAGER: ResourcesManager,
     WEB_GL: gl
 }   

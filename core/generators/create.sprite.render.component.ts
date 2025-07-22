@@ -1,8 +1,8 @@
+import { Meshs } from "../assets/meshs/Meshs";
+import type { SpriteRenderComponent, SpriteRenderOptions } from "../components/sprite-render/sprite.render.types";
 import { ComponentType } from "../types/component-type";
 import type { GameEntity } from "../types/EngineEntity";
-import type { SpriteRenderComponent, SpriteRenderOptions } from "../components/sprite-render/sprite.render.types";
 import { createIncrementalId } from "./create.incremental.id";
-import { Meshs } from "../assets/meshs/Meshs";
 
 export function createSpriteRenderComponent(
   gameEntity: GameEntity,
@@ -10,7 +10,7 @@ export function createSpriteRenderComponent(
 ): SpriteRenderComponent {
   return {
     material: "simple_material",
-    mesh: Meshs.square.instanceID,
+    meshID: Meshs.square.instanceID,
     subMeshs: null,
     instanceID: createIncrementalId(),
     category: ComponentType.Render,

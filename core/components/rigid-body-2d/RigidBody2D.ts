@@ -1,5 +1,5 @@
 import type { Vec2 } from "../../math/vec2/Vec2";
-import type { Component, ComponentOptions } from "../component/component";
+import type { Component, ComponentOptions } from "../component/component.types";
 
 export type RigidBodyOptions = ComponentOptions<RigidBodyComponent>;
 

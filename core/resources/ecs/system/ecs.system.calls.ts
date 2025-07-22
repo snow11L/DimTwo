@@ -6,7 +6,7 @@ export function callStart(): void {
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  for (const system of scene.SYSTEM_STATE.systems) {
+  for (const system of scene.systems.systems) {
     system.start?.();
   }
 }
@@ -15,7 +15,7 @@ export function callFixedUpdate(): void {
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  for (const system of scene.SYSTEM_STATE.systems) {
+  for (const system of scene.systems.systems) {
     system.fixedUpdate?.();
   }
 }
@@ -24,7 +24,7 @@ export function callUpdate(): void {
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  for (const system of scene.SYSTEM_STATE.systems) {
+  for (const system of scene.systems.systems) {
     system.update?.();
   }
 }
@@ -33,7 +33,7 @@ export function callLateUpdate(): void {
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  for (const system of scene.SYSTEM_STATE.systems) {
+  for (const system of scene.systems.systems) {
     system.lateUpdate?.();
   }
 }
@@ -42,7 +42,7 @@ export function callRender(): void {
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  for (const system of scene.SYSTEM_STATE.systems) {
+  for (const system of scene.systems.systems) {
     system.render?.();
   }
 }
@@ -51,7 +51,7 @@ export function callDrawGizmos(): void {
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  for (const system of scene.SYSTEM_STATE.systems) {
+  for (const system of scene.systems.systems) {
     system.onDrawGizmos?.();
   }
 }

@@ -1,10 +1,10 @@
-import { ENGINE } from "../../../../api/engine.manager";
 import { ComponentType } from "../../../../api/enums";
-import { Types, ECS, Enums, Input } from "../../../../api/TwoD";
+import { ECS, Enums, Input, Types } from "../../../../api/TwoD";
 import type { ECSComponentState } from "../../../../api/types";
+import type { TextMeshXComponent } from "../../../../core/components/text-mesh/TextRender";
 import { get_component } from "../../../../core/generators/get_component";
 import Vec2Math from "../../../../core/math/vec2/vec2-math";
-import type { TextMeshXComponent } from "../../../../core/components/text-mesh/TextRender";
+import { Scene } from "../../../../core/resources/scene/scene";
 import Time from "../../../../core/time/time";
 import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
@@ -12,7 +12,8 @@ import type { CharacterControlerComponent } from "./character.controller.types";
 
 
 function getGameEntityByName(name: string) {
-  return ENGINE.MANAGER.GAME_ENTITY_BY_NAME.values.get(name) ?? null;
+  const scene = Scene.getCurrentScene();
+  return scene.entitiesByName.values.get(name) ?? null;
 }
 
 // function updateTextMeshText(textMeshX: TextMeshXComponent, text: string) {

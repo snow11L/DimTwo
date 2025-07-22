@@ -1,4 +1,4 @@
-import type { Component, ComponentOptions } from "../component/component";
+import type { Component, ComponentOptions } from "../component/component.types";
 import type { Vec3 } from "../../math/vec3/vec3";
 import type { Quat } from "../../math/quat/quat";
 

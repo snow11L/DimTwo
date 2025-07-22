@@ -1,11 +1,11 @@
 import { ComponentType } from "../../types/component-type";
 import Time from "../../time/time";
-import type { System } from "../ecs/system";
+import type { System } from "../../resources/ecs/system";
 
 import type { AnimatorComponent } from ".";
 import type { SpriteRenderComponent } from "../sprite-render/sprite.render.types";
 import { Animator } from "../../../api/components";
-import type { ECSComponentState } from "../ecs/component";
+import type { ECSComponentState } from "../../resources/ecs/component";
 import { ECS } from "../../../api/TwoD";
 
 export function AnimatorSystem(componentState: ECSComponentState): System {

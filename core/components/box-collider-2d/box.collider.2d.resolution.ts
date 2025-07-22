@@ -1,11 +1,11 @@
+import type { Bounds } from "../../collider/types/Bounds";
+import { getBoxOverlapInto, getBoundsCenterInto, getSeparationDirection } from "../../collider/util/getCircleCenter";
 import type { Vec2 } from "../../math/vec2/Vec2";
 import Vec2Math from "../../math/vec2/vec2-math";
-import type { Bounds } from "../types/Bounds";
-import { getBoundsCenterInto, getBoxOverlapInto, getSeparationDirection } from "../util/getCircleCenter";
 
-const _overlap = Vec2Math.createZero();
-const _centerA = Vec2Math.createZero();
-const _centerB = Vec2Math.createZero();
+const _overlap = Vec2Math.create();
+const _centerA = Vec2Math.create();
+const _centerB = Vec2Math.create();
 
 export function resolveBoxBoxOverlap(
   a: Bounds,

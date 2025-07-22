@@ -1,4 +1,4 @@
-import type { Component } from "../component/component";
+import type { Component } from "../component/component.types";
 
 export interface CameraComponent extends Component {
   near: number;

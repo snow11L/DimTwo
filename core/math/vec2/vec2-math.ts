@@ -78,12 +78,18 @@ function subtractInto(a: Vec2, b: Vec2, out: Vec2): Vec2 {
 }
 
 function createZero(): Vec2 {
-  return {x: 0, y: 0}
+  return { x: 0, y: 0 }
 }
+
+function create(x: number = 0, y: number = 0): Vec2 {
+  return { x: x, y: y }
+}
+
 
 
 const Vec2Math = {
   normalize,
+  create,
   normalizeInto,
   dot,
   perpendicular,
