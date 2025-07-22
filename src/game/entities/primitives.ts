@@ -1,10 +1,10 @@
 import { Builders, ECS } from "../../../api/TwoD";
 import type { Sprite } from "../../../api/types";
-import { CIRCLE_SPRITE } from "../../../core/assets/sprites/circle.sprite";
-import { SQUARE_SPRITE } from "../../../core/assets/sprites/square.sprite";
-import { TRIANGLE_SPRITE } from "../../../core/assets/sprites/triangle.sprite";
-import { Color } from "../../../core/math/color/color";
-import { Scene } from "../../../core/resources/scene/scene";
+import { CIRCLE_SPRITE } from "../../../TwoD/assets/sprites/circle.sprite";
+import { SQUARE_SPRITE } from "../../../TwoD/assets/sprites/square.sprite";
+import { TRIANGLE_SPRITE } from "../../../TwoD/assets/sprites/triangle.sprite";
+import { Color } from "../../../TwoD/math/color/color";
+import { Scene } from "../../../TwoD/resources/scene/scene";
 
 export function createPrimitive(
   name: string,

@@ -1,11 +1,12 @@
 import { ComponentType } from "../../../../api/enums";
-import { ECS, Enums, Input, Types } from "../../../../api/TwoD";
-import type { ECSComponentState } from "../../../../api/types";
-import type { TextMeshXComponent } from "../../../../core/components/render/textMesh/TextRender";
-import { get_component } from "../../../../core/generators/get_component";
-import Vec2Math from "../../../../core/math/vec2/vec2-math";
-import { Scene } from "../../../../core/resources/scene/scene";
-import Time from "../../../../core/time/time";
+import { Enums, Input, Types } from "../../../../api/TwoD";
+import type { ComponentStateType } from "../../../../api/types";
+import { ComponentState } from "../../../../TwoD";
+import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
+import { get_component } from "../../../../TwoD/generators/get_component";
+import Vec2Math from "../../../../TwoD/math/vec2/vec2-math";
+import { Scene } from "../../../../TwoD/resources/scene/scene";
+import Time from "../../../../TwoD/time/time";
 import { globalKeyState } from "../../input/input.system";
 import type { CharacterControlerComponent } from "./character.controller.types";
 
@@ -28,7 +29,7 @@ function getGameEntityByName(name: string) {
 //   updateDynamicMesh(ENGINE.WEB_GL, VAO, newMesh);
 // }
 
-export default function CharacterControlerSystem(state: ECSComponentState): Types.System {
+export default function CharacterControlerSystem(state: ComponentStateType): Types.System {
 
   let textMesh: TextMeshXComponent | null = null;
 
@@ -42,13 +43,13 @@ export default function CharacterControlerSystem(state: ECSComponentState): Type
 
 
     update() {
-      const characterControlers = ECS.Component.getComponentsByType<CharacterControlerComponent>(
+      const characterControlers = ComponentState.getComponentsByType<CharacterControlerComponent>(
         state,
         ComponentType.CharacterController
       );
       for (const characterControler of characterControlers) {
 
-        const characterTransform = ECS.Component.getComponent<Types.Transform>(
+        const characterTransform = ComponentState.getComponent<Types.TransformType>(
           state,
           characterControler.gameEntity,
           Enums.ComponentType.Transform

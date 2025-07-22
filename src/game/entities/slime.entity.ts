@@ -1,5 +1,5 @@
 import { Builders } from "../../../api/TwoD";
-import { GameEntity } from "../../../core/base/GameEntity";
+import { GameEntity } from "../../../TwoD/base/GameEntity";
 import { SLIME_ANIMATOR_CONTROLLER } from "../controllers/slime.animator.controller";
 import { SLIME_SPRITE } from "../sprites/slime.sprite";
 

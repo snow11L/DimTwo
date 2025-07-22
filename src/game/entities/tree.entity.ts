@@ -1,11 +1,11 @@
 import { createBoxCollider2D } from "../../../api/builders";
 import { type Types, Builders, ECS } from "../../../api/TwoD";
 import type { Sprite } from "../../../api/types";
-import { CollisionMask, Collision } from "../../../core/collider/types/LayerMask";
-import { Vec3 } from "../../../core/math/vec3/vec3";
+import { Collision, CollisionMask } from "../../../TwoD/collider/types/LayerMask";
+import { Vec3 } from "../../../TwoD/math/vec3/vec3";
 
 export function createTreeEntity(
-    componentState: Types.ECSComponentState,
+    componentState: Types.ComponentStateType,
     name: string,
     sprite: Sprite,
     position: Vec3

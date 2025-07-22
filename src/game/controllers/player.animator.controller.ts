@@ -1,7 +1,7 @@
-import type { Types } from "../../../api/TwoD";
+import type { AnimatorController } from "../../../TwoD/components";
 import { PLAYER_ANIMATIONS } from "../animations/player.animation";
 
-export const PLAYER_ANIMATOR_CONTROLLER: Types.AnimatorController = {
+export const PLAYER_ANIMATOR_CONTROLLER: AnimatorController = {
   
   name: "playerController",
   currentState: "idle",

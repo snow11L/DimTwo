@@ -1,7 +1,6 @@
-export * as Collider from "../core/components/physics/boxCollider2D/BoxCollider2DTypes";
-export * as Input from "../core/resources/input";
+export * as Collider from "../TwoD/components/physics/boxCollider2D/types";
+export * as Input from "../TwoD/resources/input";
 export * as Components from "./components";
-export * as ECS from "./ecs";
 export * as Resources from "./resources";
 
 export * as Builders from "./builders";

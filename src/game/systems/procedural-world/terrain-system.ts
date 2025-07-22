@@ -1,11 +1,11 @@
 import { createGameEntity, createSpriteRenderComponent, createTransformComponent } from "../../../../api/builders";
 import type { System } from "../../../../api/resources";
 import { ECS } from "../../../../api/TwoD";
-import type { ECSComponentState } from "../../../../api/types";
-import type { GameEntity } from "../../../../core/base/GameEntity";
-import { get_transform } from "../../../../core/generators/get_component";
-import { Mulberry32 } from "../../../../core/lib/mulberry32";
-import type { Vec2 } from "../../../../core/math/vec2/Vec2";
+import type { ComponentStateType } from "../../../../api/types";
+import type { GameEntity } from "../../../../TwoD/base/GameEntity";
+import { get_transform } from "../../../../TwoD/generators/get_component";
+import { Mulberry32 } from "../../../../TwoD/lib/mulberry32";
+import type { Vec2 } from "../../../../TwoD/math/vec2/Vec2";
 import { createTreeEntity } from "../../entities/tree.entity";
 import { OAK_TRE_0 } from "../../sprites/oak.trees.sprite";
 import { BiomeName, getBiomeColor } from "./biome";
@@ -13,7 +13,7 @@ import { ChunkManager } from "./chunk/ChunkManager";
 import { World, type TerrainCell } from "./Word";
 
 
-export function TerrainSystem(componentState: ECSComponentState, player: GameEntity): System {
+export function TerrainSystem(componentState: ComponentStateType, player: GameEntity): System {
   let playerPos: Vec2;
   const world = new World(1221435);
   return {
@@ -53,7 +53,7 @@ export function TerrainSystem(componentState: ECSComponentState, player: GameEnt
 }
 
 function generateTerrainEntities(
-  componentState: ECSComponentState,
+  componentState: ComponentStateType,
   terrainCells: TerrainCell[],
   gameEntities: GameEntity[],
 ): void {
@@ -92,7 +92,7 @@ function seedFromXY(x: number, y: number): number {
 }
 
 export function generateTrees(
-  componentState: ECSComponentState,
+  componentState: ComponentStateType,
   terrainCells: TerrainCell[],
   gameEntities: GameEntity[],
   chunkPos: Vec2

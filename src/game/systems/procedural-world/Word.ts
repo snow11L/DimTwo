@@ -1,5 +1,5 @@
-import { SimplexNoise } from "../../../../core/lib/SimplexNoise";
-import type { Vec3 } from "../../../../core/math/vec3/vec3";
+import { SimplexNoise } from "../../../../TwoD/lib/SimplexNoise";
+import type { Vec3 } from "../../../../TwoD/math/vec3/vec3";
 import { BiomeName, classifyBiomes } from "./biome";
 
 export interface TerrainCell {

@@ -1,5 +1,5 @@
 import { Builders } from "../../../api/TwoD";
-import { GameEntity } from "../../../core/base/GameEntity";
+import { GameEntity } from "../../../TwoD/base/GameEntity";
 
 export function createCamera() {
 

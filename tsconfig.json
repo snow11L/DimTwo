@@ -21,5 +21,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
- "include": ["src", "core", "api", "src/game", "core/components/circle-collider-2d/.ts"]
+ "include": ["src", "TwoD", "api", "src/game"]
 }

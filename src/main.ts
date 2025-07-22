@@ -1,26 +1,26 @@
 import { engine } from "../api/engine.main";
-import { ENGINE } from "../api/engine.manager";
 import { ComponentType } from "../api/enums";
-import { ECS } from "../api/TwoD";
-import type { Render } from "../core/base/Render";
-import { AnimatorSystem } from "../core/components/animation/animator";
-import { SpriteRenderSystem } from "../core/components/render/spriteRender";
-import { boxColliderGizmosSystem } from "../core/debug/gizmos/boxColliderGizmosSystem";
-import { circleColliderGizmosSystem } from "../core/debug/gizmos/circleColliderGizmosSystem";
-import { get_category } from "../core/generators/get_component";
-import { generic_manager_add, generic_manager_get } from "../core/managers/generic_manager";
-import { resourceManager } from "../core/managers/resources-manager";
-import type { ImageFile, ShaderFile } from "../core/managers/shaderLoader";
-import { advanced_material_system } from "../core/resources/material/advanced_material_system";
-import type { Material } from "../core/resources/material/material";
-import { simple_material_system } from "../core/resources/material/simple_material_system";
-import { textShaderSystem } from "../core/resources/material/text_shader_system";
-import { water_material_system } from "../core/resources/material/water_material_system";
-import type { Mesh } from "../core/resources/mesh/mesh";
-import { Scene } from "../core/resources/scene/scene";
-import { ColliderSystem } from "../core/systems/collider.system";
-import { PhysicsSystem } from "../core/systems/PhysicsSystem";
-import { createMeshVAO } from "../core/webgl/mesh_gl";
+import { SystemState } from "../TwoD";
+import type { Render } from "../TwoD/base/Render";
+import { SpriteRenderSystem } from "../TwoD/components/render/spriteRender";
+import { boxColliderGizmosSystem } from "../TwoD/debug/gizmos/boxColliderGizmosSystem";
+import { circleColliderGizmosSystem } from "../TwoD/debug/gizmos/circleColliderGizmosSystem";
+import { get_category } from "../TwoD/generators/get_component";
+import { ENGINE } from "../TwoD/managers/engine.manager";
+import { generic_manager_add, generic_manager_get } from "../TwoD/managers/generic_manager";
+import { resourceManager } from "../TwoD/managers/resources-manager";
+import type { ImageFile, ShaderFile } from "../TwoD/managers/shaderLoader";
+import { advanced_material_system } from "../TwoD/resources/material/advanced_material_system";
+import type { Material } from "../TwoD/resources/material/material";
+import { simple_material_system } from "../TwoD/resources/material/simple_material_system";
+import { textShaderSystem } from "../TwoD/resources/material/text_shader_system";
+import { water_material_system } from "../TwoD/resources/material/water_material_system";
+import type { Mesh } from "../TwoD/resources/mesh/mesh";
+import { Scene } from "../TwoD/resources/scene/scene";
+import { AnimatorSystem } from "../TwoD/systems/animator.system";
+import { ColliderSystem } from "../TwoD/systems/collider.system";
+import { PhysicsSystem } from "../TwoD/systems/PhysicsSystem";
+import { createMeshVAO } from "../TwoD/webgl/mesh_gl";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
@@ -38,6 +38,8 @@ function material_create_and_link(name: string, shader: string) {
 
     generic_manager_add(ENGINE.MANAGER.MATERIAL, material.name, material);
 }
+
+
 
 
 
@@ -75,32 +77,32 @@ async function LoadResources() {
             path: "src/game/assets/images/OakTree.png"
         },
         primitives: {
-            path: "/core/assets/images/primitive_sprites.png"
+            path: "TwoD/assets/images/primitive_sprites.png"
         }
     }
     const shaders: ShaderFile = {
 
         text: {
-            vert: "core/assets/shaders/text.vert",
-            frag: "core/assets/shaders/text.frag"
+            vert: "TwoD/assets/shaders/text.vert",
+            frag: "TwoD/assets/shaders/text.frag"
         },
 
         simple: {
-            vert: "core/assets/shaders/simpleShader.vert",
-            frag: "core/assets/shaders/simpleShader.frag"
+            vert: "TwoD/assets/shaders/simpleShader.vert",
+            frag: "TwoD/assets/shaders/simpleShader.frag"
         },
         advanced: {
-            vert: "core/assets/shaders/advancedShader.vert",
-            frag: "core/assets/shaders/advancedShader.frag"
+            vert: "TwoD/assets/shaders/advancedShader.vert",
+            frag: "TwoD/assets/shaders/advancedShader.frag"
         },
         water: {
-            vert: "core/assets/shaders/simpleShader.vert",
-            frag: "core/assets/shaders/waterShader.frag"
+            vert: "TwoD/assets/shaders/simpleShader.vert",
+            frag: "TwoD/assets/shaders/waterShader.frag"
         },
 
         gizmos: {
-            vert: "core/assets/shaders/gizmos.vert",
-            frag: "core/assets/shaders/gizmos.frag"
+            vert: "TwoD/assets/shaders/gizmos.vert",
+            frag: "TwoD/assets/shaders/gizmos.frag"
         }
     }
 
@@ -164,17 +166,16 @@ Scene.addToScene(scene, slime);
 const camera = createCamera();
 Scene.addToScene(scene, camera);
 
-ECS.System.addSystem(scene.systems, SpriteRenderSystem(scene.components));
-ECS.System.addSystem(scene.systems, CharacterControlerSystem(scene.components));
-ECS.System.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
-ECS.System.addSystem(scene.systems, AnimatorSystem(scene.components));
-// ECS.System.addSystem(scene.systems, TerrainSystem(scene.components, player));
-ECS.System.addSystem(scene.systems, CameraSystem(camera, player));
-ECS.System.addSystem(scene.systems, ColliderSystem(scene.components, scene.systems));
-ECS.System.addSystem(scene.systems, PhysicsSystem(scene.components));
-ECS.System.addSystem(scene.systems, InputSystem());
-ECS.System.addSystem(scene.systems, boxColliderGizmosSystem());
-ECS.System.addSystem(scene.systems, circleColliderGizmosSystem());
+SystemState.addSystem(scene.systems, SpriteRenderSystem(scene.components));
+SystemState.addSystem(scene.systems, CharacterControlerSystem(scene.components));
+SystemState.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
+SystemState.addSystem(scene.systems, AnimatorSystem(scene.components));
+SystemState.addSystem(scene.systems, CameraSystem(camera, player));
+SystemState.addSystem(scene.systems, ColliderSystem(scene.components, scene.systems));
+SystemState.addSystem(scene.systems, PhysicsSystem(scene.components));
+SystemState.addSystem(scene.systems, InputSystem());
+SystemState.addSystem(scene.systems, boxColliderGizmosSystem());
+SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 
 engine.start();
 

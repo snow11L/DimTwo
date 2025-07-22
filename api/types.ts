@@ -1,9 +1,9 @@
-export * from "../core/components/render/spriteRender/sprite.render.types";
-export * from "../core/components/transform/transform.types";
-export * from "../core/resources/animation/animation.types";
-export * from "../core/resources/ecs/component/ecs.component.types";
-export * from "../core/resources/ecs/system/ecs.system.types";
-export * from "../core/resources/input/key/key.input.type";
-export * from "../core/resources/input/mouse/mouse.input.types";
-export * from "../core/resources/sprite/sprite.types";
+export * from "../TwoD/components/render/spriteRender/types";
+export * from "../TwoD/components/spatial/transform/types";
+export * from "../TwoD/ecs/componentState/types";
+export * from "../TwoD/ecs/systemState/types";
+export * from "../TwoD/resources/animation/animation.types";
+export * from "../TwoD/resources/input/key/key.input.type";
+export * from "../TwoD/resources/input/mouse/mouse.input.types";
+export * from "../TwoD/resources/sprite/sprite.types";
 

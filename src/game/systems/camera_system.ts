@@ -1,19 +1,19 @@
+import { Transform } from "../../../api/components";
 import type { System } from "../../../api/resources";
-import type { Transform } from "../../../api/types";
-import type { GameEntity } from "../../../core/base/GameEntity";
-import { get_transform } from "../../../core/generators/get_component";
-import { vec3_lerp } from "../../../core/math/vec3/vec3";
-import Time from "../../../core/time/time";
+import type { TransformType } from "../../../api/types";
+import type { GameEntity } from "../../../TwoD/base/GameEntity";
+import { vec3_lerp } from "../../../TwoD/math/vec3/vec3";
+import Time from "../../../TwoD/time/time";
 
 export function CameraSystem(cameraEntity: GameEntity, targetEntity: GameEntity): System {
 
-    let cameraTransform: Transform | null = null;
-    let targetTransform: Transform | null = null;
+    let cameraTransform: TransformType | null = null;
+    let targetTransform: TransformType | null = null;
 
     return {
         start() {
-            cameraTransform = get_transform(cameraEntity);
-            targetTransform = get_transform(targetEntity);
+            cameraTransform = Transform.getTransform(cameraEntity);
+            targetTransform = Transform.getTransform(targetEntity);
         },
 
         update() {

@@ -1,1 +1,2 @@
-export { ComponentType } from "../core/types/component-type";
+export { ComponentType } from "../TwoD/types/component-type";
+

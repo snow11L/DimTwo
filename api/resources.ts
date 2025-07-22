@@ -1,4 +1,4 @@
-export * as Animation from "../core/resources/animation";
-export type { System } from "../core/resources/ecs/system/ecs.system.types";
-export * as Sprite from "../core/resources/sprite";
+export type { System } from "../TwoD/ecs/systemState/types";
+export * as Animation from "../TwoD/resources/animation";
+export * as Sprite from "../TwoD/resources/sprite";
 
