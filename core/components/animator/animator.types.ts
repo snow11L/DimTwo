@@ -1,5 +1,5 @@
+import type { AnimationClip } from "../../resources/animation";
 import type { Component, ComponentOptions } from "../component/component.types";
-import type { AnimationClip } from "../animation";
 
 export interface AnimatorComponent extends Component {
   controller: AnimatorController | null;

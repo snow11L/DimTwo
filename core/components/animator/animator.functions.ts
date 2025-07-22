@@ -1,5 +1,5 @@
 import { Result } from "../../managers/result";
-import type { AnimationClip } from "../animation/animation.types";
+import type { AnimationClip } from "../../resources/animation/animation.types";
 import type { SpriteRenderComponent } from "../sprite-render/sprite.render.types";
 import type { AnimatorComponent, AnimatorState } from "./animator.types";
 

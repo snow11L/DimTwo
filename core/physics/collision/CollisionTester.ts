@@ -1,4 +1,3 @@
-import { isOfType } from "../../collider/util/isOfType";
 import { BoxCollider2D, CircleCollider2D, type Types } from "../../components";
 import { get_transform } from "../../generators/get_component";
 import { getBounds, type Bounds } from "../../math/geometry/Bounds";
@@ -6,6 +5,7 @@ import type { Vec2 } from "../../math/vec2/Vec2";
 import Vec2Math from "../../math/vec2/vec2-math";
 import { Vec3 } from "../../math/vec3/vec3";
 import { ComponentType } from "../../types/component-type";
+import { isOfType } from "./isOfType";
 
 const tempA = Vec3.create();
 const tempB = Vec3.create();

@@ -1,9 +1,8 @@
 import { ECS } from "../../api/TwoD";
-import type { CircleCollider2D } from "../components/circle-collider-2d/circle.collider.2d.types";
+import { RigidBody2D, Types } from "../components";
 import type { Collider } from "../components/collider/collider.types";
 import type { RigidBodyComponent } from "../components/rigid-body-2d/RigidBody2D";
 import type { TransformComponent } from "../components/transform";
-import type { BoxCollider2D } from "../components/types";
 import { get_transform } from "../generators/get_component";
 import { SpatialHash } from "../lib/SpatialHash";
 import type { Vec2 } from "../math/vec2/Vec2";
@@ -37,7 +36,7 @@ function getColliderMinMax(
   const centerY = position.y + offset.y;
 
   if (collider.type === ComponentType.BoxCollider2D) {
-    const box = collider as BoxCollider2D;
+    const box = collider as Types.BoxCollider2D;
     const halfW = box.size.x / 2;
     const halfH = box.size.y / 2;
 
@@ -48,7 +47,7 @@ function getColliderMinMax(
   }
 
   else if (collider.type === ComponentType.CircleCollider2D) {
-    const circle = collider as CircleCollider2D;
+    const circle = collider as Types.CircleCollider2D;
     const r = circle.radius;
 
     outMin.x = centerX - r;
@@ -245,7 +244,7 @@ export function resolve_rigid_body(
   }
 
   if (aRigid && bRigid) {
-    resolve_with_rigidbody(aTransform, bTransform, aRigid, bRigid, resolution);
+    RigidBody2D.resolve(aTransform, bTransform, aRigid, bRigid, resolution);
     return;
   }
 
@@ -274,33 +273,3 @@ function resolve_without_rigidbody(
   bTransform.position.y -= resolution.y * 0.5;
 }
 
-function resolve_with_rigidbody(
-  aTransform: TransformComponent,
-  bTransform: TransformComponent,
-  aRigid: RigidBodyComponent,
-  bRigid: RigidBodyComponent,
-  resolution: Vec2
-) {
-  if (aRigid.isStatic && bRigid.isStatic) return;
-
-  const aStatic = aRigid.isStatic ?? true;
-  const bStatic = bRigid.isStatic ?? true;
-
-  if (!aStatic && !bStatic) {
-    const totalMass = aRigid.mass + bRigid.mass;
-    const aFactor = bRigid.mass / totalMass;
-    const bFactor = aRigid.mass / totalMass;
-
-    aTransform.position.x += resolution.x * aFactor;
-    aTransform.position.y += resolution.y * aFactor;
-
-    bTransform.position.x -= resolution.x * bFactor;
-    bTransform.position.y -= resolution.y * bFactor;
-  } else if (!aStatic) {
-    aTransform.position.x += resolution.x;
-    aTransform.position.y += resolution.y;
-  } else if (!bStatic) {
-    bTransform.position.x -= resolution.x;
-    bTransform.position.y -= resolution.y;
-  }
-}
