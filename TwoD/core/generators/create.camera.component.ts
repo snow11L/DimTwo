@@ -1,6 +1,6 @@
 import type { GameEntityType } from "../base/gameEntity/types";
 import type { CameraType } from "../components";
-import { ComponentTypes } from "../types/component-type";
+import { ComponentTypes } from "../components/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
 export function Camera(gameEntity: GameEntityType) {

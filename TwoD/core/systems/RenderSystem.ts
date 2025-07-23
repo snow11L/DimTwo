@@ -1,11 +1,11 @@
 import type { Render } from "../base/Render";
 import type { TransformType } from "../components";
+import { ComponentTypes } from "../components/component-type";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import { material_get } from "../generators/create.material";
 import { EasyGetter } from "../managers/EasyGetters";
 import { Global } from "../managers/engine.manager";
 import { generic_manager_get } from "../managers/generic_manager";
-import { ComponentTypes } from "../types/component-type";
 
 export function RenderSystem(state: ComponentStateType): System {
 

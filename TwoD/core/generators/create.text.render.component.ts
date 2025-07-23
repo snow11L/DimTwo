@@ -1,7 +1,7 @@
 import type { GameEntityType } from "../base/gameEntity/types";
+import { ComponentTypes } from "../components/component-type";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { Colors } from "../math/color";
-import { ComponentTypes } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 
 export function TextMesh(entity: GameEntityType, text: string = "this is a text") {

@@ -1,6 +1,7 @@
 
 import { AnimatorSystem, ColliderSystem, PhysicsSystem, SystemState } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
+import { ComponentTypes } from "../TwoD/core/components/component-type";
 import { RenderSystem } from "../TwoD/core/components/render/spriteRender";
 import { engine } from "../TwoD/core/core/Engine";
 import { get_category } from "../TwoD/core/generators/get_component";
@@ -16,7 +17,6 @@ import { water_material_system } from "../TwoD/core/resources/material/water_mat
 import type { MeshType } from "../TwoD/core/resources/mesh/types";
 import { Scene } from "../TwoD/core/resources/scene/scene";
 import { InputSystem } from "../TwoD/core/systems/InputSystem";
-import { ComponentTypes } from "../TwoD/core/types/component-type";
 import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
 import { boxColliderGizmosSystem } from "../TwoD/debug/gizmos/boxColliderGizmosSystem";
 import { circleColliderGizmosSystem } from "../TwoD/debug/gizmos/circleColliderGizmosSystem";

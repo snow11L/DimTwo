@@ -1,5 +1,5 @@
 import { get_category } from "../../../generators/get_component";
-import { ComponentTypes } from "../../../types/component-type";
+import { ComponentTypes } from "../../component-type";
 import type { CameraType } from "./types";
 
 export function getActivedCamera(): CameraType | null {

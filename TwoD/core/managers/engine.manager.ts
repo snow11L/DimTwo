@@ -1,4 +1,5 @@
-import { ResourcesManager } from "../global/manager/manager";
+
+import { ResourcesManager } from "../../global/manager/manager";
 import Time from "../time/time";
 
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;

@@ -2,10 +2,10 @@ import type { Component } from "../base/Component";
 import type { GameEntityType } from "../base/gameEntity/types";
 import type { SpriteRenderType } from "../components";
 
+import { ComponentTypes } from "../components/component-type";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
 import { ComponentState } from "../ecs";
 import { Scene } from "../resources/scene/scene";
-import { ComponentTypes } from "../types/component-type";
 
 
 export function get_textRender(gameEntity: GameEntityType): TextMeshXComponent | null {

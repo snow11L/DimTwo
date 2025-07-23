@@ -1,8 +1,8 @@
+import { EngineConfig } from "../../global/config/EngineConfig";
 import type { RigidBody2DType, TransformType } from "../components";
+import { ComponentTypes } from "../components/component-type";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
-import { EngineConfig } from "../global/config/EngineConfig";
 import Time from "../time/time";
-import { ComponentTypes } from "../types/component-type";
 
 export function PhysicsSystem(componentState: ComponentStateType): System {
     return {

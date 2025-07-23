@@ -1,11 +1,11 @@
 import { Mathf } from "../..";
 import { Transform } from "../../components";
+import { ComponentTypes } from "../../components/component-type";
 import { get_category, get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { Color } from "../../math";
-import { ComponentTypes } from "../../types/component-type";
 import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";

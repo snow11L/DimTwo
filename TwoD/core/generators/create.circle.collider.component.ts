@@ -1,7 +1,7 @@
 import type { GameEntityType } from "../base/gameEntity/types";
 import type { CircleCollider2DType } from "../components";
+import { ComponentTypes } from "../components/component-type";
 import { CollisionMask } from "../core/collisionMask/types";
-import { ComponentTypes } from "../types/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 import type { CircleColliderOptions } from "./types";
 

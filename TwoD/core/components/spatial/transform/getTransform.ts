@@ -1,7 +1,7 @@
 import type { GameEntityType } from "../../../base/gameEntity/types";
 import { ComponentState } from "../../../ecs";
 import { Scene } from "../../../resources/scene/scene";
-import { ComponentTypes } from "../../../types/component-type";
+import { ComponentTypes } from "../../component-type";
 import type { TransformType } from "./types";
 
 export function getTransform(gameEntity: GameEntityType): TransformType | null {

@@ -1,7 +1,7 @@
 
 import { Builder, GameEntity, Mathf } from "../../../TwoD/core";
 
-import { ComponentTypes } from "../../../TwoD/core/types/component-type";
+import { ComponentTypes } from "../../../TwoD/core/components/component-type";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
 

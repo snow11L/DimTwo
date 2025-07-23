@@ -1,7 +1,7 @@
 import { Animator, type AnimatorType, type SpriteRenderType, } from "../components";
+import { ComponentTypes } from "../components/component-type";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import Time from "../time/time";
-import { ComponentTypes } from "../types/component-type";
 
 export function AnimatorSystem(componentState: ComponentStateType): System {
   return {

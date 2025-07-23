@@ -1,7 +1,7 @@
 import { type CircleCollider2DType, Mathf, type System, Transform } from "../../core";
+import { ComponentTypes } from "../../core/components/component-type";
 import { get_type } from "../../core/generators/get_component";
 import { Colors } from "../../core/math/color";
-import { ComponentTypes } from "../../core/types/component-type";
 import { Gizmos } from "./Gizmos";
 
 const rotation = { x: 0, y: 0, z: 0, w: 1 };

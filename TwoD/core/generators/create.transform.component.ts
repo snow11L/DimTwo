@@ -1,6 +1,6 @@
 import type { GameEntityType } from "../base";
 import type { TransformType } from "../components";
-import { ComponentTypes } from "../types/component-type";
+import { ComponentTypes } from "../components/component-type";
 import { createIncrementalId } from "./create.incremental.id";
 import type { TransformOptions } from "./types";
 

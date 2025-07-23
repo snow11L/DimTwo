@@ -1,10 +1,10 @@
 import { Mathf } from "../..";
 import { Transform } from "../../components";
+import { ComponentTypes } from "../../components/component-type";
 import { get_category, get_textRender } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
-import { ComponentTypes } from "../../types/component-type";
 import { shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";

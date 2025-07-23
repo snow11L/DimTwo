@@ -12,10 +12,10 @@ import {
 } from "../components";
 import { ComponentState, type ComponentStateType, type System, SystemState, type SystemStateType } from "../ecs";
 
+import { ComponentTypes } from "../components/component-type";
 import { SpatialHash } from "../lib/SpatialHash";
 import type { Vec2 } from "../math/vec2/Vec2";
 import { Scene } from "../resources/scene/scene";
-import { ComponentTypes } from "../types/component-type";
 
 // Util
 function makePairKey(id1: number, id2: number): string {

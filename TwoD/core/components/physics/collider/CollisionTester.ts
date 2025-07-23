@@ -10,7 +10,7 @@ import { type Bounds, getBounds } from "../../../math/geometry/Bounds";
 import type { Vec2 } from "../../../math/vec2/Vec2";
 import Vec2Math from "../../../math/vec2/vec2-math";
 
-import { ComponentTypes } from "../../../types/component-type";
+import { ComponentTypes } from "../../component-type";
 import { Transform } from "../../spatial";
 import { isOfType } from "./isOfType";
 

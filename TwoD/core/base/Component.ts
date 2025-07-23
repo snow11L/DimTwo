@@ -1,5 +1,5 @@
+import type { ComponentTypes } from "../components/component-type";
 import type { Instantiable } from "../resources/mesh/types";
-import type { ComponentTypes } from "../types/component-type";
 import type { GameEntityType } from "./gameEntity/types";
 
 export interface Component extends Instantiable {
