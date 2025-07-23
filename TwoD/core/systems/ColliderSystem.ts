@@ -1,14 +1,14 @@
 
 import {
-  type BoxCollider2DType,
-  type CircleCollider2DType,
-  Collider,
-  type ColliderType,
-  CollisionMatrix,
-  RigidBody2D,
-  type RigidBody2DType,
-  Transform,
-  type TransformType
+    type BoxCollider2DType,
+    type CircleCollider2DType,
+    Collider,
+    type ColliderType,
+    CollisionMatrix,
+    RigidBody2D,
+    type RigidBody2DType,
+    Transform,
+    type TransformType
 } from "../components";
 import { ComponentState, type ComponentStateType, type System, SystemState, type SystemStateType } from "../ecs";
 

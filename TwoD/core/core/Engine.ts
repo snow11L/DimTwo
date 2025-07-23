@@ -1,5 +1,4 @@
 import { SystemState } from "..";
-import { Gizmos } from "../debug/gizmos/Gizmos";
 import { Global } from "../managers/engine.manager";
 import Time from "../time/time";
 
@@ -25,10 +24,7 @@ engine.on("render", () => {
     WebGL.clearColor(0, 0, 0, 1);
     WebGL.clear(WebGL.COLOR_BUFFER_BIT);
     SystemState.callRender();
-
-    Gizmos.gizmosActive = true;
-    Gizmos.drawGizmos();
     SystemState.callDrawGizmos();
 
-    Gizmos.gizmosActive = false;
+
 });

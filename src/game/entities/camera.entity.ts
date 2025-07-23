@@ -1,4 +1,4 @@
-import { Builder, GameEntity, type CameraType, type GameEntityType, type TransformType } from "../../../TwoD";
+import { Builder, GameEntity, type CameraType, type GameEntityType, type TransformType } from "../../../TwoD/core";
 
 export function createCamera(): GameEntityType {
 

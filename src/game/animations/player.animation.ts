@@ -1,4 +1,4 @@
-import { createAnimationClip, type AnimationClip, } from "../../../TwoD/resources/animation";
+import { createAnimationClip, type AnimationClip, } from "../../../TwoD/core/resources/animation";
 
 
 const PLAYER_IDLE_DOWN_CLIP: AnimationClip = createAnimationClip(

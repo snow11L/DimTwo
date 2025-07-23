@@ -1,7 +1,7 @@
-import { Transform, type System, type TransformType } from "../../../TwoD";
-import type { GameEntityType } from "../../../TwoD/base/gameEntity/types";
-import { vec3_lerp } from "../../../TwoD/math/vec3/functions";
-import Time from "../../../TwoD/time/time";
+import { Transform, type System, type TransformType } from "../../../TwoD/core";
+import type { GameEntityType } from "../../../TwoD/core/base/gameEntity/types";
+import { vec3_lerp } from "../../../TwoD/core/math/vec3/functions";
+import Time from "../../../TwoD/core/time/time";
 
 export function CameraSystem(cameraEntity: GameEntityType, targetEntity: GameEntityType): System {
 

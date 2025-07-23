@@ -1,4 +1,4 @@
-import { Builder, GameEntity, type AnimatorType, type BoxCollider2DType, type GameEntityType, type RigidBody2DType, type SpriteRenderType, type TransformType } from "../../../TwoD";
+import { Builder, GameEntity, type AnimatorType, type BoxCollider2DType, type GameEntityType, type RigidBody2DType, type SpriteRenderType, type TransformType } from "../../../TwoD/core";
 import { SLIME_ANIMATOR_CONTROLLER } from "../controllers/slime.animator.controller";
 import { SLIME_SPRITE } from "../sprites/slime.sprite";
 

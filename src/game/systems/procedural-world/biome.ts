@@ -1,5 +1,5 @@
-import { isInRange } from "../../../../TwoD/lib/isInRange";
-import { Color } from "../../../../TwoD/math/color/color";
+import { isInRange } from "../../../../TwoD/core/lib/isInRange";
+import { Color } from "../../../../TwoD/core/math/color/color";
 import type { TerrainCell } from "./Word";
 
 export const BiomeName = {

@@ -1,4 +1,4 @@
-import type { AnimatorController } from "../../../TwoD";
+import type { AnimatorController } from "../../../TwoD/core";
 import { SLIME_ANIMATIONS } from "../animations/slime.animations";
 
 export const SLIME_ANIMATOR_CONTROLLER: AnimatorController = {

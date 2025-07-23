@@ -1,8 +1,8 @@
-import { Builder, Mathf } from "../../../TwoD";
-import { CollisionMask } from "../../../TwoD/core/collisionMask/types";
-import { BoxCollider2D } from "../../../TwoD/generators";
+import { Builder, Mathf } from "../../../TwoD/core";
+import { CollisionMask } from "../../../TwoD/core/core/collisionMask/types";
+import { BoxCollider2D } from "../../../TwoD/core/generators";
 
-import type { SpriteType } from "../../../TwoD/resources/sprite";
+import type { SpriteType } from "../../../TwoD/core/resources/sprite";
 
 export function createTreeEntity(
     name: string,

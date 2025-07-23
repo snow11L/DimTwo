@@ -1,5 +1,5 @@
-import type { Component } from "../../../../TwoD/base/Component";
-import type { Vec2 } from "../../../../TwoD/math/vec2/Vec2";
+import type { Component } from "../../../../TwoD/core/base/Component";
+import type { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
 
 export type CharacterState = "idle" | "walking" | "attacking";
 export type FacingDirection = "up" | "down" | "side";

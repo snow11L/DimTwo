@@ -1,6 +1,6 @@
-import type { GameEntityType } from "../../../../../TwoD/base/gameEntity/types";
-import type { Vec2 } from "../../../../../TwoD/math/vec2/Vec2";
-import { EventEmitter, type EventCallback } from "../../../../../TwoD/time/emitter";
+import type { GameEntityType } from "../../../../../TwoD/core/base/gameEntity/types";
+import type { Vec2 } from "../../../../../TwoD/core/math/vec2/Vec2";
+import { EventEmitter, type EventCallback } from "../../../../../TwoD/core/time/emitter";
 import type { TerrainCell, World } from "../Word";
 
 

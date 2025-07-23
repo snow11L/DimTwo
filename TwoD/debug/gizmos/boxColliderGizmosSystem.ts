@@ -1,11 +1,10 @@
-import { Transform, type BoxCollider2DType } from "../../components";
-import type { System } from "../../ecs";
-import { get_type } from "../../generators/get_component";
-import { Vec3 } from "../../math";
-import { Colors } from "../../math/color/color";
-import { ComponentTypes } from "../../types/component-type";
-import { Gizmos } from "./Gizmos";
 
+import { type BoxCollider2DType, type System, Transform } from "../../core";
+import { get_type } from "../../core/generators/get_component";
+import { Vec3 } from "../../core/math";
+import { Colors } from "../../core/math/color";
+import { ComponentTypes } from "../../core/types/component-type";
+import { Gizmos } from "./Gizmos";
 const rotation = { x: 0, y: 0, z: 0, w: 1 };
 
 export function boxColliderGizmosSystem(): System {

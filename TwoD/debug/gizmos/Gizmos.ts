@@ -1,16 +1,13 @@
-
-
-import { Mathf, Transform } from "../..";
 import { Meshs } from "../../assets/meshs/Meshs";
-import { get_category } from "../../generators/get_component";
-import { EasyGetter } from "../../managers/EasyGetters";
-import { Global } from "../../managers/engine.manager";
-import { generic_manager_get } from "../../managers/generic_manager";
-import type { Color } from "../../math/color/types";
-
-import type { Quat } from "../../math/quat/quat";
-import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../../resources/shader";
-import { ComponentTypes } from "../../types/component-type";
+import { Mathf, Transform } from "../../core";
+import { get_category } from "../../core/generators/get_component";
+import { EasyGetter } from "../../core/managers/EasyGetters";
+import { Global } from "../../core/managers/engine.manager";
+import { generic_manager_get } from "../../core/managers/generic_manager";
+import type { Color } from "../../core/math/color/types";
+import type { Quat } from "../../core/math/quat/quat";
+import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../../core/resources/shader";
+import { ComponentTypes } from "../../core/types/component-type";
 
 interface GizmosTransform {
     type: "square" | "circle";

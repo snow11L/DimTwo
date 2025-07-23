@@ -7,6 +7,3 @@ export * as Mathf from "./math";
 export * from "./resources";
 export * from "./systems";
 
-
-
-

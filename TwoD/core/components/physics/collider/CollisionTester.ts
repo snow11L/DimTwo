@@ -1,9 +1,9 @@
 import {
-  BoxCollider2D,
-  type BoxCollider2DType,
-  CircleCollider2D,
-  type CircleCollider2DType,
-  type ColliderType,
+    BoxCollider2D,
+    type BoxCollider2DType,
+    CircleCollider2D,
+    type CircleCollider2DType,
+    type ColliderType,
 } from "..";
 import { Mathf } from "../../..";
 import { type Bounds, getBounds } from "../../../math/geometry/Bounds";
