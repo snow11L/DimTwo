@@ -12,10 +12,10 @@ if (!WebGL) throw new Error("WebGL not supported");
 const debug = document.querySelector("#debug") as HTMLSpanElement;
 if (!debug) throw new Error("debug not supported");
 
-export const Engine = new Time();
+export const EngineTime = new Time();
 
 export const Global = {
-    Engine,
+    Engine: EngineTime,
     ResourcesManager,
     WebGL
 }   

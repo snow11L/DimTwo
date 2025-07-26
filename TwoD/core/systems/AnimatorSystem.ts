@@ -1,4 +1,4 @@
-import { Animator, type AnimatorType, type SpriteRenderType, } from "../components";
+import { AnimationLib, type AnimatorType, type SpriteRenderType, } from "../components";
 import { ComponentTypes } from "../components/component-type";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import Time from "../time/time";
@@ -15,7 +15,7 @@ export function AnimatorSystem(componentState: ComponentStateType): System {
         const spriteRender = ComponentState.getComponent<SpriteRenderType>(componentState, animator.gameEntity, ComponentTypes.SpriteRender);
         if (!spriteRender) continue;
 
-        const result = Animator.getAnimatorState(animator);
+        const result = AnimationLib.getAnimatorState(animator);
 
         if (!result.ok) {
           console.warn("Animator state error:", result.error);
@@ -24,8 +24,8 @@ export function AnimatorSystem(componentState: ComponentStateType): System {
 
         const state = result.value;
 
-        Animator.advanceFrame(animator, state, Time.deltaTime);
-        Animator.updateSprite(animator, state, spriteRender);
+       AnimationLib.advanceFrame(animator, state, Time.deltaTime);
+       AnimationLib.updateSprite(animator, state, spriteRender);
 
       }
     }
