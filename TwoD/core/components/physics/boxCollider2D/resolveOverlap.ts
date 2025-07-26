@@ -7,7 +7,11 @@ const _overlap = Vec2Math.create();
 const _centerA = Vec2Math.create();
 const _centerB = Vec2Math.create();
 
-export function resolveBoxBoxOverlap(
+const closestPointResult: Vec2 = { x: 0, y: 0 };
+const delta: Vec2 = { x: 0, y: 0 };
+const normal: Vec2 = { x: 0, y: 0 };
+
+function resolveBoxBoxOverlap(
   a: Bounds,
   b: Bounds
 ): Vec2 | null {
@@ -26,11 +30,7 @@ export function resolveBoxBoxOverlap(
   }
 }
 
-const closestPointResult: Vec2 = { x: 0, y: 0 };
-const delta: Vec2 = { x: 0, y: 0 };
-const normal: Vec2 = { x: 0, y: 0 };
-
-export function resolveBoxCircleOverlap(
+function resolveBoxCircleOverlap(
   boxBounds: Bounds,
   circlePos: Vec2,
   circleRadius: number
@@ -54,3 +54,9 @@ export function resolveBoxCircleOverlap(
     y: -normal.y * overlap,
   };
 }
+
+export {
+  resolveBoxBoxOverlap,
+  resolveBoxCircleOverlap
+};
+

@@ -1,2 +1,6 @@
-export * from "./getActivedCamera";
+import { getActivedCamera } from "./getActivedCamera";
+
+export const CameraLib = {
+    getActivedCamera
+}
 

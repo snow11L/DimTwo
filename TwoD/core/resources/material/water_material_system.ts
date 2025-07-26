@@ -1,5 +1,4 @@
-import { Mathf } from "../..";
-import { Transform } from "../../components";
+import { Mathf, TransformLib } from "../..";
 import { ComponentTypes } from "../../components/component-type";
 import { get_category, get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
@@ -20,7 +19,7 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             if (cameras.length === 0) return;
             const camera = cameras[0];
 
-            const cameraTransform = Transform.getTransform(camera.gameEntity);
+            const cameraTransform =TransformLib.getTransform(camera.gameEntity);
             if (cameraTransform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(cameraTransform.instanceID)!;
@@ -35,7 +34,7 @@ export function water_material_system(material: MaterialType): ShaderSystem {
 
         local(gameEntity) {
 
-            const transform = Transform.getTransform(gameEntity);
+            const transform =TransformLib.getTransform(gameEntity);
             if (transform == null) return;
 
             const spriteRender = get_sprite_render(gameEntity);

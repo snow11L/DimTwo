@@ -1,5 +1,4 @@
-import { Mathf } from "../..";
-import { Transform } from "../../components";
+import { Mathf, TransformLib } from "../..";
 import { ComponentTypes } from "../../components/component-type";
 import { get_category, get_textRender } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
@@ -19,7 +18,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
             if (cameras.length === 0) return;
             const camera = cameras[0];
 
-            const transform = Transform.getTransform(camera.gameEntity);
+            const transform = TransformLib.getTransform(camera.gameEntity);
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
@@ -32,7 +31,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
 
         local(gameEntity) {
 
-            const transform = Transform.getTransform(gameEntity);
+            const transform = TransformLib.getTransform(gameEntity);
             if (!transform) return;
 
             const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;

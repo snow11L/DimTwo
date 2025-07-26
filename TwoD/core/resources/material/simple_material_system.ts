@@ -1,5 +1,5 @@
 import { Mathf } from "../..";
-import { Camera, Transform } from "../../components";
+import { CameraLib, TransformLib } from "../../components";
 import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
@@ -14,10 +14,10 @@ export function simple_material_system(shaderName: string): ShaderSystem {
 
         global() {
 
-            const camera = Camera.getActivedCamera();
+            const camera = CameraLib.getActivedCamera();
             if(!camera) return;
 
-            const transform = Transform.getTransform(camera.gameEntity);
+            const transform = TransformLib.getTransform(camera.gameEntity);
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
@@ -31,7 +31,7 @@ export function simple_material_system(shaderName: string): ShaderSystem {
 
         local(gameEntity) {
 
-            const transform = Transform.getTransform(gameEntity);
+            const transform = TransformLib.getTransform(gameEntity);
             if (!transform) return;
 
             const spriteRender = get_sprite_render(gameEntity);

@@ -1,4 +1,4 @@
-import { Camera, Mathf, Transform, type MaterialType } from "../..";
+import { CameraLib, Mathf, TransformLib, type MaterialType } from "../..";
 
 import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
@@ -17,10 +17,10 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
     return {
         global() {
 
-            const camera = Camera.getActivedCamera();
+            const camera = CameraLib.getActivedCamera();
             if (!camera) return;
 
-            const transform = Transform.getTransform(camera.gameEntity);
+            const transform = TransformLib.getTransform(camera.gameEntity);
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
@@ -34,7 +34,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
 
         local(gameEntity) {
 
-            const transform = Transform.getTransform(gameEntity);
+            const transform = TransformLib.getTransform(gameEntity);
             if (!transform) return;
 
             const spriteRender = get_sprite_render(gameEntity);

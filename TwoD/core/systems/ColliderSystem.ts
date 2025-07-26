@@ -1,14 +1,16 @@
 
 import {
-    type BoxCollider2DType,
-    type CircleCollider2DType,
-    Collider,
-    type ColliderType,
-    CollisionMatrix,
-    RigidBody2D,
-    type RigidBody2DType,
-    Transform,
-    type TransformType
+  type BoxCollider2DType,
+  type CircleCollider2DType,
+  Collider,
+  type ColliderType,
+  CollisionMatrix,
+  RigidBody2DLib,
+  type RigidBody2DType,
+
+  TransformLib,
+
+  type TransformType
 } from "../components";
 import { ComponentState, type ComponentStateType, type System, SystemState, type SystemStateType } from "../ecs";
 
@@ -129,7 +131,7 @@ function detectCollisions(
 
     for (let i = 0; i < length; i++) {
       const colliderA = collidersInCell[i];
-      const aTransform = Transform.getTransform(colliderA.gameEntity);
+      const aTransform = TransformLib.getTransform(colliderA.gameEntity);
       if (!aTransform) continue;
 
       for (let j = i + 1; j < length; j++) {
@@ -144,7 +146,7 @@ function detectCollisions(
           )
         ) continue;
 
-        const bTransform = Transform.getTransform(colliderB.gameEntity);
+        const bTransform = TransformLib.getTransform(colliderB.gameEntity);
         if (!bTransform) continue;
 
         const pairKey = makePairKey(colliderA.instanceID, colliderB.instanceID);
@@ -220,7 +222,7 @@ function detectCollisions(
 
           if (!aRigid || !bRigid) return;
 
-          RigidBody2D.resolveRigidBody(
+          RigidBody2DLib.resolveRigidBody(
             aRigid,
             aTransform,
             bRigid,

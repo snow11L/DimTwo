@@ -2,12 +2,15 @@ import { EPSILON, getClosestPoint, type Bounds } from "../../../math/geometry/Bo
 import type { Vec2 } from "../../../math/vec2/Vec2";
 import Vec2Math from "../../../math/vec2/vec2-math";
 
-
 const _tmp = {
   delta: { x: 0, y: 0 },
 };
+const closestPointResult: Vec2 = { x: 0, y: 0 };
+const delta: Vec2 = { x: 0, y: 0 };
+const normal: Vec2 = { x: 0, y: 0 };
 
-export function resolveCircleCircleOverlap(
+
+function resolveCircleCircleOverlap(
   aPos: Vec2,
   aRadius: number,
   bPos: Vec2,
@@ -31,18 +34,12 @@ export function resolveCircleCircleOverlap(
   };
 }
 
-const closestPointResult: Vec2 = { x: 0, y: 0 };
-const delta: Vec2 = { x: 0, y: 0 };
-const normal: Vec2 = { x: 0, y: 0 };
-
-
-
 //!!!!!!!!!!!! importate ----------------
 // lempre disso no projeto, tive 2 hora de erro por conta disso
 
 // para resolucao entre circle box o vetor e positivo
 // para resolucao entre box circle e negatico
-export function resolveCircleBoxOverlap(
+function resolveCircleBoxOverlap(
 
   circlePos: Vec2,
   circleRadius: number,
@@ -68,3 +65,8 @@ export function resolveCircleBoxOverlap(
     y: normal.y * overlap,
   };
 }
+
+export {
+  resolveCircleBoxOverlap, resolveCircleCircleOverlap
+};
+

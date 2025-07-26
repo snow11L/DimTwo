@@ -1,8 +1,7 @@
 
-import { AnimatorSystem, ColliderSystem, PhysicsSystem, SystemState } from "../TwoD/core";
+import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem, SystemState } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
 import { ComponentTypes } from "../TwoD/core/components/component-type";
-import { RenderSystem } from "../TwoD/core/components/render/spriteRender";
 import { engine } from "../TwoD/core/core/Engine";
 import { get_category } from "../TwoD/core/generators/get_component";
 import { Global } from "../TwoD/core/managers/engine.manager";
@@ -18,8 +17,6 @@ import type { MeshType } from "../TwoD/core/resources/mesh/types";
 import { Scene } from "../TwoD/core/resources/scene/scene";
 import { InputSystem } from "../TwoD/core/systems/InputSystem";
 import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
-import { boxColliderGizmosSystem } from "../TwoD/debug/gizmos/boxColliderGizmosSystem";
-import { circleColliderGizmosSystem } from "../TwoD/debug/gizmos/circleColliderGizmosSystem";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
@@ -166,8 +163,8 @@ SystemState.addSystem(scene.systems, CameraSystem(camera, player));
 SystemState.addSystem(scene.systems, ColliderSystem(scene.components, scene.systems));
 SystemState.addSystem(scene.systems, PhysicsSystem(scene.components));
 SystemState.addSystem(scene.systems, InputSystem());
-SystemState.addSystem(scene.systems, boxColliderGizmosSystem());
-SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
+// SystemState.addSystem(scene.systems, boxColliderGizmosSystem());
+// SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 
 engine.start();
 

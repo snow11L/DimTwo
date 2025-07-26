@@ -2,8 +2,9 @@ import { distanceSq, getClosestPoint, type Bounds } from "../../../math/geometry
 import type { Vec2 } from "../../../math/vec2/Vec2";
 import Vec2Math from "../../../math/vec2/vec2-math";
 
+const VEC2_CACHE: Vec2 = Vec2Math.create();
 
-export function testCircleCircleOverlap(aPos: Vec2, aRadius: number, bPos: Vec2, bRadius: number): boolean {
+function testCircleCircleOverlap(aPos: Vec2, aRadius: number, bPos: Vec2, bRadius: number): boolean {
   if (aRadius <= 0 || bRadius <= 0) return false;
 
   const distSq = distanceSq(bPos, aPos);
@@ -12,8 +13,7 @@ export function testCircleCircleOverlap(aPos: Vec2, aRadius: number, bPos: Vec2,
   return distSq <= radiusSum * radiusSum;
 }
 
-const VEC2_CACHE: Vec2 = Vec2Math.create();
-export function testCircleBoxOverlap(
+function testCircleBoxOverlap(
   circlePos: Vec2,
   circleRadius: number,
   boxBounds: Bounds
@@ -23,3 +23,8 @@ export function testCircleBoxOverlap(
   const distSq = distanceSq(circlePos, VEC2_CACHE);
   return distSq <= (circleRadius * circleRadius);
 }
+
+export {
+  testCircleBoxOverlap, testCircleCircleOverlap
+};
+

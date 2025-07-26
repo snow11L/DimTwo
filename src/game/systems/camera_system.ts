@@ -1,4 +1,4 @@
-import { Transform, type System, type TransformType } from "../../../TwoD/core";
+import { TransformLib, type System, type TransformType } from "../../../TwoD/core";
 import type { GameEntityType } from "../../../TwoD/core/base/gameEntity/types";
 import { vec3_lerp } from "../../../TwoD/core/math/vec3/functions";
 import Time from "../../../TwoD/core/time/time";
@@ -10,8 +10,8 @@ export function CameraSystem(cameraEntity: GameEntityType, targetEntity: GameEnt
 
     return {
         start() {
-            cameraTransform = Transform.getTransform(cameraEntity);
-            targetTransform = Transform.getTransform(targetEntity);
+            cameraTransform = TransformLib.getTransform(cameraEntity);
+            targetTransform = TransformLib.getTransform(targetEntity);
         },
 
         update() {
