@@ -5,19 +5,22 @@ import {
   type CircleCollider2DType,
   type ColliderType
 } from "..";
-import { Mathf, TransformLib } from "../../..";
+import { TransformLib } from "../../..";
 import { getBounds, type Bounds } from "../../../math/geometry/Bounds";
-import type { Vec2 } from "../../../math/vec2/Vec2";
-import Vec2Math from "../../../math/vec2/vec2-math";
+import { Vec2 } from "../../../math/vec2/Vec2";
+import { Vec3 } from "../../../math/vec3/ Vec3";
 
 import { ComponentTypes } from "../../component-type";
 
 import { isOfType } from "./isOfType";
 
-const tempA = Mathf.Vec3.create();
-const tempB = Mathf.Vec3.create();
+const tempA = new Vec3(0, 0, 0);
+const tempB = new Vec3(0, 0, 0);
 
-function getEffectiveRadius(radius: number, scale: Mathf.Vec3Type): number {
+const tempAddA = new Vec2(0, 0);
+const tempAddB = new Vec2(0, 0);
+
+function getEffectiveRadius(radius: number, scale: Vec3): number {
   return radius * Math.max(scale.x, scale.y);
 }
 
@@ -31,8 +34,8 @@ export function testOverlap(
   const bTransform = TransformLib.getTransform(b.gameEntity);
   if (!aTransform || !bTransform) return false;
 
-  const offsetA = Vec2Math.add(aPos, a.center);
-  const offsetB = Vec2Math.add(bPos, b.center);
+  Vec2.add(aPos, a.center, tempAddA);
+  Vec2.add(bPos, b.center, tempAddB);
 
   const isABox = isOfType<BoxCollider2DType>(a, ComponentTypes.BoxCollider2D);
   const isBBox = isOfType<BoxCollider2DType>(b, ComponentTypes.BoxCollider2D);
@@ -46,11 +49,11 @@ export function testOverlap(
   );
 
   if (isABox && isBBox) {
-    Mathf.Vec3.mult(tempA, aTransform.scale, a.size);
-    Mathf.Vec3.mult(tempB, bTransform.scale, b.size);
+    Vec3.mult(tempA, aTransform.scale, a.size);
+    Vec3.mult(tempB, bTransform.scale, b.size);
 
-    const aBounds: Bounds = getBounds(offsetA, tempA);
-    const bBounds: Bounds = getBounds(offsetB, tempB);
+    const aBounds: Bounds = getBounds(tempAddA, tempA);
+    const bBounds: Bounds = getBounds(tempAddA, tempB);
 
     return BoxCollider2DLib.testBoxBoxOverlap(aBounds, bBounds);
   }
@@ -58,12 +61,12 @@ export function testOverlap(
   if (isABox && isBCircle) {
     const effectiveRadius = getEffectiveRadius(b.radius, bTransform.scale);
 
-    Mathf.Vec3.mult(tempA, aTransform.scale, a.size);
-    const aBounds: Bounds = getBounds(offsetA, tempA);
+    Vec3.mult(tempA, aTransform.scale, a.size);
+    const aBounds: Bounds = getBounds(tempAddA, tempA);
 
     return BoxCollider2DLib.testBoxCircleOverlap(
       aBounds,
-      offsetB,
+      tempAddA,
       effectiveRadius,
     );
   }
@@ -73,9 +76,9 @@ export function testOverlap(
     const bRadius = getEffectiveRadius(b.radius, bTransform.scale);
 
     return CircleCollider2DLib.testCircleCircleOverlap(
-      offsetA,
+      tempAddA,
       aRadius,
-      offsetB,
+      tempAddA,
       bRadius,
     );
   }
@@ -83,11 +86,11 @@ export function testOverlap(
   if (isACircle && isBBox) {
     const effectiveRadius = getEffectiveRadius(a.radius, aTransform.scale);
 
-    Mathf.Vec3.mult(tempB, bTransform.scale, b.size);
-    const bBounds: Bounds = getBounds(offsetB, tempB);
+    Vec3.mult(tempB, bTransform.scale, b.size);
+    const bBounds: Bounds = getBounds(tempAddA, tempB);
 
     return CircleCollider2DLib.testCircleBoxOverlap(
-      offsetA,
+      tempAddA,
       effectiveRadius,
       bBounds,
     );

@@ -1,4 +1,5 @@
-import { math_cos, math_deg_to_rad, math_sin } from "../../webgl/math";
+import { Mathf } from "../mathf/Mathf";
+import type { Vec3 } from "../vec3/ Vec3";
 
 export interface Quat {
     x: number;
@@ -7,17 +8,17 @@ export interface Quat {
     w: number;
 }
 
-export function euler_to_quat(q: Quat, v: Mathf.Vec3Type): void {
-    const rollRad = math_deg_to_rad(v.x) * 0.5;
-    const pitchRad = math_deg_to_rad(v.y) * 0.5;
-    const yawRad = math_deg_to_rad(v.z) * 0.5;
+export function euler_to_quat(q: Quat, v: Vec3): void {
+    const rollRad = Mathf.degToRad(v.x) * 0.5;
+    const pitchRad = Mathf.degToRad(v.y) * 0.5;
+    const yawRad = Mathf.degToRad(v.z) * 0.5;
 
-    const sinRoll = math_sin(rollRad);
-    const cosRoll = math_cos(rollRad);
-    const sinPitch = math_sin(pitchRad);
-    const cosPitch = math_cos(pitchRad);
-    const sinYaw = math_sin(yawRad);
-    const cosYaw = math_cos(yawRad);
+    const sinRoll = Mathf.sin(rollRad);
+    const cosRoll = Mathf.cos(rollRad);
+    const sinPitch = Mathf.sin(pitchRad);
+    const cosPitch = Mathf.cos(pitchRad);
+    const sinYaw = Mathf.sin(yawRad);
+    const cosYaw = Mathf.cos(yawRad);
 
     const x = cosPitch * sinRoll * cosYaw - cosRoll * sinPitch * sinYaw;
     const y = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;

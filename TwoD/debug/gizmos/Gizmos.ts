@@ -11,15 +11,15 @@
 
 // interface GizmosTransform {
 //     type: "square" | "circle";
-//     position: Mathf.Vec3Type;
+//     position: Vec3;
 //     rotation: Quat;
-//     scale: Mathf.Vec3Type;
+//     scale: Vec3;
 //     color: Color;
 // }
 
 // const gizmosTransform: GizmosTransform[] = [];
 
-// function draw_wire_square(position: Mathf.Vec3Type, rotation: Quat, scale: Mathf.Vec3Type, color: Color) {
+// function draw_wire_square(position: Vec3, rotation: Quat, scale: Vec3, color: Color) {
 //     if (!Gizmos.gizmosActive) return;
 //     gizmosTransform.push({
 //         type: "square",
@@ -30,7 +30,7 @@
 //     });
 // }
 
-// function draw_wire_circle(position: Mathf.Vec3Type, rotation: Quat, scale: Mathf.Vec3Type, color: Color) {
+// function draw_wire_circle(position: Vec3, rotation: Quat, scale: Vec3, color: Color) {
 //     if (!Gizmos.gizmosActive) return;
 //     gizmosTransform.push({
 //         type: "circle",

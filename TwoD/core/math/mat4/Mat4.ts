@@ -1,5 +1,5 @@
-import type { Mathf } from "../..";
 import type { Quat } from "../quat/quat";
+import type { Vec3 } from "../vec3/ Vec3";
 
 export class Mat4 {
     public readonly data: Float32Array;
@@ -51,7 +51,7 @@ export class Mat4 {
         return mat4;
     }
 
-    public static compose(m: Mat4, t: Mathf.Vec3Type, r: Quat, s: Mathf.Vec3Type) {
+    public static compose(m: Mat4, t: Vec3, r: Quat, s: Vec3) {
         const x = r.x, y = r.y, z = r.z, w = r.w;
 
         const x2 = x + x;
@@ -94,7 +94,7 @@ export class Mat4 {
         e[15] = 1;
     }
 
-    public static createTR(m: Mat4, t: Mathf.Vec3Type, r: Quat) {
+    public static createTR(m: Mat4, t: Vec3, r: Quat) {
         const x = r.x, y = r.y, z = r.z, w = r.w;
 
         const x2 = x + x;

@@ -1,4 +1,4 @@
-import { Mathf } from "../mathf/EngineMath";
+import { Mathf } from "../mathf/Mathf";
 import type { Vec2 } from "../vec2/Vec2";
 
 export interface Bounds {

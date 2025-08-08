@@ -2,7 +2,7 @@ import { SimplexNoise } from "../../../../TwoD/core/lib/SimplexNoise";
 import { BiomeName, classifyBiomes } from "./biome";
 
 export interface TerrainCell {
-  position: Mathf.Vec3Type;
+  position: Vec3;
   scale: number;
   height: number;
   temperature: number;

@@ -1,11 +1,10 @@
 
 import { getBoundsCenterInto, getBoxOverlapInto, getClosestPoint, getSeparationDirection, type Bounds } from "../../../math/geometry/Bounds";
-import type { Vec2 } from "../../../math/vec2/Vec2";
-import Vec2Math from "../../../math/vec2/vec2-math";
+import { Vec2 } from "../../../math/vec2/Vec2";
 
-const _overlap = Vec2Math.create();
-const _centerA = Vec2Math.create();
-const _centerB = Vec2Math.create();
+const _overlap = new Vec2();
+const _centerA = new Vec2();
+const _centerB = new Vec2();
 
 const closestPointResult: Vec2 = { x: 0, y: 0 };
 const delta: Vec2 = { x: 0, y: 0 };
@@ -37,15 +36,15 @@ function resolveBoxCircleOverlap(
 ): Vec2 | null {
   getClosestPoint(boxBounds, circlePos, closestPointResult);
 
-  Vec2Math.subtractInto(circlePos, closestPointResult, delta);
+  Vec2.subtract(circlePos, closestPointResult, delta);
   
-  const distSq = Vec2Math.lengthSquared(delta);
+  const distSq = Vec2.length(delta);
 
   if (distSq >= circleRadius * circleRadius) return null;
 
   const dist = Math.sqrt(distSq) || 0.0001;
 
-  Vec2Math.normalizeInto(delta, normal);
+  Vec2.normalize(delta, normal);
 
   const overlap = circleRadius - dist;
 

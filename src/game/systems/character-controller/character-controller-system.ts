@@ -2,7 +2,7 @@ import { ComponentState, Input, type ComponentStateType, type System, type Trans
 import { ComponentTypes } from "../../../../TwoD/core/components/component-type";
 import type { TextMeshXComponent } from "../../../../TwoD/core/components/render/textMesh/TextRender";
 import { get_component } from "../../../../TwoD/core/generators/get_component";
-import Vec2Math from "../../../../TwoD/core/math/vec2/vec2-math";
+import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
 import { Scene } from "../../../../TwoD/core/resources/scene/scene";
 import { globalKeyState } from "../../../../TwoD/core/systems/InputSystem";
 import Time from "../../../../TwoD/core/time/time";
@@ -76,7 +76,7 @@ export default function CharacterControlerSystem(state: ComponentStateType): Sys
         if (Input.getKey(globalKeyState, Input.KeyCode.KeyW)) characterControler.direction.y += 1;
         if (Input.getKey(globalKeyState, Input.KeyCode.KeyS)) characterControler.direction.y -= 1;
 
-        characterControler.direction = Vec2Math.normalize(characterControler.direction);
+        Vec2.normalize(characterControler.direction, characterControler.direction);
 
         const speed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft)
           ? characterControler.runSpeed

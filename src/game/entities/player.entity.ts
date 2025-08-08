@@ -1,9 +1,10 @@
 
-import { Builder, Mathf } from "../../../TwoD/core";
+import { Builder } from "../../../TwoD/core";
 import { GameEntity } from "../../../TwoD/core/base/GameObject";
 import { Id } from "../../../TwoD/core/base/Id";
 
 import { ComponentTypes } from "../../../TwoD/core/components/component-type";
+import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
 
@@ -45,7 +46,7 @@ export function createPlayer(
     controller: PLAYER_ANIMATOR_CONTROLLER,
   });
 
-  const boxCollider = Builder.BoxCollider2D(gameEntity, { center: Mathf.Vec3.create(0, 0.1) });
+  const boxCollider = Builder.BoxCollider2D(gameEntity, { center: new Vec3(0, 0.1, 0) });
   const circleCollider = Builder.CircleCollider2D(gameEntity);
 
   GameEntity.addComponents(

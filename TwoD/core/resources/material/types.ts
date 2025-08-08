@@ -1,4 +1,3 @@
-import type { Mathf } from "../..";
 import type { Color } from "../../math/color/types";
 
 
@@ -8,7 +7,7 @@ type TypeMap = {
     float: number;
     int: number;
     bool: boolean;
-    vec3: Mathf.Vec3Type;
+    vec3: Vec3;
     color: Color;
     texture: string;
 };

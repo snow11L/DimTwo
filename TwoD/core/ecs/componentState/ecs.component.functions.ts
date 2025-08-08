@@ -1,5 +1,5 @@
 import type { Component } from "../../base/Component";
-import type { GameEntity } from "../../base/gameEntity/types";
+import type { GameEntity } from "../../base/GameObject";
 import { addToCategory, removeFromCategory } from "./ecs.component.category.functions";
 import type { ComponentStateType } from "./types";
 

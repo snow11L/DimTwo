@@ -1,9 +1,9 @@
 
 import { distanceSq, getClosestPoint, type Bounds } from "../../../math/geometry/Bounds";
-import type { Vec2 } from "../../../math/vec2/Vec2";
-import Vec2Math from "../../../math/vec2/vec2-math";
+import { Vec2 } from "../../../math/vec2/Vec2";
 
-const VEC2_CACHE: Vec2 = Vec2Math.create();
+
+const VEC2_CACHE: Vec2 = new Vec2();
 
 function testBoxBoxOverlap(a: Bounds, b: Bounds): boolean {
   if (a.right <= b.left) return false;

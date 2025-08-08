@@ -1,8 +1,7 @@
 import { distanceSq, getClosestPoint, type Bounds } from "../../../math/geometry/Bounds";
-import type { Vec2 } from "../../../math/vec2/Vec2";
-import Vec2Math from "../../../math/vec2/vec2-math";
+import { Vec2 } from "../../../math/vec2/Vec2";
 
-const VEC2_CACHE: Vec2 = Vec2Math.create();
+const VEC2_CACHE: Vec2 = new Vec2();
 
 function testCircleCircleOverlap(aPos: Vec2, aRadius: number, bPos: Vec2, bRadius: number): boolean {
   if (aRadius <= 0 || bRadius <= 0) return false;

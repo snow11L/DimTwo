@@ -1,5 +1,6 @@
-import type { ColliderType, Mathf } from "../../..";
+import type { ColliderType } from "../../..";
+import type { Vec3 } from "../../../math/vec3/ Vec3";
 
 export interface BoxCollider2DType extends ColliderType {
-  size: Mathf.Vec3Type;
+  size: Vec3;
 }

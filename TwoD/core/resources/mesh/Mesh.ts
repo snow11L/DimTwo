@@ -1,19 +1,19 @@
-import type { Mathf } from "../..";
 import { Instantiable } from "../../base/Instantiable";
 import type { Vec2 } from "../../math/vec2/Vec2";
+import type { Vec3 } from "../../math/vec3/ Vec3";
 
 export class Mesh extends Instantiable {
     name: string;
-    vertices: Mathf.Vec3Type[];
+    vertices: Vec3[];
     indices: number[];
-    normals: Mathf.Vec3Type[];
+    normals: Vec3[];
     uvs: Vec2[];
 
     constructor(
         name: string,
-        vertices: Mathf.Vec3Type[] = [],
+        vertices: Vec3[] = [],
         indices: number[] = [],
-        normals: Mathf.Vec3Type[] = [],
+        normals: Vec3[] = [],
         uvs: Vec2[] = []
     ) {
         super();

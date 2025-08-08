@@ -1,6 +1,5 @@
 import { EPSILON, getClosestPoint, type Bounds } from "../../../math/geometry/Bounds";
-import type { Vec2 } from "../../../math/vec2/Vec2";
-import Vec2Math from "../../../math/vec2/vec2-math";
+import { Vec2 } from "../../../math/vec2/Vec2";
 
 const _tmp = {
   delta: { x: 0, y: 0 },
@@ -19,8 +18,8 @@ function resolveCircleCircleOverlap(
 
   if (aRadius <= 0 || bRadius <= 0) return null;
 
-  Vec2Math.subtractInto(bPos, aPos, _tmp.delta);
-  const distSq = Vec2Math.lengthSquared(_tmp.delta);
+  Vec2.subtract(bPos, aPos, _tmp.delta);
+  const distSq = Vec2.lengthSquared(_tmp.delta);
 
   const radiiSum = aRadius + bRadius;
   if (distSq >= radiiSum * radiiSum) return null;
@@ -47,16 +46,16 @@ function resolveCircleBoxOverlap(
 ): Vec2 | null {
   getClosestPoint(boxBounds, circlePos, closestPointResult);
 
-  Vec2Math.subtractInto(circlePos, closestPointResult, delta);
+  Vec2.subtract(circlePos, closestPointResult, delta);
 
-  const distSq = Vec2Math.lengthSquared(delta);
+  const distSq = Vec2.lengthSquared(delta);
 
   if (distSq >= circleRadius * circleRadius) return null;
 
   let dist = Math.sqrt(distSq);
   if (dist === 0) dist = EPSILON;
 
-  Vec2Math.normalizeInto(delta, normal);
+  Vec2.normalize(delta, normal);
 
   const overlap = circleRadius - dist;
 

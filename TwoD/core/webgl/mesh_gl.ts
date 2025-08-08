@@ -1,9 +1,8 @@
-import type { Mathf } from "..";
 import { Id } from "../base/Id";
 import type { FontData } from "../managers/FontManager";
 import { type Vec2 } from "../math/vec2/Vec2";
 import { vec2ArrayTof32Array } from "../math/vec2/Vector2Conversors";
-import { vec3Tof32Arr } from "../math/vec3/functions";
+import { Vec3 } from "../math/vec3/ Vec3";
 import type { Mesh } from "../resources/mesh/Mesh";
 
 export interface GLVAO {
@@ -20,7 +19,7 @@ export function createMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GLVAO {
     gl.bindVertexArray(vao);
 
 
-    const positions = vec3Tof32Arr(mesh.vertices);
+    const positions = Vec3.vec3Tof32Arr(mesh.vertices);
     const vbo = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
@@ -61,7 +60,7 @@ export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GL
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
 
-    const positions = vec3Tof32Arr(mesh.vertices);
+    const positions = Vec3.vec3Tof32Arr(mesh.vertices);
     const vbo = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
 
@@ -101,7 +100,7 @@ export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GL
 }
 
 export function updateDynamicMesh(gl: WebGL2RenderingContext, meshGL: GLVAO, mesh: Mesh) {
-    const newPositions = vec3Tof32Arr(mesh.vertices);
+    const newPositions = Vec3.vec3Tof32Arr(mesh.vertices);
     const newUVs = vec2ArrayTof32Array(mesh.uvs);
     const newIndices = new Uint16Array(mesh.indices);
 
@@ -143,7 +142,7 @@ export function createTextMesh(
     lineHeight: number = 100,
     spacement: number = 64
 ): Mesh {
-    const positions: Mathf.Vec3Type[] = [];
+    const positions: Vec3[] = [];
     const uvs: Vec2[] = [];
     const indices: number[] = [];
 

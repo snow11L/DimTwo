@@ -1,10 +1,11 @@
-import { CameraLib, Mathf, TransformLib, type MaterialType } from "../..";
+import { CameraLib, TransformLib, type MaterialType } from "../..";
 
 import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
 import { Mat4 } from "../../math/mat4/Mat4";
+import type { Vec3 } from "../../math/vec3/ Vec3";
 import { shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
@@ -13,7 +14,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
     const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, material.shaderName);
     if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
 
-    let flip_cache:  Mathf.Vec3Type = { x: 0, y: 0, z: 0 };
+    let flip_cache:  Vec3 = { x: 0, y: 0, z: 0 };
 
     return {
         global() {
