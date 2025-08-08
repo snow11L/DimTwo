@@ -1,10 +1,10 @@
 import type { Mathf } from "..";
-import { createIncrementalId } from "../generators/create.incremental.id";
+import { Id } from "../base/Id";
 import type { FontData } from "../managers/FontManager";
 import { type Vec2 } from "../math/vec2/Vec2";
 import { vec2ArrayTof32Array } from "../math/vec2/Vector2Conversors";
 import { vec3Tof32Arr } from "../math/vec3/functions";
-import type { MeshType } from "../resources/mesh/types";
+import type { Mesh } from "../resources/mesh/Mesh";
 
 export interface GLVAO {
     vao: WebGLVertexArrayObject;
@@ -15,7 +15,7 @@ export interface GLVAO {
     modelMatrixBuffer: WebGLBuffer | null;
 }
 
-export function createMeshVAO(gl: WebGL2RenderingContext, mesh: MeshType): GLVAO {
+export function createMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GLVAO {
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
 
@@ -57,7 +57,7 @@ export function createMeshVAO(gl: WebGL2RenderingContext, mesh: MeshType): GLVAO
 }
 
 
-export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: MeshType): GLVAO {
+export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: Mesh): GLVAO {
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
 
@@ -100,7 +100,7 @@ export function createDynamicMeshVAO(gl: WebGL2RenderingContext, mesh: MeshType)
     };
 }
 
-export function updateDynamicMesh(gl: WebGL2RenderingContext, meshGL: GLVAO, mesh: MeshType) {
+export function updateDynamicMesh(gl: WebGL2RenderingContext, meshGL: GLVAO, mesh: Mesh) {
     const newPositions = vec3Tof32Arr(mesh.vertices);
     const newUVs = vec2ArrayTof32Array(mesh.uvs);
     const newIndices = new Uint16Array(mesh.indices);
@@ -142,7 +142,7 @@ export function createTextMesh(
     scale: number = 1,
     lineHeight: number = 100,
     spacement: number = 64
-): MeshType {
+): Mesh {
     const positions: Mathf.Vec3Type[] = [];
     const uvs: Vec2[] = [];
     const indices: number[] = [];
@@ -200,8 +200,8 @@ export function createTextMesh(
         cursorX += glyph.xadvance * scale;
     }
 
-    const mesh: MeshType = {
-        instanceID: createIncrementalId(),
+    const mesh: Mesh = {
+        instanceID: new Id(),
         name: "text_mesh",
         normals: [],
         vertices: positions,

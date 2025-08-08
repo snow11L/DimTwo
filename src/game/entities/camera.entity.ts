@@ -1,8 +1,9 @@
-import { Builder, GameEntity, type CameraType, type GameEntityType, type TransformType } from "../../../TwoD/core";
+import { Builder, type CameraType, type TransformType } from "../../../TwoD/core";
+import { GameEntity } from "../../../TwoD/core/base/GameObject";
 
-export function createCamera(): GameEntityType {
+export function createCamera(): GameEntity {
 
-  const entity: GameEntityType = Builder.BuildGameEntity("camera", "MainCamera");
+  const entity: GameEntity = Builder.BuildGameEntity("camera", "MainCamera");
   const camera: CameraType = Builder.Camera(entity);
   const transform: TransformType = Builder.Transform(entity, { position: { x: 0, y: 0, z: 5 } });
 

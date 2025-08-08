@@ -1,9 +1,9 @@
 import type { Mathf } from "../../core";
 import { createMesh } from "../../core/generators/create.mesh";
 import type { Vec2 } from "../../core/math/vec2/Vec2";
-import type { MeshType } from "../../core/resources/mesh/types";
+import type { Mesh } from "../../core/resources/mesh/Mesh";
 
-export function createFillSquareMesh(name: string, size: Mathf.Vec3Type): MeshType {
+export function createFillSquareMesh(name: string, size: Mathf.Vec3Type): Mesh {
     const halfSize = {
         x: size.x * 0.5,
         y: size.y * 0.5,
@@ -39,7 +39,7 @@ export function createFillSquareMesh(name: string, size: Mathf.Vec3Type): MeshTy
     return createMesh(name, vertices, indices, normals, uvs);
 }
 
-export function createWireSquareMesh(name: string, size: Mathf.Vec3Type): MeshType {
+export function createWireSquareMesh(name: string, size: Mathf.Vec3Type): Mesh {
     const halfSize = {
         x: size.x * 0.5,
         y: size.y * 0.5,
@@ -66,7 +66,7 @@ export function createWireSquareMesh(name: string, size: Mathf.Vec3Type): MeshTy
     return createMesh(name, vertices, indices, normals, uvs);
 }
 
-export function createWireCircleMesh(name: string, radius: number, divisions: number): MeshType {
+export function createWireCircleMesh(name: string, radius: number, divisions: number): Mesh {
     const vertices:Mathf.Vec3Type[] = [];
     const indices: number[] = [];
 

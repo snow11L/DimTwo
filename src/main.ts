@@ -13,7 +13,7 @@ import { simple_material_system } from "../TwoD/core/resources/material/simple_m
 import { textShaderSystem } from "../TwoD/core/resources/material/text_shader_system";
 import type { MaterialType } from "../TwoD/core/resources/material/types";
 import { water_material_system } from "../TwoD/core/resources/material/water_material_system";
-import type { MeshType } from "../TwoD/core/resources/mesh/types";
+import type { Mesh } from "../TwoD/core/resources/mesh/Mesh";
 import { Scene } from "../TwoD/core/resources/scene/scene";
 import { InputSystem } from "../TwoD/core/systems/InputSystem";
 import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
@@ -167,9 +167,9 @@ SystemState.addSystem(scene.systems, InputSystem());
 
 engine.start();
 
-export function getMeshesUsedInScene(): Set<MeshType> {
+export function getMeshesUsedInScene(): Set<Mesh> {
     const renderers = get_category<Render>(ComponentTypes.Render);
-    const meshesUsed = new Set<MeshType>();
+    const meshesUsed = new Set<Mesh>();
     for (const render of renderers) {
         const mesh = generic_manager_get(Global.ResourcesManager.MeshManager, render.meshID);
         if (mesh) meshesUsed.add(mesh);

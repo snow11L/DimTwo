@@ -1,9 +1,10 @@
-import { Mathf, TransformLib } from "../..";
+import { TransformLib } from "../..";
 import { ComponentTypes } from "../../components/component-type";
 import { get_category, get_textRender } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
+import { Mat4 } from "../../math/mat4/Mat4";
 import { shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";
@@ -21,12 +22,12 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
             const transform = TransformLib.getTransform(camera.gameEntity);
             if (transform == null) return;
 
-            const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            Mathf.Mat4.createTR(viewMatrix, transform.position, transform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
+            const viewMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
+            Mat4.createTR(viewMatrix, transform.position, transform.rotation);
+            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
 
-            const projectionMatrix =  EasyGetter.getMat4(camera.instanceID)!;
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
+            const projectionMatrix =  EasyGetter.getMat4(camera.instanceID.getValue())!;
+            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
         },
 
         local(gameEntity) {
@@ -34,9 +35,9 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
             const transform = TransformLib.getTransform(gameEntity);
             if (!transform) return;
 
-            const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
+            const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
 
-            Mathf.Mat4.createTRS(
+            Mat4.compose(
                 modelMatrix,
                 transform.position,
                 transform.rotation,
@@ -44,7 +45,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
 
             );
 
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
+            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
 
             const textRender = get_textRender(gameEntity);
             if(textRender == null) return;

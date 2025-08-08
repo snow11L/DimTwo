@@ -42,7 +42,7 @@
 // }
 
 
-// const CACHE_MATRIX = Mathf.Mat4.createIdentity();
+// const CACHE_MATRIX = Mat4.createIdentity();
 
 // function drawGizmos() {
 //     const gl = Global.WebGL;
@@ -77,7 +77,7 @@
 
 //         gl.bindVertexArray(vao.vao);
 
-//         Mathf.Mat4.createTRS(CACHE_MATRIX, gizmo.position, gizmo.rotation, gizmo.scale);
+//         Mat4.createTRS(CACHE_MATRIX, gizmo.position, gizmo.rotation, gizmo.scale);
 //         shader_set_uniform_mat4(shader, "uModel", CACHE_MATRIX.value);
 //         shader_set_uniform_4f(shader, "uColor", gizmo.color.r, gizmo.color.g, gizmo.color.b, gizmo.color.a);
 

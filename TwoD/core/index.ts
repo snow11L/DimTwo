@@ -1,4 +1,3 @@
-export * from "./base";
 export * from "./components";
 export * from "./ecs";
 export * as Builder from "./generators";

@@ -1,10 +1,11 @@
-import { Mathf, TransformLib } from "../..";
+import { TransformLib } from "../..";
 import { ComponentTypes } from "../../components/component-type";
 import { get_category, get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
-import { Color } from "../../math";
+import { Color } from "../../math/color/color";
+import { Mat4 } from "../../math/mat4/Mat4";
 import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";
@@ -22,12 +23,12 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             const cameraTransform =TransformLib.getTransform(camera.gameEntity);
             if (cameraTransform == null) return;
 
-            const viewMatrix = EasyGetter.getMat4(cameraTransform.instanceID)!;
-            Mathf.Mat4.createTR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
+            const viewMatrix = EasyGetter.getMat4(cameraTransform.instanceID.getValue())!;
+            Mat4.createTR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
+            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
 
-            const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
+            const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
+            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
 
             shader_set_uniform_1f(shader, "uTime", performance.now() / 2000);
         },
@@ -40,9 +41,9 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             const spriteRender = get_sprite_render(gameEntity);
             if (spriteRender == null) return;
 
-            const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            Mathf.Mat4.createTRS(modelMatrix, transform.position, transform.rotation, transform.scale);
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
+            const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
+            Mat4.compose(modelMatrix, transform.position, transform.rotation, transform.scale);
+            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
 
             spriteRender.color = Color.rgba(1, 161, 253, 1);
 

@@ -1,14 +1,15 @@
-import { Mathf, type MeshType } from "..";
+import { type MeshType } from "..";
+import { Mat4 } from "../math/mat4/Mat4";
 
 import { Scene } from "../resources/scene/scene";
 import type { GLVAO } from "../webgl/mesh_gl";
 import { Global } from "./engine.manager";
 import { generic_manager_get } from "./generic_manager";
 
-function getMat4(id: number): Mathf.Mat4Type | null {
+function getMat4(id: number): Mat4| null {
     const scene = Scene.getCurrentScene();
     if (!scene.mat4.values.has(id)) {
-        scene.mat4.values.set(id, Mathf.Mat4.createIdentity());
+        scene.mat4.values.set(id, Mat4.create());
     }
     return scene.mat4.values.get(id) ?? null;
 }

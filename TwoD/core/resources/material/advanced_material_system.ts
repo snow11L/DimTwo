@@ -4,6 +4,7 @@ import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
+import { Mat4 } from "../../math/mat4/Mat4";
 import { shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
@@ -24,12 +25,12 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            Mathf.Mat4.createTR(viewMatrix, transform.position, transform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
+            Mat4.createTR(viewMatrix, transform.position, transform.rotation);
+            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
-            Mathf.Mat4.creatrProjection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
+            Mat4.projection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
+            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
         },
 
         local(gameEntity) {
@@ -48,7 +49,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
             flip_cache.y = spriteRender.flipVertical ? -transform.scale.y : transform.scale.y;
             flip_cache.z = transform.scale.z;
 
-            Mathf.Mat4.createTRS(
+            Mat4.compose(
                 modelMatrix,
                 transform.position,
                 transform.rotation,
@@ -56,7 +57,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
 
             );
 
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
+            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
             shader_set_uniform_4f(shader, "uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
 
             const texture = generic_manager_get(Global.ResourcesManager.TextureManager, spriteRender.sprite.textureName)!;

@@ -2,7 +2,8 @@ import { CIRCLE_SPRITE } from "../../../TwoD/assets/sprites/circle.sprite";
 import { SQUARE_SPRITE } from "../../../TwoD/assets/sprites/square.sprite";
 import { TRIANGLE_SPRITE } from "../../../TwoD/assets/sprites/triangle.sprite";
 import { Builder, ComponentState } from "../../../TwoD/core";
-import { Color } from "../../../TwoD/core/math";
+import { Color } from "../../../TwoD/core/math/color/color";
+
 
 import { Scene } from "../../../TwoD/core/resources/scene/scene";
 import type { SpriteType } from "../../../TwoD/core/resources/sprite";
