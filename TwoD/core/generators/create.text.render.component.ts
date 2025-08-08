@@ -1,12 +1,12 @@
-import type { GameEntityType } from "../base/gameEntity/types";
+/* import type { GameEntity } from "../base/gameEntity/types";
+import { Id } from "../base/Id";
 import { ComponentTypes } from "../components/component-type";
 import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
-import { Colors } from "../math/color";
-import { createIncrementalId } from "./create.incremental.id";
 
-export function TextMesh(entity: GameEntityType, text: string = "this is a text") {
+
+export function TextMesh(entity: GameEntity, text: string = "this is a text") {
     const textRender: TextMeshXComponent = {
-        color: Colors.GRAY,
+        color: Color,
         alpha: 1.0,
         meshID: null,
         subMeshs: null,
@@ -15,10 +15,10 @@ export function TextMesh(entity: GameEntityType, text: string = "this is a text"
         category: ComponentTypes.Render,
         enabled: true,
         gameEntity: entity,
-        instanceID: createIncrementalId(),
+        instanceID: new Id(),
         text: text,
         type: ComponentTypes.TextMesh
     }
 
     return textRender;
-}
+} */

@@ -1,8 +1,6 @@
-export * from "./create.game.entity";
-export * from "./create.incremental.id";
-
 export * from "./create.animator.component";
 export * from "./create.camera.component";
+export * from "./create.game.entity";
 export * from "./create.sprite.render.component";
 export * from "./create.transform.component";
 

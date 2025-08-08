@@ -1,6 +1,7 @@
 
 import { Builder, Mathf } from "../../../TwoD/core";
 import { GameEntity } from "../../../TwoD/core/base/GameObject";
+import { Id } from "../../../TwoD/core/base/Id";
 
 import { ComponentTypes } from "../../../TwoD/core/components/component-type";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
@@ -14,7 +15,7 @@ export function createPlayer(
   const transform = Builder.Transform(gameEntity);
 
   const character_controler: CharacterControlerComponent = {
-    instanceID: Builder.createIncrementalId(),
+    instanceID: new Id(),
     gameEntity: gameEntity,
     type: ComponentTypes.CharacterController,
     category: ComponentTypes.Controller,

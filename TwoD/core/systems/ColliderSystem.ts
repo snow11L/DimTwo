@@ -149,7 +149,7 @@ function detectCollisions(
         const bTransform = TransformLib.getTransform(colliderB.gameEntity);
         if (!bTransform) continue;
 
-        const pairKey = makePairKey(colliderA.instanceID, colliderB.instanceID);
+        const pairKey = makePairKey(colliderA.instanceID.getValue(), colliderB.instanceID.getValue());
 
         if (collisionState.checked.has(pairKey)) continue;
         collisionState.checked.add(pairKey);

@@ -24,11 +24,11 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
             const transform = TransformLib.getTransform(camera.gameEntity);
             if (transform == null) return;
 
-            const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
+            const viewMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
             Mat4.createTR(viewMatrix, transform.position, transform.rotation);
             shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
 
-            const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
+            const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
             Mat4.projection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
             shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
         },
@@ -43,7 +43,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
 
             if (!spriteRender.sprite) return;
 
-            const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
+            const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
 
             flip_cache.x = spriteRender.flipHorizontal ? -transform.scale.x : transform.scale.x;
             flip_cache.y = spriteRender.flipVertical ? -transform.scale.y : transform.scale.y;

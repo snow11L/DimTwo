@@ -1,12 +1,12 @@
-import type { GameEntityType } from "../base/gameEntity/types";
+import type { GameEntity } from "../base/GameObject";
+import { Id } from "../base/Id";
 import type { AnimatorType } from "../components";
 import { ComponentTypes } from "../components/component-type";
-import { createIncrementalId } from "./create.incremental.id";
 import type { AnimatorOptions } from "./types";
 
-export function Animator(gameEntity: GameEntityType, options?: AnimatorOptions): AnimatorType {
+export function Animator(gameEntity: GameEntity, options?: AnimatorOptions): AnimatorType {
     return {
-        instanceID: createIncrementalId(),
+        instanceID: new Id(),
         category: ComponentTypes.Animator,
         controller: null,
         currentClip: null,

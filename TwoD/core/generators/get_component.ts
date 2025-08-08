@@ -1,5 +1,6 @@
 import type { Component } from "../base/Component";
-import type { GameEntityType } from "../base/gameEntity/types";
+import type { GameEntity } from "../base/GameObject";
+
 import type { SpriteRenderType } from "../components";
 
 import { ComponentTypes } from "../components/component-type";
@@ -8,7 +9,7 @@ import { ComponentState } from "../ecs";
 import { Scene } from "../resources/scene/scene";
 
 
-export function get_textRender(gameEntity: GameEntityType): TextMeshXComponent | null {
+export function get_textRender(gameEntity: GameEntity): TextMeshXComponent | null {
     const scene = Scene.getCurrentScene();
     if (scene == null) return null;
 
@@ -40,7 +41,7 @@ export function get_type<T extends Component>(type: string): T[] {
     );
 }
 
-export function get_component<T extends Component>(entity: GameEntityType, type: string): T | null {
+export function get_component<T extends Component>(entity: GameEntity, type: string): T | null {
     const scene = Scene.getCurrentScene();
     if (scene == null) return null;
 
@@ -51,7 +52,7 @@ export function get_component<T extends Component>(entity: GameEntityType, type:
     );
 }
 
-export function get_sprite_render(gameEntity: GameEntityType): SpriteRenderType | null {
+export function get_sprite_render(gameEntity: GameEntity): SpriteRenderType | null {
     const scene = Scene.getCurrentScene();
     if (scene == null) return null;
 

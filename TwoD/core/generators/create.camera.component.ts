@@ -1,13 +1,13 @@
-import type { GameEntityType } from "../base/gameEntity/types";
+import type { GameEntity } from "../base/GameObject";
+import { Id } from "../base/Id";
 import type { CameraType } from "../components";
 import { ComponentTypes } from "../components/component-type";
-import { createIncrementalId } from "./create.incremental.id";
 
-export function Camera(gameEntity: GameEntityType) {
+export function Camera(gameEntity: GameEntity) {
     const camera: CameraType = {
         category: ComponentTypes.Camera,
         gameEntity: gameEntity,
-        instanceID: createIncrementalId(),
+        instanceID: new Id(),
         type: ComponentTypes.Camera,
         enabled: true,
         aspec: 1,

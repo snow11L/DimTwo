@@ -180,6 +180,6 @@ export function getMeshesUsedInScene(): Set<Mesh> {
 const meshs = getMeshesUsedInScene();
 meshs.forEach(m => {
     const vao = createMeshVAO(Global.WebGL, m);
-    scene.vao.values.set(m.instanceID, vao)
+    scene.vao.values.set(m.instanceID.getValue(), vao)
 
 })

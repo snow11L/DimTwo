@@ -1,5 +1,5 @@
 import type { Component } from "../../base/Component";
-import type { GameEntityType } from "../../base/gameEntity/types";
+import type { GameEntity } from "../../base/gameEntity/types";
 import { addToCategory, removeFromCategory } from "./ecs.component.category.functions";
 import type { ComponentStateType } from "./types";
 
@@ -13,7 +13,7 @@ export function createComponentState(): ComponentStateType {
 
 export function addComponent<T extends Component>(
   state: ComponentStateType,
-  entity: GameEntityType,
+  entity: GameEntity,
   component: T,
   persistent = true
 ): void {
@@ -28,7 +28,7 @@ export function addComponent<T extends Component>(
 
 export function getComponent<T extends Component>(
   state: ComponentStateType,
-  entity: GameEntityType,
+  entity: GameEntity,
   type: string
 ): T | null {
   return (
@@ -38,7 +38,7 @@ export function getComponent<T extends Component>(
   ) as T | null;
 }
 
-export function hasComponent(state: ComponentStateType, entity: GameEntityType, type: string): boolean {
+export function hasComponent(state: ComponentStateType, entity: GameEntity, type: string): boolean {
   return (
     state.persistent.get(type)?.has(entity) ??
     state.transient.get(type)?.has(entity) ??
@@ -46,7 +46,7 @@ export function hasComponent(state: ComponentStateType, entity: GameEntityType, 
   );
 }
 
-export function removeComponent(state: ComponentStateType, entity: GameEntityType, type: string): void {
+export function removeComponent(state: ComponentStateType, entity: GameEntity, type: string): void {
   for (const source of [state.persistent, state.transient]) {
     const component = source.get(type)?.get(entity);
     if (component) {
@@ -69,7 +69,7 @@ export function getComponentsByCategory<T extends Component>(state: ComponentSta
 
 export function destroyEntityAndComponents(
   ecs: ComponentStateType,
-  entity: GameEntityType
+  entity: GameEntity
 ): void {
  
   for (const [_, map] of ecs.persistent.entries()) {

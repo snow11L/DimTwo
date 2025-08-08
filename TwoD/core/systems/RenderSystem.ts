@@ -44,7 +44,7 @@ export function RenderSystem(state: ComponentStateType): System {
         const mesh = generic_manager_get(Global.ResourcesManager.MeshManager, render.meshID);
         if (!mesh) continue;
 
-        const vao = EasyGetter.getVAO(mesh.instanceID);
+        const vao = EasyGetter.getVAO(mesh.instanceID.getValue());
         if (!vao) continue;
 
         webGL.bindVertexArray(vao.vao);
