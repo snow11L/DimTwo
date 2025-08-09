@@ -1,7 +1,8 @@
 import { ComponentTypes } from "../../../../TwoD/components/component-type";
 import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
 import type { Transform } from "../../../../TwoD/components/spatial/transform/Transform";
-import { ComponentState, Input, type ComponentStateType, type System } from "../../../../TwoD/core";
+import { Input } from "../../../../TwoD/core";
+import type { System } from "../../../../TwoD/core/ecs/systemState/System";
 import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
 import { Scene } from "../../../../TwoD/core/resources/scene/scene";
 import { globalKeyState } from "../../../../TwoD/core/systems/InputSystem";
@@ -28,7 +29,7 @@ function getGameEntityByName(name: string) {
 //   updateDynamicMesh(ENGINE.WEB_GL, VAO, newMesh);
 // }
 
-export default function CharacterControlerSystem(state: ComponentStateType): System {
+export default function CharacterControlerSystem(): System {
 
   let textMesh: TextMeshXComponent | null = null;
 
@@ -42,14 +43,16 @@ export default function CharacterControlerSystem(state: ComponentStateType): Sys
 
 
     update() {
-      const characterControlers = ComponentState.getComponentsByType<CharacterControler>(
-        state,
+
+        const scene = Scene.getCurrentScene();
+            const components = scene.ECSComponents;
+
+      const characterControlers = components.getComponentsByType<CharacterControler>(
         ComponentTypes.CharacterController
       );
       for (const characterControler of characterControlers) {
 
-        const characterTransform = ComponentState.getComponent<Transform>(
-          state,
+        const characterTransform = components.getComponent<Transform>(
           characterControler.getGameEntity(),
           ComponentTypes.Transform
         );

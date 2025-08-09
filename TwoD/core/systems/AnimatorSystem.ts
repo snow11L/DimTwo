@@ -2,19 +2,24 @@
 import { Animator } from "../../components/animation/animator/Animator";
 import { ComponentTypes } from "../../components/component-type";
 import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
-import { ComponentState, type ComponentStateType, type System } from "../ecs";
+import type { System } from "../ecs/systemState/System";
+import { Scene } from "../resources/scene/scene";
+
 import Time from "../time/time";
 
-export function AnimatorSystem(componentState: ComponentStateType): System {
+export function AnimatorSystem(): System {
   return {
     lateUpdate() {
 
-      const animators = ComponentState.getComponentsByType<Animator>(componentState, ComponentTypes.Animator);
+      const scene = Scene.getCurrentScene();
+      const components = scene.ECSComponents;
+
+      const animators = components.getComponentsByType<Animator>(ComponentTypes.Animator);
 
       for (const animator of animators) {
         if (!animator.enabled || !animator.controller) continue;
 
-        const spriteRender = ComponentState.getComponent<SpriteRender>(componentState, animator.getGameEntity(), ComponentTypes.SpriteRender);
+        const spriteRender = components.getComponent<SpriteRender>(animator.getGameEntity(), ComponentTypes.SpriteRender);
         if (!spriteRender) continue;
 
         const result = Animator.getAnimatorState(animator);

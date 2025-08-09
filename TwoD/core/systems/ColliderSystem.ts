@@ -1,6 +1,3 @@
-
-import { ComponentState, type ComponentStateType, type System, SystemState, type SystemStateType } from "../ecs";
-
 import { ComponentTypes } from "../../components/component-type";
 import type { BoxCollider2D } from "../../components/physics/boxCollider2D/BoxCollider2D";
 import type { CircleCollider2D } from "../../components/physics/circleCollider2D/CircleCollider2D";
@@ -9,8 +6,11 @@ import { testOverlap } from "../../components/physics/collider/CollisionTester";
 import type { Collider } from "../../components/physics/collider/types";
 import { RigidBody2D } from "../../components/physics/rigidBody2D/RigidBody";
 import { Transform } from "../../components/spatial/transform/Transform";
+import { SpatialHash } from "../algorithms/spatialHash/SpatialHash";
 import { canCollide } from "../core/collisionMatrix";
-import { SpatialHash } from "../lib/SpatialHash";
+import type { ECSComponent } from "../ecs/componentState/ECSComponent";
+import type { ECSSystem } from "../ecs/ECSSystem";
+import type { System } from "../ecs/systemState/System";
 import type { Vec2 } from "../math/vec2/Vec2";
 import { Scene } from "../resources/scene/scene";
 
@@ -61,10 +61,8 @@ export interface CollisionState {
   collision: Set<string>;
 }
 
-export function ColliderSystem(
-  componentState: ComponentStateType,
-  state: SystemStateType,
-): System {
+export function ColliderSystem(): System {
+
   const tempMin = { x: 0, y: 0 };
   const tempMax = { x: 0, y: 0 };
 
@@ -79,21 +77,25 @@ export function ColliderSystem(
 
   return {
     fixedUpdate() {
+
+      const scene = Scene.getCurrentScene();
+      const systems = scene.ECSSystems;
+      const components = scene.ECSComponents;
+
+
       collisionState.current.clear();
       collisionState.checked.clear();
       collisionState.collision.clear();
       spatialHash.clear();
 
-      const colliders = ComponentState.getComponentsByCategory<Collider>(
-        componentState,
+      const colliders = components.getComponentsByCategory<Collider>(
         ComponentTypes.Collider,
       );
 
       for (const collider of colliders) {
         if (!collider.enabled) continue;
 
-        const transform = ComponentState.getComponent<Transform>(
-          componentState,
+        const transform = components.getComponent<Transform>(
           collider.getGameEntity(),
           ComponentTypes.Transform,
         );
@@ -104,20 +106,20 @@ export function ColliderSystem(
       }
 
       detectCollisions(
-        componentState,
+        components,
         spatialHash,
         collisionState,
-        state,
+        systems,
       );
     },
   };
 }
 
 function detectCollisions(
-  componentState: ComponentStateType,
+  components: ECSComponent,
   spatialHash: SpatialHash<Collider>,
   collisionState: CollisionState,
-  systems: SystemStateType,
+  systems: ECSSystem,
 ) {
   const scene = Scene.getCurrentScene();
 
@@ -166,12 +168,12 @@ function detectCollisions(
 
         if (isTriggerInteraction) {
           if (!wasColliding) {
-            SystemState.callTriggerEnterEvents(systems, {
+            systems.callTriggerEnterEvents({
               a: colliderA,
               b: colliderB,
             });
           }
-          SystemState.callTriggerStayEvents(systems, {
+          systems.callTriggerStayEvents({
             a: colliderA,
             b: colliderB,
           });
@@ -181,13 +183,13 @@ function detectCollisions(
         }
 
         if (!wasColliding) {
-          SystemState.callCollisionEnterEvents(systems, {
+          systems.callCollisionEnterEvents({
             a: colliderA,
             b: colliderB,
           });
         }
 
-        SystemState.callCollisionStayEvents(systems, {
+        systems.callCollisionStayEvents({
           a: colliderA,
           b: colliderB,
         });
@@ -203,14 +205,12 @@ function detectCollisions(
 
         if (resolution) {
 
-          const aRigid = ComponentState.getComponent<RigidBody2D>(
-            componentState,
+          const aRigid = components.getComponent<RigidBody2D>(
             colliderA.getGameEntity(),
             ComponentTypes.RigidBody2D,
           );
 
-          const bRigid = ComponentState.getComponent<RigidBody2D>(
-            componentState,
+          const bRigid = components.getComponent<RigidBody2D>(
             colliderB.getGameEntity(),
             ComponentTypes.RigidBody2D,
           );
@@ -232,13 +232,13 @@ function detectCollisions(
   for (const [pairKey, pair] of collisionState.previous.entries()) {
     if (!collisionState.current.has(pairKey)) {
       if (pair.a.isTrigger || pair.b.isTrigger) {
-        SystemState.callTriggerExitEvents(systems, pair);
+        systems.callTriggerExitEvents(pair);
         pair.a.isColliding = false;
         pair.b.isColliding = false;
       } else {
         pair.a.isColliding = false;
         pair.b.isColliding = false;
-        SystemState.callCollisionExitEvents(systems, pair);
+        systems.callCollisionExitEvents(pair);
       }
     }
   }

@@ -1,9 +1,5 @@
 import type { CollisionEvent, TriggerEvent } from "../../types/collision-event";
 
-export interface SystemStateType {
-  readonly systems: System[];
-}
-
 export interface System {
   start?: () => void;
   update?: () => void;

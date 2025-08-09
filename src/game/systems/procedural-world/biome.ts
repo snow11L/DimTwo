@@ -1,4 +1,4 @@
-import { isInRange } from "../../../../TwoD/core/lib/isInRange";
+import { isInRange } from "../../../../TwoD/core/algorithms/isInRange";
 import { Color } from "../../../../TwoD/core/math/color/color";
 import type { TerrainCell } from "./Word";
 

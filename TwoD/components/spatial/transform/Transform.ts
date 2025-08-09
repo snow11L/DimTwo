@@ -1,4 +1,3 @@
-import { ComponentState } from "../../../core";
 import { Component } from "../../../core/base/Component";
 import type { GameEntity } from "../../../core/base/GameEntity";
 import { Quat } from "../../../core/math/quat/quat";
@@ -25,8 +24,7 @@ export class Transform extends Component {
     public static getTransform(gameEntity: GameEntity): Transform | null {
         const scene = Scene.getCurrentScene();
 
-        return ComponentState.getComponent<Transform>(
-            scene.components,
+        return scene.ECSComponents.getComponent<Transform>(
             gameEntity,
             ComponentTypes.Transform
         );

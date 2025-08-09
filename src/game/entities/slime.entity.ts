@@ -1,4 +1,4 @@
-import type { AnimatorType } from "../../../TwoD/components/animation";
+import type { Animator } from "../../../TwoD/components/animation/animator/Animator";
 import type { RigidBody2D } from "../../../TwoD/components/physics/rigidBody2D/RigidBody";
 import type { SpriteRender } from "../../../TwoD/components/render/spriteRender/SpriteRender";
 import type { Transform } from "../../../TwoD/components/spatial/transform/Transform";
@@ -16,7 +16,7 @@ export function createSlime(name: string): GameEntity {
   spriteReder.layer = 1;
   spriteReder.material = "advanced_material";
 
-  const animator: AnimatorType = createAnimator(gameEntity);
+  const animator: Animator = createAnimator(gameEntity);
   animator.controller = SLIME_ANIMATOR_CONTROLLER;
 
   const rigidBody: RigidBody2D = BuildRigidBody2D(gameEntity);

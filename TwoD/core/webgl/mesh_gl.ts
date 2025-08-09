@@ -133,7 +133,6 @@ export function updateDynamicMesh(gl: WebGL2RenderingContext, meshGL: GLVAO, mes
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 }
 
-
 export function createTextMesh(
     text: string,
     fontData: FontData,

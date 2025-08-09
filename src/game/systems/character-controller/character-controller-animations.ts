@@ -1,27 +1,31 @@
 import { Animator } from "../../../../TwoD/components/animation/animator/Animator";
 import { ComponentTypes } from "../../../../TwoD/components/component-type";
 import { SpriteRender } from "../../../../TwoD/components/render/spriteRender/SpriteRender";
-import { ComponentState, type ComponentStateType, Input, type System } from "../../../../TwoD/core";
+import { Input } from "../../../../TwoD/core";
+import type { System } from "../../../../TwoD/core/ecs/systemState/System";
+import { Scene } from "../../../../TwoD/core/resources/scene/scene";
 import { globalKeyState } from "../../../../TwoD/core/systems/InputSystem";
 import type { CharacterControler } from "./character.controller.types";
 
-export default function CharacterControllerAnimationSystem(state: ComponentStateType): System {
+export default function CharacterControllerAnimationSystem(): System {
 
     return {
         lateUpdate() {
 
-            const characterControlers = ComponentState.getComponentsByType<CharacterControler>(state, ComponentTypes.CharacterController);
+            const scene = Scene.getCurrentScene();
+            const components = scene.ECSComponents;
+
+            const characterControlers = components.getComponentsByType<CharacterControler>( ComponentTypes.CharacterController);
 
             for (const characterControler of characterControlers) {
 
-                const spriteRender = ComponentState.getComponent<SpriteRender>(
-                    state,
+                const spriteRender = components.getComponent<SpriteRender>(
                     characterControler.getGameEntity(),
                     ComponentTypes.SpriteRender
                 );
                 if (!spriteRender) continue;
 
-                const animator = ComponentState.getComponent<Animator>(state, characterControler.getGameEntity(), ComponentTypes.Animator);
+                const animator = components.getComponent<Animator>(characterControler.getGameEntity(), ComponentTypes.Animator);
                 if (!animator) continue;
 
                 animator.playbackSpeed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft) ? 1.5 : 1.0;

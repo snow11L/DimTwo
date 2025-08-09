@@ -1,4 +1,4 @@
-import { SimplexNoise } from "../../../../TwoD/core/lib/SimplexNoise";
+import { SimplexNoise } from "../../../../TwoD/core/algorithms/noise/SimplexNoise";
 import { BiomeName, classifyBiomes } from "./biome";
 
 export interface TerrainCell {

@@ -1,6 +1,5 @@
 
 import { ComponentTypes } from "../TwoD/components/component-type";
-import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem, SystemState } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
 import { engine } from "../TwoD/core/core/Engine";
 import { Global } from "../TwoD/core/managers/engine.manager";
@@ -12,6 +11,7 @@ import type { MaterialType } from "../TwoD/core/resources/material/types";
 import { water_material_system } from "../TwoD/core/resources/material/water_material_system";
 import type { Mesh } from "../TwoD/core/resources/mesh/Mesh";
 import { Scene } from "../TwoD/core/resources/scene/scene";
+import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../TwoD/core/systems";
 import { InputSystem } from "../TwoD/core/systems/InputSystem";
 import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
 import { get_category } from "../TwoD/generators/get_component";
@@ -112,9 +112,9 @@ async function LoadResources() {
         shaderName: "advanced",
     };
 
-    Global.ResourcesManager.MaterialManager.generic_manager_add( advanced_material.name, advanced_material);
+    Global.ResourcesManager.MaterialManager.generic_manager_add(advanced_material.name, advanced_material);
     const advanced_shader_color_system = advanced_material_system(advanced_material);
-    Global.ResourcesManager.ShaderSystemManager.generic_manager_add( advanced_material.name, advanced_shader_color_system);
+    Global.ResourcesManager.ShaderSystemManager.generic_manager_add(advanced_material.name, advanced_shader_color_system);
 
 
     const water_material: MaterialType = {
@@ -122,19 +122,19 @@ async function LoadResources() {
         shaderName: "water",
 
     };
-    Global.ResourcesManager.MaterialManager.generic_manager_add( water_material.name, water_material);
+    Global.ResourcesManager.MaterialManager.generic_manager_add(water_material.name, water_material);
 
     const simple_shader_water_system = water_material_system(water_material);
-    Global.ResourcesManager.ShaderSystemManager.generic_manager_add( water_material.name, simple_shader_water_system);
+    Global.ResourcesManager.ShaderSystemManager.generic_manager_add(water_material.name, simple_shader_water_system);
 
     const textMaterial: MaterialType = {
         name: "text_material",
         shaderName: "text",
 
     }
-   Global.ResourcesManager.MaterialManager. generic_manager_add(textMaterial.name, textMaterial);
-/*     const textSystem = textShaderSystem(textMaterial);
-    Global.ResourcesManager.ShaderSystemManager.generic_manager_add( textMaterial.name, textSystem); */
+    Global.ResourcesManager.MaterialManager.generic_manager_add(textMaterial.name, textMaterial);
+    /*     const textSystem = textShaderSystem(textMaterial);
+        Global.ResourcesManager.ShaderSystemManager.generic_manager_add( textMaterial.name, textSystem); */
 
 }
 
@@ -153,14 +153,14 @@ Scene.addToScene(scene, slime);
 const camera = createCamera();
 Scene.addToScene(scene, camera);
 
-SystemState.addSystem(scene.systems, RenderSystem(scene.components));
-SystemState.addSystem(scene.systems, CharacterControlerSystem(scene.components));
-SystemState.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
-SystemState.addSystem(scene.systems, AnimatorSystem(scene.components));
-SystemState.addSystem(scene.systems, CameraSystem(camera, player));
-SystemState.addSystem(scene.systems, ColliderSystem(scene.components, scene.systems));
-SystemState.addSystem(scene.systems, PhysicsSystem(scene.components));
-SystemState.addSystem(scene.systems, InputSystem());
+scene.ECSSystems.addSystem(RenderSystem());
+scene.ECSSystems.addSystem(CharacterControlerSystem(scene.ECSComponents));
+scene.ECSSystems.addSystem(CharacterControllerAnimationSystem());
+scene.ECSSystems.addSystem(AnimatorSystem());
+scene.ECSSystems.addSystem(CameraSystem(camera, player));
+scene.ECSSystems.addSystem(ColliderSystem());
+scene.ECSSystems.addSystem(PhysicsSystem());
+scene.ECSSystems.addSystem(InputSystem());
 // SystemState.addSystem(scene.systems, boxColliderGizmosSystem());
 // SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 

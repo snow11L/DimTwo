@@ -17,7 +17,7 @@ export function createPrimitive(
   const scene = Scene.getCurrentScene();
   if (scene == null) return;
 
-  const componentState = scene.components;
+  const componentState = scene.ECSComponents;
 
   const gameEntity = Builder.BuildGameEntity(name, "Player");
 

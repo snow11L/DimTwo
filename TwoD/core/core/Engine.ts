@@ -1,30 +1,36 @@
-import { SystemState } from "..";
+
 import { Global } from "../managers/engine.manager";
+import { Scene } from "../resources/scene/scene";
 import Time from "../time/time";
 
 export const engine = new Time();
 
+
 engine.on("start", () => {
-    SystemState.callStart();
+
+    const scene = Scene.getCurrentScene();
+    scene.ECSSystems.callStart();
 });
 
 engine.on("fixedUpdate", () => {
-    SystemState.callFixedUpdate();
+    const scene = Scene.getCurrentScene();
+    scene.ECSSystems.callFixedUpdate();
 
 });
 
 engine.on("update", () => {
-    SystemState.callUpdate();
-    SystemState.callLateUpdate();
+    const scene = Scene.getCurrentScene();
+    scene.ECSSystems.callUpdate();
+    scene.ECSSystems.callLateUpdate();
 });
 
 engine.on("render", () => {
-
+    const scene = Scene.getCurrentScene();
     const WebGL = Global.WebGL;
     WebGL.clearColor(0, 0, 0, 1);
     WebGL.clear(WebGL.COLOR_BUFFER_BIT);
-    SystemState.callRender();
-    SystemState.callDrawGizmos();
+    scene.ECSSystems.callRender();
+    scene.ECSSystems.callDrawGizmos();
 
 
 });

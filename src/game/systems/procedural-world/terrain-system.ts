@@ -2,8 +2,8 @@ import { createGameEntity, createSpriteRenderComponent, createTransformComponent
 import type { System } from "../../../../api/resources";
 import { ECS } from "../../../../api/TwoD";
 import type { ComponentStateType } from "../../../../api/types";
+import { Mulberry32 } from "../../../../TwoD/core/algorithms/mulberry32/mulberry32";
 import type { GameEntity } from "../../../../TwoD/core/base/gameEntity/types";
-import { Mulberry32 } from "../../../../TwoD/core/lib/mulberry32";
 import type { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
 import { get_transform } from "../../../../TwoD/generators/get_component";
 import { createTreeEntity } from "../../entities/tree.entity";
