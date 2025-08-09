@@ -5,7 +5,6 @@ import { get_sprite_render } from "../../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { Mat4 } from "../../math/mat4/Mat4";
-import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
 export function simple_material_system(shaderName: string): ShaderSystem {
@@ -16,17 +15,17 @@ export function simple_material_system(shaderName: string): ShaderSystem {
         global() {
 
             const camera = Camera.getActivedCamera();
-            if(!camera) return;
+            if (!camera) return;
 
             const transform = Transform.getTransform(camera.getGameEntity());
             if (transform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
             Mat4.createTR(viewMatrix, transform.position, transform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
+            shader.shader_set_uniform_mat4("uView", viewMatrix.data);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
+            shader.shader_set_uniform_mat4("uProjection", projectionMatrix.data);
 
         },
 
@@ -40,9 +39,9 @@ export function simple_material_system(shaderName: string): ShaderSystem {
 
             const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
             Mat4.compose(modelMatrix, transform.position, transform.rotation, transform.scale);
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
+            shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
 
-            shader_set_uniform_4f(
+            shader.shader_set_uniform_4f(
 
                 shader,
                 "uColor",

@@ -7,12 +7,11 @@ import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { Mat4 } from "../../math/mat4/Mat4";
 import type { Vec3 } from "../../math/vec3/ Vec3";
-import { shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4, shader_set_uniform_texture } from "../shader/shader_uniforms";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
 
 export function advanced_material_system(material: MaterialType): ShaderSystem {
-    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get( material.shaderName);
+    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(material.shaderName);
     if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
 
     let flip_cache:  Vec3 = { x: 0, y: 0, z: 0 };
@@ -28,11 +27,11 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
 
             const viewMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
             Mat4.createTR(viewMatrix, transform.position, transform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
+            shader.shader_set_uniform_mat4("uView", viewMatrix.data);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
             Mat4.projection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
+            shader.shader_set_uniform_mat4("uProjection", projectionMatrix.data);
         },
 
         local(gameEntity) {
@@ -59,19 +58,19 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
 
             );
 
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
-            shader_set_uniform_4f(shader, "uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
+            shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
+            shader.shader_set_uniform_4f("uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
 
             const texture = Global.ResourcesManager.TextureManager.generic_manager_get(spriteRender.sprite.textureName)!;
-            shader_set_uniform_texture(shader, "uTexture", texture, 0);
+            shader.shader_set_uniform_texture("uTexture", texture, 0);
 
             const uvScaleX = spriteRender.sprite.size.x / texture.width;
             const uvScaleY = spriteRender.sprite.size.y / texture.height;
-            shader_set_uniform_2f(shader, "uUVScale", uvScaleX, uvScaleY);
+            shader.shader_set_uniform_2f("uUVScale", uvScaleX, uvScaleY);
 
             const uvOffsetX = spriteRender.sprite.position.x / texture.width;
             const uvOffsetY = (texture.height - spriteRender.sprite.position.y - spriteRender.sprite.size.y) / texture.height;
-            shader_set_uniform_2f(shader, "uUVOffset", uvOffsetX, uvOffsetY);
+            shader.shader_set_uniform_2f("uUVOffset", uvOffsetX, uvOffsetY);
         },
 
     };

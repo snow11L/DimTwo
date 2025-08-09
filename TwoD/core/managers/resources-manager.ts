@@ -1,4 +1,4 @@
-import { createShader } from "../resources/shader";
+import { Shader } from "../resources/shader/Shader";
 import { createTexture } from "../resources/texture/types";
 import { Global } from "./engine.manager";
 import type { ImageFile, ShaderFile } from "./shaderLoader";
@@ -51,7 +51,7 @@ export class ResourceManager {
       const vert = await vertResponse.text();
       const frag = await fragResponse.text();
 
-      const shader = createShader(shaderName, vert, frag);
+      const shader = new Shader(shaderName, vert, frag);
       Global.ResourcesManager.ShaderManager.generic_manager_add(shaderName, shader);
     }
   }

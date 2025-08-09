@@ -1,3 +1,4 @@
+
 import { ComponentTypes } from "../../../components/component-type";
 import { Transform } from "../../../components/spatial/transform/Transform";
 import { get_category, get_sprite_render } from "../../../generators/get_component";
@@ -5,9 +6,9 @@ import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { Color } from "../../math/color/color";
 import { Mat4 } from "../../math/mat4/Mat4";
-import { shader_set_uniform_1f, shader_set_uniform_2f, shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";
+
 
 export function water_material_system(material: MaterialType): ShaderSystem {
     const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(material.shaderName)!;
@@ -19,22 +20,22 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             if (cameras.length === 0) return;
             const camera = cameras[0];
 
-            const cameraTransform =Transform.getTransform(camera.getGameEntity());
+            const cameraTransform = Transform.getTransform(camera.getGameEntity());
             if (cameraTransform == null) return;
 
             const viewMatrix = EasyGetter.getMat4(cameraTransform.instanceID.getValue())!;
             Mat4.createTR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
+            shader.shader_set_uniform_mat4("uView", viewMatrix.data);
 
             const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
+            shader.shader_set_uniform_mat4("uProjection", projectionMatrix.data);
 
-            shader_set_uniform_1f(shader, "uTime", performance.now() / 2000);
+            shader.shader_set_uniform_1f("uTime", performance.now() / 2000);
         },
 
         local(gameEntity) {
 
-            const transform =Transform.getTransform(gameEntity);
+            const transform = Transform.getTransform(gameEntity);
             if (transform == null) return;
 
             const spriteRender = get_sprite_render(gameEntity);
@@ -42,11 +43,11 @@ export function water_material_system(material: MaterialType): ShaderSystem {
 
             const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
             Mat4.compose(modelMatrix, transform.position, transform.rotation, transform.scale);
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
+            shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
 
             spriteRender.color = Color.rgba(1, 161, 253, 1);
 
-            shader_set_uniform_4f(
+            shader.shader_set_uniform_4f(
                 shader,
                 "uColor",
                 spriteRender.color.r,
@@ -55,10 +56,10 @@ export function water_material_system(material: MaterialType): ShaderSystem {
                 spriteRender.color.a,
             );
 
-            shader_set_uniform_2f(shader, "uTileSize", transform.scale.x, transform.scale.y);
-            shader_set_uniform_2f(shader, "uWorldOffset", transform.position.x, transform.position.y);
+            shader.shader_set_uniform_2f("uTileSize", transform.scale.x, transform.scale.y);
+            shader.shader_set_uniform_2f("uWorldOffset", transform.position.x, transform.position.y);
 
-            shader_set_uniform_1f(shader, "uWaveScale", 1);
+            shader.shader_set_uniform_1f("uWaveScale", 1);
         },
     };
 }
