@@ -140,18 +140,18 @@ async function LoadResources() {
 
 await LoadResources();
 
-const scene = Scene.create("simple_scene");
+const scene = new Scene("simple_scene");
 Scene.setCurrentScene(scene);
 
 const player = createPlayer("player");
-Scene.addToScene(scene, player);
+scene.addToScene(scene, player);
 
 
 const slime = createSlime("slime");
-Scene.addToScene(scene, slime);
+scene.addToScene(scene, slime);
 
 const camera = createCamera();
-Scene.addToScene(scene, camera);
+scene.addToScene(scene, camera);
 
 scene.ECSSystems.addSystem(RenderSystem());
 scene.ECSSystems.addSystem(CharacterControlerSystem());
