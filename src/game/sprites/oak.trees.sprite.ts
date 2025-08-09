@@ -6,7 +6,7 @@
 //     size: { x: 80, y: 128 },
 // }
 
-import type { Sprite } from "../../../TwoD/modules/resources/sprite";
+import type { Sprite } from "../../../engine/modules/resources/sprite";
 
 
 

@@ -1,15 +1,15 @@
-import type { System } from "../../../../TwoD/core/ecs/System";
-import { InputManager } from "../../../../TwoD/core/input/Input";
-import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
-import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
-import { SceneManager } from "../../../../TwoD/core/scene/SceneManager";
-import Time from "../../../../TwoD/core/time/time";
-import { ComponentTypes } from "../../../../TwoD/modules/components/component-type";
-import type { TextMeshXComponent } from "../../../../TwoD/modules/components/render/textMesh/TextRender";
-import type { Transform } from "../../../../TwoD/modules/components/spatial/transform/Transform";
-import { get_component } from "../../../../TwoD/modules/generators/get_component";
+import type { System } from "../../../../engine/core/ecs/System";
+import { Vec2 } from "../../../../engine/core/math/vec2/Vec2";
+import { SceneManager } from "../../../../engine/core/scene/SceneManager";
+import Time from "../../../../engine/core/time/time";
+import { ComponentTypes } from "../../../../engine/modules/components/component-type";
+import type { TextMeshXComponent } from "../../../../engine/modules/components/render/textMesh/TextRender";
+import type { Transform } from "../../../../engine/modules/components/spatial/transform/Transform";
+import { get_component } from "../../../../engine/modules/generators/get_component";
+import { WebKeyCode } from "../../../../engine/modules/webInput/WebKeyCode";
 
 import type { CharacterControler } from "./character.controller.types";
+import { Input } from "./InputSystem";
 
 
 
@@ -63,13 +63,13 @@ export default function CharacterControlerSystem(): System {
         characterControler.direction.x = 0;
         characterControler.direction.y = 0;
 
-        if (InputManager.keyboard.getKey(KeyCode.KeyA)) characterControler.direction.x -= 1;
-        if (InputManager.keyboard.getKey(KeyCode.KeyD)) characterControler.direction.x += 1;
-        if (InputManager.keyboard.getKey(KeyCode.KeyW)) characterControler.direction.y += 1;
-        if (InputManager.keyboard.getKey(KeyCode.KeyS)) characterControler.direction.y -= 1;
+        if (Input.keyboard.getKey(WebKeyCode.KeyA)) characterControler.direction.x -= 1;
+        if (Input.keyboard.getKey(WebKeyCode.KeyD)) characterControler.direction.x += 1;
+        if (Input.keyboard.getKey(WebKeyCode.KeyW)) characterControler.direction.y += 1;
+        if (Input.keyboard.getKey(WebKeyCode.KeyS)) characterControler.direction.y -= 1;
 
         Vec2.normalize(characterControler.direction, characterControler.direction);
-        const speed = InputManager.keyboard.getKey(KeyCode.ShiftLeft)
+        const speed = Input.keyboard.getKey(WebKeyCode.ShiftLeft)
           ? characterControler.runSpeed
           : characterControler.speed;
 

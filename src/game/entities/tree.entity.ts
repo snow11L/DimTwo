@@ -1,9 +1,9 @@
-import { Builder } from "../../../TwoD/core";
-import { CollisionLayer } from "../../../TwoD/modules/physics/collision/CollisionLayer";
-import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
-import { createBoxCollider2D } from "../../../TwoD/modules/generators";
+import { Builder } from "../../../engine/core";
+import { Vec3 } from "../../../engine/core/math/vec3/ Vec3";
+import { createBoxCollider2D } from "../../../engine/modules/generators";
+import { CollisionLayer } from "../../../engine/modules/physics/collision/CollisionLayer";
 
-import type { Sprite } from "../../../TwoD/modules/resources/sprite";
+import type { Sprite } from "../../../engine/modules/resources/sprite";
 
 export function createTreeEntity(
     name: string,

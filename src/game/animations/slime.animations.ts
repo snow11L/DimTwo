@@ -1,4 +1,4 @@
-import { createAnimationClip, type AnimationClip } from "../../../TwoD/modules/resources/animation";
+import { createAnimationClip, type AnimationClip } from "../../../engine/modules/resources/animation";
 
 const SLIME_IDLE_CLIP: AnimationClip = createAnimationClip(
     "idle",

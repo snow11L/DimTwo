@@ -1,4 +1,4 @@
-import type { Sprite } from "../../../TwoD/modules/resources/sprite";
+import type { Sprite } from "../../../engine/modules/resources/sprite";
 
 export const SLIME_SPRITE: Sprite = {
     meshName: null,

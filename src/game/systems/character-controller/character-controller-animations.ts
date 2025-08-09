@@ -1,11 +1,11 @@
-import type { System } from "../../../../TwoD/core/ecs/System";
-import { InputManager } from "../../../../TwoD/core/input/Input";
-import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
-import { SceneManager } from "../../../../TwoD/core/scene/SceneManager";
-import { Animator } from "../../../../TwoD/modules/components/animation/animator/Animator";
-import { ComponentTypes } from "../../../../TwoD/modules/components/component-type";
-import { SpriteRender } from "../../../../TwoD/modules/components/render/spriteRender/SpriteRender";
+import type { System } from "../../../../engine/core/ecs/System";
+import { SceneManager } from "../../../../engine/core/scene/SceneManager";
+import { Animator } from "../../../../engine/modules/components/animation/animator/Animator";
+import { ComponentTypes } from "../../../../engine/modules/components/component-type";
+import { SpriteRender } from "../../../../engine/modules/components/render/spriteRender/SpriteRender";
+import { WebKeyCode } from "../../../../engine/modules/webInput/WebKeyCode";
 import type { CharacterControler } from "./character.controller.types";
+import { Input } from "./InputSystem";
 
 export default function CharacterControllerAnimationSystem(): System {
 
@@ -28,7 +28,7 @@ export default function CharacterControllerAnimationSystem(): System {
                 const animator = components.getComponent<Animator>(characterControler.getGameEntity(), ComponentTypes.Animator);
                 if (!animator) continue;
 
-                animator.playbackSpeed = InputManager.keyboard.getKey(KeyCode.ShiftLeft) ? 1.5 : 1.0;
+                animator.playbackSpeed = Input.keyboard.getKey(WebKeyCode.ShiftLeft) ? 1.5 : 1.0;
 
                 const dir = characterControler.direction;
 

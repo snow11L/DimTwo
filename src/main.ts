@@ -1,34 +1,28 @@
 
-import type { MaterialType } from "../TwoD/core";
-import type { Render } from "../TwoD/core/base/Render";
-import { InputManager } from "../TwoD/core/input/Input";
-import { Global } from "../TwoD/core/managers/engine.manager";
-import { resourceManager } from "../TwoD/core/managers/resources-manager";
-import type { ImageFile, ShaderFile } from "../TwoD/core/managers/shaderLoader";
-import { Scene } from "../TwoD/core/scene/scene";
-import { SceneManager } from "../TwoD/core/scene/SceneManager";
-import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
-import { Engine } from "../TwoD/Engine";
-import { ComponentTypes } from "../TwoD/modules/components/component-type";
-import { get_category } from "../TwoD/modules/generators/get_component";
-import { advanced_material_system } from "../TwoD/modules/resources/material/advanced_material_system";
-import { simple_material_system } from "../TwoD/modules/resources/material/simple_material_system";
-import { water_material_system } from "../TwoD/modules/resources/material/water_material_system";
-import type { Mesh } from "../TwoD/modules/resources/mesh/Mesh";
-import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../TwoD/modules/systems";
-import { InputSystem } from "../TwoD/modules/systems/InputSystem";
-import { WebKeyboardInput } from "../TwoD/platform/web/WebKeyboardInput";
-import { WebMouseInput } from "../TwoD/platform/web/WebMouseInput";
+import type { MaterialType } from "../engine/core";
+import type { Render } from "../engine/core/base/Render";
+import { Global } from "../engine/core/managers/engine.manager";
+import { Scene } from "../engine/core/scene/scene";
+import { SceneManager } from "../engine/core/scene/SceneManager";
+import { createMeshVAO } from "../engine/core/webgl/mesh_gl";
+import { Engine } from "../engine/Engine";
+import { ComponentTypes } from "../engine/modules/components/component-type";
+import { get_category } from "../engine/modules/generators/get_component";
+import { resourceManager } from "../engine/modules/resources-manager";
+import { advanced_material_system } from "../engine/modules/resources/material/advanced_material_system";
+import { simple_material_system } from "../engine/modules/resources/material/simple_material_system";
+import { water_material_system } from "../engine/modules/resources/material/water_material_system";
+import type { Mesh } from "../engine/modules/resources/mesh/Mesh";
+import type { ImageFile, ShaderFile } from "../engine/modules/shaderLoader";
+import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../engine/modules/systems";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
 import { CameraSystem } from "./game/systems/camera_system";
 import CharacterControllerAnimationSystem from "./game/systems/character-controller/character-controller-animations";
 import CharacterControlerSystem from "./game/systems/character-controller/character-controller-system";
+import { InputSystemComponent } from "./game/systems/character-controller/InputSystem";
 
-
-InputManager.keyboard = new WebKeyboardInput();
-InputManager.mouse = new WebMouseInput();
 
 function material_create_and_link(name: string, shader: string) {
 
@@ -74,32 +68,32 @@ async function LoadResources() {
             path: "src/game/assets/images/OakTree.png"
         },
         primitives: {
-            path: "TwoD/assets/images/primitive_sprites.png"
+            path: "engine/assets/images/primitive_sprites.png"
         }
     }
     const shaders: ShaderFile = {
 
         text: {
-            vert: "TwoD/assets/shaders/text.vert",
-            frag: "TwoD/assets/shaders/text.frag"
+            vert: "engine/assets/shaders/text.vert",
+            frag: "engine/assets/shaders/text.frag"
         },
 
         simple: {
-            vert: "TwoD/assets/shaders/simpleShader.vert",
-            frag: "TwoD/assets/shaders/simpleShader.frag"
+            vert: "engine/assets/shaders/simpleShader.vert",
+            frag: "engine/assets/shaders/simpleShader.frag"
         },
         advanced: {
-            vert: "TwoD/assets/shaders/advancedShader.vert",
-            frag: "TwoD/assets/shaders/advancedShader.frag"
+            vert: "engine/assets/shaders/advancedShader.vert",
+            frag: "engine/assets/shaders/advancedShader.frag"
         },
         water: {
-            vert: "TwoD/assets/shaders/simpleShader.vert",
-            frag: "TwoD/assets/shaders/waterShader.frag"
+            vert: "engine/assets/shaders/simpleShader.vert",
+            frag: "engine/assets/shaders/waterShader.frag"
         },
 
         gizmos: {
-            vert: "TwoD/assets/shaders/gizmos.vert",
-            frag: "TwoD/assets/shaders/gizmos.frag"
+            vert: "engine/assets/shaders/gizmos.vert",
+            frag: "engine/assets/shaders/gizmos.frag"
         }
     }
 
@@ -169,12 +163,19 @@ scene.ECSSystems.addSystem(AnimatorSystem());
 scene.ECSSystems.addSystem(CameraSystem(camera, player));
 scene.ECSSystems.addSystem(ColliderSystem());
 scene.ECSSystems.addSystem(PhysicsSystem());
-scene.ECSSystems.addSystem(InputSystem());
+scene.ECSSystems.addSystem(InputSystemComponent());
 // SystemState.addSystem(scene.systems, boxColliderGizmosSystem());
 // SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 
 
-const engine = new Engine();
+const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const WebGL = canvas.getContext('webgl2');
+if (!WebGL) throw new Error("WebGL not supported");
+
+const engine = new Engine(WebGL);
 engine.time.start();
 
 
