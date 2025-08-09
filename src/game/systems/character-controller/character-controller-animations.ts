@@ -1,7 +1,7 @@
 import { Animator } from "../../../../TwoD/components/animation/animator/Animator";
 import { ComponentTypes } from "../../../../TwoD/components/component-type";
 import { SpriteRender } from "../../../../TwoD/components/render/spriteRender/SpriteRender";
-import type { System } from "../../../../TwoD/core/ecs/systemState/System";
+import type { System } from "../../../../TwoD/core/ecs/System";
 import { InputManager } from "../../../../TwoD/core/input/Input";
 import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
 import { Scene } from "../../../../TwoD/core/resources/scene/scene";

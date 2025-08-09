@@ -1,4 +1,4 @@
-import type { CollisionEvent, TriggerEvent } from "../../types/collision-event";
+import type { CollisionEvent, TriggerEvent } from "../types/collision-event";
 
 export interface System {
   start?: () => void;

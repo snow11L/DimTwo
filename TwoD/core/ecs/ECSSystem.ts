@@ -1,5 +1,5 @@
 import type { CollisionEvent, TriggerEvent } from "../types/collision-event";
-import type { System } from "./systemState/System";
+import type { System } from "./System";
 
 export class ECSSystem {
 

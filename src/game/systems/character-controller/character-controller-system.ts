@@ -1,7 +1,7 @@
 import { ComponentTypes } from "../../../../TwoD/components/component-type";
 import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
 import type { Transform } from "../../../../TwoD/components/spatial/transform/Transform";
-import type { System } from "../../../../TwoD/core/ecs/systemState/System";
+import type { System } from "../../../../TwoD/core/ecs/System";
 import { InputManager } from "../../../../TwoD/core/input/Input";
 import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
 import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";

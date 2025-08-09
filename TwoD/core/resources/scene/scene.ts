@@ -1,7 +1,7 @@
 import type { GameEntity } from "../../base/GameEntity";
 import { createCollisionMatrix } from "../../core/collisionMatrix";
 import type { CollisionMatrixType } from "../../core/collisionMatrix/types";
-import { ECSComponent } from "../../ecs/componentState/ECSComponent";
+import { ECSComponent } from "../../ecs/ECSComponent";
 import { ECSSystem } from "../../ecs/ECSSystem";
 
 import { GenericManager } from "../../managers/generic_manager";

@@ -1,7 +1,7 @@
 import { Animator } from "../components/animation/animator/Animator";
 import { ComponentTypes } from "../components/component-type";
 import type { SpriteRender } from "../components/render/spriteRender/SpriteRender";
-import type { System } from "../core/ecs/systemState/System";
+import type { System } from "../core/ecs/System";
 import { Scene } from "../core/resources/scene/scene";
 import Time from "../core/time/time";
 

@@ -1,5 +1,5 @@
-import type { Component } from "../../base/Component";
-import type { GameEntity } from "../../base/GameEntity";
+import type { Component } from "../base/Component";
+import type { GameEntity } from "../base/GameEntity";
 
 
 export class ECSComponent {

@@ -8,9 +8,9 @@ import { RigidBody2D } from "../components/physics/rigidBody2D/RigidBody";
 import { Transform } from "../components/spatial/transform/Transform";
 import { SpatialHash } from "../core/algorithms/spatialHash/SpatialHash";
 import { canCollide } from "../core/core/collisionMatrix";
-import type { ECSComponent } from "../core/ecs/componentState/ECSComponent";
+import type { ECSComponent } from "../core/ecs/ECSComponent";
 import type { ECSSystem } from "../core/ecs/ECSSystem";
-import type { System } from "../core/ecs/systemState/System";
+import type { System } from "../core/ecs/System";
 import type { Vec2 } from "../core/math/vec2/Vec2";
 import { Scene } from "../core/resources/scene/scene";
 

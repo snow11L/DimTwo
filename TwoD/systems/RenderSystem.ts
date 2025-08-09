@@ -1,7 +1,7 @@
 import { ComponentTypes } from "../components/component-type";
 import type { Transform } from "../components/spatial/transform/Transform";
 import type { Render } from "../core/base/Render";
-import type { System } from "../core/ecs/systemState/System";
+import type { System } from "../core/ecs/System";
 import { EasyGetter } from "../core/managers/EasyGetters";
 import { Global } from "../core/managers/engine.manager";
 import { Scene } from "../core/resources/scene/scene";

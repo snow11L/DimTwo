@@ -1,4 +1,4 @@
-import type { System } from "../core/ecs/systemState/System";
+import type { System } from "../core/ecs/System";
 import { InputManager } from "../core/input/Input";
 
 export function InputSystem(): System {
