@@ -1,0 +1,77 @@
+import { type MaterialType } from "../../../core";
+import { Camera } from "../../components/render/camera/types";
+import { Transform } from "../../components/spatial/transform/Transform";
+
+import { EasyGetter } from "../../../core/managers/EasyGetters";
+import { Global } from "../../../core/managers/engine.manager";
+import { Mat4 } from "../../../core/math/mat4/Mat4";
+import type { Vec3 } from "../../../core/math/vec3/ Vec3";
+import { get_sprite_render } from "../../generators/get_component";
+import type { ShaderSystem } from "../shader/ShaderSystem";
+
+
+export function advanced_material_system(material: MaterialType): ShaderSystem {
+    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(material.shaderName);
+    if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
+
+    let flip_cache:  Vec3 = { x: 0, y: 0, z: 0 };
+
+    return {
+        global() {
+
+            const camera = Camera.getActivedCamera();
+            if (!camera) return;
+
+            const transform = Transform.getTransform(camera.getGameEntity());
+            if (transform == null) return;
+
+            const viewMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
+            Mat4.createTR(viewMatrix, transform.position, transform.rotation);
+            shader.shader_set_uniform_mat4("uView", viewMatrix.data);
+
+            const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
+            Mat4.projection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
+            shader.shader_set_uniform_mat4("uProjection", projectionMatrix.data);
+        },
+
+        local(gameEntity) {
+
+            const transform = Transform.getTransform(gameEntity);
+            if (!transform) return;
+
+            const spriteRender = get_sprite_render(gameEntity);
+            if (!spriteRender) return;
+
+            if (!spriteRender.sprite) return;
+
+            const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
+
+            flip_cache.x = spriteRender.flipHorizontal ? -transform.scale.x : transform.scale.x;
+            flip_cache.y = spriteRender.flipVertical ? -transform.scale.y : transform.scale.y;
+            flip_cache.z = transform.scale.z;
+
+            Mat4.compose(
+                modelMatrix,
+                transform.position,
+                transform.rotation,
+                flip_cache,
+
+            );
+
+            shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
+            shader.shader_set_uniform_4f("uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
+
+            const texture = Global.ResourcesManager.TextureManager.generic_manager_get(spriteRender.sprite.textureName)!;
+            shader.shader_set_uniform_texture("uTexture", texture, 0);
+
+            const uvScaleX = spriteRender.sprite.size.x / texture.width;
+            const uvScaleY = spriteRender.sprite.size.y / texture.height;
+            shader.shader_set_uniform_2f("uUVScale", uvScaleX, uvScaleY);
+
+            const uvOffsetX = spriteRender.sprite.position.x / texture.width;
+            const uvOffsetY = (texture.height - spriteRender.sprite.position.y - spriteRender.sprite.size.y) / texture.height;
+            shader.shader_set_uniform_2f("uUVOffset", uvOffsetX, uvOffsetY);
+        },
+
+    };
+}

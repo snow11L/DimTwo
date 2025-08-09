@@ -1,5 +1,5 @@
-import { Shader } from "../resources/shader/Shader";
-import { createTexture } from "../resources/texture/types";
+import { Shader } from "../../modules/resources/shader/Shader";
+import { createTexture } from "../../modules/resources/texture/types";
 import { Global } from "./engine.manager";
 import type { ImageFile, ShaderFile } from "./shaderLoader";
 

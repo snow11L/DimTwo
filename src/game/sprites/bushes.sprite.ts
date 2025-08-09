@@ -1,4 +1,4 @@
-import type { Sprite } from "../../../TwoD/core/resources/sprite"
+import type { Sprite } from "../../../TwoD/modules/resources/sprite"
 
 export const BUSHE_0: Sprite = {
     meshName: null,

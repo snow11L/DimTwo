@@ -5,8 +5,7 @@ import { Builder, ComponentState } from "../../../TwoD/core";
 import { Color } from "../../../TwoD/core/math/color/color";
 
 
-import { Scene } from "../../../TwoD/core/resources/scene/scene";
-import type { Sprite } from "../../../TwoD/core/resources/sprite";
+import type { Sprite } from "../../../TwoD/modules/resources/sprite";
 
 export function createPrimitive(
   name: string,
@@ -14,7 +13,7 @@ export function createPrimitive(
 
 ) {
 
-  const scene = Scene.getCurrentScene();
+  const scene =SceneManager.getCurrentScene();
   if (scene == null) return;
 
   const componentState = scene.ECSComponents;

@@ -1,5 +1,4 @@
 
-import { ComponentTypes } from "../TwoD/components/component-type";
 import type { MaterialType } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
 import { Engine } from "../TwoD/core/core/Engine";
@@ -7,18 +6,20 @@ import { InputManager } from "../TwoD/core/input/Input";
 import { Global } from "../TwoD/core/managers/engine.manager";
 import { resourceManager } from "../TwoD/core/managers/resources-manager";
 import type { ImageFile, ShaderFile } from "../TwoD/core/managers/shaderLoader";
-import { advanced_material_system } from "../TwoD/core/resources/material/advanced_material_system";
-import { simple_material_system } from "../TwoD/core/resources/material/simple_material_system";
-import { water_material_system } from "../TwoD/core/resources/material/water_material_system";
-import type { Mesh } from "../TwoD/core/resources/mesh/Mesh";
-import { Scene } from "../TwoD/core/resources/scene/scene";
+import { Scene } from "../TwoD/core/scene/scene";
+import { ComponentTypes } from "../TwoD/modules/components/component-type";
+import { advanced_material_system } from "../TwoD/modules/resources/material/advanced_material_system";
+import { simple_material_system } from "../TwoD/modules/resources/material/simple_material_system";
+import { water_material_system } from "../TwoD/modules/resources/material/water_material_system";
+import type { Mesh } from "../TwoD/modules/resources/mesh/Mesh";
 
+import { SceneManager } from "../TwoD/core/scene/SceneManager";
 import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
-import { get_category } from "../TwoD/generators/get_component";
+import { get_category } from "../TwoD/modules/generators/get_component";
+import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../TwoD/modules/systems";
+import { InputSystem } from "../TwoD/modules/systems/InputSystem";
 import { WebKeyboardInput } from "../TwoD/platform/web/WebKeyboardInput";
 import { WebMouseInput } from "../TwoD/platform/web/WebMouseInput";
-import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../TwoD/systems";
-import { InputSystem } from "../TwoD/systems/InputSystem";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
@@ -149,7 +150,8 @@ async function LoadResources() {
 await LoadResources();
 
 const scene = new Scene("simple_scene");
-Scene.setCurrentScene(scene);
+SceneManager.addScene(scene);
+SceneManager.loadScene("simple_scene");
 
 const player = createPlayer("player");
 scene.addToScene(scene, player);

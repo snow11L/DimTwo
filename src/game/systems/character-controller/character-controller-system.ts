@@ -1,20 +1,20 @@
-import { ComponentTypes } from "../../../../TwoD/components/component-type";
-import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
-import type { Transform } from "../../../../TwoD/components/spatial/transform/Transform";
 import type { System } from "../../../../TwoD/core/ecs/System";
 import { InputManager } from "../../../../TwoD/core/input/Input";
 import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
 import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
-import { Scene } from "../../../../TwoD/core/resources/scene/scene";
+import { SceneManager } from "../../../../TwoD/core/scene/SceneManager";
 import Time from "../../../../TwoD/core/time/time";
-import { get_component } from "../../../../TwoD/generators/get_component";
+import { ComponentTypes } from "../../../../TwoD/modules/components/component-type";
+import type { TextMeshXComponent } from "../../../../TwoD/modules/components/render/textMesh/TextRender";
+import type { Transform } from "../../../../TwoD/modules/components/spatial/transform/Transform";
+import { get_component } from "../../../../TwoD/modules/generators/get_component";
 
 import type { CharacterControler } from "./character.controller.types";
 
 
 
 function getGameEntityByName(name: string) {
-  const scene = Scene.getCurrentScene();
+  const scene =SceneManager.getCurrentScene();
   return scene.entitiesByName.values.get(name) ?? null;
 }
 
@@ -45,7 +45,7 @@ export default function CharacterControlerSystem(): System {
 
     update() {
 
-        const scene = Scene.getCurrentScene();
+        const scene =SceneManager.getCurrentScene();
             const components = scene.ECSComponents;
 
       const characterControlers = components.getComponentsByType<CharacterControler>(

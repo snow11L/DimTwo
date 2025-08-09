@@ -1,3 +1,3 @@
-export * as Builder from "../generators";
-export * from "./resources";
+export * as Builder from "../modules/generators";
+export * from "../modules/resources";
 

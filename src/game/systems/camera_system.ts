@@ -1,8 +1,8 @@
-import { Transform } from "../../../TwoD/components/spatial/transform/Transform";
 import type { GameEntity } from "../../../TwoD/core/base/GameEntity";
 import type { System } from "../../../TwoD/core/ecs/System";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import Time from "../../../TwoD/core/time/time";
+import { Transform } from "../../../TwoD/modules/components/spatial/transform/Transform";
 
 export function CameraSystem(cameraEntity: GameEntity, targetEntity: GameEntity): System {
 

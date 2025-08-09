@@ -1,4 +1,4 @@
-import { type TextureType } from "../resources/texture/types";
+import { type TextureType } from "../../modules/resources/texture/types";
 
 export interface Glyph {
     char: string;

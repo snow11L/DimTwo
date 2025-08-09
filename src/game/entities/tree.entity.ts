@@ -1,9 +1,9 @@
 import { Builder } from "../../../TwoD/core";
 import { CollisionMask } from "../../../TwoD/core/core/collisionMask/types";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
-import { createBoxCollider2D } from "../../../TwoD/generators";
+import { createBoxCollider2D } from "../../../TwoD/modules/generators";
 
-import type { Sprite } from "../../../TwoD/core/resources/sprite";
+import type { Sprite } from "../../../TwoD/modules/resources/sprite";
 
 export function createTreeEntity(
     name: string,

@@ -1,4 +1,4 @@
-import { createTexture } from "../resources/texture/types";
+import { createTexture } from "../../modules/resources/texture/types";
 import { Global } from "./engine.manager";
 import type { Glyph } from "./font.types";
 

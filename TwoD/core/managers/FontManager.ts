@@ -1,4 +1,4 @@
-import { createTexture, type TextureType } from "../resources/texture/types";
+import { createTexture, type TextureType } from "../../modules/resources/texture/types";
 import { Global } from "./engine.manager";
 
 interface Glyph {

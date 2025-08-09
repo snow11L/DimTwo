@@ -1,4 +1,4 @@
-import { ComponentTypes } from "../../components/component-type";
+import { ComponentTypes } from "../../modules/components/component-type";
 import type { GameEntity } from "./GameEntity";
 import { Instantiable } from "./Instantiable";
 

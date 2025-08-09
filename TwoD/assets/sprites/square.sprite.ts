@@ -1,4 +1,4 @@
-import type { Sprite } from "../../core/resources/sprite";
+import type { Sprite } from "../../modules/resources/sprite";
 
 
 export const SQUARE_SPRITE: Sprite = {

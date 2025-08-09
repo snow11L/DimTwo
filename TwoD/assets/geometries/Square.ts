@@ -1,7 +1,7 @@
 import type { Vec2 } from "../../core/math/vec2/Vec2";
 import type { Vec3 } from "../../core/math/vec3/ Vec3";
-import type { Mesh } from "../../core/resources/mesh/Mesh";
-import { createMesh } from "../../generators/create.mesh";
+import { createMesh } from "../../modules/generators/create.mesh";
+import type { Mesh } from "../../modules/resources/mesh/Mesh";
 
 export function createFillSquareMesh(name: string, size: Vec3): Mesh {
     const halfSize = {

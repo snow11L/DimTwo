@@ -1,4 +1,4 @@
-import { createShader } from "../resources/shader";
+import { createShader } from "../../modules/resources/shader";
 import { Global } from "./engine.manager";
 
 export interface ShaderFileEntry {

@@ -1,6 +1,6 @@
-import { ComponentTypes } from "../../components/component-type";
-import type { Transform } from "../../components/spatial/transform/Transform";
-import { get_component } from "../../generators/get_component";
+import { ComponentTypes } from "../../modules/components/component-type";
+import type { Transform } from "../../modules/components/spatial/transform/Transform";
+import { get_component } from "../../modules/generators/get_component";
 import type { Component } from "./Component";
 import { Entity } from "./Entity";
 

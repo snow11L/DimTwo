@@ -1,10 +1,10 @@
-import { Animator } from "../../../../TwoD/components/animation/animator/Animator";
-import { ComponentTypes } from "../../../../TwoD/components/component-type";
-import { SpriteRender } from "../../../../TwoD/components/render/spriteRender/SpriteRender";
 import type { System } from "../../../../TwoD/core/ecs/System";
 import { InputManager } from "../../../../TwoD/core/input/Input";
 import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
-import { Scene } from "../../../../TwoD/core/resources/scene/scene";
+import { SceneManager } from "../../../../TwoD/core/scene/SceneManager";
+import { Animator } from "../../../../TwoD/modules/components/animation/animator/Animator";
+import { ComponentTypes } from "../../../../TwoD/modules/components/component-type";
+import { SpriteRender } from "../../../../TwoD/modules/components/render/spriteRender/SpriteRender";
 import type { CharacterControler } from "./character.controller.types";
 
 export default function CharacterControllerAnimationSystem(): System {
@@ -12,7 +12,7 @@ export default function CharacterControllerAnimationSystem(): System {
     return {
         lateUpdate() {
 
-            const scene = Scene.getCurrentScene();
+            const scene =SceneManager.getCurrentScene();
             const components = scene.ECSComponents;
 
             const characterControlers = components.getComponentsByType<CharacterControler>( ComponentTypes.CharacterController);

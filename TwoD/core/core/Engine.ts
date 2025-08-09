@@ -1,5 +1,5 @@
 import { Global } from "../managers/engine.manager";
-import { Scene } from "../resources/scene/scene";
+import { SceneManager } from "../scene/SceneManager";
 import Time from "../time/time";
 
 export class Engine {
@@ -10,24 +10,24 @@ export class Engine {
         this.time = new Time();
         this.time.on("start", () => {
 
-            const scene = Scene.getCurrentScene();
+            const scene = SceneManager.getCurrentScene();
             scene.ECSSystems.callStart();
         });
 
         this.time.on("fixedUpdate", () => {
-            const scene = Scene.getCurrentScene();
+            const scene = SceneManager.getCurrentScene();
             scene.ECSSystems.callFixedUpdate();
 
         });
 
         this.time.on("update", () => {
-            const scene = Scene.getCurrentScene();
+            const scene = SceneManager.getCurrentScene();
             scene.ECSSystems.callUpdate();
             scene.ECSSystems.callLateUpdate();
         });
 
         this.time.on("render", () => {
-            const scene = Scene.getCurrentScene();
+            const scene = SceneManager.getCurrentScene();
             const WebGL = Global.WebGL;
             WebGL.clearColor(0, 0, 0, 1);
             WebGL.clear(WebGL.COLOR_BUFFER_BIT);

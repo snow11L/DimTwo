@@ -1,7 +1,7 @@
 import type { MaterialType, MeshType, ShaderType, SpriteType, TextureType } from "../../core";
 import type { FontData } from "../../core/managers/FontManager";
 import { GenericManager } from "../../core/managers/generic_manager";
-import type { ShaderSystem } from "../../core/resources/shader/ShaderSystem";
+import type { ShaderSystem } from "../../modules/resources/shader/ShaderSystem";
 
 export const MaterialManager = new GenericManager<string, MaterialType>("material_manager");
 export const MeshManager = new GenericManager<number, MeshType>("mesh_manager");

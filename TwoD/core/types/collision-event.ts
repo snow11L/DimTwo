@@ -1,4 +1,4 @@
-import type { Collider } from "../../components/physics/collider/types";
+import type { Collider } from "../../modules/components/physics/collider/types";
 
 export interface CollisionEvent {
     a: Collider;

@@ -5,7 +5,7 @@ import type { ComponentStateType } from "../../../../api/types";
 import { Mulberry32 } from "../../../../TwoD/core/algorithms/mulberry32/mulberry32";
 import type { GameEntity } from "../../../../TwoD/core/base/gameEntity/types";
 import type { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
-import { get_transform } from "../../../../TwoD/generators/get_component";
+import { get_transform } from "../../../../TwoD/modules/generators/get_component";
 import { createTreeEntity } from "../../entities/tree.entity";
 import { OAK_TRE_0 } from "../../sprites/oak.trees.sprite";
 import { BiomeName, getBiomeColor } from "./biome";
