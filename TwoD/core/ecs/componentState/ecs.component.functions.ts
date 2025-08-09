@@ -21,7 +21,9 @@ export function addComponent<T extends Component>(
   if (!target.has(component.type)) {
     target.set(component.type, new Map());
   }
-  component.gameEntity = entity;
+    console.log(component)
+  component.setGameEntity(entity);
+
   target.get(component.type)!.set(entity, component);
   addToCategory(state, component);
 }

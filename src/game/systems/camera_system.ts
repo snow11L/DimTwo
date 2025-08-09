@@ -1,17 +1,18 @@
-import { TransformLib, type System, type TransformType } from "../../../TwoD/core";
+import { Transform } from "../../../TwoD/components/spatial/transform/Transform";
+import { type System } from "../../../TwoD/core";
 import type { GameEntity } from "../../../TwoD/core/base/GameObject";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import Time from "../../../TwoD/core/time/time";
 
 export function CameraSystem(cameraEntity: GameEntity, targetEntity: GameEntity): System {
 
-    let cameraTransform: TransformType | null = null;
-    let targetTransform: TransformType | null = null;
+    let cameraTransform: Transform | null = null;
+    let targetTransform: Transform | null = null;
 
     return {
         start() {
-            cameraTransform = TransformLib.getTransform(cameraEntity);
-            targetTransform = TransformLib.getTransform(targetEntity);
+            cameraTransform = Transform.getTransform(cameraEntity);
+            targetTransform = Transform.getTransform(targetEntity);
         },
 
         update() {

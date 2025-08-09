@@ -1,6 +1,6 @@
-import type { Types } from "../../../api/TwoD"
+import type { Sprite } from "../../../TwoD/core/resources/sprite"
 
-export const BUSHE_0: Types.Sprite = {
+export const BUSHE_0: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },
@@ -8,7 +8,7 @@ export const BUSHE_0: Types.Sprite = {
     size: { x: 16 + 8, y: 16 + 8 },
 }
 
-export const BUSHE_1: Types.Sprite = {
+export const BUSHE_1: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },
@@ -16,14 +16,14 @@ export const BUSHE_1: Types.Sprite = {
     size: { x: 16 + 8, y: 16 + 8 },
 }
 
-export const BUSHE_2: Types.Sprite = {
+export const BUSHE_2: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },
     position: { x: 0, y: 32 },
     size: { x: 32 + 8, y: 16 + 8 },
 }
-export const BUSHE_3: Types.Sprite = {
+export const BUSHE_3: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },
@@ -31,7 +31,7 @@ export const BUSHE_3: Types.Sprite = {
     size: { x: 48 + 8, y: 16 + 8 },
 }
 
-export const BUSHE_4: Types.Sprite = {
+export const BUSHE_4: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },
@@ -39,7 +39,7 @@ export const BUSHE_4: Types.Sprite = {
     size: { x: 48 + 8, y: 48 + 8 },
 }
 
-export const BUSHE_5: Types.Sprite = {
+export const BUSHE_5: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },
@@ -47,7 +47,7 @@ export const BUSHE_5: Types.Sprite = {
     size: { x: 48 + 8, y: 48 + 8 },
 }
 
-export const BUSHE_6: Types.Sprite = {
+export const BUSHE_6: Sprite = {
     meshName: null,
     textureName: "bushe",
     origin: { x: 0.5, y: 0.5 },

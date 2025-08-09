@@ -1,7 +1,7 @@
 
+import { ComponentTypes } from "../TwoD/components/component-type";
 import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem, SystemState } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
-import { ComponentTypes } from "../TwoD/core/components/component-type";
 import { engine } from "../TwoD/core/core/Engine";
 import { get_category } from "../TwoD/core/generators/get_component";
 import { Global } from "../TwoD/core/managers/engine.manager";
@@ -21,7 +21,6 @@ import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
 import { CameraSystem } from "./game/systems/camera_system";
-import CharacterControlerSystem from "./game/systems/character-controller/character-controller-system";
 
 function material_create_and_link(name: string, shader: string) {
 
@@ -155,7 +154,7 @@ const camera = createCamera();
 Scene.addToScene(scene, camera);
 
 SystemState.addSystem(scene.systems, RenderSystem(scene.components));
-SystemState.addSystem(scene.systems, CharacterControlerSystem(scene.components));
+/* SystemState.addSystem(scene.systems, CharacterControlerSystem(scene.components)); */
 // SystemState.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
 SystemState.addSystem(scene.systems, AnimatorSystem(scene.components));
 SystemState.addSystem(scene.systems, CameraSystem(camera, player));

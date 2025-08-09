@@ -1,4 +1,3 @@
-export * from "./components";
 export * from "./ecs";
 export * as Builder from "./generators";
 export * as Input from "./input";

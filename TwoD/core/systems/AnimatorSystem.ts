@@ -1,5 +1,7 @@
-import { AnimationLib, type AnimatorType, type SpriteRenderType, } from "../components";
-import { ComponentTypes } from "../components/component-type";
+
+import { AnimationLib, type AnimatorType } from "../../components/animation";
+import { ComponentTypes } from "../../components/component-type";
+import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import Time from "../time/time";
 
@@ -12,7 +14,7 @@ export function AnimatorSystem(componentState: ComponentStateType): System {
       for (const animator of animators) {
         if (!animator.enabled || !animator.controller) continue;
 
-        const spriteRender = ComponentState.getComponent<SpriteRenderType>(componentState, animator.gameEntity, ComponentTypes.SpriteRender);
+        const spriteRender = ComponentState.getComponent<SpriteRender>(componentState, animator.getGameEntity(), ComponentTypes.SpriteRender);
         if (!spriteRender) continue;
 
         const result = AnimationLib.getAnimatorState(animator);

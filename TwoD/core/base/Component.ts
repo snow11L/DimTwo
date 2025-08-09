@@ -1,12 +1,24 @@
-import type { ComponentTypes } from "../components/component-type";
+import type { ComponentTypes } from "../../components/component-type";
 import type { GameEntity } from "./GameObject";
 import { Instantiable } from "./Instantiable";
 
-export class Component  extends Instantiable {
-  gameEntity: GameEntity | null;
+export class Component extends Instantiable {
+  private gameEntity: GameEntity | null;
   enabled: boolean;
   readonly type: ComponentTypes;
   readonly category: string;
+
+  public getGameEntity(): GameEntity {
+
+    if (!this.gameEntity) {
+      throw new Error("game entity nao atribuida");
+    }
+    return this.gameEntity;
+  }
+
+  public setGameEntity(gameEntity: GameEntity): void {
+    this.gameEntity = gameEntity;
+  }
 
   constructor(
     type: ComponentTypes,

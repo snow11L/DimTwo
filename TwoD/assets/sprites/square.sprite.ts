@@ -1,6 +1,7 @@
-import type { Types } from "../../../api/TwoD";
+import type { Sprite } from "../../core/resources/sprite";
 
-export const SQUARE_SPRITE: Types.Sprite = {
+
+export const SQUARE_SPRITE: Sprite = {
     meshName: null,
     textureName: "primitives",
     origin: { x: 0, y: 0 },

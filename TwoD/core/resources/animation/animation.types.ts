@@ -1,7 +1,7 @@
-import type { SpriteType } from "../sprite/types.ts";
+import type { Sprite } from "../sprite/types.ts";
 
 export interface AnimationFrame {
-  sprite: SpriteType;
+  sprite: Sprite;
   duration?: number;
 }
 

@@ -1,20 +1,15 @@
 
-import {
-  type BoxCollider2DType,
-  type CircleCollider2DType,
-  Collider,
-  type ColliderType,
-  CollisionMatrix,
-  RigidBody2DLib,
-  type RigidBody2DType,
-
-  TransformLib,
-
-  type TransformType
-} from "../components";
 import { ComponentState, type ComponentStateType, type System, SystemState, type SystemStateType } from "../ecs";
 
-import { ComponentTypes } from "../components/component-type";
+import { ComponentTypes } from "../../components/component-type";
+import type { BoxCollider2D } from "../../components/physics/boxCollider2D/BoxCollider2D";
+import type { CircleCollider2D } from "../../components/physics/circleCollider2D/CircleCollider2D";
+import { resolveOverlap } from "../../components/physics/collider/CollisionResolver";
+import { testOverlap } from "../../components/physics/collider/CollisionTester";
+import type { Collider } from "../../components/physics/collider/types";
+import { RigidBody2D } from "../../components/physics/rigidBody2D/RigidBody";
+import { Transform } from "../../components/spatial/transform/Transform";
+import { canCollide } from "../core/collisionMatrix";
 import { SpatialHash } from "../lib/SpatialHash";
 import type { Vec2 } from "../math/vec2/Vec2";
 import { Scene } from "../resources/scene/scene";
@@ -25,12 +20,12 @@ function makePairKey(id1: number, id2: number): string {
 }
 
 interface CollisionPair {
-  a: ColliderType;
-  b: ColliderType;
+  a: Collider;
+  b: Collider;
 }
 
 function getColliderMinMax(
-  collider: ColliderType,
+  collider: Collider,
   position: Vec2,
   outMin: Vec2,
   outMax: Vec2,
@@ -40,7 +35,7 @@ function getColliderMinMax(
   const centerY = position.y + offset.y;
 
   if (collider.type === ComponentTypes.BoxCollider2D) {
-    const box = collider as BoxCollider2DType;
+    const box = collider as BoxCollider2D;
     const halfW = box.size.x / 2;
     const halfH = box.size.y / 2;
 
@@ -49,7 +44,7 @@ function getColliderMinMax(
     outMax.x = centerX + halfW;
     outMax.y = centerY + halfH;
   } else if (collider.type === ComponentTypes.CircleCollider2D) {
-    const circle = collider as CircleCollider2DType;
+    const circle = collider as CircleCollider2D;
     const r = circle.radius;
 
     outMin.x = centerX - r;
@@ -73,7 +68,7 @@ export function ColliderSystem(
   const tempMin = { x: 0, y: 0 };
   const tempMax = { x: 0, y: 0 };
 
-  const spatialHash = new SpatialHash<ColliderType>(64);
+  const spatialHash = new SpatialHash<Collider>(64);
 
   const collisionState: CollisionState = {
     previous: new Map<string, CollisionPair>(),
@@ -89,7 +84,7 @@ export function ColliderSystem(
       collisionState.collision.clear();
       spatialHash.clear();
 
-      const colliders = ComponentState.getComponentsByCategory<ColliderType>(
+      const colliders = ComponentState.getComponentsByCategory<Collider>(
         componentState,
         ComponentTypes.Collider,
       );
@@ -97,9 +92,9 @@ export function ColliderSystem(
       for (const collider of colliders) {
         if (!collider.enabled) continue;
 
-        const transform = ComponentState.getComponent<TransformType>(
+        const transform = ComponentState.getComponent<Transform>(
           componentState,
-          collider.gameEntity,
+          collider.getGameEntity(),
           ComponentTypes.Transform,
         );
         if (!transform) continue;
@@ -120,7 +115,7 @@ export function ColliderSystem(
 
 function detectCollisions(
   componentState: ComponentStateType,
-  spatialHash: SpatialHash<ColliderType>,
+  spatialHash: SpatialHash<Collider>,
   collisionState: CollisionState,
   systems: SystemStateType,
 ) {
@@ -131,22 +126,22 @@ function detectCollisions(
 
     for (let i = 0; i < length; i++) {
       const colliderA = collidersInCell[i];
-      const aTransform = TransformLib.getTransform(colliderA.gameEntity);
+      const aTransform = Transform.getTransform(colliderA.getGameEntity());
       if (!aTransform) continue;
 
       for (let j = i + 1; j < length; j++) {
         const colliderB = collidersInCell[j];
-        if (colliderA.gameEntity.id === colliderB.gameEntity.id) continue;
+        if (colliderA.getGameEntity().id === colliderB.getGameEntity().id) continue;
 
         if (
-          !CollisionMatrix.canCollide(
+          !canCollide(
             scene.collisionMatrix,
             colliderA.collisionMask,
             colliderB.collisionMask,
           )
         ) continue;
 
-        const bTransform = TransformLib.getTransform(colliderB.gameEntity);
+        const bTransform = Transform.getTransform(colliderB.getGameEntity());
         if (!bTransform) continue;
 
         const pairKey = makePairKey(colliderA.instanceID.getValue(), colliderB.instanceID.getValue());
@@ -154,7 +149,7 @@ function detectCollisions(
         if (collisionState.checked.has(pairKey)) continue;
         collisionState.checked.add(pairKey);
 
-        if (!Collider.testOverlap(aTransform.position, colliderA, bTransform.position, colliderB)) {
+        if (!testOverlap(aTransform.position, colliderA, bTransform.position, colliderB)) {
           continue;
         }
 
@@ -199,7 +194,7 @@ function detectCollisions(
         colliderA.isColliding = true;
         colliderB.isColliding = true;
 
-        const resolution = Collider.resolveOverlap(
+        const resolution = resolveOverlap(
           aTransform.position,
           colliderA,
           bTransform.position,
@@ -208,21 +203,21 @@ function detectCollisions(
 
         if (resolution) {
 
-          const aRigid = ComponentState.getComponent<RigidBody2DType>(
+          const aRigid = ComponentState.getComponent<RigidBody2D>(
             componentState,
-            colliderA.gameEntity,
+            colliderA.getGameEntity(),
             ComponentTypes.RigidBody2D,
           );
 
-          const bRigid = ComponentState.getComponent<RigidBody2DType>(
+          const bRigid = ComponentState.getComponent<RigidBody2D>(
             componentState,
-            colliderB.gameEntity,
+            colliderB.getGameEntity(),
             ComponentTypes.RigidBody2D,
           );
 
           if (!aRigid || !bRigid) return;
 
-          RigidBody2DLib.resolveRigidBody(
+          RigidBody2D.resolveRigidBody(
             aRigid,
             aTransform,
             bRigid,

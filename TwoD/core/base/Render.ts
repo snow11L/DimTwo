@@ -1,4 +1,4 @@
-import { ComponentTypes } from "../components/component-type";
+import { ComponentTypes } from "../../components/component-type";
 import { Color } from "../math/color/color";
 import { Component } from "./Component";
 

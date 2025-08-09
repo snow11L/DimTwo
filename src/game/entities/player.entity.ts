@@ -1,53 +1,29 @@
 
 import { Builder } from "../../../TwoD/core";
 import { GameEntity } from "../../../TwoD/core/base/GameObject";
-import { Id } from "../../../TwoD/core/base/Id";
 
-import { ComponentTypes } from "../../../TwoD/core/components/component-type";
-import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
-import type { CharacterControlerComponent } from "../systems/character-controller/character.controller.types";
+import { CharacterControler } from "../systems/character-controller/character.controller.types";
 
 export function createPlayer(
   name: string,
 ) {
   const gameEntity = Builder.BuildGameEntity(name, "Player");
 
-  const transform = Builder.Transform(gameEntity);
+  const transform = Builder.createTransform(gameEntity);
 
-  const character_controler: CharacterControlerComponent = {
-    instanceID: new Id(),
-    gameEntity: gameEntity,
-    type: ComponentTypes.CharacterController,
-    category: ComponentTypes.Controller,
-    enabled: true,
-    facing: "side",
-    state: "idle",
-    direction: { x: 0, y: 0 },
-    moving: false,
-    speed: 0.5,
-    runSpeed: 1,
-  };
+  const character_controler = new CharacterControler();
 
+  const rigidBody = Builder.BuildRigidBody2D(gameEntity);
+  rigidBody.useGravity = false;
+  rigidBody.mass = 70;
 
-  const rigidBody2DOptions: Builder.RigidBodyOptions = {
-    useGravity: false,
-    mass: 70
-  }
+  const spriteRender = Builder.createSpriteRender(gameEntity);
+  spriteRender.layer = 1;
+  spriteRender.material = "advanced_material";
 
-  const rigidBody = Builder.BuildRigidBody2D(gameEntity, rigidBody2DOptions);
-
-  const spriteRender = Builder.SpriteRender(gameEntity, {
-    layer: 1,
-    material: "advanced_material",
-  });
-
-  const animator = Builder.Animator(gameEntity, {
-    controller: PLAYER_ANIMATOR_CONTROLLER,
-  });
-
-  const boxCollider = Builder.BoxCollider2D(gameEntity, { center: new Vec3(0, 0.1, 0) });
-  const circleCollider = Builder.CircleCollider2D(gameEntity);
+  const animator = Builder.createAnimator(gameEntity);
+  animator.controller =  PLAYER_ANIMATOR_CONTROLLER
 
   GameEntity.addComponents(
     gameEntity,
@@ -55,8 +31,6 @@ export function createPlayer(
     character_controler,
     rigidBody,
     animator,
-    boxCollider,
-    circleCollider,
     spriteRender
   );
 

@@ -1,8 +1,11 @@
-import { CameraLib, TransformLib } from "../../components";
+
+import { Camera } from "../../../components/render/camera/types";
+import { Transform } from "../../../components/spatial/transform/Transform";
 import { get_sprite_render } from "../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";
+import { Mat4 } from "../../math/mat4/Mat4";
 import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
@@ -13,32 +16,32 @@ export function simple_material_system(shaderName: string): ShaderSystem {
 
         global() {
 
-            const camera = CameraLib.getActivedCamera();
+            const camera = Camera.getActivedCamera();
             if(!camera) return;
 
-            const transform = TransformLib.getTransform(camera.gameEntity);
+            const transform = Transform.getTransform(camera.getGameEntity());
             if (transform == null) return;
 
-            const viewMatrix = EasyGetter.getMat4(transform.instanceID)!;
+            const viewMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
             Mat4.createTR(viewMatrix, transform.position, transform.rotation);
-            shader_set_uniform_mat4(shader, "uView", viewMatrix.value);
+            shader_set_uniform_mat4(shader, "uView", viewMatrix.data);
 
-            const projectionMatrix = EasyGetter.getMat4(camera.instanceID)!;
-            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.value);
+            const projectionMatrix = EasyGetter.getMat4(camera.instanceID.getValue())!;
+            shader_set_uniform_mat4(shader, "uProjection", projectionMatrix.data);
 
         },
 
         local(gameEntity) {
 
-            const transform = TransformLib.getTransform(gameEntity);
+            const transform = Transform.getTransform(gameEntity);
             if (!transform) return;
 
             const spriteRender = get_sprite_render(gameEntity);
             if (!spriteRender) return;
 
-            const modelMatrix = EasyGetter.getMat4(transform.instanceID)!;
-            Mat4.createTRS(modelMatrix, transform.position, transform.rotation, transform.scale);
-            shader_set_uniform_mat4(shader, "uModel", modelMatrix.value);
+            const modelMatrix = EasyGetter.getMat4(transform.instanceID.getValue())!;
+            Mat4.compose(modelMatrix, transform.position, transform.rotation, transform.scale);
+            shader_set_uniform_mat4(shader, "uModel", modelMatrix.data);
 
             shader_set_uniform_4f(
 

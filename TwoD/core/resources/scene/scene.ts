@@ -1,7 +1,6 @@
-
-
 import type { GameEntity } from "../../base/GameObject";
-import { CollisionMatrix, type CollisionMatrixType } from "../../components";
+import { createCollisionMatrix } from "../../core/collisionMatrix";
+import type { CollisionMatrixType } from "../../core/collisionMatrix/types";
 import { ComponentState, type ComponentStateType, type SystemStateType } from "../../ecs";
 import { createComponentState } from "../../ecs/componentState";
 import { createSystemState } from "../../ecs/systemState";
@@ -45,7 +44,7 @@ function addToScene(scene: Scene, entity: GameEntity) {
 export function create(name: string): Scene {
     return {
         name,
-        collisionMatrix: CollisionMatrix.createCollisionMatrix(32),
+        collisionMatrix: createCollisionMatrix(32),
         components: createComponentState(),
         systems: createSystemState(),
         entitiesById: createGenericManager<number, GameEntity>("game_entity_by_id_manager"),

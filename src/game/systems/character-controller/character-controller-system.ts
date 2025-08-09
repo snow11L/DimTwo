@@ -1,12 +1,13 @@
-import { ComponentState, Input, type ComponentStateType, type System, type TransformType } from "../../../../TwoD/core";
-import { ComponentTypes } from "../../../../TwoD/core/components/component-type";
-import type { TextMeshXComponent } from "../../../../TwoD/core/components/render/textMesh/TextRender";
+import { ComponentTypes } from "../../../../TwoD/components/component-type";
+import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
+import type { Transform } from "../../../../TwoD/components/spatial/transform/Transform";
+import { ComponentState, Input, type ComponentStateType, type System } from "../../../../TwoD/core";
 import { get_component } from "../../../../TwoD/core/generators/get_component";
 import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
 import { Scene } from "../../../../TwoD/core/resources/scene/scene";
 import { globalKeyState } from "../../../../TwoD/core/systems/InputSystem";
 import Time from "../../../../TwoD/core/time/time";
-import type { CharacterControlerComponent } from "./character.controller.types";
+import type { CharacterControler } from "./character.controller.types";
 
 
 
@@ -41,15 +42,15 @@ export default function CharacterControlerSystem(state: ComponentStateType): Sys
 
 
     update() {
-      const characterControlers = ComponentState.getComponentsByType<CharacterControlerComponent>(
+      const characterControlers = ComponentState.getComponentsByType<CharacterControler>(
         state,
         ComponentTypes.CharacterController
       );
       for (const characterControler of characterControlers) {
 
-        const characterTransform = ComponentState.getComponent<TransformType>(
+        const characterTransform = ComponentState.getComponent<Transform>(
           state,
-          characterControler.gameEntity,
+          characterControler.getGameEntity(),
           ComponentTypes.Transform
         );
         if (!characterTransform) continue;

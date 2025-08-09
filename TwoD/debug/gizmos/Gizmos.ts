@@ -52,7 +52,7 @@
 
 //     const projectionMatrix = EasyGetter.getMat4(camera.instanceID);
 //     if (projectionMatrix == null) return;
-//     const transform = Transform.getTransform(camera.gameEntity);
+//     const transform = Transform.getTransform(camera.getGameEntity());
 //     if (transform == null) return;
 //     const viewMatrix = EasyGetter.getMat4(transform.instanceID);
 //     if (viewMatrix == null) return;

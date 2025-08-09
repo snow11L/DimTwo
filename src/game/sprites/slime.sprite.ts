@@ -1,4 +1,4 @@
-import type { Sprite } from "../../../api/types";
+import type { Sprite } from "../../../TwoD/core/resources/sprite";
 
 export const SLIME_SPRITE: Sprite = {
     meshName: null,

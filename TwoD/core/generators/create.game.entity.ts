@@ -1,6 +1,5 @@
 
-import type { GameEntity } from "../base/GameObject";
-import { Id } from "../base/Id";
+import { GameEntity } from "../base/GameObject";
 import { generic_manager_add } from "../managers/generic_manager";
 import { Scene } from "../resources/scene/scene";
 
@@ -8,14 +7,8 @@ export function BuildGameEntity(
   name: string,
   tag = "untagged",
 ): GameEntity {
-  const gameEntity: GameEntity = {
-    parent: null,
-    id: new Id(),
-    name,
-    tag,
-    active: true,
-    components: []
-  };
+
+  const gameEntity = new GameEntity(name, tag);
 
   const scene = Scene.getCurrentScene();
   generic_manager_add(scene.entitiesById, gameEntity.id.getValue(), gameEntity);

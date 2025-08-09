@@ -12,7 +12,7 @@
 //             const circleColliders = get_type<CircleCollider2DType>(ComponentTypes.CircleCollider2D);
 
 //             for (const boxCollider of circleColliders) {
-//                 const transform = Transform.getTransform(boxCollider.gameEntity);
+//                 const transform = Transform.getTransform(boxCollider.getGameEntity());
 //                 if (!transform) continue;
 
 //                 const pos = { x: 0, y: 0, z: 0 };

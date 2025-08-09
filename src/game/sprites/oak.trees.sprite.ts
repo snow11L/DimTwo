@@ -6,9 +6,11 @@
 //     size: { x: 80, y: 128 },
 // }
 
-import type { Types } from "../../../api/TwoD";
+import type { Sprite } from "../../../TwoD/core/resources/sprite";
 
-export const OAK_TRE_0: Types.Sprite = {
+
+
+export const OAK_TRE_0: Sprite = {
     meshName: null,
     textureName: "oakTree",
     origin: { x: 0, y: 1 },

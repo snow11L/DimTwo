@@ -13,7 +13,7 @@
 //             const boxColliders = get_type<BoxCollider2DType>(ComponentTypes.BoxCollider2D);
 
 //             for (const boxCollider of boxColliders) {
-//                 const transform = Transform.getTransform(boxCollider.gameEntity);
+//                 const transform = Transform.getTransform(boxCollider.getGameEntity());
 //                 if (!transform) continue;
 
 //                 const pos = { x: 0, y: 0, z: 0 };

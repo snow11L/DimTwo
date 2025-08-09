@@ -6,11 +6,11 @@ import { Color } from "../../../TwoD/core/math/color/color";
 
 
 import { Scene } from "../../../TwoD/core/resources/scene/scene";
-import type { SpriteType } from "../../../TwoD/core/resources/sprite";
+import type { Sprite } from "../../../TwoD/core/resources/sprite";
 
 export function createPrimitive(
   name: string,
-  sprite: SpriteType
+  sprite: Sprite
 
 ) {
 
@@ -21,10 +21,10 @@ export function createPrimitive(
 
   const gameEntity = Builder.BuildGameEntity(name, "Player");
 
-  const transform = Builder.Transform(gameEntity);
+  const transform = Builder.createTransform(gameEntity);
   ComponentState.addComponent(componentState, gameEntity, transform);
 
-  const spriteRender = Builder.SpriteRender(gameEntity, {
+  const spriteRender = Builder.createSpriteRender(gameEntity, {
     layer: 1,
     material: "advanced_material",
     sprite: sprite,

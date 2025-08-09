@@ -1,5 +1,5 @@
+import type { AnimatorType, BoxCollider2DType, CircleCollider2DType, RigidBody2DType, SpriteRenderType, TransformType } from "../../components";
 import type { Component } from "../base/Component";
-import type { AnimatorType, BoxCollider2DType, CircleCollider2DType, RigidBody2DType, SpriteRenderType, TransformType } from "../components";
 
 type BaseOmittedKeys = "gameEntity" | "instance" | "type" | "category";
 export type ComponentOptions<T extends Component> = Partial<Omit<T, BaseOmittedKeys>>;

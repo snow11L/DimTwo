@@ -1,6 +1,6 @@
-import type { Types } from "../../../api/TwoD";
+import type { Sprite } from "../../core/resources/sprite";
 
-export const CIRCLE_SPRITE: Types.Sprite = {
+export const CIRCLE_SPRITE: Sprite = {
     meshName: null,
     textureName: "primitives",
     origin: { x: 0, y: 0 },

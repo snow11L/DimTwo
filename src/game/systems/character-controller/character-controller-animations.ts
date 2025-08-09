@@ -15,12 +15,12 @@
 
 //         const spriteRender = ComponentState.getComponent<SpriteRenderType>(
 //           state,
-//           characterControler.gameEntity,
+//           characterControler.getGameEntity(),
 //           ComponentTypes.SpriteRender
 //         );
 //         if (!spriteRender) continue;
 
-//         const animator = ComponentState.getComponent<AnimatorType>(state, characterControler.gameEntity, ComponentTypes.Animator);
+//         const animator = ComponentState.getComponent<AnimatorType>(state, characterControler.getGameEntity(), ComponentTypes.Animator);
 //         if (!animator) continue;
 
 //         animator.playbackSpeed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft) ? 1.5 : 1.0;

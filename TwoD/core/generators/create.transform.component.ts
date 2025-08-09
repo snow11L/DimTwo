@@ -1,25 +1,13 @@
+
+import { Transform } from "../../components/spatial/transform/Transform";
 import type { GameEntity } from "../base/GameObject";
-import { Id } from "../base/Id";
-import type { TransformType } from "../components";
-import { ComponentTypes } from "../components/component-type";
-import type { TransformOptions } from "./types";
 
-
-export function Transform(
+export function createTransform(
     entity: GameEntity,
-    options?: TransformOptions
-): TransformType {
+): Transform {
 
-    const transform: TransformType = {
-        category: ComponentTypes.Transform,
-        instanceID: new Id(),
-        type: ComponentTypes.Transform,
-        enabled: true,
-        gameEntity: entity,
-        position: { x: 0, y: 0, z: 0 },
-        rotation: { x: 0, y: 0, z: 0, w: 1 },
-        scale: { x: 1, y: 1, z: 1 },
-        ...options
-    }
+    const transform = new Transform();
+    transform.setGameEntity(entity);
+ 
     return transform;
 }

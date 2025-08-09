@@ -1,4 +1,5 @@
-import type { Color } from "../../math/color/types";
+import type { Color } from "../../math/color/color";
+import type { Vec3 } from "../../math/vec3/ Vec3";
 
 
 export type MaterialPropType = "float" | "int" | "bool" | "vec3" | "color" | "texture";

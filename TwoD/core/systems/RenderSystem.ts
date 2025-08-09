@@ -1,6 +1,6 @@
+import { ComponentTypes } from "../../components/component-type";
+import type { Transform } from "../../components/spatial/transform/Transform";
 import type { Render } from "../base/Render";
-import type { TransformType } from "../components";
-import { ComponentTypes } from "../components/component-type";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
 import { material_get } from "../generators/create.material";
 import { EasyGetter } from "../managers/EasyGetters";
@@ -27,19 +27,21 @@ export function RenderSystem(state: ComponentStateType): System {
         const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, material.shaderName)!;
         webGL.useProgram(shader.program);
 
-        const transform = ComponentState.getComponent<TransformType>(
+        const transform = ComponentState.getComponent<Transform>(
           state,
-          render.gameEntity,
+          render.getGameEntity(),
           ComponentTypes.Transform
         );
 
         if (!transform) continue;
 
+        
+
         const shaderSystem = generic_manager_get(Global.ResourcesManager.ShaderSystemManager, material.name);
         if (!shaderSystem) continue;
         shaderSystem.global?.();
 
-        shaderSystem.local?.(render.gameEntity);
+        shaderSystem.local?.(render.getGameEntity());
 
         const mesh = generic_manager_get(Global.ResourcesManager.MeshManager, render.meshID);
         if (!mesh) continue;
@@ -50,6 +52,7 @@ export function RenderSystem(state: ComponentStateType): System {
         webGL.bindVertexArray(vao.vao);
         webGL.drawElements(webGL.TRIANGLES, vao.indexCount, webGL.UNSIGNED_SHORT, 0);
         webGL.bindVertexArray(null);
+      
       }
     },
   };
