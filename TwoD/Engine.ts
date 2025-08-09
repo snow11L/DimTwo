@@ -9,7 +9,6 @@ export class Engine {
     constructor() {
         this.time = new Time();
         this.time.on("start", () => {
-
             const scene = SceneManager.getCurrentScene();
             scene.ECSSystems.callStart();
         });
@@ -17,7 +16,6 @@ export class Engine {
         this.time.on("fixedUpdate", () => {
             const scene = SceneManager.getCurrentScene();
             scene.ECSSystems.callFixedUpdate();
-
         });
 
         this.time.on("update", () => {

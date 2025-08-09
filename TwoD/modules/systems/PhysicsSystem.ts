@@ -8,9 +8,10 @@ import type { Transform } from "../components/spatial/transform/Transform";
 
 export function PhysicsSystem(): System {
     return {
+        
         fixedUpdate() {
 
-            const scene =SceneManager.getCurrentScene();
+            const scene = SceneManager.getCurrentScene();
             const components = scene.ECSComponents;
 
             const rigidbodies = components.getComponentsByCategory<RigidBody2D>(
