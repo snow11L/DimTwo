@@ -4,12 +4,10 @@ import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem, SystemStat
 import type { Render } from "../TwoD/core/base/Render";
 import { engine } from "../TwoD/core/core/Engine";
 import { Global } from "../TwoD/core/managers/engine.manager";
-import { generic_manager_add, generic_manager_get } from "../TwoD/core/managers/generic_manager";
 import { resourceManager } from "../TwoD/core/managers/resources-manager";
 import type { ImageFile, ShaderFile } from "../TwoD/core/managers/shaderLoader";
 import { advanced_material_system } from "../TwoD/core/resources/material/advanced_material_system";
 import { simple_material_system } from "../TwoD/core/resources/material/simple_material_system";
-import { textShaderSystem } from "../TwoD/core/resources/material/text_shader_system";
 import type { MaterialType } from "../TwoD/core/resources/material/types";
 import { water_material_system } from "../TwoD/core/resources/material/water_material_system";
 import type { Mesh } from "../TwoD/core/resources/mesh/Mesh";
@@ -31,7 +29,7 @@ function material_create_and_link(name: string, shader: string) {
         shaderName: shader
     };
 
-    generic_manager_add(Global.ResourcesManager.MaterialManager, material.name, material);
+    Global.ResourcesManager.MaterialManager.generic_manager_add(material.name, material);
 }
 
 async function LoadResources() {
@@ -104,7 +102,7 @@ async function LoadResources() {
     material_create_and_link("simple_material", "simple");
 
     const simple_shader_color_system = simple_material_system("simple");
-    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, "simple_material", simple_shader_color_system);
+    Global.ResourcesManager.ShaderSystemManager.generic_manager_add("simple_material", simple_shader_color_system);
 
     // ----------------------------------------------------------------
 
@@ -114,9 +112,9 @@ async function LoadResources() {
         shaderName: "advanced",
     };
 
-    generic_manager_add(Global.ResourcesManager.MaterialManager, advanced_material.name, advanced_material);
+    Global.ResourcesManager.MaterialManager.generic_manager_add( advanced_material.name, advanced_material);
     const advanced_shader_color_system = advanced_material_system(advanced_material);
-    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, advanced_material.name, advanced_shader_color_system);
+    Global.ResourcesManager.ShaderSystemManager.generic_manager_add( advanced_material.name, advanced_shader_color_system);
 
 
     const water_material: MaterialType = {
@@ -124,19 +122,19 @@ async function LoadResources() {
         shaderName: "water",
 
     };
-    generic_manager_add(Global.ResourcesManager.MaterialManager, water_material.name, water_material);
+    Global.ResourcesManager.MaterialManager.generic_manager_add( water_material.name, water_material);
 
     const simple_shader_water_system = water_material_system(water_material);
-    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, water_material.name, simple_shader_water_system);
+    Global.ResourcesManager.ShaderSystemManager.generic_manager_add( water_material.name, simple_shader_water_system);
 
     const textMaterial: MaterialType = {
         name: "text_material",
         shaderName: "text",
 
     }
-    generic_manager_add(Global.ResourcesManager.MaterialManager, textMaterial.name, textMaterial);
-    const textSystem = textShaderSystem(textMaterial);
-    generic_manager_add(Global.ResourcesManager.ShaderSystemManager, textMaterial.name, textSystem);
+   Global.ResourcesManager.MaterialManager. generic_manager_add(textMaterial.name, textMaterial);
+/*     const textSystem = textShaderSystem(textMaterial);
+    Global.ResourcesManager.ShaderSystemManager.generic_manager_add( textMaterial.name, textSystem); */
 
 }
 
@@ -172,7 +170,7 @@ export function getMeshesUsedInScene(): Set<Mesh> {
     const renderers = get_category<Render>(ComponentTypes.Render);
     const meshesUsed = new Set<Mesh>();
     for (const render of renderers) {
-        const mesh = generic_manager_get(Global.ResourcesManager.MeshManager, render.meshID);
+        const mesh = Global.ResourcesManager.MeshManager.generic_manager_get(render.meshID);
         if (mesh) meshesUsed.add(mesh);
     }
     return meshesUsed;

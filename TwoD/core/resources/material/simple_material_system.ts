@@ -4,13 +4,12 @@ import { Transform } from "../../../components/spatial/transform/Transform";
 import { get_sprite_render } from "../../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
-import { generic_manager_get } from "../../managers/generic_manager";
 import { Mat4 } from "../../math/mat4/Mat4";
 import { shader_set_uniform_4f, shader_set_uniform_mat4 } from "../shader";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
 export function simple_material_system(shaderName: string): ShaderSystem {
-    const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, shaderName)!;
+    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(shaderName)!;
 
     return {
 

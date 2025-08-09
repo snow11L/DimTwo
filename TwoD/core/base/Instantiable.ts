@@ -1,6 +1,6 @@
 import { Id } from "./Id";
 
-export class Instantiable {
+export abstract class Instantiable {
     readonly instanceID: Id;
 
     constructor() {

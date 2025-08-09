@@ -1,4 +1,4 @@
-import { ComponentTypes } from "../../../components/component-type";
+/* import { ComponentTypes } from "../../../components/component-type";
 import { Transform } from "../../../components/spatial/transform/Transform";
 import { get_category, get_textRender } from "../../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
@@ -59,3 +59,4 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
 
     };
 }
+ */

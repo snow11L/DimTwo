@@ -4,7 +4,7 @@ import type { CollisionMatrixType } from "../../core/collisionMatrix/types";
 import { ComponentState, type ComponentStateType, type SystemStateType } from "../../ecs";
 import { createComponentState } from "../../ecs/componentState";
 import { createSystemState } from "../../ecs/systemState";
-import { createGenericManager, type GenericManager } from "../../managers/generic_manager";
+import { GenericManager } from "../../managers/generic_manager";
 import type { Mat4 } from "../../math/mat4/Mat4";
 
 import { type GLVAO } from "../../webgl/mesh_gl";
@@ -25,7 +25,7 @@ let current: Scene | null = null;
 
 function getCurrentScene() {
 
-    if(!current) {
+    if (!current) {
         throw new Error("scena nao atribuida")
     }
     return current;
@@ -47,10 +47,10 @@ export function create(name: string): Scene {
         collisionMatrix: createCollisionMatrix(32),
         components: createComponentState(),
         systems: createSystemState(),
-        entitiesById: createGenericManager<number, GameEntity>("game_entity_by_id_manager"),
-        entitiesByName: createGenericManager<string, GameEntity>("game_entity_by_name_manager"),
-        mat4: createGenericManager<number, Mat4>("mat4_manager"),
-        vao: createGenericManager<number, GLVAO>("vao_manager"),
+        entitiesById: new GenericManager<number, GameEntity>("game_entity_by_id_manager"),
+        entitiesByName: new GenericManager<string, GameEntity>("game_entity_by_name_manager"),
+        mat4: new GenericManager<number, Mat4>("mat4_manager"),
+        vao: new GenericManager<number, GLVAO>("vao_manager"),
     };
 }
 

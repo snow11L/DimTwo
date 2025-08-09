@@ -1,7 +1,6 @@
 import { createTexture } from "../resources/texture/types";
 import { Global } from "./engine.manager";
 import type { Glyph } from "./font.types";
-import { generic_manager_add } from "./generic_manager";
 
 async function loadFont(name: string, imageUrl: string, csvUrl: string): Promise<void> {
     const gl = Global.WebGL;
@@ -11,11 +10,11 @@ async function loadFont(name: string, imageUrl: string, csvUrl: string): Promise
         minFilter: gl.LINEAR,
         magFilter: gl.LINEAR,
     });
-    generic_manager_add(Global.ResourcesManager.TextureManager, name, texture);
+    Global.ResourcesManager.TextureManager.generic_manager_add(name, texture);
 
     const text = await loadText(csvUrl);
     const glyphs = parseCSV(text);
-    generic_manager_add(Global.ResourcesManager.FontManager, name, { texture, glyphs })
+    Global.ResourcesManager.FontManager.generic_manager_add(name, { texture, glyphs })
 }
 
 function parseCSV(text: string): Map<string, Glyph> {

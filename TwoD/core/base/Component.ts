@@ -2,7 +2,7 @@ import { ComponentTypes } from "../../components/component-type";
 import type { GameEntity } from "./GameEntity";
 import { Instantiable } from "./Instantiable";
 
-export class Component extends Instantiable {
+export abstract class Component extends Instantiable {
   private gameEntity: GameEntity | null;
   enabled: boolean;
   readonly type: ComponentTypes;

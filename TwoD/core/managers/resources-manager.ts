@@ -1,7 +1,6 @@
 import { createShader } from "../resources/shader";
 import { createTexture } from "../resources/texture/types";
 import { Global } from "./engine.manager";
-import { generic_manager_add } from "./generic_manager";
 import type { ImageFile, ShaderFile } from "./shaderLoader";
 
 
@@ -30,7 +29,7 @@ export class ResourceManager {
         });
 
         const texture = createTexture(gl, imageBitmap);
-        generic_manager_add(Global.ResourcesManager.TextureManager, name, texture);
+        Global.ResourcesManager.TextureManager.generic_manager_add( name, texture);
 
         this.images.set(path.path, img);
 
@@ -53,7 +52,7 @@ export class ResourceManager {
       const frag = await fragResponse.text();
 
       const shader = createShader(shaderName, vert, frag);
-      generic_manager_add(Global.ResourcesManager.ShaderManager, shaderName, shader);
+      Global.ResourcesManager.ShaderManager.generic_manager_add(shaderName, shader);
     }
   }
 

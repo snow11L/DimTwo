@@ -1,5 +1,4 @@
 import { Global } from "../core/managers/engine.manager";
-import { generic_manager_add, generic_manager_get } from "../core/managers/generic_manager";
 import { Color } from "../core/math/color/color";
 
 import type { MaterialType } from "../core/resources/material/types";
@@ -13,9 +12,9 @@ export function material_create(name: string, color: Color = Color.white) {
         ]
     }
 
-    generic_manager_add(Global.ResourcesManager.MaterialManager, name, material);
+    Global.ResourcesManager.MaterialManager.generic_manager_add(name, material);
 }
 
 export function material_get(name: string) {
-    return generic_manager_get(Global.ResourcesManager.MaterialManager, name);
+    return Global.ResourcesManager.MaterialManager.generic_manager_get(name);
 }

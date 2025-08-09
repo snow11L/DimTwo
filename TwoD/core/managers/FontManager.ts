@@ -1,6 +1,5 @@
 import { createTexture, type TextureType } from "../resources/texture/types";
 import { Global } from "./engine.manager";
-import { generic_manager_add } from "./generic_manager";
 
 interface Glyph {
     char: string;
@@ -28,7 +27,7 @@ export class FontManager {
         const image = await this.loadImage(imageUrl);
         const imageBitmap = await createImageBitmap(image);
         const texture = createTexture(gl, imageBitmap);
-        generic_manager_add(Global.ResourcesManager.TextureManager, name, texture);
+        Global.ResourcesManager.TextureManager.generic_manager_add(name, texture);
 
         const text = await this.loadText(csvUrl);
 

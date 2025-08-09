@@ -1,6 +1,6 @@
 import { Id } from "./Id";
 
-export class Entity {
+export abstract class Entity {
     readonly id: Id;
 
     constructor() {

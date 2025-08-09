@@ -2,7 +2,7 @@ import { ComponentTypes } from "../../components/component-type";
 import { Color } from "../math/color/color";
 import { Component } from "./Component";
 
-export class Render extends Component {
+export abstract class Render extends Component {
   color: Color;
   alpha: number;
   material: string;
