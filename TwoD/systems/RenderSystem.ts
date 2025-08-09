@@ -1,12 +1,12 @@
-import { ComponentTypes } from "../../components/component-type";
-import type { Transform } from "../../components/spatial/transform/Transform";
-import { material_get } from "../../generators/create.material";
-import type { Render } from "../base/Render";
-import type { System } from "../ecs/systemState/System";
+import { ComponentTypes } from "../components/component-type";
+import type { Transform } from "../components/spatial/transform/Transform";
+import type { Render } from "../core/base/Render";
+import type { System } from "../core/ecs/systemState/System";
+import { EasyGetter } from "../core/managers/EasyGetters";
+import { Global } from "../core/managers/engine.manager";
+import { Scene } from "../core/resources/scene/scene";
+import { material_get } from "../generators/create.material";
 
-import { EasyGetter } from "../managers/EasyGetters";
-import { Global } from "../managers/engine.manager";
-import { Scene } from "../resources/scene/scene";
 
 export function RenderSystem(): System {
 

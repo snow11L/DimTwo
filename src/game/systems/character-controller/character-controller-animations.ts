@@ -1,10 +1,10 @@
 import { Animator } from "../../../../TwoD/components/animation/animator/Animator";
 import { ComponentTypes } from "../../../../TwoD/components/component-type";
 import { SpriteRender } from "../../../../TwoD/components/render/spriteRender/SpriteRender";
-import { Input } from "../../../../TwoD/core";
 import type { System } from "../../../../TwoD/core/ecs/systemState/System";
+import { InputManager } from "../../../../TwoD/core/input/Input";
+import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
 import { Scene } from "../../../../TwoD/core/resources/scene/scene";
-import { globalKeyState } from "../../../../TwoD/core/systems/InputSystem";
 import type { CharacterControler } from "./character.controller.types";
 
 export default function CharacterControllerAnimationSystem(): System {
@@ -28,7 +28,7 @@ export default function CharacterControllerAnimationSystem(): System {
                 const animator = components.getComponent<Animator>(characterControler.getGameEntity(), ComponentTypes.Animator);
                 if (!animator) continue;
 
-                animator.playbackSpeed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft) ? 1.5 : 1.0;
+                animator.playbackSpeed = InputManager.keyboard.getKey(KeyCode.ShiftLeft) ? 1.5 : 1.0;
 
                 const dir = characterControler.direction;
 

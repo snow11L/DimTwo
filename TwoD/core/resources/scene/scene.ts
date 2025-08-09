@@ -9,22 +9,20 @@ import type { Mat4 } from "../../math/mat4/Mat4";
 
 import { type GLVAO } from "../../webgl/mesh_gl";
 
-
 export class Scene {
 
     private static current: Scene | null;
-    name: string;
-    readonly ECSComponents: ECSComponent;
-    readonly ECSSystems: ECSSystem;
-    readonly collisionMatrix: CollisionMatrixType;
-    readonly entitiesById: GenericManager<number, GameEntity>;
-    readonly entitiesByName: GenericManager<string, GameEntity>;
-    readonly mat4: GenericManager<number, Mat4>;
-    readonly vao: GenericManager<number, GLVAO>;
+    public name: string;
+    public readonly ECSComponents: ECSComponent;
+    public readonly ECSSystems: ECSSystem;
+    public readonly collisionMatrix: CollisionMatrixType;
+    public readonly entitiesById: GenericManager<number, GameEntity>;
+    public readonly entitiesByName: GenericManager<string, GameEntity>;
+    public readonly mat4: GenericManager<number, Mat4>;
+    public readonly vao: GenericManager<number, GLVAO>;
 
     constructor(name: string) {
         this.name = name;
-
         this.ECSComponents = new ECSComponent();
         this.ECSSystems = new ECSSystem();
         this.collisionMatrix = createCollisionMatrix(32);
@@ -32,12 +30,11 @@ export class Scene {
         this.entitiesByName = new GenericManager("EntitiesManager");
         this.mat4 = new GenericManager("Matrix Manager");
         this.vao = new GenericManager("VAO Manager");
-        
-  
+
+
     }
 
     public static getCurrentScene() {
-
         if (!this.current) {
             throw new Error("scena nao atribuida")
         }
@@ -53,12 +50,4 @@ export class Scene {
             scene.ECSComponents.addComponent(entity, component);
         }
     }
-
-
-
 }
-
-
-
-
-

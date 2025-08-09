@@ -1,11 +1,10 @@
+import { Animator } from "../components/animation/animator/Animator";
+import { ComponentTypes } from "../components/component-type";
+import type { SpriteRender } from "../components/render/spriteRender/SpriteRender";
+import type { System } from "../core/ecs/systemState/System";
+import { Scene } from "../core/resources/scene/scene";
+import Time from "../core/time/time";
 
-import { Animator } from "../../components/animation/animator/Animator";
-import { ComponentTypes } from "../../components/component-type";
-import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
-import type { System } from "../ecs/systemState/System";
-import { Scene } from "../resources/scene/scene";
-
-import Time from "../time/time";
 
 export function AnimatorSystem(): System {
   return {

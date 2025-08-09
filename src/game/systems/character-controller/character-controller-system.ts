@@ -1,13 +1,14 @@
 import { ComponentTypes } from "../../../../TwoD/components/component-type";
 import type { TextMeshXComponent } from "../../../../TwoD/components/render/textMesh/TextRender";
 import type { Transform } from "../../../../TwoD/components/spatial/transform/Transform";
-import { Input } from "../../../../TwoD/core";
 import type { System } from "../../../../TwoD/core/ecs/systemState/System";
+import { InputManager } from "../../../../TwoD/core/input/Input";
+import { KeyCode } from "../../../../TwoD/core/input/KeyCode";
 import { Vec2 } from "../../../../TwoD/core/math/vec2/Vec2";
 import { Scene } from "../../../../TwoD/core/resources/scene/scene";
-import { globalKeyState } from "../../../../TwoD/core/systems/InputSystem";
 import Time from "../../../../TwoD/core/time/time";
 import { get_component } from "../../../../TwoD/generators/get_component";
+
 import type { CharacterControler } from "./character.controller.types";
 
 
@@ -62,13 +63,13 @@ export default function CharacterControlerSystem(): System {
         characterControler.direction.x = 0;
         characterControler.direction.y = 0;
 
-        if (Input.getKey(globalKeyState, Input.KeyCode.KeyA)) characterControler.direction.x -= 1;
-        if (Input.getKey(globalKeyState, Input.KeyCode.KeyD)) characterControler.direction.x += 1;
-        if (Input.getKey(globalKeyState, Input.KeyCode.KeyW)) characterControler.direction.y += 1;
-        if (Input.getKey(globalKeyState, Input.KeyCode.KeyS)) characterControler.direction.y -= 1;
+        if (InputManager.keyboard.getKey(KeyCode.KeyA)) characterControler.direction.x -= 1;
+        if (InputManager.keyboard.getKey(KeyCode.KeyD)) characterControler.direction.x += 1;
+        if (InputManager.keyboard.getKey(KeyCode.KeyW)) characterControler.direction.y += 1;
+        if (InputManager.keyboard.getKey(KeyCode.KeyS)) characterControler.direction.y -= 1;
 
         Vec2.normalize(characterControler.direction, characterControler.direction);
-        const speed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft)
+        const speed = InputManager.keyboard.getKey(KeyCode.ShiftLeft)
           ? characterControler.runSpeed
           : characterControler.speed;
 

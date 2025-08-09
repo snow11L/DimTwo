@@ -103,6 +103,8 @@ export default class Time {
     this.accumulator += Time._deltaTime;
     let steps = 0;
 
+    this.events.emit('loop');
+    
     if (this.initialized) {
       while (this.accumulator >= Time.fixedDeltaTime && steps < this.maxFrameSkip) {
         this.events.emit('fixedUpdate');

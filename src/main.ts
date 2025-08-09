@@ -2,7 +2,8 @@
 import { ComponentTypes } from "../TwoD/components/component-type";
 import type { MaterialType } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
-import { engine } from "../TwoD/core/core/Engine";
+import { Engine } from "../TwoD/core/core/Engine";
+import { InputManager } from "../TwoD/core/input/Input";
 import { Global } from "../TwoD/core/managers/engine.manager";
 import { resourceManager } from "../TwoD/core/managers/resources-manager";
 import type { ImageFile, ShaderFile } from "../TwoD/core/managers/shaderLoader";
@@ -11,16 +12,23 @@ import { simple_material_system } from "../TwoD/core/resources/material/simple_m
 import { water_material_system } from "../TwoD/core/resources/material/water_material_system";
 import type { Mesh } from "../TwoD/core/resources/mesh/Mesh";
 import { Scene } from "../TwoD/core/resources/scene/scene";
-import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../TwoD/core/systems";
-import { InputSystem } from "../TwoD/core/systems/InputSystem";
+
 import { createMeshVAO } from "../TwoD/core/webgl/mesh_gl";
 import { get_category } from "../TwoD/generators/get_component";
+import { WebKeyboardInput } from "../TwoD/platform/web/WebKeyboardInput";
+import { WebMouseInput } from "../TwoD/platform/web/WebMouseInput";
+import { AnimatorSystem, ColliderSystem, PhysicsSystem, RenderSystem } from "../TwoD/systems";
+import { InputSystem } from "../TwoD/systems/InputSystem";
 import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
 import { CameraSystem } from "./game/systems/camera_system";
 import CharacterControllerAnimationSystem from "./game/systems/character-controller/character-controller-animations";
 import CharacterControlerSystem from "./game/systems/character-controller/character-controller-system";
+
+
+InputManager.keyboard = new WebKeyboardInput();
+InputManager.mouse = new WebMouseInput();
 
 function material_create_and_link(name: string, shader: string) {
 
@@ -164,7 +172,10 @@ scene.ECSSystems.addSystem(InputSystem());
 // SystemState.addSystem(scene.systems, boxColliderGizmosSystem());
 // SystemState.addSystem(scene.systems, circleColliderGizmosSystem());
 
-engine.start();
+
+const engine = new Engine();
+engine.time.start();
+
 
 export function getMeshesUsedInScene(): Set<Mesh> {
     const renderers = get_category<Render>(ComponentTypes.Render);

@@ -1,10 +1,10 @@
-import { ComponentTypes } from "../../components/component-type";
-import type { RigidBody2D } from "../../components/physics/rigidBody2D/RigidBody";
-import type { Transform } from "../../components/spatial/transform/Transform";
-import { EngineConfig } from "../../global/config/EngineConfig";
-import type { System } from "../ecs/systemState/System";
-import { Scene } from "../resources/scene/scene";
-import Time from "../time/time";
+import { ComponentTypes } from "../components/component-type";
+import type { RigidBody2D } from "../components/physics/rigidBody2D/RigidBody";
+import type { Transform } from "../components/spatial/transform/Transform";
+import type { System } from "../core/ecs/systemState/System";
+import { Scene } from "../core/resources/scene/scene";
+import Time from "../core/time/time";
+import { EngineConfig } from "../global/config/EngineConfig";
 
 export function PhysicsSystem(): System {
     return {
