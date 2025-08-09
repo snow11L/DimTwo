@@ -1,5 +1,5 @@
 import { Builder } from "../../../TwoD/core";
-import { CollisionLayer } from "../../../TwoD/core/physics/collision/CollisionLayer";
+import { CollisionLayer } from "../../../TwoD/modules/physics/collision/CollisionLayer";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import { createBoxCollider2D } from "../../../TwoD/modules/generators";
 

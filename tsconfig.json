@@ -21,5 +21,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
- "include": ["src", "TwoD", "game"]
+ "include": ["src", "TwoD", "game", "../deprecated/font.types.ts", "../deprecated/FontManager.ts", "../deprecated/Loader.ts"]
 }

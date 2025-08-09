@@ -1,5 +1,4 @@
 import type { GameEntity } from "../base/GameEntity";
-import { CollisionMatrix } from "../physics/collision/CollisionMatrix";
 
 import { ECSComponent } from "../ecs/ECSComponent";
 import { ECSSystem } from "../ecs/ECSSystem";
@@ -14,7 +13,6 @@ export class Scene {
     public name: string;
     public readonly ECSComponents: ECSComponent;
     public readonly ECSSystems: ECSSystem;
-    public readonly collisionMatrix: CollisionMatrix;
     public readonly entitiesById: GenericManager<number, GameEntity>;
     public readonly entitiesByName: GenericManager<string, GameEntity>;
     public readonly mat4: GenericManager<number, Mat4>;
@@ -24,13 +22,10 @@ export class Scene {
         this.name = name;
         this.ECSComponents = new ECSComponent();
         this.ECSSystems = new ECSSystem();
-        this.collisionMatrix = new CollisionMatrix(32);
         this.entitiesById = new GenericManager("EntitiesByIdManager");
         this.entitiesByName = new GenericManager("EntitiesManager");
         this.mat4 = new GenericManager("Matrix Manager");
         this.vao = new GenericManager("VAO Manager");
-
-
     }
 
 

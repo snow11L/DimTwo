@@ -1,6 +1,6 @@
+import type { FontData } from "../../../../deprecated/FontManager";
 import type { Mesh } from "../../modules/resources/mesh/Mesh";
 import { Id } from "../base/Id";
-import type { FontData } from "../managers/FontManager";
 import { Vec2 } from "../math/vec2/Vec2";
 import { Vec3 } from "../math/vec3/ Vec3";
 

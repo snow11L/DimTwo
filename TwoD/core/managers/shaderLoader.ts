@@ -1,4 +1,4 @@
-import { createShader } from "../../modules/resources/shader";
+import { Shader } from "../../modules/resources/shader/Shader";
 import { Global } from "./engine.manager";
 
 export interface ShaderFileEntry {
@@ -40,7 +40,7 @@ export class ShaderLoader {
             const vert = await vertResponse.text();
             const frag = await fragResponse.text();
 
-            const shader = createShader(shaderName, vert, frag);
+            const shader = new Shader(shaderName, vert, frag);
             Global.ResourcesManager.ShaderManager.generic_manager_add(shaderName, shader);
         }
     }

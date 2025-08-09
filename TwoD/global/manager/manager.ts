@@ -1,5 +1,5 @@
+import type { FontData } from "../../../../deprecated/FontManager";
 import type { MaterialType, MeshType, ShaderType, SpriteType, TextureType } from "../../core";
-import type { FontData } from "../../core/managers/FontManager";
 import { GenericManager } from "../../core/managers/generic_manager";
 import type { ShaderSystem } from "../../modules/resources/shader/ShaderSystem";
 

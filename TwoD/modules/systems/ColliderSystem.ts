@@ -134,13 +134,13 @@ function detectCollisions(
         const colliderB = collidersInCell[j];
         if (colliderA.getGameEntity().id === colliderB.getGameEntity().id) continue;
 
-        if (
+       /*  if (
 
           !scene.collisionMatrix.canCollide(
             colliderA.collisionMask,
             colliderB.collisionMask,
           )
-        ) continue;
+        ) continue; */
 
         const bTransform = Transform.getTransform(colliderB.getGameEntity());
         if (!bTransform) continue;
