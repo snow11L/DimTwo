@@ -1,4 +1,4 @@
-import type { GameEntity } from "../../base/GameObject";
+import type { GameEntity } from "../../base/GameEntity";
 import { createCollisionMatrix } from "../../core/collisionMatrix";
 import type { CollisionMatrixType } from "../../core/collisionMatrix/types";
 import { ComponentState, type ComponentStateType, type SystemStateType } from "../../ecs";

@@ -1,6 +1,6 @@
 import { ComponentState } from "../../../core";
 import { Component } from "../../../core/base/Component";
-import type { GameEntity } from "../../../core/base/GameObject";
+import type { GameEntity } from "../../../core/base/GameEntity";
 import { Quat } from "../../../core/math/quat/quat";
 import { Vec3 } from "../../../core/math/vec3/ Vec3";
 import { Scene } from "../../../core/resources/scene/scene";

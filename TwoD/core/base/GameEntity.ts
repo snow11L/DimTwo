@@ -1,3 +1,6 @@
+import { ComponentTypes } from "../../components/component-type";
+import type { Transform } from "../../components/spatial/transform/Transform";
+import { get_component } from "../../generators/get_component";
 import type { Component } from "./Component";
 import { Entity } from "./Entity";
 
@@ -23,8 +26,19 @@ export class GameEntity extends Entity {
     }
 
     static addComponents(entity: GameEntity, ...components: Component[]) {
-    for (const component of components) {
-        entity.components.push(component);
+        for (const component of components) {
+            entity.components.push(component);
+        }
+
+
     }
-}
+
+    public getTransform() {
+        const transform = get_component<Transform>(this, ComponentTypes.Transform);
+        if (!transform) {
+            throw new Error("transform nao atribuida");
+        }
+
+        return transform;
+    }
 }

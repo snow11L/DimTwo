@@ -1,5 +1,5 @@
-import type { ComponentTypes } from "../../components/component-type";
-import type { GameEntity } from "./GameObject";
+import { ComponentTypes } from "../../components/component-type";
+import type { GameEntity } from "./GameEntity";
 import { Instantiable } from "./Instantiable";
 
 export class Component extends Instantiable {
@@ -15,6 +15,7 @@ export class Component extends Instantiable {
     }
     return this.gameEntity;
   }
+
 
   public setGameEntity(gameEntity: GameEntity): void {
     this.gameEntity = gameEntity;

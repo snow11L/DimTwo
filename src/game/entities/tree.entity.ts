@@ -1,7 +1,7 @@
 import { Builder } from "../../../TwoD/core";
 import { CollisionMask } from "../../../TwoD/core/core/collisionMask/types";
-import { createBoxCollider2D } from "../../../TwoD/core/generators";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
+import { createBoxCollider2D } from "../../../TwoD/generators";
 
 import type { Sprite } from "../../../TwoD/core/resources/sprite";
 

@@ -1,7 +1,7 @@
 
 import { Camera } from "../../../components/render/camera/types";
 import { Transform } from "../../../components/spatial/transform/Transform";
-import { get_sprite_render } from "../../generators/get_component";
+import { get_sprite_render } from "../../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";

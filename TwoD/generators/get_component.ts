@@ -1,10 +1,10 @@
-import { ComponentTypes } from "../../components/component-type";
-import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
-import type { TextMeshXComponent } from "../../components/render/textMesh/TextRender";
-import type { Component } from "../base/Component";
-import type { GameEntity } from "../base/GameObject";
-import { ComponentState } from "../ecs";
-import { Scene } from "../resources/scene/scene";
+import { ComponentTypes } from "../components/component-type";
+import type { SpriteRender } from "../components/render/spriteRender/SpriteRender";
+import type { TextMeshXComponent } from "../components/render/textMesh/TextRender";
+import type { Component } from "../core/base/Component";
+import type { GameEntity } from "../core/base/GameEntity";
+import { ComponentState } from "../core/ecs";
+import { Scene } from "../core/resources/scene/scene";
 
 
 export function get_textRender(gameEntity: GameEntity): TextMeshXComponent | null {

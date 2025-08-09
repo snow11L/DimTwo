@@ -1,6 +1,6 @@
-import { Meshs } from "../../assets/meshs/Meshs";
-import { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
-import type { GameEntity } from "../base/GameObject";
+import { Meshs } from "../assets/meshs/Meshs";
+import { SpriteRender } from "../components/render/spriteRender/SpriteRender";
+import type { GameEntity } from "../core/base/GameEntity";
 
 export function createSpriteRender(
   gameEntity: GameEntity

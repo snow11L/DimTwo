@@ -1,12 +1,24 @@
 import { Mathf } from "../mathf/Mathf";
 import type { Vec2 } from "../vec2/Vec2";
 
-export interface Bounds {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-};
+export class Bounds {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+
+  constructor(
+    left: number = 0,
+    right: number = 0,
+    top: number = 0,
+    bottom: number = 0
+  ) {
+    this.left = left;
+    this.right = right;
+    this.top = top;
+    this.bottom = bottom;
+  }
+}
 
 
 export const EPSILON = 1e-4;

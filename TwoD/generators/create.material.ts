@@ -1,8 +1,8 @@
-import { Global } from "../managers/engine.manager";
-import { generic_manager_add, generic_manager_get } from "../managers/generic_manager";
-import { Color } from "../math/color/color";
+import { Global } from "../core/managers/engine.manager";
+import { generic_manager_add, generic_manager_get } from "../core/managers/generic_manager";
+import { Color } from "../core/math/color/color";
 
-import type { MaterialType } from "../resources/material/types";
+import type { MaterialType } from "../core/resources/material/types";
 
 export function material_create(name: string, color: Color = Color.white) {
     const material: MaterialType = {

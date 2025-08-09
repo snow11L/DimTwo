@@ -1,6 +1,6 @@
 import { ComponentTypes } from "../../../components/component-type";
 import { Transform } from "../../../components/spatial/transform/Transform";
-import { get_category, get_sprite_render } from "../../generators/get_component";
+import { get_category, get_sprite_render } from "../../../generators/get_component";
 import { EasyGetter } from "../../managers/EasyGetters";
 import { Global } from "../../managers/engine.manager";
 import { generic_manager_get } from "../../managers/generic_manager";

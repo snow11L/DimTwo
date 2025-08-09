@@ -7,11 +7,11 @@ import { Collider } from "../collider/types";
 export class BoxCollider2D extends Collider {
   size: Vec3;
 
+
   constructor() {
     super(ComponentTypes.BoxCollider2D, ComponentTypes.Collider);
     this.size = new Vec3(1, 1, 0);
   }
-
 
   static VEC2_CACHE: Vec2 = new Vec2();
 
@@ -86,6 +86,7 @@ export class BoxCollider2D extends Collider {
       y: -this.normal.y * overlap,
     };
   }
+
 
 
 

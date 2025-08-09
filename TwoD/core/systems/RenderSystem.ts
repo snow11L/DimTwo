@@ -1,8 +1,8 @@
 import { ComponentTypes } from "../../components/component-type";
 import type { Transform } from "../../components/spatial/transform/Transform";
+import { material_get } from "../../generators/create.material";
 import type { Render } from "../base/Render";
 import { ComponentState, type ComponentStateType, type System } from "../ecs";
-import { material_get } from "../generators/create.material";
 import { EasyGetter } from "../managers/EasyGetters";
 import { Global } from "../managers/engine.manager";
 import { generic_manager_get } from "../managers/generic_manager";

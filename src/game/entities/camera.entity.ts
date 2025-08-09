@@ -1,7 +1,7 @@
 import type { Camera } from "../../../TwoD/components/render/camera/types";
 import type { Transform } from "../../../TwoD/components/spatial/transform/Transform";
 import { Builder } from "../../../TwoD/core";
-import { GameEntity } from "../../../TwoD/core/base/GameObject";
+import { GameEntity } from "../../../TwoD/core/base/GameEntity";
 
 export function createCamera(): GameEntity {
 

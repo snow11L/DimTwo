@@ -1,7 +1,7 @@
 
-import { GameEntity } from "../base/GameObject";
-import { generic_manager_add } from "../managers/generic_manager";
-import { Scene } from "../resources/scene/scene";
+import { GameEntity } from "../core/base/GameEntity";
+import { generic_manager_add } from "../core/managers/generic_manager";
+import { Scene } from "../core/resources/scene/scene";
 
 export function BuildGameEntity(
   name: string,

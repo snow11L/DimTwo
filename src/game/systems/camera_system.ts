@@ -1,6 +1,6 @@
 import { Transform } from "../../../TwoD/components/spatial/transform/Transform";
 import { type System } from "../../../TwoD/core";
-import type { GameEntity } from "../../../TwoD/core/base/GameObject";
+import type { GameEntity } from "../../../TwoD/core/base/GameEntity";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import Time from "../../../TwoD/core/time/time";
 

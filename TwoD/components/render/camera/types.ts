@@ -1,5 +1,5 @@
 import { Component } from "../../../core/base/Component";
-import { get_category } from "../../../core/generators/get_component";
+import { get_category } from "../../../generators/get_component";
 import { ComponentTypes } from "../../component-type";
 
 export class Camera extends Component {
