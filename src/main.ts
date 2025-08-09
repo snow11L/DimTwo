@@ -21,6 +21,8 @@ import { createCamera } from "./game/entities/camera.entity";
 import { createPlayer } from "./game/entities/player.entity";
 import { createSlime } from "./game/entities/slime.entity";
 import { CameraSystem } from "./game/systems/camera_system";
+import CharacterControllerAnimationSystem from "./game/systems/character-controller/character-controller-animations";
+import CharacterControlerSystem from "./game/systems/character-controller/character-controller-system";
 
 function material_create_and_link(name: string, shader: string) {
 
@@ -154,8 +156,8 @@ const camera = createCamera();
 Scene.addToScene(scene, camera);
 
 SystemState.addSystem(scene.systems, RenderSystem(scene.components));
-/* SystemState.addSystem(scene.systems, CharacterControlerSystem(scene.components)); */
-// SystemState.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
+SystemState.addSystem(scene.systems, CharacterControlerSystem(scene.components));
+SystemState.addSystem(scene.systems, CharacterControllerAnimationSystem(scene.components));
 SystemState.addSystem(scene.systems, AnimatorSystem(scene.components));
 SystemState.addSystem(scene.systems, CameraSystem(camera, player));
 SystemState.addSystem(scene.systems, ColliderSystem(scene.components, scene.systems));

@@ -1,5 +1,5 @@
 import type { Component } from "../../base/Component";
-import type { GameEntity } from "../../base/gameEntity/types";
+import type { GameEntity } from "../../base/GameEntity";
 
 export interface ComponentStateType {
     readonly persistent: Map<string, Map<GameEntity, Component>>;

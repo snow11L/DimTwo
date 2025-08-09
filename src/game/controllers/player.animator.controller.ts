@@ -1,4 +1,5 @@
-import type { AnimatorController } from "../../../TwoD/components/animation";
+
+import type { AnimatorController } from "../../../TwoD/components/animation/animator/Animator";
 import { PLAYER_ANIMATIONS } from "../animations/player.animation";
 
 export const PLAYER_ANIMATOR_CONTROLLER: AnimatorController = {

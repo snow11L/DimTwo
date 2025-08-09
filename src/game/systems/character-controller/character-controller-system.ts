@@ -55,19 +55,6 @@ export default function CharacterControlerSystem(state: ComponentStateType): Sys
         );
         if (!characterTransform) continue;
 
-        if (textMesh) {
-          // const text =
-          //   `x -> ${characterTransform.position.x.toFixed(2)}\n` +
-          //   `y -> ${characterTransform.position.y.toFixed(2)}`
-          // updateTextMeshText(textMesh, text)
-
-
-        }
-
-
-
-
-
 
         characterControler.direction.x = 0;
         characterControler.direction.y = 0;
@@ -78,10 +65,10 @@ export default function CharacterControlerSystem(state: ComponentStateType): Sys
         if (Input.getKey(globalKeyState, Input.KeyCode.KeyS)) characterControler.direction.y -= 1;
 
         Vec2.normalize(characterControler.direction, characterControler.direction);
-
         const speed = Input.getKey(globalKeyState, Input.KeyCode.ShiftLeft)
           ? characterControler.runSpeed
           : characterControler.speed;
+
 
         const deltaX = characterControler.direction.x * speed * Time.deltaTime;
         const deltaY = characterControler.direction.y * speed * Time.deltaTime;

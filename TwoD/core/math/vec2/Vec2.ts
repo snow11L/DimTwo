@@ -10,7 +10,7 @@ export class Vec2 {
   public static normalize(v: Vec2, out: Vec2): Vec2 {
     const len = Math.sqrt(v.x * v.x + v.y * v.y);
     if (len === 0) {
-      out.x = 1;
+      out.x = 0;
       out.y = 0;
     } else {
       out.x = v.x / len;
@@ -77,5 +77,21 @@ export class Vec2 {
     out.x = x;
     out.y = y;
     return out;
+  }
+
+  public static vec2ArrayTof32Array(vectors: Vec2[], out?: Float32Array): Float32Array {
+    if (!out || out.length < vectors.length * 2) {
+      out = new Float32Array(vectors.length * 2);
+    }
+    for (let i = 0; i < vectors.length; i++) {
+      const v = vectors[i];
+      out[i * 2] = v.x;
+      out[i * 2 + 1] = v.y;
+    }
+    return out;
+  }
+
+  public toString() {
+    return `Vec2(x: ${this.x}, y: ${this.y})`
   }
 }

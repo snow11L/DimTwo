@@ -1,8 +1,7 @@
-import type { AnimatorType } from "../components/animation";
-import { Animator } from "../components/animation/animator/types";
+import { Animator } from "../components/animation/animator/Animator";
 import type { GameEntity } from "../core/base/GameEntity";
 
-export function createAnimator(gameEntity: GameEntity): AnimatorType {
+export function createAnimator(gameEntity: GameEntity): Animator {
     const animator = new Animator();
     animator.setGameEntity(gameEntity);
     return animator;
