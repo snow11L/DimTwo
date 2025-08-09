@@ -1,6 +1,6 @@
-import { Global } from "../managers/engine.manager";
-import { SceneManager } from "../scene/SceneManager";
-import Time from "../time/time";
+import { Global } from "./core/managers/engine.manager";
+import { SceneManager } from "./core/scene/SceneManager";
+import Time from "./core/time/time";
 
 export class Engine {
 

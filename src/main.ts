@@ -1,12 +1,12 @@
 
 import type { MaterialType } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
-import { Engine } from "../TwoD/core/core/Engine";
 import { InputManager } from "../TwoD/core/input/Input";
 import { Global } from "../TwoD/core/managers/engine.manager";
 import { resourceManager } from "../TwoD/core/managers/resources-manager";
 import type { ImageFile, ShaderFile } from "../TwoD/core/managers/shaderLoader";
 import { Scene } from "../TwoD/core/scene/scene";
+import { Engine } from "../TwoD/Engine";
 import { ComponentTypes } from "../TwoD/modules/components/component-type";
 import { advanced_material_system } from "../TwoD/modules/resources/material/advanced_material_system";
 import { simple_material_system } from "../TwoD/modules/resources/material/simple_material_system";

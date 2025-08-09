@@ -1,5 +1,4 @@
 import { SpatialHash } from "../../core/algorithms/spatialHash/SpatialHash";
-import { canCollide } from "../../core/core/collisionMatrix";
 import type { ECSComponent } from "../../core/ecs/ECSComponent";
 import type { ECSSystem } from "../../core/ecs/ECSSystem";
 import type { System } from "../../core/ecs/System";
@@ -136,8 +135,8 @@ function detectCollisions(
         if (colliderA.getGameEntity().id === colliderB.getGameEntity().id) continue;
 
         if (
-          !canCollide(
-            scene.collisionMatrix,
+
+          !scene.collisionMatrix.canCollide(
             colliderA.collisionMask,
             colliderB.collisionMask,
           )

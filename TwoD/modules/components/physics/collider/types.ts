@@ -1,5 +1,4 @@
 import { Component } from "../../../../core/base/Component";
-import type { CollisionMask } from "../../../../core/core/collisionMask/types";
 import { Bounds } from "../../../../core/math/geometry/Bounds";
 import { Vec3 } from "../../../../core/math/vec3/ Vec3";
 import { ComponentTypes } from "../../component-type";

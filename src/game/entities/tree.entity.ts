@@ -1,5 +1,5 @@
 import { Builder } from "../../../TwoD/core";
-import { CollisionMask } from "../../../TwoD/core/core/collisionMask/types";
+import { CollisionLayer } from "../../../TwoD/core/physics/collision/CollisionLayer";
 import { Vec3 } from "../../../TwoD/core/math/vec3/ Vec3";
 import { createBoxCollider2D } from "../../../TwoD/modules/generators";
 
@@ -23,7 +23,7 @@ export function createTreeEntity(
         material: "advanced_material",
     });
 
-    const boxCollider = createBoxCollider2D(gameEntity, { collisionMask: CollisionMask.TREE, isTrigger: true, size: new Vec3(1, 1, 1) });
+    const boxCollider = createBoxCollider2D(gameEntity, { collisionMask: CollisionLayer.TREE, isTrigger: true, size: new Vec3(1, 1, 1) });
     // CollisionMatrix.setCollision(CollisionMask.TREE, CollisionMask.TREE, false);
 
     gameEntity.components = [
