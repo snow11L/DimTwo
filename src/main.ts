@@ -1,5 +1,6 @@
 
 import { ComponentTypes } from "../TwoD/components/component-type";
+import type { MaterialType } from "../TwoD/core";
 import type { Render } from "../TwoD/core/base/Render";
 import { engine } from "../TwoD/core/core/Engine";
 import { Global } from "../TwoD/core/managers/engine.manager";
@@ -7,7 +8,6 @@ import { resourceManager } from "../TwoD/core/managers/resources-manager";
 import type { ImageFile, ShaderFile } from "../TwoD/core/managers/shaderLoader";
 import { advanced_material_system } from "../TwoD/core/resources/material/advanced_material_system";
 import { simple_material_system } from "../TwoD/core/resources/material/simple_material_system";
-import type { MaterialType } from "../TwoD/core/resources/material/types";
 import { water_material_system } from "../TwoD/core/resources/material/water_material_system";
 import type { Mesh } from "../TwoD/core/resources/mesh/Mesh";
 import { Scene } from "../TwoD/core/resources/scene/scene";
@@ -154,7 +154,7 @@ const camera = createCamera();
 Scene.addToScene(scene, camera);
 
 scene.ECSSystems.addSystem(RenderSystem());
-scene.ECSSystems.addSystem(CharacterControlerSystem(scene.ECSComponents));
+scene.ECSSystems.addSystem(CharacterControlerSystem());
 scene.ECSSystems.addSystem(CharacterControllerAnimationSystem());
 scene.ECSSystems.addSystem(AnimatorSystem());
 scene.ECSSystems.addSystem(CameraSystem(camera, player));
