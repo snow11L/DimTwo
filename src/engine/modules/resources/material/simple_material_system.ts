@@ -1,7 +1,7 @@
 
 import { Mat4 } from "../../../core/math/mat4/Mat4";
 import { ResourcesManager } from "../../../global/manager/manager";
-import { Camera } from "../../components/render/camera/types";
+import { Camera } from "../../components/render/camera/Camera";
 import { Transform } from "../../components/spatial/transform/Transform";
 import { EasyGetter } from "../../EasyGetters";
 import { get_sprite_render } from "../../generators/get_component";

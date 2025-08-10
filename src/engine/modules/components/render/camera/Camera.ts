@@ -1,4 +1,5 @@
 import { Component } from "../../../../core/base/Component";
+import { Color } from "../../../../core/math/color/color";
 import { get_category } from "../../../generators/get_component";
 import { ComponentTypes } from "../../component-type";
 
@@ -7,6 +8,7 @@ export class Camera extends Component {
   far: number;
   fov: number;
   aspect: number;
+  clearColor: Color;
 
   constructor(
     near: number = 0.1,
@@ -19,6 +21,7 @@ export class Camera extends Component {
     this.far = far;
     this.fov = fov;
     this.aspect = aspect;
+    this.clearColor = Color.gray;
   }
 
  public static getActivedCamera(): Camera | null {

@@ -1,5 +1,5 @@
 import { type MaterialType } from "../../../core";
-import { Camera } from "../../components/render/camera/types";
+import { Camera } from "../../components/render/camera/Camera";
 import { Transform } from "../../components/spatial/transform/Transform";
 
 import { Mat4 } from "../../../core/math/mat4/Mat4";
