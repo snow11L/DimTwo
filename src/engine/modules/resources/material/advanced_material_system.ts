@@ -2,16 +2,16 @@ import { type MaterialType } from "../../../core";
 import { Camera } from "../../components/render/camera/types";
 import { Transform } from "../../components/spatial/transform/Transform";
 
-import { Global } from "../../../core/managers/engine.manager";
 import { Mat4 } from "../../../core/math/mat4/Mat4";
 import type { Vec3 } from "../../../core/math/vec3/ Vec3";
+import { ResourcesManager } from "../../../global/manager/manager";
 import { EasyGetter } from "../../EasyGetters";
 import { get_sprite_render } from "../../generators/get_component";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
 
 export function advanced_material_system(material: MaterialType): ShaderSystem {
-    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(material.shaderName);
+    const shader = ResourcesManager.ShaderManager.generic_manager_get(material.shaderName);
     if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
 
     let flip_cache:  Vec3 = { x: 0, y: 0, z: 0 };
@@ -61,7 +61,7 @@ export function advanced_material_system(material: MaterialType): ShaderSystem {
             shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
             shader.shader_set_uniform_4f("uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
 
-            const texture = Global.ResourcesManager.TextureManager.generic_manager_get(spriteRender.sprite.textureName)!;
+            const texture = ResourcesManager.TextureManager.generic_manager_get(spriteRender.sprite.textureName)!;
             shader.shader_set_uniform_texture("uTexture", texture, 0);
 
             const uvScaleX = spriteRender.sprite.size.x / texture.width;

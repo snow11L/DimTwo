@@ -1,4 +1,4 @@
-import { SimplexNoise } from "../../../../engine/core/algorithms/noise/SimplexNoise";
+import { SimplexNoise } from "../../../engine/core/algorithms/noise/SimplexNoise";
 import { BiomeName, classifyBiomes } from "./biome";
 
 export interface TerrainCell {

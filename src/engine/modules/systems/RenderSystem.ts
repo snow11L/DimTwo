@@ -2,6 +2,7 @@ import type { Render } from "../../core/base/Render";
 import type { System } from "../../core/ecs/System";
 import { Global } from "../../core/managers/engine.manager";
 import { SceneManager } from "../../core/scene/SceneManager";
+import { ResourcesManager } from "../../global/manager/manager";
 import { ComponentTypes } from "../components/component-type";
 import type { Transform } from "../components/spatial/transform/Transform";
 import { EasyGetter } from "../EasyGetters";
@@ -29,7 +30,7 @@ export function RenderSystem(): System {
         const material = material_get(render.material);
         if (!material) continue;
 
-        const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(material.shaderName)!;
+        const shader = ResourcesManager.ShaderManager.generic_manager_get(material.shaderName)!;
         webGL.useProgram(shader.program);
 
         const transform = components.getComponent<Transform>(
@@ -41,13 +42,13 @@ export function RenderSystem(): System {
 
 
 
-        const shaderSystem = Global.ResourcesManager.ShaderSystemManager.generic_manager_get(material.name);
+        const shaderSystem = ResourcesManager.ShaderSystemManager.generic_manager_get(material.name);
         if (!shaderSystem) continue;
         shaderSystem.global?.();
 
         shaderSystem.local?.(render.getGameEntity());
 
-        const mesh = Global.ResourcesManager.MeshManager.generic_manager_get(render.meshID);
+        const mesh = ResourcesManager.MeshManager.generic_manager_get(render.meshID);
         if (!mesh) continue;
 
         const vao = EasyGetter.getVAO(mesh.instanceID.getValue());

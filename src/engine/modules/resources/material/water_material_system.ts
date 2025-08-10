@@ -1,7 +1,7 @@
 
-import { Global } from "../../../core/managers/engine.manager";
 import { Color } from "../../../core/math/color/color";
 import { Mat4 } from "../../../core/math/mat4/Mat4";
+import { ResourcesManager } from "../../../global/manager/manager";
 import { ComponentTypes } from "../../components/component-type";
 import { Transform } from "../../components/spatial/transform/Transform";
 import { EasyGetter } from "../../EasyGetters";
@@ -11,7 +11,7 @@ import type { MaterialType } from "./types";
 
 
 export function water_material_system(material: MaterialType): ShaderSystem {
-    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(material.shaderName)!;
+    const shader = ResourcesManager.ShaderManager.generic_manager_get(material.shaderName)!;
 
     return {
         global() {
@@ -48,7 +48,6 @@ export function water_material_system(material: MaterialType): ShaderSystem {
             spriteRender.color = Color.rgba(1, 161, 253, 1);
 
             shader.shader_set_uniform_4f(
-                shader,
                 "uColor",
                 spriteRender.color.r,
                 spriteRender.color.g,

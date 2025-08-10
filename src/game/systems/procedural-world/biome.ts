@@ -1,5 +1,5 @@
-import { isInRange } from "../../../../engine/core/algorithms/isInRange";
-import { Color } from "../../../../engine/core/math/color/color";
+import { isInRange } from "../../../engine/core/algorithms/isInRange";
+import { Color } from "../../../engine/core/math/color/color";
 import type { TerrainCell } from "./Word";
 
 export const BiomeName = {

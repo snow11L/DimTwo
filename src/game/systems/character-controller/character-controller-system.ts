@@ -1,12 +1,12 @@
-import type { System } from "../../../../engine/core/ecs/System";
-import { Vec2 } from "../../../../engine/core/math/vec2/Vec2";
-import { SceneManager } from "../../../../engine/core/scene/SceneManager";
-import Time from "../../../../engine/core/time/time";
-import { ComponentTypes } from "../../../../engine/modules/components/component-type";
-import type { TextMeshXComponent } from "../../../../engine/modules/components/render/textMesh/TextRender";
-import type { Transform } from "../../../../engine/modules/components/spatial/transform/Transform";
-import { get_component } from "../../../../engine/modules/generators/get_component";
-import { WebKeyCode } from "../../../../engine/modules/webInput/WebKeyCode";
+import type { System } from "../../../engine/core/ecs/System";
+import { Vec2 } from "../../../engine/core/math/vec2/Vec2";
+import { SceneManager } from "../../../engine/core/scene/SceneManager";
+import Time from "../../../engine/core/time/time";
+import { ComponentTypes } from "../../../engine/modules/components/component-type";
+import type { TextMeshXComponent } from "../../../engine/modules/components/render/textMesh/TextRender";
+import type { Transform } from "../../../engine/modules/components/spatial/transform/Transform";
+import { get_component } from "../../../engine/modules/generators/get_component";
+import { WebKeyCode } from "../../../engine/modules/webInput/WebKeyCode";
 
 import type { CharacterControler } from "./character.controller.types";
 import { Input } from "./InputSystem";

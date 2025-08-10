@@ -1,7 +1,7 @@
-import { Builder } from "../../../engine/core";
-import { GameEntity } from "../../../engine/core/base/GameEntity";
-import type { Camera } from "../../../engine/modules/components/render/camera/types";
-import type { Transform } from "../../../engine/modules/components/spatial/transform/Transform";
+import { Builder } from "../../engine/core";
+import { GameEntity } from "../../engine/core/base/GameEntity";
+import type { Camera } from "../../engine/modules/components/render/camera/types";
+import type { Transform } from "../../engine/modules/components/spatial/transform/Transform";
 
 export function createCamera(): GameEntity {
 

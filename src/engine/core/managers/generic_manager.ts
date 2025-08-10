@@ -11,7 +11,7 @@ export class GenericManager<K, T> {
         this.values.set(key, value);
     }
 
-    public generic_manager_add(key: K, value: T): void {
+    public add(key: K, value: T): void {
         if (this.values.has(key)) {
             console.warn(`Key '${String(key)}' already exists. Skipping registration.`);
             return;

@@ -10,7 +10,7 @@ import type { ShaderSystem } from "../shader/ShaderSystem";
 import type { MaterialType } from "./types";
 
 export function textShaderSystem(material: MaterialType): ShaderSystem {
-    const shader = generic_manager_get(Global.ResourcesManager.ShaderManager, material.shaderName);
+    const shader = generic_manager_get(ResourcesManager.ShaderManager, material.shaderName);
     if (!shader) throw new Error(`Shader ${material.shaderName} not found in SHADER_MANAGER.`);
 
     return {
@@ -51,7 +51,7 @@ export function textShaderSystem(material: MaterialType): ShaderSystem {
             if(textRender == null) return;
             shader_set_uniform_4f(shader, "uColor", textRender.color.r, textRender.color.g, textRender.color.b, textRender.color.a);
 
-            const texture = generic_manager_get(Global.ResourcesManager.TextureManager, textRender.font);
+            const texture = generic_manager_get(ResourcesManager.TextureManager, textRender.font);
             if(!texture) return;
            
             shader_set_uniform_texture(shader, "uTexture", texture, 0);

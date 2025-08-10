@@ -1,6 +1,6 @@
 
-import { Global } from "../../../core/managers/engine.manager";
 import { Mat4 } from "../../../core/math/mat4/Mat4";
+import { ResourcesManager } from "../../../global/manager/manager";
 import { Camera } from "../../components/render/camera/types";
 import { Transform } from "../../components/spatial/transform/Transform";
 import { EasyGetter } from "../../EasyGetters";
@@ -8,7 +8,7 @@ import { get_sprite_render } from "../../generators/get_component";
 import type { ShaderSystem } from "../shader/ShaderSystem";
 
 export function simple_material_system(shaderName: string): ShaderSystem {
-    const shader = Global.ResourcesManager.ShaderManager.generic_manager_get(shaderName)!;
+    const shader = ResourcesManager.ShaderManager.generic_manager_get(shaderName)!;
 
     return {
 
@@ -42,8 +42,6 @@ export function simple_material_system(shaderName: string): ShaderSystem {
             shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
 
             shader.shader_set_uniform_4f(
-
-                shader,
                 "uColor",
                 spriteRender.color.r,
                 spriteRender.color.g,

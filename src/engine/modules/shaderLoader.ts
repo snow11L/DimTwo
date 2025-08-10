@@ -1,4 +1,4 @@
-import { Global } from "../core/managers/engine.manager";
+import { ResourcesManager } from "../global/manager/manager";
 import { Shader } from "./resources/shader/Shader";
 
 export interface ShaderFileEntry {
@@ -41,7 +41,7 @@ export class ShaderLoader {
             const frag = await fragResponse.text();
 
             const shader = new Shader(shaderName, vert, frag);
-            Global.ResourcesManager.ShaderManager.generic_manager_add(shaderName, shader);
+            ResourcesManager.ShaderManager.add(shaderName, shader);
         }
     }
 }

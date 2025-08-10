@@ -1,7 +1,7 @@
-import type { System } from "../../../../engine/core/ecs/System";
-import { InputSystem } from "../../../../engine/interfaces/Input";
-import { WebKeyboardInput } from "../../../../engine/modules/webInput/WebKeyboardInput";
-import { WebMouseInput } from "../../../../engine/modules/webInput/WebMouseInput";
+import type { System } from "../../../engine/core/ecs/System";
+import { InputSystem } from "../../../engine/interfaces/Input";
+import { WebKeyboardInput } from "../../../engine/modules/webInput/WebKeyboardInput";
+import { WebMouseInput } from "../../../engine/modules/webInput/WebMouseInput";
 
 export const Input = new InputSystem(new WebKeyboardInput(), new WebMouseInput());
 

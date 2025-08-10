@@ -1,12 +1,12 @@
-import { CIRCLE_SPRITE } from "../../../engine/assets/sprites/circle.sprite";
-import { SQUARE_SPRITE } from "../../../engine/assets/sprites/square.sprite";
-import { TRIANGLE_SPRITE } from "../../../engine/assets/sprites/triangle.sprite";
-import { Builder, ComponentState } from "../../../engine/core";
-import { Color } from "../../../engine/core/math/color/color";
-import { SceneManager } from "../../../engine/core/scene/SceneManager";
+import { CIRCLE_SPRITE } from "../../engine/assets/sprites/circle.sprite";
+import { SQUARE_SPRITE } from "../../engine/assets/sprites/square.sprite";
+import { TRIANGLE_SPRITE } from "../../engine/assets/sprites/triangle.sprite";
+import { Builder, ComponentState } from "../../engine/core";
+import { Color } from "../../engine/core/math/color/color";
+import { SceneManager } from "../../engine/core/scene/SceneManager";
 
 
-import type { Sprite } from "../../../engine/modules/resources/sprite";
+import type { Sprite } from "../../engine/modules/resources/sprite";
 
 export function createPrimitive(
   name: string,
