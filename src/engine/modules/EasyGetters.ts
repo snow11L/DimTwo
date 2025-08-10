@@ -1,8 +1,8 @@
 import { type MeshType } from "../core";
 import { Mat4 } from "../core/math/mat4/Mat4";
 import { SceneManager } from "../core/scene/SceneManager";
-import type { GLVAO } from "../core/webgl/mesh_gl";
 import { ResourcesManager } from "../global/manager/manager";
+import type { MeshBuffer } from "../interfaces/IMeshBuffer";
 
 function getMat4(id: number): Mat4| null {
     const scene =SceneManager.getCurrentScene();
@@ -16,7 +16,7 @@ function getMesh(key: number): MeshType | null {
     return ResourcesManager.MeshManager.generic_manager_get(key)
 }
 
-function getVAO(id: number): GLVAO | null {
+function getVAO(id: number): MeshBuffer | null {
     const scene =SceneManager.getCurrentScene();
     return scene.vao.values.get(id) ?? null;
 }

@@ -4,7 +4,6 @@ import type { Render } from "./engine/core/base/Render";
 import { Global } from "./engine/core/managers/engine.manager";
 import { Scene } from "./engine/core/scene/scene";
 import { SceneManager } from "./engine/core/scene/SceneManager";
-import { createMeshVAO } from "./engine/core/webgl/mesh_gl";
 import { Engine } from "./engine/Engine";
 import { ResourcesManager } from "./engine/global/manager/manager";
 import { ComponentTypes } from "./engine/modules/components/component-type";
@@ -192,7 +191,7 @@ export function getMeshesUsedInScene(): Set<Mesh> {
 
 const meshs = getMeshesUsedInScene();
 meshs.forEach(m => {
-    const vao = createMeshVAO(Global.WebGL, m);
+    const vao = m.createMeshVAO(Global.WebGL);
     scene.vao.values.set(m.instanceID.getValue(), vao)
 
 })
