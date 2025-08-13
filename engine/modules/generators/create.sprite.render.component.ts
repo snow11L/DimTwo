@@ -1,5 +1,5 @@
-import { Meshs } from "../../assets/meshs/Meshs";
 import type { GameEntity } from "../../core/base/GameEntity";
+import { Meshs } from "../../resources/meshs/Meshs";
 import { SpriteRender } from "../components/render/spriteRender/SpriteRender";
 
 export function createSpriteRender(

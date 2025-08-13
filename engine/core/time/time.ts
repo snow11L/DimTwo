@@ -1,4 +1,4 @@
-import { EventEmitter, type EventCallback } from "./emitter";
+import { EventEmitter, type EventCallback } from "../events/EventEmitter";
 
 export type TimeEvent = 'start' | 'update' | 'fixedUpdate' | 'lateUpdate' | 'render';
 

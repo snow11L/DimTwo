@@ -37,4 +37,8 @@ export class Engine {
             scene.ECSSystems.callDrawGizmos();
         });
     }
+
+    loadScene(name: string) {
+        
+    }
 }

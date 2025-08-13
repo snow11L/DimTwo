@@ -20,7 +20,6 @@ export class EventEmitter<TEvents extends Record<string, any>> {
         });
     }
 
-
     public clear(event: keyof TEvents): void {
         this.listeners.delete(event);
     }
