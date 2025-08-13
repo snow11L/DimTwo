@@ -1,11 +1,9 @@
-import { CIRCLE_SPRITE } from "../../engine/assets/sprites/circle.sprite";
+/* import { CIRCLE_SPRITE } from "../../engine/assets/sprites/circle.sprite";
 import { SQUARE_SPRITE } from "../../engine/assets/sprites/square.sprite";
 import { TRIANGLE_SPRITE } from "../../engine/assets/sprites/triangle.sprite";
-import { Builder, ComponentState } from "../../engine/core";
+import { Builder } from "../../engine/core";
 import { Color } from "../../engine/core/math/color/color";
 import { SceneManager } from "../../engine/core/scene/SceneManager";
-
-
 import type { Sprite } from "../../engine/modules/resources/sprite";
 
 export function createPrimitive(
@@ -39,4 +37,4 @@ export const Primitives = {
   circle: createPrimitive("circle_primitive", CIRCLE_SPRITE),
   square: createPrimitive("square_primitive", SQUARE_SPRITE),
   triangle: createPrimitive("triangle_primitive", TRIANGLE_SPRITE),
-}
+} */

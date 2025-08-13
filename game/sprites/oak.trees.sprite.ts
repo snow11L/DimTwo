@@ -1,4 +1,4 @@
-// export const OAK_TREE_1: Types.Sprite = {
+/* // export const OAK_TREE_1: Types.Sprite = {
 //     meshName: null,
 //     textureName: "oak_tree",
 //     origin: { x: 0.5, y: 0.5 },
@@ -25,3 +25,4 @@ export const OAK_TRE_0: Sprite = {
 //     size: { x: 80, y: 128 - 32 },
 //     origin: { x: 0.5, y: 0.6 },
 // }
+ */

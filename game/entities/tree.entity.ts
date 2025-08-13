@@ -1,9 +1,9 @@
-import { Builder } from "../../engine/core";
-import { Vec3 } from "../../engine/core/math/vec3/ Vec3";
-import { createBoxCollider2D } from "../../engine/modules/generators";
-import { CollisionLayer } from "../../engine/modules/physics/collision/CollisionLayer";
+/* import { Builder } from "../../../engine/core";
+import { Vec3 } from "../../../engine/core/math/vec3/ Vec3";
+import { createBoxCollider2D } from "../../../engine/modules/generators";
+import { CollisionLayer } from "../../../engine/modules/physics/collision/CollisionLayer";
 
-import type { Sprite } from "../../engine/modules/resources/sprite";
+import type { Sprite } from "../../../engine/modules/resources/sprite";
 
 export function createTreeEntity(
     name: string,
@@ -34,3 +34,4 @@ export function createTreeEntity(
 
     return gameEntity;
 }
+ */

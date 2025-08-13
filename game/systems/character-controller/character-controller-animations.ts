@@ -2,10 +2,11 @@ import type { System } from "../../../engine/core/ecs/System";
 import { SceneManager } from "../../../engine/core/scene/SceneManager";
 import { Animator } from "../../../engine/modules/components/animation/animator/Animator";
 import { ComponentTypes } from "../../../engine/modules/components/component-type";
-import { SpriteRender } from "../../../engine/modules/components/render/spriteRender/SpriteRender";
+import type { SpriteRender } from "../../../engine/modules/components/render/spriteRender/SpriteRender";
 import { WebKeyCode } from "../../../engine/modules/webInput/WebKeyCode";
-import type { CharacterControler } from "./character.controller.types";
+import { CharacterControler } from "./character.controller.types";
 import { Input } from "./InputSystem";
+
 
 export default function CharacterControllerAnimationSystem(): System {
 

@@ -1,9 +1,8 @@
-
 import { Builder } from "../../engine/core";
 import { GameEntity } from "../../engine/core/base/GameEntity";
-
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import { CharacterControler } from "../systems/character-controller/character.controller.types";
+
 
 export function createPlayer(
   name: string,

@@ -1,4 +1,3 @@
-
 import type { AnimatorController } from "../../engine/modules/components/animation/animator/Animator";
 import { PLAYER_ANIMATIONS } from "../animations/player.animation";
 

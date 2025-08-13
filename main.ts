@@ -59,41 +59,41 @@ async function LoadResources() {
 
     const images: ImageFile = {
         player: {
-            path: "./src/game/assets/images/Player.png"
+            path: "./game/assets/images/Player.png"
         },
         slime: {
-            path: "./src/game/assets/images/Slime.png"
+            path: "./game/assets/images/Slime.png"
         },
         oakTree: {
-            path: "./src/game/assets/images/OakTree.png"
+            path: "./game/assets/images/OakTree.png"
         },
         primitives: {
-            path: "./src/engine/assets/images/primitive_sprites.png"
+            path: "./engine/assets/images/primitive_sprites.png"
         }
     }
     const shaders: ShaderFile = {
 
         text: {
-            vert: "./src/engine/assets/shaders/text.vert",
-            frag: "./src/engine/assets/shaders/text.frag"
+            vert: "./engine/assets/shaders/text.vert",
+            frag: "./engine/assets/shaders/text.frag"
         },
 
         simple: {
-            vert: "./src/engine/assets/shaders/simpleShader.vert",
-            frag: "./src/engine/assets/shaders/simpleShader.frag"
+            vert: "./engine/assets/shaders/simpleShader.vert",
+            frag: "./engine/assets/shaders/simpleShader.frag"
         },
         advanced: {
-            vert: "./src/engine/assets/shaders/advancedShader.vert",
-            frag: "./src/engine/assets/shaders/advancedShader.frag"
+            vert: "./engine/assets/shaders/advancedShader.vert",
+            frag: "./engine/assets/shaders/advancedShader.frag"
         },
         water: {
-            vert: "./src/engine/assets/shaders/simpleShader.vert",
-            frag: "./src/engine/assets/shaders/waterShader.frag"
+            vert: "./engine/assets/shaders/simpleShader.vert",
+            frag: "./engine/assets/shaders/waterShader.frag"
         },
 
         gizmos: {
-            vert: "./src/engine/assets/shaders/gizmos.vert",
-            frag: "./src/engine/assets/shaders/gizmos.frag"
+            vert: "./engine/assets/shaders/gizmos.vert",
+            frag: "./engine/assets/shaders/gizmos.frag"
         }
     }
 

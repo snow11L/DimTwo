@@ -1,4 +1,5 @@
-import { createAnimationClip, type AnimationClip, } from "../../engine/modules/resources/animation";
+import { type AnimationClip, createAnimationClip } from "../../engine/modules/resources/animation";
+
 
 
 const PLAYER_IDLE_DOWN_CLIP: AnimationClip = createAnimationClip(
