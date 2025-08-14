@@ -48,16 +48,15 @@ export class SimpleManager<T> {
     }
 }
 
-
-
 export class Engine {
 
     public readonly time: Time;
     private scene: Scene | null = null;
     camera: Camera | null = null;
+
     public shaders: SimpleManager<Shader> = new SimpleManager("Shader Manager");
     public textures: SimpleManager<Texture> = new SimpleManager("Texture Manager");
-    public matricies: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
+    public matrices: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
     public buffers: SimpleManager<MeshBuffer> = new SimpleManager("Buffer Manager");
 
     private gl: WebGL2RenderingContext;
@@ -116,7 +115,7 @@ export class Engine {
         scene.systems.callStart();
     }
 
-    public compileShader(name: string, vertSource: string, fragSource: string): Shader {
+    public compileShader(name: string, vertSource: string, fragSource: string){
         const shader = new Shader(this.gl, name, vertSource, fragSource);
         this.shaders.add(name, shader);
     }
