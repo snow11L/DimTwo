@@ -8,6 +8,11 @@ export interface MeshBuffer {
     modelMatrixBuffer: WebGLBuffer | null;
 }
 
+export interface TextureBuffer {
+    width: number;
+    height: number;
+    gpuData: WebGLTexture;
+}
 
 
 

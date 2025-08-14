@@ -1,9 +1,9 @@
 import { EngineResourceManager } from "../../../core/managers/EngineResourceManager";
 import { Mathf } from "../../../core/math/Mathf";
+import type { TextureBuffer } from "../../../interfaces/IMeshBuffer";
 
 export class Texture {
     public name: string;
-    public gpuData: WebGLTexture | null;
     public width: number;
     public height: number;
     public format: GLenum;
@@ -31,7 +31,6 @@ export class Texture {
         this.mipmaps = mipmaps;
         this.name = name;
         this.imageName = imagename;
-        this.gpuData = null;
         this.width = 0;
         this.height = 0;
         this.format = format;
@@ -43,7 +42,7 @@ export class Texture {
         this.wrapT = wrapT;
     }
 
-    setFilters(gl: WebGL2RenderingContext, minFilter: GLenum, magFilter: GLenum) {
+/*     setFilters(gl: WebGL2RenderingContext, minFilter: GLenum, magFilter: GLenum) {
         this.minFilter = minFilter;
         this.magFilter = magFilter;
         if (!this.gpuData) return;
@@ -69,13 +68,12 @@ export class Texture {
             this.gpuData = null;
         }
     }
-
+ */
     public compile(gl: WebGL2RenderingContext) {
 
         const image = EngineResourceManager.get(this.imageName);
         const texture = gl.createTexture();
         if (!texture) throw new Error("Failed to create WebGLTexture");
-        this.gpuData = texture;
         this.width = image.width;
         this.height = image.height;
 
@@ -114,6 +112,14 @@ export class Texture {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this.wrapT);
 
         gl.bindTexture(gl.TEXTURE_2D, null);
+
+
+        const textureBuffer: TextureBuffer = {
+            gpuData: texture,
+            width: this.width,
+            height: this.height
+        }
+        return textureBuffer;
     }
 }
 

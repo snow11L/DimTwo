@@ -7,7 +7,7 @@ import type { SpriteRender } from "../components/render/spriteRender/SpriteRende
 
 export class AnimatorSystem extends System {
   lateUpdate() {
-
+    console.log("test")
     const scene = this.getScene();
     const components = scene.components;
 

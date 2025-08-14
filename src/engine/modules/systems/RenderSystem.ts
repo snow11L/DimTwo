@@ -62,7 +62,7 @@ export class RenderSystem extends System {
         const mesh = ResourcesManager.MeshManager.get(render.meshName);
         if (!mesh) continue;
 
-        const vao = engine.buffers.get(mesh.name);
+        const vao = engine.meshBuffers.get(mesh.name);
         if (!vao) continue;
 
         gl.bindVertexArray(vao.vao);

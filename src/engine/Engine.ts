@@ -3,7 +3,7 @@ import type { Mat4 } from "./core/math/Mat4";
 import type { Scene } from "./core/scene/scene";
 import { SceneManager } from "./core/scene/SceneManager";
 import Time from "./core/time/Time";
-import type { MeshBuffer } from "./interfaces/IMeshBuffer";
+import type { MeshBuffer, TextureBuffer } from "./interfaces/IMeshBuffer";
 import { ComponentType } from "./modules/components/component-type";
 import { Camera } from "./modules/components/render/camera/Camera";
 import type { Mesh } from "./modules/resources/mesh/Mesh";
@@ -61,10 +61,11 @@ export class Engine {
     camera: Camera | null = null;
 
     public shaders: SimpleManager<Shader> = new SimpleManager("Shader Manager");
-    public textures: SimpleManager<Texture> = new SimpleManager("Texture Manager");
     public matrices: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
-    public buffers: SimpleManager<MeshBuffer> = new SimpleManager("Buffer Manager");
+    public meshBuffers: SimpleManager<MeshBuffer> = new SimpleManager("Mesh Buffer Manager");
+    public textureBuffers: SimpleManager<TextureBuffer> = new SimpleManager("Texture Buffer Manager");
     public systems: SimpleManager<System> = new SimpleManager("System Manager");
+  
 
     private gl: WebGL2RenderingContext;
 
@@ -122,18 +123,18 @@ export class Engine {
         scene.systems.callStart();
     }
 
-    public compileShader(name: string, vertSource: string, fragSource: string){
+    public compileShader(name: string, vertSource: string, fragSource: string) {
         const shader = new Shader(this.gl, name, vertSource, fragSource);
         this.shaders.add(name, shader);
     }
 
     public compileTexture(texture: Texture) {
-        texture.compile(this.gl);
-        this.textures.add(texture.name, texture);
+        const textureBuffer = texture.compile(this.gl);
+        this.textureBuffers.add(texture.name, textureBuffer);
     }
 
     public compileMesh(mesh: Mesh) {
         const meshBuffer = mesh.compile(this.gl);
-        this.buffers.add(mesh.name, meshBuffer);
+        this.meshBuffers.add(mesh.name, meshBuffer);
     }
 }

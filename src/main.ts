@@ -24,8 +24,8 @@ import { InputSystem } from "./game/systems/InputSystem";
 import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
 
 
-function getWebGL() {
-    const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
+function getGameContext() {
+    const canvas = document.querySelector('#game') as HTMLCanvasElement;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const WebGL = canvas.getContext('webgl2');
@@ -33,11 +33,18 @@ function getWebGL() {
     return WebGL;
 }
 
+function getEditorContext() {
+    const canvas = document.querySelector('#editor') as HTMLCanvasElement;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const WebGL = canvas.getContext('webgl2');
+    if (!WebGL) throw new Error("WebGL not supported");
+    return WebGL;
+}
+
+
 const squareMesh = createFillSquareMesh("fillSquare", new Vec3(1, 1, 0));
 ResourcesManager.MeshManager.add("fillSquare", squareMesh);
-
-
-
 
 
 const advanced_material: MaterialType = {
@@ -59,7 +66,8 @@ const simpleShader = new SimpleShaderSystem();
 ResourcesManager.ShaderSystemManager.add(simpleMaterial.name, simpleShader);
 
 
-const engine = new Engine(getWebGL());
+const game = new Engine(getGameContext());
+const editor = new Engine(getEditorContext());
 
 EngineResourceManager.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
 EngineResourceManager.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
@@ -72,18 +80,25 @@ EngineResourceManager.register("slime", new ImageFileLoader("./src/game/assets/i
 
 await EngineResourceManager.load();
 
-
-
-const playerTexture = new Texture("player","player");
+const playerTexture = new Texture("player", "player");
 const slimeTexture = new Texture("slime", "slime");
 
+game.compileShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
+game.compileShader("simple", EngineResourceManager.get("simpleShaderVertex")!, EngineResourceManager.get("simpleShaderFragment")!);
+
+editor.compileShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
+editor.compileShader("simple", EngineResourceManager.get("simpleShaderVertex")!, EngineResourceManager.get("simpleShaderFragment")!);
 
 
-engine.compileShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
-engine.compileShader("simple", EngineResourceManager.get("simpleShaderVertex")!, EngineResourceManager.get("simpleShaderFragment")!);
-engine.compileTexture(playerTexture);
-engine.compileTexture(slimeTexture);
-engine.compileMesh(squareMesh);
+game.compileTexture(playerTexture);
+game.compileTexture(slimeTexture);
+game.compileMesh(squareMesh);
+
+
+/* editor.compileTexture(playerTexture);
+editor.compileTexture(slimeTexture);
+editor.compileMesh(squareMesh);
+ */
 
 EngineSystemManager.register(EngineSystem.RenderSystem, () => new RenderSystem());
 EngineSystemManager.register(EngineSystem.TerrainSystem, () => new TerrainSystem());
@@ -117,9 +132,10 @@ const cameraEntity = new GameEntity("camera", "MainCamera");
 configureCamera(cameraEntity);
 scene.addEntity(cameraEntity);
 
-engine.loadScene("simple_scene");
-engine.time.start();
+game.loadScene("simple_scene");
 
 
-console.log(scene.entities.getByTag("MainCamera"))
+game.time.start();
+editor.time.start();
+
 
