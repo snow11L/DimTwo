@@ -1,0 +1,72 @@
+import type { GameEntity } from "../../../core/base/GameEntity";
+import { Mat4 } from "../../../core/math/mat4/Mat4";
+import { Vec3 } from "../../../core/math/vec3/ Vec3";
+import type { Scene } from "../../../core/scene/scene";
+import { ResourcesManager } from "../../../global/manager/manager";
+import { ComponentGroup, ComponentType } from "../../components/component-type";
+import { Camera } from "../../components/render/camera/Camera";
+import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
+import { Transform } from "../../components/spatial/transform/Transform";
+import type { Shader } from "../shader/Shader";
+import { ShaderSystem } from "../shader/ShaderSystem";
+
+export class advancedShaderSystem extends ShaderSystem {
+    private flip: Vec3 = new Vec3(0, 0, 0);
+
+    global(scene: Scene, shader: Shader) {
+
+        const allCameras = scene.components.getAllByGroup<Camera>(ComponentGroup.Camera);
+        if (allCameras.length == 0) return;
+        const camera = allCameras[0];
+
+        const cameraTransform = scene.components.getComponent<Transform>(camera.getGameEntity(), ComponentType.Transform);
+        if (!cameraTransform) return;
+
+        const viewMatrix = camera.viewMatrix;
+        Mat4.createTR(viewMatrix, cameraTransform.position, cameraTransform.rotation);
+        shader.shader_set_uniform_mat4("uView", viewMatrix.data);
+
+        const projectionMatrix = camera.projection;
+        Mat4.projection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
+        shader.shader_set_uniform_mat4("uProjection", projectionMatrix.data);
+    }
+
+    local(entity: GameEntity, scene: Scene, shader: Shader) {
+
+        const transform = scene.components.getComponent<Transform>(entity, ComponentType.Transform);
+        if (!transform) return;
+
+        const spriteRender = scene.components.getComponent<SpriteRender>(entity, ComponentType.SpriteRender);
+        if (!spriteRender) return;
+
+        if (!spriteRender.sprite) return;
+
+        const modelMatrix = transform.modelMatrix;
+
+        this.flip.x = spriteRender.flipHorizontal ? -transform.scale.x : transform.scale.x;
+        this.flip.y = spriteRender.flipVertical ? -transform.scale.y : transform.scale.y;
+        this.flip.z = transform.scale.z;
+
+        Mat4.compose(
+            modelMatrix,
+            transform.position,
+            transform.rotation,
+            this.flip,
+
+        );
+
+        shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
+        shader.shader_set_uniform_4f("uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
+
+        const texture = ResourcesManager.TextureManager.get(spriteRender.sprite.textureName)!;
+        shader.shader_set_uniform_texture("uTexture", texture, 0);
+
+        const uvScaleX = spriteRender.sprite.size.x / texture.width;
+        const uvScaleY = spriteRender.sprite.size.y / texture.height;
+        shader.shader_set_uniform_2f("uUVScale", uvScaleX, uvScaleY);
+
+        const uvOffsetX = spriteRender.sprite.position.x / texture.width;
+        const uvOffsetY = (texture.height - spriteRender.sprite.position.y - spriteRender.sprite.size.y) / texture.height;
+        shader.shader_set_uniform_2f("uUVOffset", uvOffsetX, uvOffsetY); 
+    }
+}
