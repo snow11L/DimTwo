@@ -8,7 +8,8 @@ export enum EngineSystem {
     PhysicsSystem,
     ColliderSystem,
     CharacterControlerSystem,
-    CharacterControlerAnimationSystem
+    CharacterControlerAnimationSystem,
+    TerrainSystem
 }
 
 type SystemFactory = () => System;

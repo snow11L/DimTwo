@@ -10,6 +10,7 @@ import { Engine } from "./engine/Engine";
 import { ResourcesManager } from "./engine/global/manager/manager";
 import type { MaterialType } from "./engine/modules/resources";
 import { AdvancedShaderSystem } from "./engine/modules/resources/material/AdvancedShaderSystem";
+import { SimpleShaderSystem } from "./engine/modules/resources/material/SimpleShaderSystem";
 import { Texture } from "./engine/modules/resources/texture/types";
 import { AnimatorSystem, PhysicsSystem, RenderSystem } from "./engine/modules/systems";
 import { createFillSquareMesh } from "./engine/resources/geometries/Square";
@@ -20,6 +21,7 @@ import { CameraSystem } from "./game/systems/CameraSystem";
 import { CharacterControlerSystem } from "./game/systems/CharacterControlerSystem";
 import { CharacterControllerAnimationSystem } from "./game/systems/CharacterControllerAnimationSystem";
 import { InputSystem } from "./game/systems/InputSystem";
+import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
 
 
 function getWebGL() {
@@ -47,6 +49,14 @@ ResourcesManager.MaterialManager.add(advanced_material.name, advanced_material);
 const advancedShader = new AdvancedShaderSystem();
 ResourcesManager.ShaderSystemManager.add(advanced_material.name, advancedShader);
 
+const simpleMaterial: MaterialType = {
+    name: "simpleMaterial",
+    shaderName: "simple",
+};
+
+ResourcesManager.MaterialManager.add(simpleMaterial.name, simpleMaterial);
+const simpleShader = new SimpleShaderSystem();
+ResourcesManager.ShaderSystemManager.add(simpleMaterial.name, simpleShader);
 
 
 const engine = new Engine(getWebGL());
@@ -70,11 +80,13 @@ const slimeTexture = new Texture("slime", "slime");
 
 
 engine.compileShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
+engine.compileShader("simple", EngineResourceManager.get("simpleShaderVertex")!, EngineResourceManager.get("simpleShaderFragment")!);
 engine.compileTexture(playerTexture);
 engine.compileTexture(slimeTexture);
 engine.compileMesh(squareMesh);
 
 EngineSystemManager.register(EngineSystem.RenderSystem, () => new RenderSystem());
+EngineSystemManager.register(EngineSystem.TerrainSystem, () => new TerrainSystem());
 EngineSystemManager.register(EngineSystem.AnimatorSystem, () => new AnimatorSystem());
 EngineSystemManager.register(EngineSystem.InputSystem, () => new InputSystem());
 EngineSystemManager.register(EngineSystem.PhysicsSystem, () => new PhysicsSystem());
@@ -92,7 +104,7 @@ scene.useSystem(EngineSystem.PhysicsSystem);
 scene.useSystem(EngineSystem.CharacterControlerSystem);
 scene.useSystem(EngineSystem.CharacterControlerAnimationSystem);
 scene.useSystem(EngineSystem.CameraSystem);
-
+scene.useSystem(EngineSystem.TerrainSystem);
 const playerEntity = new GameEntity("player", "Player");
 configurePlayer(playerEntity);
 scene.addEntity(playerEntity);

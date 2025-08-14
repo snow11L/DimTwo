@@ -17,7 +17,7 @@ export function createSlime(entity: GameEntity){
   const spriteReder: SpriteRender = createSpriteRender(entity);
   spriteReder.sprite = SLIME_SPRITE;
   spriteReder.layer = 1;
-  spriteReder.material = "advanced_material";
+  spriteReder.materialName = "advanced_material";
 
   const animator: Animator = createAnimator(entity);
   animator.controller = SLIME_ANIMATOR_CONTROLLER;

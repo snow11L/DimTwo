@@ -7,7 +7,7 @@ export function createSpriteRender(
 
   const r = new SpriteRender();
   r.meshName = "fillSquare";
-  r.material = "simple_material";
+  r.materialName = "simple_material";
   r.setGameEntity(gameEntity);
   return r;
 

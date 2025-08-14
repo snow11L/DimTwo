@@ -2,7 +2,6 @@ import type { Engine } from "../../Engine";
 import type { GameEntity } from "../base/GameEntity";
 import { ComponentManager } from "../managers/ComponentManager";
 import { EngineSystem, EngineSystemManager } from "../managers/EngineSystemManager";
-import { GenericManager } from "../managers/generic_manager";
 import { SystemManager } from "../managers/SystemManager";
 
 export class EntityManager {
@@ -50,18 +49,8 @@ export class EntityManager {
 }
 
 
-export class EngineInjectable {
-    private engine: Engine | null = null;
-    public getEngine() {
-        return this.engine;
-    }
 
-    public setEngine(engine: Engine) {
-        this.engine = engine;
-    }
-}
-
-export class Scene extends EngineInjectable {
+export class Scene {
     public name: string;
     public components: ComponentManager = new ComponentManager();
     public systems: SystemManager = new SystemManager();
@@ -69,16 +58,8 @@ export class Scene extends EngineInjectable {
 
     public usedSystems: EngineSystem[] = [];
 
-
-
-    public readonly entitiesById: GenericManager<number, GameEntity>;
-    public readonly entitiesByName: GenericManager<string, GameEntity>;
-
     constructor(name: string) {
-        super();
         this.name = name;
-        this.entitiesById = new GenericManager("EntitiesByIdManager");
-        this.entitiesByName = new GenericManager("EntitiesManager");
     }
 
     public addEntity(entity: GameEntity) {
@@ -92,8 +73,7 @@ export class Scene extends EngineInjectable {
         this.usedSystems.push(systemType);
     }
 
-    public load() {
-        if (!this.getEngine()) throw new Error("Engine not set for this scene.");
+    public load(engine: Engine) {
 
         for (const system of this.usedSystems) {
             let systemInstance = this.systems.getSystem(system);
@@ -103,7 +83,7 @@ export class Scene extends EngineInjectable {
             if (!systemInstance) throw new Error(`System ${EngineSystem[system]} could not be created`);
 
             systemInstance.setScene(this);
-            systemInstance.setEngine(this.getEngine());
+            systemInstance.setEngine(engine);
             this.systems.addSystem(system, systemInstance);
         }
     }

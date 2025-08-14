@@ -1,5 +1,5 @@
-/* import { isInRange } from "../../../../engine/core/algorithms/isInRange";
-import { Color } from "../../../../engine/core/math/color/color";
+import { Color } from "../../../engine/core/math/Color";
+import { Mathf } from "../../../engine/core/math/Mathf";
 import type { TerrainCell } from "./Word";
 
 export const BiomeName = {
@@ -124,8 +124,8 @@ const BIOME_DEFAULT: Biome[] = [
 export function classifyBiomes(cells: TerrainCell[]): void {
   for (const cell of cells) {
     const biome = BIOME_DEFAULT.find((def) =>
-      isInRange(cell.height, def.height.min, def.height.max) &&
-      isInRange(cell.temperature, def.temperature.min, def.temperature.max)
+      Mathf.isInRange(cell.height, def.height.min, def.height.max) &&
+      Mathf.isInRange(cell.temperature, def.temperature.min, def.temperature.max)
     );
     if (biome) {
       cell.biome = biome.name;
@@ -141,5 +141,5 @@ export function getBiomeColor(val: BiomeName): Color {
       return biomeDef.color;
     }
   }
-  return Color.MAGENTA;
-} */
+  return Color.magenta;
+}

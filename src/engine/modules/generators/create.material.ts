@@ -1,6 +1,7 @@
-import type { MaterialType } from "../../core";
+
 import { Color } from "../../core/math/Color";
 import { ResourcesManager } from "../../global/manager/manager";
+import type { MaterialType } from "../resources";
 
 export function material_create(name: string, color: Color = Color.white) {
     const material: MaterialType = {

@@ -1,5 +1,5 @@
 import { System } from "../../core/base/System";
-import Time from "../../core/time/time";
+import Time from "../../core/time/Time";
 import { EngineConfig } from "../../global/config/EngineConfig";
 import { ComponentGroup, ComponentType } from "../components/component-type";
 import type { RigidBody2D } from "../components/physics/rigidBody2D/RigidBody";

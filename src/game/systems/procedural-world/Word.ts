@@ -1,4 +1,5 @@
-/* import { SimplexNoise } from "../../../../engine/core/algorithms/noise/SimplexNoise";
+import { SimplexNoise } from "../../../engine/core/algorithms/noise/SimplexNoise";
+import type { Vec3 } from "../../../engine/core/math/Vec3";
 import { BiomeName, classifyBiomes } from "./biome";
 
 export interface TerrainCell {
@@ -77,4 +78,3 @@ export class World {
     return terrain;
   }
 }
- */

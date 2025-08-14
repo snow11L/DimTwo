@@ -18,41 +18,57 @@ export class RenderSystem extends System {
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    const renders = components.getAllByGroup<Render>(ComponentGroup.Render);
+    const renders = components
+      .getAllByGroup<Render>(ComponentGroup.Render)
+      .filter(r => r.enabled);
 
+    const rendersByLayer = new Map<number, Render[]>();
     for (const render of renders) {
-      if (!render.enabled) continue;
-      const entity = render.getGameEntity();
+      const layer = render.layer ?? 0; 
+      if (!rendersByLayer.has(layer)) {
+        rendersByLayer.set(layer, []);
+      }
+      rendersByLayer.get(layer)!.push(render);
+    }
 
-      const material = material_get(render.material);
-      if (!material) continue;
+    // Ordena layers (menor para maior)
+    const sortedLayers = [...rendersByLayer.keys()].sort((a, b) => a - b);
 
-      const shader = shaders.get(material.shaderName)!;
-      gl.useProgram(shader.program);
+    // Renderiza layer por layer
+    for (const layer of sortedLayers) {
+      for (const render of rendersByLayer.get(layer)!) {
+        const entity = render.getGameEntity();
 
-      const transform = components.getComponent<Transform>(
-        entity,
-        ComponentType.Transform
-      );
+        const material = material_get(render.materialName);
+        if (!material) continue;
+        
+        const shader = shaders.get(material.shaderName)!;
+        gl.useProgram(shader.program);
 
-      if (!transform) continue;
+        const transform = components.getComponent<Transform>(
+          entity,
+          ComponentType.Transform
+        );
+        if (!transform) continue;
 
-      const shaderSystem = ResourcesManager.ShaderSystemManager.get(material.name);
-      if (!shaderSystem) continue;
-      shaderSystem.global?.(scene, shader);
+        const shaderSystem = ResourcesManager.ShaderSystemManager.get(material.name);
+        if (!shaderSystem) continue;
 
-      shaderSystem.local?.(entity, scene, shader);
+        // Chama funções globais e locais do shader
+        shaderSystem.global?.(engine, scene, shader);
+        shaderSystem.local?.(engine, entity, scene, shader);
 
-      const mesh = ResourcesManager.MeshManager.get(render.meshName);
-      if (!mesh) continue;
+        if(!render.meshName) return;
+        const mesh = ResourcesManager.MeshManager.get(render.meshName);
+        if (!mesh) continue;
 
-      const vao = engine.buffers.get(mesh.name);
-      if (!vao) continue;
+        const vao = engine.buffers.get(mesh.name);
+        if (!vao) continue;
 
-      gl.bindVertexArray(vao.vao);
-      gl.drawElements(gl.TRIANGLES, vao.indexCount, gl.UNSIGNED_SHORT, 0);
-      gl.bindVertexArray(null);
-
+        gl.bindVertexArray(vao.vao);
+        gl.drawElements(gl.TRIANGLES, vao.indexCount, gl.UNSIGNED_SHORT, 0);
+        gl.bindVertexArray(null);
+      }
     }
   }
 }

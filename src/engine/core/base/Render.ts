@@ -5,9 +5,10 @@ import { Component } from "./Component";
 export abstract class Render extends Component {
   color: Color;
   alpha: number;
-  material: string;
+  materialName: string;
   meshName: string | null;
   subMeshes: number[] | null;
+  layer: number = 0;
 
   constructor(
     type: ComponentType,
@@ -15,11 +16,11 @@ export abstract class Render extends Component {
     material: string,
     color: Color = Color.white,
     alpha: number = 1.0,
-    meshName: string | null = null,
+    meshName: string | null = "fillSquare",
     subMeshes: number[] | null = null
   ) {
     super(type, group);
-    this.material = material;
+    this.materialName = material;
     this.color = color;
     this.alpha = alpha;
     this.meshName = meshName;

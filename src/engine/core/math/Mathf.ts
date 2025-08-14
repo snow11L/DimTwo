@@ -15,4 +15,11 @@ export class Mathf {
     public static isPowerOfTwo(value: number): boolean {
         return value > 0 && (value & (value - 1)) === 0;
     }
+    
+    public static isInRange(value: number, min: number, max: number, inclusive = false): boolean {
+        const low = Math.min(min, max);
+        const high = Math.max(min, max);
+        return inclusive ? value >= low && value <= high : value > low && value < high;
+    }
+
 }

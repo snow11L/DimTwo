@@ -17,8 +17,8 @@ export function createPlayer(entity: GameEntity) {
   rigidBody.mass = 70;
 
   const spriteRender = createSpriteRender(entity);
-  spriteRender.layer = 1;
-  spriteRender.material = "advanced_material";
+  spriteRender.layer = 2;
+  spriteRender.materialName = "advanced_material";
 
   const animator = createAnimator(entity);
   animator.controller = PLAYER_ANIMATOR_CONTROLLER

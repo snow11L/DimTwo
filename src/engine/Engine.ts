@@ -1,13 +1,17 @@
+import type { System } from "./core/base/System";
 import type { Mat4 } from "./core/math/Mat4";
 import type { Scene } from "./core/scene/scene";
 import { SceneManager } from "./core/scene/SceneManager";
-import Time from "./core/time/time";
+import Time from "./core/time/Time";
 import type { MeshBuffer } from "./interfaces/IMeshBuffer";
 import { ComponentType } from "./modules/components/component-type";
 import { Camera } from "./modules/components/render/camera/Camera";
 import type { Mesh } from "./modules/resources/mesh/Mesh";
 import { Shader } from "./modules/resources/shader/Shader";
 import { Texture } from "./modules/resources/texture/types";
+
+
+
 
 export class SimpleManager<T> {
 
@@ -27,11 +31,13 @@ export class SimpleManager<T> {
         return resource;
     }
 
-    public get(name: string): T | undefined {
+    public get(name: string): T | null {
         const resource = this.data.get(name);
         if (!resource) {
             console.warn(`[${this.managerName}] Recurso "${name}" não encontrado.`);
+            return null;
         }
+
         return resource;
     }
 
@@ -58,6 +64,7 @@ export class Engine {
     public textures: SimpleManager<Texture> = new SimpleManager("Texture Manager");
     public matrices: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
     public buffers: SimpleManager<MeshBuffer> = new SimpleManager("Buffer Manager");
+    public systems: SimpleManager<System> = new SimpleManager("System Manager");
 
     private gl: WebGL2RenderingContext;
 
@@ -71,6 +78,7 @@ export class Engine {
         });
 
         this.time.on("fixedUpdate", () => {
+            debug.innerText = Time.fps.toString()
             this.scene?.systems.callFixedUpdate();
         });
 
@@ -109,8 +117,7 @@ export class Engine {
             throw new Error(`Scene "${name}" not found`);
         }
 
-        scene.setEngine(this);
-        scene.load();
+        scene.load(this);
         this.scene = scene;
         scene.systems.callStart();
     }

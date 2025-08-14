@@ -1,13 +1,12 @@
 import { Render } from "../../../../core/base/Render.ts";
 import type { Sprite } from "../../../resources/sprite/types.ts";
-import { ComponentType } from "../../component-type.ts";
+import { ComponentGroup, ComponentType } from "../../component-type.ts";
 
 export class SpriteRender extends Render {
   sprite: Sprite | null;
   rotation?: number;
   flipHorizontal?: boolean;
   flipVertical?: boolean;
-  layer: number;
 
   constructor(
     sprite: Sprite | null = null,
@@ -17,7 +16,7 @@ export class SpriteRender extends Render {
     flipHorizontal?: boolean,
     flipVertical?: boolean
   ) {
-    super(ComponentType.SpriteRender, ComponentType.Render, material);
+    super(ComponentType.SpriteRender, ComponentGroup.Render, material);
     this.sprite = sprite;
     this.layer = layer;
     this.rotation = rotation;

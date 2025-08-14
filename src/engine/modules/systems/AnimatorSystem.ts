@@ -1,5 +1,5 @@
 import { System } from "../../core/base/System";
-import Time from "../../core/time/time";
+import Time from "../../core/time/Time";
 import { Animator } from "../components/animation/animator/Animator";
 import { ComponentType } from "../components/component-type";
 import type { SpriteRender } from "../components/render/spriteRender/SpriteRender";

@@ -1,6 +1,6 @@
 import { System } from "../../engine/core/base/System";
 import { Vec3 } from "../../engine/core/math/Vec3";
-import Time from "../../engine/core/time/time";
+import Time from "../../engine/core/time/Time";
 import { ComponentType } from "../../engine/modules/components/component-type";
 import { Transform } from "../../engine/modules/components/spatial/transform/Transform";
 
