@@ -1,4 +1,4 @@
-import type { System } from "../../../engine/core/ecs/System";
+import type { System } from "../../../engine/core/base/System";
 import { SceneManager } from "../../../engine/core/scene/SceneManager";
 import { Animator } from "../../../engine/modules/components/animation/animator/Animator";
 import { ComponentType } from "../../../engine/modules/components/component-type";

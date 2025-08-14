@@ -2,7 +2,6 @@ import type { GameEntity } from "../../../core/base/GameEntity";
 import { Mat4 } from "../../../core/math/mat4/Mat4";
 import { Vec3 } from "../../../core/math/vec3/ Vec3";
 import type { Scene } from "../../../core/scene/scene";
-import { ResourcesManager } from "../../../global/manager/manager";
 import { ComponentGroup, ComponentType } from "../../components/component-type";
 import { Camera } from "../../components/render/camera/Camera";
 import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
@@ -10,11 +9,10 @@ import { Transform } from "../../components/spatial/transform/Transform";
 import type { Shader } from "../shader/Shader";
 import { ShaderSystem } from "../shader/ShaderSystem";
 
-export class advancedShaderSystem extends ShaderSystem {
+export class AdvancedShaderSystem extends ShaderSystem {
     private flip: Vec3 = new Vec3(0, 0, 0);
 
     global(scene: Scene, shader: Shader) {
-
         const allCameras = scene.components.getAllByGroup<Camera>(ComponentGroup.Camera);
         if (allCameras.length == 0) return;
         const camera = allCameras[0];
@@ -56,9 +54,13 @@ export class advancedShaderSystem extends ShaderSystem {
         );
 
         shader.shader_set_uniform_mat4("uModel", modelMatrix.data);
-        shader.shader_set_uniform_4f("uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a)
+        shader.shader_set_uniform_4f("uColor", spriteRender.color.r, spriteRender.color.g, spriteRender.color.b, spriteRender.color.a);
 
-        const texture = ResourcesManager.TextureManager.get(spriteRender.sprite.textureName)!;
+
+        const engine = scene.getEngine();
+        if(!engine) return;
+
+        const texture = engine.textures.get(spriteRender.sprite.textureName)!;
         shader.shader_set_uniform_texture("uTexture", texture, 0);
 
         const uvScaleX = spriteRender.sprite.size.x / texture.width;

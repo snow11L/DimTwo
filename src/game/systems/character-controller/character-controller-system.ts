@@ -1,5 +1,5 @@
 
-import { System } from "../../../engine/core/ecs/System";
+import { System } from "../../../engine/core/base/System";
 import { Vec2 } from "../../../engine/core/math/vec2/Vec2";
 import Time from "../../../engine/core/time/time";
 import { ComponentType } from "../../../engine/modules/components/component-type";
@@ -45,7 +45,7 @@ export class CharacterControlerSystem extends System {
 
       characterTransform.position.x += deltaX;
       characterTransform.position.y += deltaY;
-      console.log(characterTransform.position)
+   
     }
   }
 }

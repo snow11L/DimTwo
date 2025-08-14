@@ -5,7 +5,7 @@ import { Mesh } from "../../modules/resources/mesh/Mesh";
 import type { Component } from "../base/Component";
 import type { GameEntity } from "../base/GameEntity";
 import { Render } from "../base/Render";
-import type { System } from "../ecs/System";
+import type { System } from "../base/System";
 import { Global } from "../managers/engine.manager";
 import { GenericManager } from "../managers/generic_manager";
 import { EngineSystem, EngineSystemManager } from "../managers/SystemManager";

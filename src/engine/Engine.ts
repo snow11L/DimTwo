@@ -7,17 +7,61 @@ import Time from "./core/time/time";
 import type { MeshBuffer } from "./interfaces/IMeshBuffer";
 import { ComponentType } from "./modules/components/component-type";
 import { Camera } from "./modules/components/render/camera/Camera";
+import { Shader } from "./modules/resources/shader/Shader";
+import { Texture } from "./modules/resources/texture/types";
+
+export class SimpleManager<T> {
+    private readonly data: Map<string, T> = new Map();
+
+    public add(name: string, resource: T): T {
+        if (this.data.has(name)) {
+            console.warn(`Recurso "${name}" já está registrado.`);
+            return this.data.get(name)!;
+        }
+        this.data.set(name, resource);
+        return resource;
+    }
+
+    public get(name: string): T | undefined {
+        const resource = this.data.get(name);
+        if (!resource) {
+            console.warn(`Recurso "${name}" não encontrado.`);
+        }
+        return resource;
+    }
+
+    public remove(name: string) {
+        if (!this.data.has(name)) {
+            console.warn(`Tentativa de remover recurso "${name}" que não existe.`);
+            return;
+        }
+        this.data.delete(name);
+    }
+
+    public clear() {
+        this.data.clear();
+    }
+}
+
+
 
 export class Engine {
 
     public readonly time: Time;
     private scene: Scene | null = null;
     camera: Camera | null = null;
-
+    public shaders: SimpleManager<Shader> = new SimpleManager();
+    public textures: SimpleManager<Texture> = new SimpleManager();
     public readonly mat4: GenericManager<number, Mat4> = new GenericManager("Engine Mat4 Manager");
     public readonly vao: GenericManager<number, MeshBuffer> = new GenericManager("Engine VAO Manager");
 
+
+    private gl: WebGL2RenderingContext;
+
     constructor(WebGL: WebGL2RenderingContext) {
+
+        this.gl =WebGL;
+
         this.time = new Time();
         this.time.on("start", () => {
             this.scene?.systems.callStart();
@@ -67,5 +111,16 @@ export class Engine {
         scene.load();
         this.scene = scene;
         scene.systems.callStart();
+    }
+
+    public loadShader(name: string, vertSource: string, fragSource: string): Shader {
+        const shader = new Shader(name, vertSource, fragSource);
+        return this.shaders.add(name, shader);
+    }
+
+    public loadTexture(name: string, image: HTMLImageElement) {
+        const texture = new Texture();
+        texture.create(this.gl, name, image);
+        this.textures.add(name, texture);
     }
 }

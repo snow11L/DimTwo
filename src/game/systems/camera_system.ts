@@ -1,5 +1,5 @@
 import type { GameEntity } from "../../engine/core/base/GameEntity";
-import type { System } from "../../engine/core/ecs/System";
+import type { System } from "../../engine/core/base/System";
 import { Vec3 } from "../../engine/core/math/vec3/ Vec3";
 import Time from "../../engine/core/time/time";
 import { Transform } from "../../engine/modules/components/spatial/transform/Transform";

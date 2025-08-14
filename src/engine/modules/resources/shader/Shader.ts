@@ -1,6 +1,7 @@
 import { Global } from "../../../core/managers/engine.manager";
 import { WebGL } from "../../../core/webgl/WebGL";
-import type { TextureType } from "../texture/types";
+import type { Texture } from "../texture/types";
+
 
 export class Shader {
 
@@ -107,11 +108,11 @@ export class Shader {
 
     public shader_set_uniform_texture(
         name: string,
-        texture: TextureType,
+        texture: Texture,
         unit: number = 0
     ) {
         const gl = Global.WebGL;
-        const glTexture = texture.texture;
+        const glTexture = texture.gpuData;
         gl.activeTexture(gl.TEXTURE0 + unit);
         gl.bindTexture(gl.TEXTURE_2D, glTexture);
 

@@ -1,4 +1,4 @@
-import { System } from "../../core/ecs/System";
+import { System } from "../../core/base/System";
 import Time from "../../core/time/time";
 import { Animator } from "../components/animation/animator/Animator";
 import { ComponentType } from "../components/component-type";

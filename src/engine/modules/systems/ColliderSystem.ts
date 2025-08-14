@@ -1,7 +1,7 @@
 import { SpatialHash } from "../../core/algorithms/spatialHash/SpatialHash";
+import type { System } from "../../core/base/System";
 import type { ECSComponent } from "../../core/ecs/ECSComponent";
 import type { ECSSystem } from "../../core/ecs/ECSSystem";
-import type { System } from "../../core/ecs/System";
 import type { Vec2 } from "../../core/math/vec2/Vec2";
 import { SceneManager } from "../../core/scene/SceneManager";
 import { ComponentType } from "../components/component-type";

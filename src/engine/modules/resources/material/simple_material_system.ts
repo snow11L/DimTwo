@@ -1,4 +1,4 @@
-
+/* 
 import { Mat4 } from "../../../core/math/mat4/Mat4";
 import { ResourcesManager } from "../../../global/manager/manager";
 import { Camera } from "../../components/render/camera/Camera";
@@ -48,4 +48,4 @@ export function simple_material_system(shaderName: string): ShaderSystem {
             );
         }
     };
-}
+} */

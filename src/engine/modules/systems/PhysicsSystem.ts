@@ -1,4 +1,4 @@
-import { System } from "../../core/ecs/System";
+import { System } from "../../core/base/System";
 import Time from "../../core/time/time";
 import { EngineConfig } from "../../global/config/EngineConfig";
 import { ComponentGroup, ComponentType } from "../components/component-type";

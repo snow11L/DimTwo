@@ -5,81 +5,27 @@ import { SceneManager } from "./engine/core/scene/SceneManager";
 import { Engine } from "./engine/Engine";
 import { ResourcesManager } from "./engine/global/manager/manager";
 import type { MaterialType } from "./engine/modules/resources";
-import { resourceManager } from "./engine/modules/resources-manager";
-import { advancedShaderSystem } from "./engine/modules/resources/material/advanced_material_system";
-import { simple_material_system } from "./engine/modules/resources/material/simple_material_system";
-import type { ImageFile, ShaderFile } from "./engine/modules/shaderLoader";
+import { AdvancedShaderSystem } from "./engine/modules/resources/material/AdvancedShaderSystem";
 import { AnimatorSystem, PhysicsSystem, RenderSystem } from "./engine/modules/systems";
 import { createCamera as configureCamera } from "./game/entities/camera.entity";
 import { createPlayer as configurePlayer } from "./game/entities/player.entity";
 import { createSlime as configureSlime } from "./game/entities/slime.entity";
 import { CharacterControlerSystem } from "./game/systems/character-controller/character-controller-system";
-
 import { InputSystem } from "./game/systems/character-controller/InputSystem";
 
 
-function material_create_and_link(name: string, shader: string) {
-
-    const material: MaterialType = {
-        name: name,
-        shaderName: shader
-    };
-
-    ResourcesManager.MaterialManager.add(material.name, material);
+function getWebGL() {
+    const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const WebGL = canvas.getContext('webgl2');
+    if (!WebGL) throw new Error("WebGL not supported");
+    return WebGL;
 }
 
+
+
 async function LoadResources() {
-    const images: ImageFile = {
-        player: {
-            path: "./src/game/assets/images/Player.png"
-        },
-        slime: {
-            path: "./src/game/assets/images/Slime.png"
-        },
-        oakTree: {
-            path: "./src/game/assets/images/OakTree.png"
-        },
-        primitives: {
-            path: "./src/engine/assets/images/primitive_sprites.png"
-        }
-    }
-    const shaders: ShaderFile = {
-
-        text: {
-            vert: "./src/engine/assets/shaders/text.vert",
-            frag: "./src/engine/assets/shaders/text.frag"
-        },
-
-        simple: {
-            vert: "./src/engine/assets/shaders/simpleShader.vert",
-            frag: "./src/engine/assets/shaders/simpleShader.frag"
-        },
-        advanced: {
-            vert: "./src/engine/assets/shaders/advancedShader.vert",
-            frag: "./src/engine/assets/shaders/advancedShader.frag"
-        },
-        water: {
-            vert: "./src/engine/assets/shaders/simpleShader.vert",
-            frag: "./src/engine/assets/shaders/waterShader.frag"
-        },
-
-        gizmos: {
-            vert: "./src/engine/assets/shaders/gizmos.vert",
-            frag: "./src/engine/assets/shaders/gizmos.frag"
-        }
-    }
-
-    await resourceManager.load_images_and_create_textures(images);
-    await resourceManager.load_shaders_and_compile(shaders);
-
-    // ----------------------------------------------------------------
-    material_create_and_link("simple_material", "simple");
-
-    const simple_shader_color_system = simple_material_system("simple");
-    ResourcesManager.ShaderSystemManager.add("simple_material", simple_shader_color_system);
-
-    // ----------------------------------------------------------------
-
 
     const advanced_material: MaterialType = {
         name: "advanced_material",
@@ -89,30 +35,90 @@ async function LoadResources() {
     ResourcesManager.MaterialManager.add(advanced_material.name, advanced_material);
 
 
-    const advancedShader = new advancedShaderSystem();
+    const advancedShader = new AdvancedShaderSystem();
     ResourcesManager.ShaderSystemManager.add(advanced_material.name, advancedShader);
-
-
-    /*  const water_material: MaterialType = {
-         name: "water_material",
-         shaderName: "water",
- 
-     };
-     ResourcesManager.MaterialManager.add(water_material.name, water_material);
- 
-     const simple_shader_water_system = water_material_system(water_material);
-     ResourcesManager.ShaderSystemManager.add(water_material.name, simple_shader_water_system); */
-
 }
 
-await LoadResources();
-const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const WebGL = canvas.getContext('webgl2');
-if (!WebGL) throw new Error("WebGL not supported");
 
-const engine = new Engine(WebGL);
+
+interface LoadableResource<T> {
+    load(): Promise<T>;
+}
+
+class TextFileLoader implements LoadableResource<string> {
+    constructor(private path: string) { }
+
+    async load(): Promise<string> {
+        const response = await fetch(this.path);
+        return await response.text();
+    }
+}
+
+class ImageFileLoader implements LoadableResource<HTMLImageElement> {
+    constructor(private path: string) { }
+
+    async load(): Promise<HTMLImageElement> {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = this.path;
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error(`Failed to load image at ${this.path}`));
+        });
+    }
+}
+
+
+class EngineResource {
+    private static resources: Map<string, any> = new Map();
+    private static registry: Map<string, LoadableResource<any>> = new Map();
+
+    public static register<T>(name: string, loader: LoadableResource<T>) {
+        this.registry.set(name, loader);
+    }
+
+    public static async load() {
+        for (const [name, loader] of this.registry.entries()) {
+            const loaded = await loader.load();
+            this.resources.set(name, loaded);
+        }
+    }
+
+    public static get<T>(name: string): T | undefined {
+        return this.resources.get(name) as T | undefined;
+    }
+}
+
+
+
+await LoadResources();
+
+
+
+
+
+
+
+
+const engine = new Engine(getWebGL());
+
+EngineResource.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
+EngineResource.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
+
+EngineResource.register("advancedShaderVertex", new TextFileLoader("./src/engine/assets/shaders/advancedShader.vert"));
+EngineResource.register("advancedShaderFragment", new TextFileLoader("./src/engine/assets/shaders/advancedShader.frag"));
+
+EngineResource.register("player", new ImageFileLoader("./src/game/assets/images/Player.png"));
+EngineResource.register("slime", new ImageFileLoader("./src/game/assets/images/Slime.png"));
+
+await EngineResource.load();
+
+engine.loadShader("advanced",
+    EngineResource.get("advancedShaderVertex")!,
+    EngineResource.get("advancedShaderFragment")!
+);
+
+engine.loadTexture("player", EngineResource.get("player")!)
+engine.loadTexture("slime", EngineResource.get("slime")!)
 
 EngineSystemManager.register(EngineSystem.RenderSystem, () => new RenderSystem());
 EngineSystemManager.register(EngineSystem.AnimatorSystem, () => new AnimatorSystem());

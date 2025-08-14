@@ -1,4 +1,4 @@
-import { System } from "../../../engine/core/ecs/System";
+import { System } from "../../../engine/core/base/System";
 import { InputBuilder } from "../../../engine/interfaces/Input";
 import { WebKeyboardInput } from "../../../engine/modules/webInput/WebKeyboardInput";
 import { WebMouseInput } from "../../../engine/modules/webInput/WebMouseInput";

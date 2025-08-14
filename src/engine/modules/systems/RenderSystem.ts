@@ -1,5 +1,5 @@
 import type { Render } from "../../core/base/Render";
-import { System } from "../../core/ecs/System";
+import { System } from "../../core/base/System";
 import { Global } from "../../core/managers/engine.manager";
 import { ResourcesManager } from "../../global/manager/manager";
 import { ComponentGroup, ComponentType } from "../components/component-type";
@@ -15,6 +15,7 @@ export class RenderSystem extends System {
     const components = scene.components;
 
     const engine = this.getEngine();
+    const shaders = engine.shaders;
 
     this.webGL.enable(this.webGL.BLEND);
     this.webGL.blendFunc(this.webGL.SRC_ALPHA, this.webGL.ONE_MINUS_SRC_ALPHA);
@@ -28,7 +29,7 @@ export class RenderSystem extends System {
       const material = material_get(render.material);
       if (!material) continue;
 
-      const shader = ResourcesManager.ShaderManager.get(material.shaderName)!;
+      const shader = shaders.get(material.shaderName)!;
       this.webGL.useProgram(shader.program);
 
       const transform = components.getComponent<Transform>(

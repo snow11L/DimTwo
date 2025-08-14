@@ -1,4 +1,4 @@
-import type { System } from "../ecs/System";
+import type { System } from "../base/System";
 
 export enum EngineSystem {
     RenderSystem,
