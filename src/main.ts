@@ -48,6 +48,7 @@ const advancedShader = new AdvancedShaderSystem();
 ResourcesManager.ShaderSystemManager.add(advanced_material.name, advancedShader);
 
 
+
 const engine = new Engine(getWebGL());
 
 EngineResourceManager.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
