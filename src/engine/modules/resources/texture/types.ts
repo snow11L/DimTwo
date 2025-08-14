@@ -1,5 +1,5 @@
 import { EngineResourceManager } from "../../../core/managers/EngineResourceManager";
-import { Mathf } from "../../../core/math/mathf/Mathf";
+import { Mathf } from "../../../core/math/Mathf";
 
 export class Texture {
     public name: string;

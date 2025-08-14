@@ -1,6 +1,6 @@
 import { Component } from "../../../../core/base/Component";
-import { Color } from "../../../../core/math/color/color";
-import { Mat4 } from "../../../../core/math/mat4/Mat4";
+import { Color } from "../../../../core/math/Color";
+import { Mat4 } from "../../../../core/math/Mat4";
 import { ComponentGroup, ComponentType } from "../../component-type";
 
 export class Camera extends Component {

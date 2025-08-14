@@ -1,5 +1,5 @@
 import { Component } from "../../../../core/base/Component";
-import type { Vec2 } from "../../../../core/math/vec2/Vec2";
+import type { Vec2 } from "../../../../core/math/Vec2";
 import { ComponentType } from "../../component-type";
 import type { Transform } from "../../spatial/transform/Transform";
 

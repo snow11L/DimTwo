@@ -1,5 +1,5 @@
 import { distanceSq, EPSILON, getClosestPoint, type Bounds } from "../../../../core/math/geometry/Bounds";
-import { Vec2 } from "../../../../core/math/vec2/Vec2";
+import { Vec2 } from "../../../../core/math/Vec2";
 import { ComponentType } from "../../component-type";
 import { Collider } from "../collider/types";
 

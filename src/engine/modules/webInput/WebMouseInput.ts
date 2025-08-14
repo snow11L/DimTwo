@@ -1,4 +1,4 @@
-import { Vec2 } from "../../core/math/vec2/Vec2";
+import { Vec2 } from "../../core/math/Vec2";
 import type { IMouseInput } from "../../interfaces/IInput";
 
 export class WebMouseInput implements IMouseInput {

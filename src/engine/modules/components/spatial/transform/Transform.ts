@@ -1,7 +1,7 @@
 import { Component } from "../../../../core/base/Component";
-import { Mat4 } from "../../../../core/math/mat4/Mat4";
-import { Quat } from "../../../../core/math/quat/quat";
-import { Vec3 } from "../../../../core/math/vec3/ Vec3";
+import { Mat4 } from "../../../../core/math/Mat4";
+import { Quat } from "../../../../core/math/quat";
+import { Vec3 } from "../../../../core/math/Vec3";
 import { ComponentGroup, ComponentType } from "../../component-type";
 
 export class Transform extends Component {

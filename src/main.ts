@@ -3,7 +3,7 @@ import { ImageFileLoader } from "./engine/core/loaders/ImageFileLoader";
 import { TextFileLoader } from "./engine/core/loaders/TextFileLoader";
 import { EngineResourceManager } from "./engine/core/managers/EngineResourceManager";
 import { EngineSystem, EngineSystemManager } from "./engine/core/managers/EngineSystemManager";
-import { Vec3 } from "./engine/core/math/vec3/ Vec3";
+import { Vec3 } from "./engine/core/math/Vec3";
 import { Scene } from "./engine/core/scene/scene";
 import { SceneManager } from "./engine/core/scene/SceneManager";
 import { Engine } from "./engine/Engine";

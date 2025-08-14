@@ -1,4 +1,4 @@
-import type { Vec2 } from "../core/math/vec2/Vec2";
+import type { Vec2 } from "../core/math/Vec2";
 
 export interface IInputDevice {
   enable(): void;

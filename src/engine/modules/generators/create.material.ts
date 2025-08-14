@@ -1,5 +1,5 @@
 import type { MaterialType } from "../../core";
-import { Color } from "../../core/math/color/color";
+import { Color } from "../../core/math/Color";
 import { ResourcesManager } from "../../global/manager/manager";
 
 export function material_create(name: string, color: Color = Color.white) {

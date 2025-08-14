@@ -1,5 +1,5 @@
 import { Component } from "../../engine/core/base/Component";
-import { Vec2 } from "../../engine/core/math/vec2/Vec2";
+import { Vec2 } from "../../engine/core/math/Vec2";
 import { ComponentGroup, ComponentType } from "../../engine/modules/components/component-type";
 
 export type CharacterState = "idle" | "walking" | "attacking";

@@ -1,7 +1,7 @@
 
 import { getBounds, type Bounds } from "../../../../core/math/geometry/Bounds";
-import { Vec2 } from "../../../../core/math/vec2/Vec2";
-import { Vec3 } from "../../../../core/math/vec3/ Vec3";
+import { Vec2 } from "../../../../core/math/Vec2";
+import { Vec3 } from "../../../../core/math/Vec3";
 
 import { ComponentType } from "../../component-type";
 import { Transform } from "../../spatial/transform/Transform";

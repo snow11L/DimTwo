@@ -1,5 +1,5 @@
 import { ComponentGroup, ComponentType } from "../../modules/components/component-type";
-import { Color } from "../math/color/color";
+import { Color } from "../math/Color";
 import { Component } from "./Component";
 
 export abstract class Render extends Component {

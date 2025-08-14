@@ -1,6 +1,6 @@
 import { Component } from "../../../../core/base/Component";
+import { Vec3 } from "../../../../core/math/Vec3";
 import { Bounds } from "../../../../core/math/geometry/Bounds";
-import { Vec3 } from "../../../../core/math/vec3/ Vec3";
 import { ComponentType } from "../../component-type";
 
 export class Collider extends Component {

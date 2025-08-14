@@ -1,5 +1,5 @@
-import type { Vec2 } from "../../core/math/vec2/Vec2";
-import type { Vec3 } from "../../core/math/vec3/ Vec3";
+import type { Vec2 } from "../../core/math/Vec2";
+import type { Vec3 } from "../../core/math/Vec3";
 import { createMesh } from "../../modules/generators/create.mesh";
 import type { Mesh } from "../../modules/resources/mesh/Mesh";
 

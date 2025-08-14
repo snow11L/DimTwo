@@ -1,5 +1,5 @@
-import type { Color } from "../../../core/math/color/color";
-import type { Vec3 } from "../../../core/math/vec3/ Vec3";
+import type { Color } from "../../../core/math/Color";
+import type { Vec3 } from "../../../core/math/Vec3";
 
 
 export type MaterialPropType = "float" | "int" | "bool" | "vec3" | "color" | "texture";

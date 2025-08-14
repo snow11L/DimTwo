@@ -1,5 +1,5 @@
-import type { Quat } from "../quat/quat";
-import type { Vec3 } from "../vec3/ Vec3";
+import type { Vec3 } from "./Vec3";
+import type { Quat } from "./quat";
 
 export class Mat4 {
     public readonly data: Float32Array;

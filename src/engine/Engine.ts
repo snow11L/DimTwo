@@ -1,4 +1,4 @@
-import type { Mat4 } from "./core/math/mat4/Mat4";
+import type { Mat4 } from "./core/math/Mat4";
 import type { Scene } from "./core/scene/scene";
 import { SceneManager } from "./core/scene/SceneManager";
 import Time from "./core/time/time";

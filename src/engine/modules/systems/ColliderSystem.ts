@@ -2,7 +2,7 @@ import { SpatialHash } from "../../core/algorithms/spatialHash/SpatialHash";
 import type { System } from "../../core/base/System";
 import type { ECSComponent } from "../../core/ecs/ECSComponent";
 import type { ECSSystem } from "../../core/ecs/ECSSystem";
-import type { Vec2 } from "../../core/math/vec2/Vec2";
+import type { Vec2 } from "../../core/math/Vec2";
 import { SceneManager } from "../../core/scene/SceneManager";
 import { ComponentType } from "../components/component-type";
 import type { BoxCollider2D } from "../components/physics/boxCollider2D/BoxCollider2D";

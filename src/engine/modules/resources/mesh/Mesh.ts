@@ -1,6 +1,6 @@
 import { Instantiable } from "../../../core/base/Instantiable";
-import { Vec2 } from "../../../core/math/vec2/Vec2";
-import { Vec3 } from "../../../core/math/vec3/ Vec3";
+import { Vec2 } from "../../../core/math/Vec2";
+import { Vec3 } from "../../../core/math/Vec3";
 import type { MeshBuffer } from "../../../interfaces/IMeshBuffer";
 
 export class Mesh extends Instantiable {

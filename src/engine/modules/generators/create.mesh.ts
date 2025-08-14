@@ -1,5 +1,5 @@
-import type { Vec2 } from "../../core/math/vec2/Vec2";
-import type { Vec3 } from "../../core/math/vec3/ Vec3";
+import type { Vec2 } from "../../core/math/Vec2";
+import type { Vec3 } from "../../core/math/Vec3";
 import { ResourcesManager } from "../../global/manager/manager";
 import { Mesh } from "../resources/mesh/Mesh";
 

@@ -1,5 +1,5 @@
-import { Mathf } from "../mathf/Mathf";
-import type { Vec2 } from "../vec2/Vec2";
+import { Mathf } from "../Mathf";
+import type { Vec2 } from "../Vec2";
 
 export class Bounds {
   left: number;

@@ -1,6 +1,6 @@
 
-import { Color } from "../../../core/math/color/color";
-import { Mat4 } from "../../../core/math/mat4/Mat4";
+import { Color } from "../../../core/math/Color";
+import { Mat4 } from "../../../core/math/Mat4";
 import { ResourcesManager } from "../../../global/manager/manager";
 import { ComponentType } from "../../components/component-type";
 import { Transform } from "../../components/spatial/transform/Transform";

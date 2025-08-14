@@ -1,5 +1,5 @@
-import { Mathf } from "../mathf/Mathf";
-import type { Vec3 } from "../vec3/ Vec3";
+import { Mathf } from "./Mathf";
+import type { Vec3 } from "./Vec3";
 
 export class Quat {
     x: number;

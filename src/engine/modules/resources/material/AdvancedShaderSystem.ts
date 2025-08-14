@@ -1,6 +1,6 @@
 import type { GameEntity } from "../../../core/base/GameEntity";
-import { Mat4 } from "../../../core/math/mat4/Mat4";
-import { Vec3 } from "../../../core/math/vec3/ Vec3";
+import { Mat4 } from "../../../core/math/Mat4";
+import { Vec3 } from "../../../core/math/Vec3";
 import type { Scene } from "../../../core/scene/scene";
 import { ComponentGroup, ComponentType } from "../../components/component-type";
 import { Camera } from "../../components/render/camera/Camera";
