@@ -43,10 +43,10 @@ export class RenderSystem extends System {
 
       shaderSystem.local?.(entity, scene, shader);
 
-      const mesh = ResourcesManager.MeshManager.get(render.meshID);
+      const mesh = ResourcesManager.MeshManager.get(render.meshName);
       if (!mesh) continue;
 
-      const vao = engine.vao.get(mesh.instanceID.getValue());
+      const vao = engine.buffers.get(mesh.name);
       if (!vao) continue;
 
       gl.bindVertexArray(vao.vao);

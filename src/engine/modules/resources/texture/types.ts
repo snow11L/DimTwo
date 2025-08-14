@@ -1,8 +1,9 @@
+import { EngineResourceManager } from "../../../core/managers/EngineResourceManager";
 import { Mathf } from "../../../core/math/mathf/Mathf";
 
 export class Texture {
     public name: string;
-    public gpuData: WebGLTexture | null; 
+    public gpuData: WebGLTexture | null;
     public width: number;
     public height: number;
     public format: GLenum;
@@ -13,8 +14,11 @@ export class Texture {
     public wrapS: GLenum;
     public wrapT: GLenum;
     public mipmaps: boolean;
+    public imageName: string;
 
     constructor(
+        name: string,
+        imagename: string,
         format: GLenum = WebGL2RenderingContext.RGBA,
         internalFormat: GLenum = WebGL2RenderingContext.RGBA8,
         type: GLenum = WebGL2RenderingContext.UNSIGNED_BYTE,
@@ -24,6 +28,9 @@ export class Texture {
         wrapT: GLenum = WebGL2RenderingContext.CLAMP_TO_EDGE,
         mipmaps: boolean = false
     ) {
+        this.mipmaps = mipmaps;
+        this.name = name;
+        this.imageName = imagename;
         this.gpuData = null;
         this.width = 0;
         this.height = 0;
@@ -34,8 +41,6 @@ export class Texture {
         this.magFilter = magFilter;
         this.wrapS = wrapS;
         this.wrapT = wrapT;
-        this.mipmaps = mipmaps;
-        this.name = "";
     }
 
     setFilters(gl: WebGL2RenderingContext, minFilter: GLenum, magFilter: GLenum) {
@@ -65,8 +70,9 @@ export class Texture {
         }
     }
 
-    public create(gl: WebGL2RenderingContext, name: string, image: HTMLImageElement | ImageBitmap) {
-        this.name = name;
+    public compile(gl: WebGL2RenderingContext) {
+
+        const image = EngineResourceManager.get(this.imageName);
         const texture = gl.createTexture();
         if (!texture) throw new Error("Failed to create WebGLTexture");
         this.gpuData = texture;
@@ -87,7 +93,7 @@ export class Texture {
 
         const isPOT = Mathf.isPowerOfTwo(this.width) && Mathf.isPowerOfTwo(this.height);
 
-      
+
         if (!isPOT) {
             if (this.wrapS !== gl.CLAMP_TO_EDGE || this.wrapT !== gl.CLAMP_TO_EDGE) {
                 console.warn("Texture is NPOT; forcing wrapS/wrapT to CLAMP_TO_EDGE");

@@ -6,7 +6,7 @@ export abstract class Render extends Component {
   color: Color;
   alpha: number;
   material: string;
-  meshID: number | null;
+  meshName: string | null;
   subMeshes: number[] | null;
 
   constructor(
@@ -15,14 +15,14 @@ export abstract class Render extends Component {
     material: string,
     color: Color = Color.white,
     alpha: number = 1.0,
-    meshID: number | null = null,
+    meshName: string | null = null,
     subMeshes: number[] | null = null
   ) {
     super(type, category);
     this.material = material;
     this.color = color;
     this.alpha = alpha;
-    this.meshID = meshID;
+    this.meshName = meshName;
     this.subMeshes = subMeshes;
   }
 }

@@ -1,25 +1,56 @@
 import type { Engine } from "../../Engine";
-import { ResourcesManager } from "../../global/manager/manager";
-import { ComponentGroup } from "../../modules/components/component-type";
-import { Mesh } from "../../modules/resources/mesh/Mesh";
 import type { GameEntity } from "../base/GameEntity";
-import { Render } from "../base/Render";
 import { ComponentManager } from "../managers/ComponentManager";
 import { EngineSystem, EngineSystemManager } from "../managers/EngineSystemManager";
 import { GenericManager } from "../managers/generic_manager";
 import { SystemManager } from "../managers/SystemManager";
 
+export class EntityManager {
+    private byName: Map<string, GameEntity> = new Map();
+    private byId: Map<number, GameEntity> = new Map();
+    private byTag: Map<string, Set<GameEntity>> = new Map();
 
-export class Scene {
-    public name: string;
-    public components: ComponentManager = new ComponentManager();
-    public systems: SystemManager = new SystemManager();
-    public usedSystems: EngineSystem[] = [];
+    add(entity: GameEntity) {
 
-    // Apenas IDs que a cena usa
-    private sceneMat4IDs: Set<number> = new Set();
-    private sceneVAOIDs: Set<number> = new Set();
+        const id = entity.id.getValue();
+        if (this.byId.has(id) || this.byName.has(entity.name)) {
+            throw new Error(`Entity with same ID or name already exists`);
+        }
+        this.byId.set(id, entity);
+        this.byName.set(entity.name, entity);
 
+        if (!this.byTag.has(entity.tag)) {
+            this.byTag.set(entity.tag, new Set());
+        }
+        this.byTag.get(entity.tag)!.add(entity);
+    }
+
+    remove(entity: GameEntity) {
+        const id = entity.id.getValue();
+        this.byId.delete(id);
+        this.byName.delete(entity.name);
+
+        for (const tagSet of this.byTag.values()) {
+            tagSet.delete(entity);
+        }
+    }
+
+    getById(id: number) {
+        return this.byId.get(id);
+    }
+
+    getByName(name: string) {
+        return this.byName.get(name);
+    }
+
+    getByTag(tag: string): GameEntity | null {
+        return this.byTag.get(tag)?.values().next().value ?? null;
+    }
+
+}
+
+
+export class EngineInjectable {
     private engine: Engine | null = null;
     public getEngine() {
         return this.engine;
@@ -28,17 +59,30 @@ export class Scene {
     public setEngine(engine: Engine) {
         this.engine = engine;
     }
+}
+
+export class Scene extends EngineInjectable {
+    public name: string;
+    public components: ComponentManager = new ComponentManager();
+    public systems: SystemManager = new SystemManager();
+    public entities: EntityManager = new EntityManager();
+
+    public usedSystems: EngineSystem[] = [];
+
+
 
     public readonly entitiesById: GenericManager<number, GameEntity>;
     public readonly entitiesByName: GenericManager<string, GameEntity>;
 
     constructor(name: string) {
+        super();
         this.name = name;
         this.entitiesById = new GenericManager("EntitiesByIdManager");
         this.entitiesByName = new GenericManager("EntitiesManager");
     }
 
     public addEntity(entity: GameEntity) {
+        this.entities.add(entity);
         for (const component of entity.components) {
             this.components.addComponent(entity, component);
         }
@@ -49,9 +93,8 @@ export class Scene {
     }
 
     public load() {
-        if (!this.engine) throw new Error("Engine not set for this scene.");
+        if (!this.getEngine()) throw new Error("Engine not set for this scene.");
 
-        // Inicializa sistemas
         for (const system of this.usedSystems) {
             let systemInstance = this.systems.getSystem(system);
             if (systemInstance) return systemInstance;
@@ -60,34 +103,8 @@ export class Scene {
             if (!systemInstance) throw new Error(`System ${EngineSystem[system]} could not be created`);
 
             systemInstance.setScene(this);
-            systemInstance.setEngine(this.engine);
+            systemInstance.setEngine(this.getEngine());
             this.systems.addSystem(system, systemInstance);
         }
-
-        // Coleta renderers
-        const renderers = this.components.getAllByGroup<Render>(ComponentGroup.Render);
-        const meshes: Set<Mesh> = new Set<Mesh>();
-
-        for (const render of renderers) {
-            const mesh = ResourcesManager.MeshManager.get(render.meshID);
-            if (mesh) meshes.add(mesh);
-        }
-
-        for (const mesh of meshes) {
-            const vao = mesh.createMeshVAO(this.getEngine().gl);
-            this.engine.vao.values.set(mesh.instanceID.getValue(), vao);
-            this.sceneVAOIDs.add(mesh.instanceID.getValue());
-        }
     }
-
-    public releaseResources() {
-        if (!this.engine) return;
-
-        for (const id of this.sceneVAOIDs) {
-            this.engine.vao.values.delete(id);
-        }
-        this.sceneVAOIDs.clear();
-        this.sceneMat4IDs.clear();
-    }
-
 }

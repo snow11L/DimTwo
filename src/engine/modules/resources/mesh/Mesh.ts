@@ -25,7 +25,7 @@ export class Mesh extends Instantiable {
         this.uvs = uvs;
     }
 
-    public createMeshVAO(gl: WebGL2RenderingContext): MeshBuffer {
+    public compile(gl: WebGL2RenderingContext): MeshBuffer {
         const vao = gl.createVertexArray();
         gl.bindVertexArray(vao);
 

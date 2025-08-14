@@ -5,7 +5,7 @@ import type { ShaderSystem } from "../../modules/resources/shader/ShaderSystem";
 
 export class ResourcesManager {
     public static readonly MaterialManager = new GenericManager<string, MaterialType>("material_manager");
-    public static readonly MeshManager = new GenericManager<number, MeshType>("mesh_manager");
+    public static readonly MeshManager = new GenericManager<string, MeshType>("mesh_manager");
     public static readonly ShaderSystemManager = new GenericManager<string, ShaderSystem>("shader_system_manager");
     public static readonly SpriteManager = new GenericManager<string, SpriteType>("sprite_manager");
 

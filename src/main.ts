@@ -3,18 +3,23 @@ import { ImageFileLoader } from "./engine/core/loaders/ImageFileLoader";
 import { TextFileLoader } from "./engine/core/loaders/TextFileLoader";
 import { EngineResourceManager } from "./engine/core/managers/EngineResourceManager";
 import { EngineSystem, EngineSystemManager } from "./engine/core/managers/EngineSystemManager";
+import { Vec3 } from "./engine/core/math/vec3/ Vec3";
 import { Scene } from "./engine/core/scene/scene";
 import { SceneManager } from "./engine/core/scene/SceneManager";
 import { Engine } from "./engine/Engine";
 import { ResourcesManager } from "./engine/global/manager/manager";
 import type { MaterialType } from "./engine/modules/resources";
 import { AdvancedShaderSystem } from "./engine/modules/resources/material/AdvancedShaderSystem";
+import { Texture } from "./engine/modules/resources/texture/types";
 import { AnimatorSystem, PhysicsSystem, RenderSystem } from "./engine/modules/systems";
+import { createFillSquareMesh } from "./engine/resources/geometries/Square";
 import { createCamera as configureCamera } from "./game/entities/camera.entity";
 import { createPlayer as configurePlayer } from "./game/entities/player.entity";
 import { createSlime as configureSlime } from "./game/entities/slime.entity";
-import { CharacterControlerSystem } from "./game/systems/character-controller/character-controller-system";
-import { InputSystem } from "./game/systems/character-controller/InputSystem";
+import { CameraSystem } from "./game/systems/CameraSystem";
+import { CharacterControlerSystem } from "./game/systems/CharacterControlerSystem";
+import { CharacterControllerAnimationSystem } from "./game/systems/CharacterControllerAnimationSystem";
+import { InputSystem } from "./game/systems/InputSystem";
 
 
 function getWebGL() {
@@ -25,6 +30,13 @@ function getWebGL() {
     if (!WebGL) throw new Error("WebGL not supported");
     return WebGL;
 }
+
+const squareMesh = createFillSquareMesh("fillSquare", new Vec3(1, 1, 0));
+ResourcesManager.MeshManager.add("fillSquare", squareMesh);
+
+
+
+
 
 const advanced_material: MaterialType = {
     name: "advanced_material",
@@ -49,15 +61,25 @@ EngineResourceManager.register("slime", new ImageFileLoader("./src/game/assets/i
 
 await EngineResourceManager.load();
 
-engine.loadShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
-engine.loadTexture("player", EngineResourceManager.get("player")!)
-engine.loadTexture("slime", EngineResourceManager.get("slime")!)
+
+
+const playerTexture = new Texture("player","player");
+const slimeTexture = new Texture("slime", "slime");
+
+
+
+engine.compileShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
+engine.compileTexture(playerTexture);
+engine.compileTexture(slimeTexture);
+engine.compileMesh(squareMesh);
 
 EngineSystemManager.register(EngineSystem.RenderSystem, () => new RenderSystem());
 EngineSystemManager.register(EngineSystem.AnimatorSystem, () => new AnimatorSystem());
 EngineSystemManager.register(EngineSystem.InputSystem, () => new InputSystem());
 EngineSystemManager.register(EngineSystem.PhysicsSystem, () => new PhysicsSystem());
+EngineSystemManager.register(EngineSystem.CameraSystem, () => new CameraSystem());
 EngineSystemManager.register(EngineSystem.CharacterControlerSystem, () => new CharacterControlerSystem());
+EngineSystemManager.register(EngineSystem.CharacterControlerAnimationSystem, () => new CharacterControllerAnimationSystem());
 
 const scene = new Scene("simple_scene");
 SceneManager.addScene(scene);
@@ -67,6 +89,8 @@ scene.useSystem(EngineSystem.AnimatorSystem);
 scene.useSystem(EngineSystem.InputSystem);
 scene.useSystem(EngineSystem.PhysicsSystem);
 scene.useSystem(EngineSystem.CharacterControlerSystem);
+scene.useSystem(EngineSystem.CharacterControlerAnimationSystem);
+scene.useSystem(EngineSystem.CameraSystem);
 
 const playerEntity = new GameEntity("player", "Player");
 configurePlayer(playerEntity);
@@ -82,4 +106,7 @@ scene.addEntity(cameraEntity);
 
 engine.loadScene("simple_scene");
 engine.time.start();
+
+
+console.log(scene.entities.getByTag("MainCamera"))
 

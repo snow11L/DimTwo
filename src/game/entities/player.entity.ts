@@ -5,7 +5,7 @@ import { BuildRigidBody2D } from "../../engine/modules/generators/create.rigid.b
 import { createSpriteRender } from "../../engine/modules/generators/create.sprite.render.component";
 import { createTransform } from "../../engine/modules/generators/create.transform.component";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
-import { CharacterControler } from "../systems/character-controller/character.controller.types";
+import { CharacterControler } from "../systems/character.controller.types";
 
 export function createPlayer(entity: GameEntity) {
   const transform = createTransform(entity);
