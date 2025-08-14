@@ -1,34 +1,65 @@
 import type { System } from "../base/System";
+import type { CollisionEvent, TriggerEvent } from "../types/collision-event";
+import { EngineSystem } from "./EngineSystemManager";
 
-export enum EngineSystem {
-    RenderSystem,
-    InputSystem,
-    CameraSystem,
-    AnimatorSystem,
-    PhysicsSystem,
-    ColliderSystem,
-    CharacterControlerSystem
-}
+export class SystemManager {
+    private readonly data: Map<EngineSystem, System> = new Map();
 
-type SystemFactory = () => System;
-
-export class EngineSystemManager {
-
-    private static readonly builders: Map<EngineSystem, SystemFactory> = new Map();
-
-    public static register(key: EngineSystem, factory: SystemFactory): void {
-        if (this.builders.has(key)) {
-            throw new Error(`Factory already registered for ${EngineSystem[key]}`);
+    public addSystem(systemType: EngineSystem, systemInstance: System): void {
+        if (this.data.has(systemType)) {
+            console.warn(`System ${EngineSystem[systemType]} já está registrado.`);
+            return;
         }
-        this.builders.set(key, factory);
+        this.data.set(systemType, systemInstance);
     }
 
-    public static create(key: EngineSystem): System | null {
-        const factory = this.builders.get(key);
-        return factory ? factory() : null;
+    public getSystem<T extends System>(systemType: EngineSystem): T | null {
+        return (this.data.get(systemType) as T) ?? null;
     }
 
-    public static has(key: EngineSystem): boolean {
-        return this.builders.has(key);
+    public hasSystem(systemType: EngineSystem): boolean {
+        return this.data.has(systemType);
+    }
+
+
+    public callStart(): void {
+        for (const system of this.data.values()) system.start?.();
+    }
+    public callFixedUpdate(): void {
+        for (const system of this.data.values()) system.fixedUpdate?.();
+    }
+    public callUpdate(): void {
+        for (const system of this.data.values()) system.update?.();
+    }
+    public callLateUpdate(): void {
+        for (const system of this.data.values()) system.lateUpdate?.();
+    }
+    public callRender(): void {
+        for (const system of this.data.values()) system.render?.();
+    }
+    public callDrawGizmos(): void {
+        for (const system of this.data.values()) system.onDrawGizmos?.();
+    }
+
+
+    public callCollisionEnterEvents(event: CollisionEvent): void {
+        for (const system of this.data.values()) system.onCollisionEnter?.(event);
+    }
+    public callCollisionStayEvents(event: CollisionEvent): void {
+        for (const system of this.data.values()) system.onCollisionStay?.(event);
+    }
+    public callCollisionExitEvents(event: CollisionEvent): void {
+        for (const system of this.data.values()) system.onCollisionExit?.(event);
+    }
+
+
+    public callTriggerEnterEvents(event: TriggerEvent): void {
+        for (const system of this.data.values()) system.onTriggerEnter?.(event);
+    }
+    public callTriggerStayEvents(event: TriggerEvent): void {
+        for (const system of this.data.values()) system.onTriggerStay?.(event);
+    }
+    public callTriggerExitEvents(event: TriggerEvent): void {
+        for (const system of this.data.values()) system.onTriggerExit?.(event);
     }
 }

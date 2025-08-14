@@ -1,10 +1,9 @@
-import { Global } from "../../../core/managers/engine.manager";
 import { WebGL } from "../../../core/webgl/WebGL";
 import type { Texture } from "../texture/types";
 
 
 export class Shader {
-
+    private gl: WebGL2RenderingContext;
     name: string;
     program: WebGLProgram;
     vertexSource: string;
@@ -12,8 +11,8 @@ export class Shader {
     attributes: Map<string, GLint>;
     uniforms: Map<string, WebGLUniformLocation>;
 
-    constructor(name: string, vertexSource: string, fragmentSource: string) {
-        const gl = Global.WebGL;
+    constructor(gl: WebGL2RenderingContext, name: string, vertexSource: string, fragmentSource: string) {
+        this.gl = gl;
         const vertexShader = WebGL.compileShader(gl, gl.VERTEX_SHADER, vertexSource);
         const fragmentShader = WebGL.compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
 
@@ -47,7 +46,7 @@ export class Shader {
     }
 
     public shader_set_uniform_mat4(name: string, matrix: Float32Array) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const location = this.getUniform(name);
         if (!location) {
             this.warnIfUniformNotFound("mat4", name);
@@ -57,7 +56,7 @@ export class Shader {
     }
 
     public shader_set_uniform_4f(name: string, x: number, y: number, z: number, w: number) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const location = this.getUniform(name);
         if (!location) {
             this.warnIfUniformNotFound("4f", name);
@@ -67,7 +66,7 @@ export class Shader {
     }
 
     public shader_set_uniform_3f(name: string, x: number, y: number, z: number) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const location = this.getUniform(name);
         if (!location) {
             this.warnIfUniformNotFound("3f", name);
@@ -77,7 +76,7 @@ export class Shader {
     }
 
     public shader_set_uniform_2f(name: string, x: number, y: number) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const location = this.getUniform(name);
         if (!location) {
             this.warnIfUniformNotFound("2f", name);
@@ -87,7 +86,7 @@ export class Shader {
     }
 
     public shader_set_uniform_1f(name: string, x: number) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const location = this.getUniform(name);
         if (!location) {
             this.warnIfUniformNotFound("1f", name);
@@ -97,7 +96,7 @@ export class Shader {
     }
 
     public shader_set_uniform_1i(name: string, x: number) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const location = this.getUniform(name);
         if (!location) {
             this.warnIfUniformNotFound("1i", name);
@@ -111,7 +110,7 @@ export class Shader {
         texture: Texture,
         unit: number = 0
     ) {
-        const gl = Global.WebGL;
+        const gl = this.gl;
         const glTexture = texture.gpuData;
         gl.activeTexture(gl.TEXTURE0 + unit);
         gl.bindTexture(gl.TEXTURE_2D, glTexture);

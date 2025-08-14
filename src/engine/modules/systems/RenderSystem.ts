@@ -1,6 +1,5 @@
 import type { Render } from "../../core/base/Render";
 import { System } from "../../core/base/System";
-import { Global } from "../../core/managers/engine.manager";
 import { ResourcesManager } from "../../global/manager/manager";
 import { ComponentGroup, ComponentType } from "../components/component-type";
 import type { Transform } from "../components/spatial/transform/Transform";
@@ -8,17 +7,16 @@ import { material_get } from "../generators/create.material";
 
 export class RenderSystem extends System {
 
-  webGL = Global.WebGL;
-
   render() {
     const scene = this.getScene();
     const components = scene.components;
 
     const engine = this.getEngine();
     const shaders = engine.shaders;
+    const gl = engine.gl;
 
-    this.webGL.enable(this.webGL.BLEND);
-    this.webGL.blendFunc(this.webGL.SRC_ALPHA, this.webGL.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     const renders = components.getAllByGroup<Render>(ComponentGroup.Render);
 
@@ -30,7 +28,7 @@ export class RenderSystem extends System {
       if (!material) continue;
 
       const shader = shaders.get(material.shaderName)!;
-      this.webGL.useProgram(shader.program);
+      gl.useProgram(shader.program);
 
       const transform = components.getComponent<Transform>(
         entity,
@@ -51,9 +49,9 @@ export class RenderSystem extends System {
       const vao = engine.vao.get(mesh.instanceID.getValue());
       if (!vao) continue;
 
-      this.webGL.bindVertexArray(vao.vao);
-      this.webGL.drawElements(this.webGL.TRIANGLES, vao.indexCount, this.webGL.UNSIGNED_SHORT, 0);
-      this.webGL.bindVertexArray(null);
+      gl.bindVertexArray(vao.vao);
+      gl.drawElements(gl.TRIANGLES, vao.indexCount, gl.UNSIGNED_SHORT, 0);
+      gl.bindVertexArray(null);
 
     }
   }

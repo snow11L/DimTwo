@@ -1,5 +1,8 @@
 import { GameEntity } from "./engine/core/base/GameEntity";
-import { EngineSystem, EngineSystemManager } from "./engine/core/managers/SystemManager";
+import { ImageFileLoader } from "./engine/core/loaders/ImageFileLoader";
+import { TextFileLoader } from "./engine/core/loaders/TextFileLoader";
+import { EngineResourceManager } from "./engine/core/managers/EngineResourceManager";
+import { EngineSystem, EngineSystemManager } from "./engine/core/managers/EngineSystemManager";
 import { Scene } from "./engine/core/scene/scene";
 import { SceneManager } from "./engine/core/scene/SceneManager";
 import { Engine } from "./engine/Engine";
@@ -23,102 +26,32 @@ function getWebGL() {
     return WebGL;
 }
 
+const advanced_material: MaterialType = {
+    name: "advanced_material",
+    shaderName: "advanced",
+};
 
-
-async function LoadResources() {
-
-    const advanced_material: MaterialType = {
-        name: "advanced_material",
-        shaderName: "advanced",
-    };
-
-    ResourcesManager.MaterialManager.add(advanced_material.name, advanced_material);
-
-
-    const advancedShader = new AdvancedShaderSystem();
-    ResourcesManager.ShaderSystemManager.add(advanced_material.name, advancedShader);
-}
-
-
-
-interface LoadableResource<T> {
-    load(): Promise<T>;
-}
-
-class TextFileLoader implements LoadableResource<string> {
-    constructor(private path: string) { }
-
-    async load(): Promise<string> {
-        const response = await fetch(this.path);
-        return await response.text();
-    }
-}
-
-class ImageFileLoader implements LoadableResource<HTMLImageElement> {
-    constructor(private path: string) { }
-
-    async load(): Promise<HTMLImageElement> {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = this.path;
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`Failed to load image at ${this.path}`));
-        });
-    }
-}
-
-
-class EngineResource {
-    private static resources: Map<string, any> = new Map();
-    private static registry: Map<string, LoadableResource<any>> = new Map();
-
-    public static register<T>(name: string, loader: LoadableResource<T>) {
-        this.registry.set(name, loader);
-    }
-
-    public static async load() {
-        for (const [name, loader] of this.registry.entries()) {
-            const loaded = await loader.load();
-            this.resources.set(name, loaded);
-        }
-    }
-
-    public static get<T>(name: string): T | undefined {
-        return this.resources.get(name) as T | undefined;
-    }
-}
-
-
-
-await LoadResources();
-
-
-
-
-
-
+ResourcesManager.MaterialManager.add(advanced_material.name, advanced_material);
+const advancedShader = new AdvancedShaderSystem();
+ResourcesManager.ShaderSystemManager.add(advanced_material.name, advancedShader);
 
 
 const engine = new Engine(getWebGL());
 
-EngineResource.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
-EngineResource.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
+EngineResourceManager.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
+EngineResourceManager.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
 
-EngineResource.register("advancedShaderVertex", new TextFileLoader("./src/engine/assets/shaders/advancedShader.vert"));
-EngineResource.register("advancedShaderFragment", new TextFileLoader("./src/engine/assets/shaders/advancedShader.frag"));
+EngineResourceManager.register("advancedShaderVertex", new TextFileLoader("./src/engine/assets/shaders/advancedShader.vert"));
+EngineResourceManager.register("advancedShaderFragment", new TextFileLoader("./src/engine/assets/shaders/advancedShader.frag"));
 
-EngineResource.register("player", new ImageFileLoader("./src/game/assets/images/Player.png"));
-EngineResource.register("slime", new ImageFileLoader("./src/game/assets/images/Slime.png"));
+EngineResourceManager.register("player", new ImageFileLoader("./src/game/assets/images/Player.png"));
+EngineResourceManager.register("slime", new ImageFileLoader("./src/game/assets/images/Slime.png"));
 
-await EngineResource.load();
+await EngineResourceManager.load();
 
-engine.loadShader("advanced",
-    EngineResource.get("advancedShaderVertex")!,
-    EngineResource.get("advancedShaderFragment")!
-);
-
-engine.loadTexture("player", EngineResource.get("player")!)
-engine.loadTexture("slime", EngineResource.get("slime")!)
+engine.loadShader("advanced", EngineResourceManager.get("advancedShaderVertex")!, EngineResourceManager.get("advancedShaderFragment")!);
+engine.loadTexture("player", EngineResourceManager.get("player")!)
+engine.loadTexture("slime", EngineResourceManager.get("slime")!)
 
 EngineSystemManager.register(EngineSystem.RenderSystem, () => new RenderSystem());
 EngineSystemManager.register(EngineSystem.AnimatorSystem, () => new AnimatorSystem());

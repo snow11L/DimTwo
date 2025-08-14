@@ -1,4 +1,3 @@
-import { Global } from "./core/managers/engine.manager";
 import { GenericManager } from "./core/managers/generic_manager";
 import type { Mat4 } from "./core/math/mat4/Mat4";
 import type { Scene } from "./core/scene/scene";
@@ -60,7 +59,7 @@ export class Engine {
 
     constructor(WebGL: WebGL2RenderingContext) {
 
-        this.gl =WebGL;
+        this.gl = WebGL;
 
         this.time = new Time();
         this.time.on("start", () => {
@@ -93,7 +92,6 @@ export class Engine {
 
             const color = this.camera.clearColor;
 
-            const WebGL = Global.WebGL;
             WebGL.clearColor(color.r, color.g, color.b, color.a);
             WebGL.clear(WebGL.COLOR_BUFFER_BIT);
             this.scene?.systems.callRender();
@@ -114,7 +112,7 @@ export class Engine {
     }
 
     public loadShader(name: string, vertSource: string, fragSource: string): Shader {
-        const shader = new Shader(name, vertSource, fragSource);
+        const shader = new Shader(this.gl, name, vertSource, fragSource);
         return this.shaders.add(name, shader);
     }
 
