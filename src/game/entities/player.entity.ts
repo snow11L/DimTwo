@@ -6,11 +6,11 @@ import { RigidBody2D } from "../../engine/modules/components/physics/RigidBody2D
 import { SpriteRender } from "../../engine/modules/components/render/SpriteRender";
 import { Transform } from "../../engine/modules/components/spatial/Transform";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
-import { CharacterControler } from "../systems/character.controller.types";
+import { CharacterControler2D } from "../systems/character.controller.types";
 
 export function createPlayer(scene: Scene, entity: GameEntity) {
   const transform = new Transform();
-  const controller = new CharacterControler();
+  const controller = new CharacterControler2D();
 
   const rigidBody = new RigidBody2D({
     useGravity: false,

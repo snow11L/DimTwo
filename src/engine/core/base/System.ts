@@ -29,10 +29,10 @@ export class System {
   }
 
   start?(): void;
-  update?(): void;
-  fixedUpdate?(): void;
-  lateUpdate?(): void;
-  render?(): void;
+  update?(dt: number): void;
+  fixedUpdate?(fdt: number): void;
+  lateUpdate?(dt: number): void;
+  render?(dt: number): void;
   onDrawGizmos?(): void;
 
 

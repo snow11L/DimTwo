@@ -1,20 +1,19 @@
 
 import { System } from "../../engine/core/base/System";
 import { Vec2 } from "../../engine/core/math/Vec2";
-import Time from "../../engine/core/time/Time";
 import type { Transform } from "../../engine/modules/components/spatial/Transform";
 import { ComponentType } from "../../engine/modules/enums/ComponentType";
 import { WebKeyCode } from "../../engine/modules/webInput/WebKeyCode";
-import { CharacterControler } from "./character.controller.types";
+import { CharacterControler2D } from "./character.controller.types";
 import { Input } from "./InputSystem";
 
 export class CharacterControlerSystem extends System {
-  update() {
+  update(dt: number) {
 
 
     const components = this.getScene().components;
 
-    const characterControlers = components.getAllOfType<CharacterControler>(
+    const characterControlers = components.getAllOfType<CharacterControler2D>(
       ComponentType.CharacterController
     );
     for (const characterControler of characterControlers) {
@@ -40,8 +39,8 @@ export class CharacterControlerSystem extends System {
         : characterControler.speed;
 
 
-      const deltaX = characterControler.direction.x * speed * Time.deltaTime;
-      const deltaY = characterControler.direction.y * speed * Time.deltaTime;
+      const deltaX = characterControler.direction.x * speed * dt;
+      const deltaY = characterControler.direction.y * speed * dt;
 
       characterTransform.position.x += deltaX;
       characterTransform.position.y += deltaY;

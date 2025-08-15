@@ -46,13 +46,12 @@ export class Engine {
         });
 
         this.time.on("fixedUpdate", () => {
-            debug.innerText = Time.fps.toString()
-            this.systems.callFixedUpdate();
+            this.systems.callFixedUpdate(this.time.fixedDeltaTime);
         });
 
         this.time.on("update", () => {
-            this.systems.callUpdate();
-            this.systems.callLateUpdate();
+            this.systems.callUpdate(this.time.deltaTime);
+            this.systems.callLateUpdate(this.time.deltaTime);
         });
 
 
@@ -71,35 +70,53 @@ export class Engine {
             if (!this.camera) return;
 
             const color = this.camera.clearColor;
-
+            this.camera.aspect = canvas.width / canvas.height;
+            WebGL.viewport(0, 0, canvas.width, canvas.height)
             WebGL.clearColor(color.r, color.g, color.b, color.a);
             WebGL.clear(WebGL.COLOR_BUFFER_BIT);
-            this.systems.callRender();
+            this.systems.callRender(this.time.deltaTime);
             this.systems.callDrawGizmos();
         });
     }
 
-    loadScene(name: string) {
+    loadScene(name: string, clone: boolean = false) {
         const scene = SceneManager.getScene(name);
         if (!scene) {
             throw new Error(`Scene "${name}" not found`);
         }
 
+        const s =  scene;
+
         for (const system of this.usedSystems) {
             let systemInstance = this.systems.getSystem(system);
-            if (systemInstance) return systemInstance;
+            if (systemInstance) {
+                systemInstance.setScene(s);
+                continue;
+            }
 
             systemInstance = EngineSystemManager.create(system);
-            if (!systemInstance) throw new Error(`System ${EngineSystem[system]} could not be created`);
+            if (!systemInstance) {
+                throw new Error(`System ${EngineSystem[system]} could not be created`);
+            }
 
-            systemInstance.setScene(scene);
+            systemInstance.setScene(s);
             systemInstance.setEngine(this);
             this.systems.addSystem(system, systemInstance);
         }
 
-        this.scene = scene;
+        this.scene = s;
         this.systems.callStart();
     }
+
+    setScene(scene: Scene) {
+        this.scene = scene;
+    }
+
+   getScene() {
+        return this.scene;
+    }
+
+
 
     public compileShader(name: string, vertSource: string, fragSource: string) {
         const shader = new Shader(this.gl, name, vertSource, fragSource);

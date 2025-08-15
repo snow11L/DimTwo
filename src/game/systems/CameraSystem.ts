@@ -1,6 +1,5 @@
 import { System } from "../../engine/core/base/System";
 import { Vec3 } from "../../engine/core/math/Vec3";
-import Time from "../../engine/core/time/Time";
 import { Transform } from "../../engine/modules/components/spatial/Transform";
 import { ComponentType } from "../../engine/modules/enums/ComponentType";
 
@@ -21,14 +20,13 @@ export class CameraSystem extends System {
         this.targetTransform = this.getScene().components.getComponent<Transform>(playerEntity, ComponentType.Transform);
     }
 
-    update() {
-
+    update(dt: number) {
 
         if (!this.targetTransform || !this.cameraTransform) return;
-        const target = { ...this.targetTransform.position };
+        const target = this.targetTransform.position.clone();
         target.z = this.cameraTransform.position.z;
 
-        this.cameraTransform.position = Vec3.lerp(this.cameraTransform.position, this.cameraTransform.position, target, 1 * Time.deltaTime);
+        this.cameraTransform.position = Vec3.lerp(this.cameraTransform.position, this.cameraTransform.position, target, 1 * dt);
 
     }
 }

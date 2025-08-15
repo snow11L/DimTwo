@@ -1,5 +1,4 @@
 import { System } from "../../core/base/System";
-import Time from "../../core/time/Time";
 import { Animator } from "../components/animation/Animator";
 import type { SpriteRender } from "../components/render/SpriteRender";
 import { ComponentType } from "../enums/ComponentType";
@@ -7,7 +6,7 @@ import { ComponentType } from "../enums/ComponentType";
 
 export class AnimatorSystem extends System {
 
-  lateUpdate() {
+  lateUpdate(dt: number) {
     const scene = this.getScene();
     const components = scene.components;
 
@@ -28,7 +27,7 @@ export class AnimatorSystem extends System {
 
       const state = result.value;
 
-      Animator.advanceFrame(animator, state, Time.deltaTime);
+      Animator.advanceFrame(animator, state, dt);
       Animator.updateSprite(animator, state, spriteRender);
 
     }

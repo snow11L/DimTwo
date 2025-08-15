@@ -25,17 +25,17 @@ export class SystemManager {
     public callStart(): void {
         for (const system of this.data.values()) system.start?.();
     }
-    public callFixedUpdate(): void {
-        for (const system of this.data.values()) system.fixedUpdate?.();
+    public callFixedUpdate(fdt: number): void {
+        for (const system of this.data.values()) system.fixedUpdate?.(fdt);
     }
-    public callUpdate(): void {
-        for (const system of this.data.values()) system.update?.();
+    public callUpdate(dt: number): void {
+        for (const system of this.data.values()) system.update?.(dt);
     }
-    public callLateUpdate(): void {
-        for (const system of this.data.values()) system.lateUpdate?.();
+    public callLateUpdate(dt: number): void {
+        for (const system of this.data.values()) system.lateUpdate?.(dt);
     }
-    public callRender(): void {
-        for (const system of this.data.values()) system.render?.();
+    public callRender(dt: number): void {
+        for (const system of this.data.values()) system.render?.(dt);
     }
     public callDrawGizmos(): void {
         for (const system of this.data.values()) system.onDrawGizmos?.();

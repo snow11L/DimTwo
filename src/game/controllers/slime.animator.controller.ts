@@ -1,4 +1,4 @@
-import type { AnimatorController } from "../../engine/modules/components/animation/Animator";
+import type { AnimatorController } from "../../engine/modules/components/animation/AnimatorController";
 import { SLIME_ANIMATIONS } from "../animations/slime.animations";
 
 

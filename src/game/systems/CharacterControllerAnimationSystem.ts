@@ -3,7 +3,7 @@ import { Animator } from "../../engine/modules/components/animation/Animator";
 import type { SpriteRender } from "../../engine/modules/components/render/SpriteRender";
 import { ComponentType } from "../../engine/modules/enums/ComponentType";
 import { WebKeyCode } from "../../engine/modules/webInput/WebKeyCode";
-import { CharacterControler } from "./character.controller.types";
+import { CharacterControler2D } from "./character.controller.types";
 import { Input } from "./InputSystem";
 
 
@@ -13,7 +13,7 @@ export class CharacterControllerAnimationSystem extends System {
         const scene = this.getScene();
         const components = scene.components;
 
-        const characterControlers = components.getAllOfType<CharacterControler>(ComponentType.CharacterController);
+        const characterControlers = components.getAllOfType<CharacterControler2D>(ComponentType.CharacterController);
 
         for (const characterControler of characterControlers) {
 

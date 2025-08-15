@@ -43,6 +43,9 @@ export class EntityManager {
     getByTag(tag: string): GameEntity | null {
         return this.byTag.get(tag)?.values().next().value ?? null;
     }
+    getAll(): GameEntity[] {
+        return Array.from(this.byId.values());
+    }
 
 }
 
@@ -62,4 +65,22 @@ export class Scene {
     public addComponent(entity: GameEntity, component: Component) {
         this.components.addComponent(entity, component);
     }
+
+    clone(): Scene {
+        const sceneClone = new Scene(this.name + "_clone");
+
+        for (const entity of this.entities.getAll()) {
+            const entityClone = entity.clone();
+            sceneClone.addEntity(entityClone);
+
+            for (const component of this.components.getAllComponentsForEntity(entity)) {
+                const componentClone = component.clone();
+                sceneClone.addComponent(entityClone, componentClone);
+            }
+        }
+
+        return sceneClone;
+    }
+
+
 }

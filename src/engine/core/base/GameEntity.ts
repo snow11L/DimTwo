@@ -1,4 +1,4 @@
-import type { Component } from "./Component";
+import type { Clonable } from "./Component";
 import { Entity } from "./Entity";
 
 export interface GameEntityOptions {
@@ -6,10 +6,9 @@ export interface GameEntityOptions {
     tag?: string;
     active?: boolean;
     parent?: GameEntity | null;
-    components?: Component[];
 }
 
-export class GameEntity extends Entity {
+export class GameEntity extends Entity implements Clonable<GameEntity> {
     tag: string;
     active: boolean;
     name: string;
@@ -21,5 +20,14 @@ export class GameEntity extends Entity {
         this.tag = options.tag ?? "";
         this.active = options.active ?? true;
         this.parent = options.parent ?? null;
+    }
+
+    clone(): GameEntity {
+        return new GameEntity({
+            name: this.name,
+            tag: this.tag,
+            active: this.active,
+            parent: this.parent 
+        });
     }
 }

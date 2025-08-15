@@ -73,9 +73,9 @@ function generateTerrainEntities(
       // gameEntities.push(gameEntity);
     } else {
 
-      const gameEntity: GameEntity = new GameEntity(`ground`, "Ground");
+      const gameEntity: GameEntity = new GameEntity({name: `ground`, tag: "Ground"});
 
-      const transform = new Transform(cell.position);
+      const transform = new Transform({position: cell.position});
       scene.components.addComponent(gameEntity, transform);
 
       const spriteReder = new SpriteRender();

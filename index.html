@@ -7,7 +7,8 @@
   <title>Vite + TS Game</title>
 
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -20,40 +21,53 @@
 
     #app-container {
       display: flex;
+      padding: 4px;
+      gap: 2px;
       width: 100%;
       height: 100%;
     }
 
-    /* Game Container */
+
+    .container {
+      display: flex;
+      overflow: hidden;
+
+      border: 1px solid #333;
+      border-radius: 8px;
+    }
+
     .game-container {
-      flex: 1; /* ocupa mais espaço */
+      flex: 1;
       display: flex;
       flex-direction: column;
       position: relative;
-      border-right: 1px solid #333;
+
     }
 
-    .game-options-bar {
-      height: 32px;
+    .options-bar {
+      height: 24px;
+      width: 100%;
       background: #2c2c2c;
       display: flex;
       align-items: center;
-      padding: 0 8px;
+      padding:4px;
       gap: 8px;
       flex-shrink: 0;
     }
 
-    .game-options-bar button {
+    .options-bar button {
+      display: flex;
       background: #444;
       color: #eee;
       border: none;
       padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
+      text-wrap: nowrap;
       transition: background 0.2s;
     }
 
-    .game-options-bar button:hover {
+    .options-bar button:hover {
       background: #666;
     }
 
@@ -77,7 +91,7 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       color: #0f0;
       font-size: 12px;
       padding: 4px;
@@ -88,14 +102,22 @@
 
 <body>
   <div id="app-container">
-     <div class="editor-container">
+    <!-- Editor -->
+    <div class="editor-container container">
+      <div class="options-bar">
+        <button id="editor-new-scene">New Scene</button>
+        <button id="editor-save-scene">Save Scene</button>
+        <button id="editor-load-scene">Load Scene</button>
+        <button id="editor-clear-scene">Clear Scene</button>
+      </div>
     </div>
 
-    <div class="game-container">
-      <div class="game-options-bar">
+    <!-- Game -->
+    <div class="game-container container">
+      <div class="options-bar">
         <button id="game-time-start">Start</button>
         <button id="game-time-pause">Pause</button>
-         <button id="game-time-resume">Resume</button>
+        <button id="game-time-resume">Resume</button>
         <button id="game-time-stop">Stop</button>
         <button id="game-time-skip-frame">Skip Frame</button>
       </div>
@@ -103,6 +125,7 @@
 
     <div id="debug"></div>
   </div>
+
 
   <script type="module" src="src/main.ts"></script>
 </body>

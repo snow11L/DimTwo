@@ -25,7 +25,7 @@ export class SimpleShaderSystem extends ShaderSystem {
         shader.shader_set_uniform_mat4("uView", viewMatrix.data);
 
         const projectionMatrix = camera.projection;
-        Mat4.projection(projectionMatrix, camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far)
+        Mat4.projection(projectionMatrix, camera.fov, camera.aspect, camera.near, camera.far)
         shader.shader_set_uniform_mat4("uProjection", projectionMatrix.data);
     }
 

@@ -15,15 +15,17 @@ export default class Time {
   private animationFrameId?: number;
   private initialized = false;
 
-  private static _deltaTime = 0;
-  public static get deltaTime() {
+  private _deltaTime = 0;
+  public get deltaTime() {
     return this._deltaTime;
   }
-  private static _time = 0;
-  public static readonly fixedDeltaTime = 1 / 50;
-  public static timeScale = 1;
-  public static realtimeSinceStartup = 0;
-  public static fps = 0;
+
+  private _time = 0;
+  public readonly fixedDeltaTime = 1 / 50;
+
+  public timeScale = 1;
+  public realtimeSinceStartup = 0;
+  public fps = 0;
 
   constructor() { }
 
@@ -51,8 +53,8 @@ export default class Time {
     this.initialized = true;
     this.isRunning = true;
     this.isPaused = false;
-    Time._time = performance.now();
-    this.lastFpsTime = Time._time;
+    this._time = performance.now();
+    this.lastFpsTime = this._time;
 
     this.loop();
   }
@@ -72,7 +74,7 @@ export default class Time {
   public resume(): void {
     if (!this.isRunning || !this.isPaused) return;
     this.isPaused = false;
-    Time._time = performance.now();
+    this._time = performance.now();
     this.loop();
   }
 
@@ -93,22 +95,21 @@ export default class Time {
 
   private processFrame(): void {
     const now = performance.now();
-    const realDelta = (now - Time._time) / 1000;
+    const realDelta = (now - this._time) / 1000;
 
-    Time._time = now;
-    Time._deltaTime = realDelta * Time.timeScale;
-    Time.realtimeSinceStartup += realDelta;
+    this._time = now;
+    this._deltaTime = realDelta * this.timeScale;
+    this.realtimeSinceStartup += realDelta;
 
-
-    this.accumulator += Time._deltaTime;
+    this.accumulator += this._deltaTime;
     let steps = 0;
 
     this.events.emit('loop');
-    
+
     if (this.initialized) {
-      while (this.accumulator >= Time.fixedDeltaTime && steps < this.maxFrameSkip) {
+      while (this.accumulator >= this.fixedDeltaTime && steps < this.maxFrameSkip) {
         this.events.emit('fixedUpdate');
-        this.accumulator -= Time.fixedDeltaTime;
+        this.accumulator -= this.fixedDeltaTime;
         steps++;
       }
 
@@ -123,7 +124,7 @@ export default class Time {
   private calculateFPS(now: number): void {
     this.frameCount++;
     if (now - this.lastFpsTime >= 1000) {
-      Time.fps = this.frameCount;
+      this.fps = this.frameCount;
       this.frameCount = 0;
       this.lastFpsTime = now;
     }

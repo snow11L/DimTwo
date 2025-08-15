@@ -63,4 +63,25 @@ export class ComponentManager implements IComponentManager {
     getAllByGroup<T extends Component>(group: ComponentGroup): T[] {
         return Array.from(this.group.get(group) ?? []) as T[];
     }
+
+    getAll(): Component[] {
+        const allComponents: Component[] = [];
+        for (const typeMap of this.data.values()) {
+            allComponents.push(...typeMap.values());
+        }
+        return allComponents;
+    }
+
+    getAllComponentsForEntity(entity: GameEntity): Component[] {
+        const components: Component[] = [];
+
+        for (const typeMap of this.data.values()) {
+            const component = typeMap.get(entity.id.getValue());
+            if (component) components.push(component);
+        }
+
+        return components;
+    }
+
+
 }

@@ -89,6 +89,14 @@ EngineSystemManager.register(EngineSystem.CameraSystem, () => new CameraSystem()
 EngineSystemManager.register(EngineSystem.CharacterControlerSystem, () => new CharacterControlerSystem());
 EngineSystemManager.register(EngineSystem.CharacterControlerAnimationSystem, () => new CharacterControllerAnimationSystem());
 
+
+
+
+
+
+
+EngineSystemManager.register(EngineSystem.EditorRenderSystem, () => new CharacterControllerAnimationSystem());
+
 const scene = new Scene("simple_scene");
 const scene2 = new Scene("simple_scene_2");
 SceneManager.addScene(scene);
@@ -103,8 +111,7 @@ game.useSystem(EngineSystem.CameraSystem);
 game.useSystem(EngineSystem.TerrainSystem);
 
 editor.useSystem(EngineSystem.RenderSystem);
-editor.useSystem(EngineSystem.PhysicsSystem);
-editor.useSystem(EngineSystem.CameraSystem);
+
 
 
 const playerEntity = new GameEntity({ name: "player", tag: "Player" });
@@ -119,17 +126,25 @@ const cameraEntity = new GameEntity({ name: "camera", tag: "MainCamera" });
 configureCamera(scene, cameraEntity);
 scene.addEntity(cameraEntity);
 
-game.loadScene("simple_scene");
-editor.loadScene("simple_scene");
 
-game.time.start();
+editor.loadScene("simple_scene");
+game.loadScene("simple_scene");
+
 editor.time.start()
 
 const editorContainer = document.querySelector(".editor-container") as HTMLDivElement;
-editorContainer.appendChild(editor.getElement() as HTMLCanvasElement);
+const editorCanvas = editor.getElement() as HTMLCanvasElement;
+editorCanvas.width = editorContainer.getBoundingClientRect().width;
+editorCanvas.height = editorContainer.getBoundingClientRect().height;
+editorContainer.appendChild(editorCanvas);
 
 const gameContainer = document.querySelector(".game-container") as HTMLDivElement;
-gameContainer.appendChild(game.getElement() as HTMLCanvasElement);
+
+const gameCanvas = game.getElement() as HTMLCanvasElement;
+gameCanvas.width = gameContainer.getBoundingClientRect().width;
+gameCanvas.height = gameContainer.getBoundingClientRect().height;
+
+gameContainer.appendChild(gameCanvas);
 
 const play = document.getElementById("game-time-start") as HTMLButtonElement;
 play.addEventListener("click", () => game.time.start());
@@ -142,3 +157,10 @@ resume.addEventListener("click", () => game.time.resume());
 
 const stop = document.getElementById("game-time-stop") as HTMLButtonElement;
 stop.addEventListener("click", () => game.time.stop());
+
+window.addEventListener("resize", () => {
+    editorCanvas.width = editorContainer.getBoundingClientRect().width;
+    editorCanvas.height = editorContainer.getBoundingClientRect().height;
+    gameCanvas.width = gameContainer.getBoundingClientRect().width;
+    gameCanvas.height = gameContainer.getBoundingClientRect().height;
+})

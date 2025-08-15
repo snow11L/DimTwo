@@ -5,7 +5,7 @@ import { ComponentGroup, ComponentType } from "../../engine/modules/enums/Compon
 export type CharacterState = "idle" | "walking" | "attacking";
 export type FacingDirection = "up" | "down" | "side";
 
-export class CharacterControler extends Component {
+export class CharacterControler2D extends Component {
   direction: Vec2;
   speed: number;
   runSpeed: number;
@@ -22,4 +22,16 @@ export class CharacterControler extends Component {
     this.state = "idle";
     this.facing = "down";
   }
+
+  clone(): CharacterControler2D {
+    const clone = new CharacterControler2D();
+    clone.direction = this.direction.clone(); 
+    clone.speed = this.speed;
+    clone.runSpeed = this.runSpeed;
+    clone.moving = this.moving;
+    clone.state = this.state;
+    clone.facing = this.facing;
+    return clone;
+}
+
 }
