@@ -7,6 +7,10 @@
   <title>Vite + TS Game</title>
 
   <style>
+
+    * {
+      box-sizing: border-box;
+    }
     html,
     body {
       margin: 0;
@@ -31,7 +35,6 @@
     .container {
       display: flex;
       overflow: hidden;
-
       border: 1px solid #333;
       border-radius: 8px;
     }
@@ -45,14 +48,15 @@
     }
 
     .options-bar {
-      height: 24px;
+    
       width: 100%;
       background: #2c2c2c;
       display: flex;
       align-items: center;
       padding:4px;
-      gap: 8px;
       flex-shrink: 0;
+      gap: 8px;
+     
     }
 
     .options-bar button {
@@ -60,7 +64,6 @@
       background: #444;
       color: #eee;
       border: none;
-      padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
       text-wrap: nowrap;

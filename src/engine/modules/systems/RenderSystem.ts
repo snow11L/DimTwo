@@ -13,7 +13,7 @@ export class RenderSystem extends System {
 
     const engine = this.getEngine();
     const shaders = engine.shaders;
-    const gl = engine.gl;
+    const gl = engine.getContext();
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -40,7 +40,7 @@ export class RenderSystem extends System {
         const entity = render.getGameEntity();
 
         const material = material_get(render.material);
-        if (!material) continue;
+        if (!material || !material.shaderName) continue;
         
         const shader = shaders.get(material.shaderName)!;
         gl.useProgram(shader.program);

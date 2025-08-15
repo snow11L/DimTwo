@@ -6,8 +6,6 @@ import type { Scene } from "./core/scene/scene";
 import { SceneManager } from "./core/scene/SceneManager";
 import Time from "./core/time/Time";
 import type { MeshBuffer, TextureBuffer } from "./interfaces/IMeshBuffer";
-import { Camera } from "./modules/components/render/Camera";
-import { ComponentType } from "./modules/enums/ComponentType";
 import type { Mesh } from "./modules/resources/mesh/Mesh";
 import { Shader } from "./modules/resources/shader/Shader";
 import { Texture } from "./modules/resources/texture/types";
@@ -17,9 +15,12 @@ export class Engine {
     public getElement() {
         return this.gl.canvas;
     }
+
+    public getContext() {
+        return this.gl
+    }
     public readonly time: Time;
     private scene: Scene | null = null;
-    camera: Camera | null = null;
 
     public shaders: SimpleManager<Shader> = new SimpleManager("Shader Manager");
     public matrices: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
@@ -57,20 +58,11 @@ export class Engine {
 
         this.time.on("render", () => {
             if (!this.scene) return;
+            const camera = this.scene.getActiveCamera();
+            if(!camera) return;
 
-            const cameras = this.scene.components.getAllOfType<Camera>(ComponentType.Camera);
-            for (const c of cameras) {
-
-                if (c.enabled) {
-                    this.camera = c;
-                    break;
-                }
-            }
-
-            if (!this.camera) return;
-
-            const color = this.camera.clearColor;
-            this.camera.aspect = canvas.width / canvas.height;
+            const color = camera.clearColor;
+            camera.aspect = canvas.width / canvas.height;
             WebGL.viewport(0, 0, canvas.width, canvas.height)
             WebGL.clearColor(color.r, color.g, color.b, color.a);
             WebGL.clear(WebGL.COLOR_BUFFER_BIT);
@@ -85,7 +77,7 @@ export class Engine {
             throw new Error(`Scene "${name}" not found`);
         }
 
-        const s =  scene;
+        const s = scene;
 
         for (const system of this.usedSystems) {
             let systemInstance = this.systems.getSystem(system);
@@ -112,7 +104,7 @@ export class Engine {
         this.scene = scene;
     }
 
-   getScene() {
+    getScene() {
         return this.scene;
     }
 

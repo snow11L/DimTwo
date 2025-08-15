@@ -6,6 +6,7 @@ import { RigidBody2D } from "../../engine/modules/components/physics/RigidBody2D
 import { SpriteRender } from "../../engine/modules/components/render/SpriteRender";
 import { Transform } from "../../engine/modules/components/spatial/Transform";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
+import { PLAYER_SPRITE } from "../sprites/PlayerSprite";
 import { CharacterControler2D } from "../systems/character.controller.types";
 
 export function createPlayer(scene: Scene, entity: GameEntity) {
@@ -19,6 +20,7 @@ export function createPlayer(scene: Scene, entity: GameEntity) {
 
   const spriteRender = new SpriteRender({
     layer: 2,
+    sprite: PLAYER_SPRITE,
     material: "advanced_material"
   });
 

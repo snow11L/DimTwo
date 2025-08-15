@@ -1,4 +1,5 @@
 import { WebGL } from "../../../core/webgl/WebGL";
+import type { TextureBuffer } from "../../../interfaces/IMeshBuffer";
 import type { Texture } from "../texture/types";
 
 
@@ -107,7 +108,7 @@ export class Shader {
 
     public shader_set_uniform_texture(
         name: string,
-        texture: Texture,
+        texture: TextureBuffer,
         unit: number = 0
     ) {
         const gl = this.gl;

@@ -1,3 +1,5 @@
+import type { Camera } from "../../modules/components/render/Camera";
+import { ComponentType } from "../../modules/enums/ComponentType";
 import type { Component } from "../base/Component";
 import type { GameEntity } from "../base/GameEntity";
 import { ComponentManager } from "../managers/ComponentManager";
@@ -64,6 +66,27 @@ export class Scene {
 
     public addComponent(entity: GameEntity, component: Component) {
         this.components.addComponent(entity, component);
+    }
+
+    private camera: Camera | null = null;
+
+    getActiveCamera(): Camera {
+
+        if (this.camera?.enabled) {
+            return this.camera;
+        }
+
+
+        const cameras = this.components.getAllOfType<Camera>(ComponentType.Camera);
+        const activeCamera = cameras.find(c => c.enabled);
+
+        if (!activeCamera) {
+            throw new Error("No active camera found in the scene");
+        }
+
+
+        this.camera = activeCamera;
+        return this.camera;
     }
 
     clone(): Scene {
