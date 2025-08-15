@@ -1,5 +1,5 @@
 import { SimplexNoise } from "../../../engine/core/algorithms/noise/SimplexNoise";
-import type { Vec3 } from "../../../engine/core/math/Vec3";
+import { Vec3 } from "../../../engine/core/math/Vec3";
 import { BiomeName, classifyBiomes } from "./biome";
 
 export interface TerrainCell {
@@ -59,11 +59,9 @@ export class World {
 
         terrain.push({
 
-          position: {
-            x: tileX * this.TILE_SIZE,
-            y: tileY * this.TILE_SIZE,
-            z:  0
-          },
+          position: new Vec3(tileX * this.TILE_SIZE,
+           tileY * this.TILE_SIZE,
+            0),
 
           scale: this.TILE_SIZE,
           height: (heightNoise + 1) / 2,

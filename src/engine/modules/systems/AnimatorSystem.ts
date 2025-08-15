@@ -18,7 +18,7 @@ export class AnimatorSystem extends System {
       const spriteRender = components.getComponent<SpriteRender>(animator.getGameEntity(), ComponentType.SpriteRender);
       if (!spriteRender) continue;
 
-      const result = Animator.getAnimatorState(animator);
+      const result = animator.getAnimatorState();
 
       if (!result.ok) {
         console.warn("Animator state error:", result.error);
@@ -27,8 +27,8 @@ export class AnimatorSystem extends System {
 
       const state = result.value;
 
-      Animator.advanceFrame(animator, state, dt);
-      Animator.updateSprite(animator, state, spriteRender);
+      animator.advanceFrame(state, dt);
+      animator.updateSprite(state, spriteRender);
 
     }
   }

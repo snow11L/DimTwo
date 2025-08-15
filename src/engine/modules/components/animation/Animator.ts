@@ -48,22 +48,22 @@ export class Animator extends Component implements Clonable<Animator> {
     });
   }
 
-  public static startClip(animator: Animator, clip: AnimationClip, lock: boolean) {
-    animator.currentClip = clip;
-    animator.currentFrameIndex = 0;
-    animator.time = 0;
-    animator.isPlaying = true;
-    animator.locked = lock;
+  public startClip(clip: AnimationClip, lock: boolean) {
+    this.currentClip = clip;
+    this.currentFrameIndex = 0;
+    this.time = 0;
+    this.isPlaying = true;
+    this.locked = lock;
   }
 
-  public static setAnimation(animator: Animator, animationClip: AnimationClip, lock = false) {
-    if (animator.currentClip === animationClip || animator.locked) return;
-    this.startClip(animator, animationClip, lock);
+  public setAnimation(animationClip: AnimationClip, lock = false) {
+    if (this.currentClip === animationClip || this.locked) return;
+    this.startClip(animationClip, lock);
   }
 
-  public static setAnimatorState(animator: Animator, newStateName: string, lock: boolean = false) {
-    const controller = animator.controller;
-    if (!controller || animator.locked || controller.currentState === newStateName) return;
+  public setAnimatorState(newStateName: string, lock: boolean = false) {
+    const controller = this.controller;
+    if (!controller || this.locked || controller.currentState === newStateName) return;
 
     const newState = controller.states[newStateName];
     if (!newState) {
@@ -72,12 +72,11 @@ export class Animator extends Component implements Clonable<Animator> {
     }
 
     controller.currentState = newStateName;
-    this.startClip(animator, newState.clip, lock);
+    this.startClip( newState.clip, lock);
   }
 
 
-  public static advanceFrame(
-    animator: Animator,
+  public advanceFrame(
     state: AnimatorState,
     delta: number
   ) {
@@ -85,38 +84,38 @@ export class Animator extends Component implements Clonable<Animator> {
     if (!clip) return;
 
     const frameDuration = 1 / clip.frameRate;
-    animator.time += delta * animator.playbackSpeed;
+    this.time += delta * this.playbackSpeed;
 
-    while (animator.time >= frameDuration) {
-      animator.time -= frameDuration;
-      animator.currentFrameIndex++;
+    while (this.time >= frameDuration) {
+      this.time -= frameDuration;
+      this.currentFrameIndex++;
 
-      if (animator.currentFrameIndex >= clip.frames.length) {
+      if (this.currentFrameIndex >= clip.frames.length) {
         if (state.loop) {
-          animator.currentFrameIndex = 0;
+          this.currentFrameIndex = 0;
         } else {
-          animator.currentFrameIndex = clip.frames.length - 1;
-          animator.isPlaying = false;
-          animator.locked = false;
+          this.currentFrameIndex = clip.frames.length - 1;
+          this.isPlaying = false;
+          this.locked = false;
           break;
         }
       }
     }
   }
 
-  public static updateSprite(animator: Animator, state: AnimatorState, spriteRender: SpriteRender) {
+  public updateSprite(state: AnimatorState, spriteRender: SpriteRender) {
     const animationClip = state.clip;
     if (!animationClip) return;
 
-    const frameIndex = animator.currentFrameIndex;
+    const frameIndex = this.currentFrameIndex;
     if (frameIndex < 0 || frameIndex >= animationClip.frames.length) return;
 
     const frame = animationClip.frames[frameIndex];
     spriteRender.sprite = frame.sprite;
   }
 
-  public static getAnimatorState(animator: Animator): Result<AnimatorState> {
-    const controller = animator.controller;
+  public getAnimatorState(): Result<AnimatorState> {
+    const controller = this.controller;
     if (!controller) return Result.err("No controller assigned to animator.");
 
     const stateName = controller.currentState;

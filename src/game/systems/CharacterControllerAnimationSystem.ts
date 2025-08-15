@@ -35,15 +35,15 @@ export class CharacterControllerAnimationSystem extends System {
 
             if (dir.x !== 0 || dir.y !== 0) {
                 if (dir.x !== 0) {
-                    Animator.setAnimatorState(animator, "walk_side");
+                    animator.setAnimatorState("walk_side");
                 } else if (dir.y < 0) {
-                    Animator.setAnimatorState(animator, "walk_back");
+                    animator.setAnimatorState("walk_back");
                 } else if (dir.y > 0) {
-                    Animator.setAnimatorState(animator, "walk_front");
+                    animator.setAnimatorState("walk_front");
 
                 }
             } else {
-                Animator.setAnimatorState(animator, "idle");
+                animator.setAnimatorState("idle");
             }
         }
     }
