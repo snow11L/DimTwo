@@ -14,6 +14,7 @@ export class RenderSystem extends System {
     const engine = this.getEngine();
     const shaders = engine.shaders;
     const gl = engine.getContext();
+    const camera = scene.getActiveCamera();
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -55,8 +56,8 @@ export class RenderSystem extends System {
         if (!shaderSystem) continue;
 
         // Chama funções globais e locais do shader
-        shaderSystem.global?.(engine, scene, shader);
-        shaderSystem.local?.(engine, entity, scene, shader);
+        shaderSystem.global?.(engine, scene, shader, camera);
+        shaderSystem.local?.(engine, entity, scene, shader, camera);
 
         if(!render.meshName) return;
         const mesh = ResourcesManager.MeshManager.get(render.meshName);

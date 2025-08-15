@@ -10,34 +10,58 @@ import type { Mesh } from "./modules/resources/mesh/Mesh";
 import { Shader } from "./modules/resources/shader/Shader";
 import { Texture } from "./modules/resources/texture/types";
 
-
 export class Engine {
+    /** Engine selecionada atualmente */
+    private static selectedEngine: Engine | null = null;
+
+    public static getSelected(): Engine | null {
+        return Engine.selectedEngine;
+    }
+
+    private static setSelected(engine: Engine) {
+        // Remove o destaque da anterior
+        if (Engine.selectedEngine) {
+            Engine.selectedEngine.getElement().classList.remove("selected");
+        }
+
+        // Marca a nova
+        Engine.selectedEngine = engine;
+        engine.getElement().classList.add("selected");
+    }
+
     public getElement() {
         return this.gl.canvas;
     }
 
     public getContext() {
-        return this.gl
+        return this.gl;
     }
+
     public readonly time: Time;
-    private scene: Scene | null = null;
+    protected scene: Scene | null = null;
 
     public shaders: SimpleManager<Shader> = new SimpleManager("Shader Manager");
     public matrices: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
     public meshBuffers: SimpleManager<MeshBuffer> = new SimpleManager("Mesh Buffer Manager");
     public textureBuffers: SimpleManager<TextureBuffer> = new SimpleManager("Texture Buffer Manager");
     public systems: SystemManager = new SystemManager();
+
     private gl: WebGL2RenderingContext;
     public usedSystems: EngineSystem[] = [];
+
     public useSystem(systemType: EngineSystem) {
         this.usedSystems.push(systemType);
     }
 
     constructor() {
-
         const canvas = document.createElement("canvas");
         canvas.className = "engine-canvas";
-        const WebGL = canvas.getContext('webgl2');
+
+        canvas.addEventListener("click", () => {
+            Engine.setSelected(this);
+        });
+
+        const WebGL = canvas.getContext("webgl2");
         if (!WebGL) throw new Error("WebGL not supported");
         this.gl = WebGL;
 
@@ -55,20 +79,27 @@ export class Engine {
             this.systems.callLateUpdate(this.time.deltaTime);
         });
 
-
         this.time.on("render", () => {
             if (!this.scene) return;
             const camera = this.scene.getActiveCamera();
-            if(!camera) return;
+            if (!camera) return;
 
             const color = camera.clearColor;
             camera.aspect = canvas.width / canvas.height;
-            WebGL.viewport(0, 0, canvas.width, canvas.height)
+
+            WebGL.viewport(0, 0, canvas.width, canvas.height);
             WebGL.clearColor(color.r, color.g, color.b, color.a);
             WebGL.clear(WebGL.COLOR_BUFFER_BIT);
+
             this.systems.callRender(this.time.deltaTime);
             this.systems.callDrawGizmos();
         });
+    }
+
+    protected onLoadSceneCallback?: (scene: Scene) => void;
+
+    public onLoadScene(callback: (scene: Scene) => void) {
+        this.onLoadSceneCallback = callback;
     }
 
     loadScene(name: string, clone: boolean = false) {
@@ -77,7 +108,7 @@ export class Engine {
             throw new Error(`Scene "${name}" not found`);
         }
 
-        const s = scene;
+        const s = scene; // ou scene.clone() se clone for true
 
         for (const system of this.usedSystems) {
             let systemInstance = this.systems.getSystem(system);
@@ -98,6 +129,7 @@ export class Engine {
 
         this.scene = s;
         this.systems.callStart();
+        this.onLoadSceneCallback?.(s);
     }
 
     setScene(scene: Scene) {
@@ -105,10 +137,9 @@ export class Engine {
     }
 
     getScene() {
+         console.log("a")
         return this.scene;
     }
-
-
 
     public compileShader(name: string, vertSource: string, fragSource: string) {
         const shader = new Shader(this.gl, name, vertSource, fragSource);

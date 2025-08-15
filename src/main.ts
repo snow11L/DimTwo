@@ -8,11 +8,14 @@ import { Scene } from "./engine/core/scene/scene";
 import { SceneManager } from "./engine/core/scene/SceneManager";
 import { Engine } from "./engine/Engine";
 import { ResourcesManager } from "./engine/global/manager/manager";
+import { Camera } from "./engine/modules/components/render/Camera";
+import { Transform } from "./engine/modules/components/spatial/Transform";
 import type { MaterialType } from "./engine/modules/resources";
 import { AdvancedShaderSystem } from "./engine/modules/resources/material/AdvancedShaderSystem";
 import { SimpleShaderSystem } from "./engine/modules/resources/material/SimpleShaderSystem";
 import { Texture } from "./engine/modules/resources/texture/types";
 import { AnimatorSystem, PhysicsSystem, RenderSystem } from "./engine/modules/systems";
+import { FreeCameraSystem } from "./engine/modules/systems/FreeCamera";
 import { createFillSquareMesh } from "./engine/resources/geometries/Square";
 import { createCamera as configureCamera } from "./game/entities/camera.entity";
 import { createPlayer as configurePlayer } from "./game/entities/player.entity";
@@ -22,6 +25,37 @@ import { CharacterControlerSystem } from "./game/systems/CharacterControlerSyste
 import { CharacterControllerAnimationSystem } from "./game/systems/CharacterControllerAnimationSystem";
 import { InputSystem } from "./game/systems/InputSystem";
 import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
+
+export class EditorCamera {
+    public cameraEntiy: GameEntity;
+    public cameraComponent: Camera;
+    public transformComponent: Transform;
+
+    constructor() {
+        this.cameraEntiy = new GameEntity();
+        this.cameraComponent = new Camera();
+        this.transformComponent = new Transform();
+        this.transformComponent.position.z = 12;
+
+        this.cameraComponent.setGameEntity(this.cameraEntiy);
+        this.transformComponent.setGameEntity(this.cameraEntiy);
+    }
+}
+
+export class Editor extends Engine {
+
+    private editorCamera: EditorCamera = new EditorCamera();
+
+    constructor() {
+        super();
+
+        this.onLoadSceneCallback = (scene) => {
+            scene.addEntity(this.editorCamera.cameraEntiy);
+            scene.addComponent(this.editorCamera.cameraEntiy, this.editorCamera.cameraComponent);
+            scene.addComponent(this.editorCamera.cameraEntiy, this.editorCamera.transformComponent);
+        }
+    }
+}
 
 const squareMesh = createFillSquareMesh("fillSquare", new Vec3(1, 1, 0));
 ResourcesManager.MeshManager.add("fillSquare", squareMesh);
@@ -47,7 +81,8 @@ ResourcesManager.ShaderSystemManager.add(simpleMaterial.name, simpleShader);
 
 
 const game = new Engine();
-const editor = new Engine();
+const editor = new Editor();
+
 
 EngineResourceManager.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
 EngineResourceManager.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
@@ -90,7 +125,7 @@ EngineSystemManager.register(EngineSystem.CharacterControlerSystem, () => new Ch
 EngineSystemManager.register(EngineSystem.CharacterControlerAnimationSystem, () => new CharacterControllerAnimationSystem());
 
 
-
+EngineSystemManager.register(EngineSystem.EditorFreeCameraSystem, () => new FreeCameraSystem());
 
 
 
@@ -111,7 +146,7 @@ game.useSystem(EngineSystem.CameraSystem);
 game.useSystem(EngineSystem.TerrainSystem);
 
 editor.useSystem(EngineSystem.RenderSystem);
-
+editor.useSystem(EngineSystem.EditorFreeCameraSystem);
 
 
 const playerEntity = new GameEntity({ name: "player", tag: "Player" });
@@ -119,7 +154,7 @@ configurePlayer(scene, playerEntity);
 scene.addEntity(playerEntity);
 
 const slimeEntity = new GameEntity({ name: "slime", tag: "Enemy" });
-configureSlime(slimeEntity);
+configureSlime(scene, slimeEntity);
 scene.addEntity(slimeEntity);
 
 const cameraEntity = new GameEntity({ name: "camera", tag: "MainCamera" });
@@ -131,6 +166,7 @@ editor.loadScene("simple_scene");
 game.loadScene("simple_scene");
 
 editor.time.start()
+game.time.start()
 
 const editorContainer = document.querySelector(".editor-container") as HTMLDivElement;
 const editorCanvas = editor.getElement() as HTMLCanvasElement;
@@ -164,3 +200,7 @@ window.addEventListener("resize", () => {
     gameCanvas.width = gameContainer.getBoundingClientRect().width;
     gameCanvas.height = gameContainer.getBoundingClientRect().height;
 })
+
+
+
+

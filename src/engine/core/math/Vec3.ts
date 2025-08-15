@@ -53,6 +53,23 @@ export class Vec3 {
         return out;
     }
 
+    public static normalize(v: Vec3, out: Vec3) {
+        const length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+
+        if (length > 0) {
+            out.x = v.x / length;
+            out.y = v.y / length;
+            out.z = v.z / length;
+        } else {
+            out.x = 0;
+            out.y = 0;
+            out.z = 0;
+        }
+
+        return out;
+    }
+
+
     public clone() {
         return new Vec3(this.x, this.y, this.z);
     }

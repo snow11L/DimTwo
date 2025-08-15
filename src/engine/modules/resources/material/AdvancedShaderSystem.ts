@@ -3,21 +3,17 @@ import { Mat4 } from "../../../core/math/Mat4";
 import { Vec3 } from "../../../core/math/Vec3";
 import type { Scene } from "../../../core/scene/scene";
 import type { Engine } from "../../../Engine";
-import { Camera } from "../../components/render/Camera";
+import type { Camera } from "../../components/render/Camera";
 import type { SpriteRender } from "../../components/render/SpriteRender";
 import { Transform } from "../../components/spatial/Transform";
-import { ComponentGroup, ComponentType } from "../../enums/ComponentType";
+import { ComponentType } from "../../enums/ComponentType";
 import type { Shader } from "../shader/Shader";
 import { ShaderSystem } from "../shader/ShaderSystem";
 
 export class AdvancedShaderSystem extends ShaderSystem {
     private flip: Vec3 = new Vec3(0, 0, 0);
 
-    global(engine: Engine, scene: Scene, shader: Shader) {
-        const allCameras = scene.components.getAllByGroup<Camera>(ComponentGroup.Camera);
-        if (allCameras.length == 0) return;
-        const camera = allCameras[0];
-
+    global(engine: Engine, scene: Scene, shader: Shader, camera: Camera) {
         const cameraTransform = scene.components.getComponent<Transform>(camera.getGameEntity(), ComponentType.Transform);
         if (!cameraTransform) return;
 
@@ -31,7 +27,6 @@ export class AdvancedShaderSystem extends ShaderSystem {
     }
 
     local(engine: Engine, entity: GameEntity, scene: Scene, shader: Shader) {
-
         const transform = scene.components.getComponent<Transform>(entity, ComponentType.Transform);
         if (!transform) return;
 

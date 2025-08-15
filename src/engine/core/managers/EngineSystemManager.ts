@@ -5,6 +5,7 @@ export enum EngineSystem {
     EditorRenderSystem,
     InputSystem,
     CameraSystem,
+    EditorFreeCameraSystem,
     AnimatorSystem,
     PhysicsSystem,
     ColliderSystem,
