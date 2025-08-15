@@ -1,3 +1,4 @@
+
 export class Vec3 {
     public x: number;
     public y: number;
@@ -50,6 +51,10 @@ export class Vec3 {
         out.y = a.z * b.x - a.x * b.z;
         out.z = a.x * b.y - a.y * b.x;
         return out;
+    }
+
+    public clone() {
+        return new Vec3(this.x, this.y, this.z);
     }
 
     public static dot(a: Vec3, b: Vec3): number {

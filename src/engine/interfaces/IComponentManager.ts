@@ -1,6 +1,6 @@
 import type { Component } from "../core/base/Component";
 import type { GameEntity } from "../core/base/GameEntity";
-import type { ComponentType } from "../modules/components/component-type";
+import type { ComponentType } from "../modules/enums/ComponentType";
 
 export interface IComponentManager {
     addComponent(entity: GameEntity, component: Component): boolean;

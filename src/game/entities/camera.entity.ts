@@ -1,13 +1,13 @@
 import { GameEntity } from "../../engine/core/base/GameEntity";
-import type { Camera } from "../../engine/modules/components/render/camera/Camera";
-import type { Transform } from "../../engine/modules/components/spatial/transform/Transform";
-import { createCameraEntity as createCameraComponent } from "../../engine/modules/generators/create.camera.component";
-import { createTransform as createTransformComponent } from "../../engine/modules/generators/create.transform.component";
+import type { Scene } from "../../engine/core/scene/scene";
+import { Camera } from "../../engine/modules/components/render/Camera";
+import { Transform } from "../../engine/modules/components/spatial/Transform";
 
-export function createCamera(entity: GameEntity){
-  const camera: Camera = createCameraComponent(entity);
-  const transform: Transform = createTransformComponent(entity);
+export function createCamera(scene: Scene, entity: GameEntity){
+  const camera: Camera = new Camera();
+  const transform: Transform = new Transform();
   transform.position.z = 5;
 
-  GameEntity.addComponents(entity, camera, transform);
+  scene.addComponent(entity, camera);
+  scene.addComponent(entity, transform);
 }

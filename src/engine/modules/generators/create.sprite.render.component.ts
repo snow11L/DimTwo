@@ -1,5 +1,5 @@
 import type { GameEntity } from "../../core/base/GameEntity";
-import { SpriteRender } from "../components/render/spriteRender/SpriteRender";
+import { SpriteRender } from "../components/render/SpriteRender";
 
 export function createSpriteRender(
   gameEntity: GameEntity
@@ -7,7 +7,7 @@ export function createSpriteRender(
 
   const r = new SpriteRender();
   r.meshName = "fillSquare";
-  r.materialName = "simple_material";
+  r.material = "simple_material";
   r.setGameEntity(gameEntity);
   return r;
 

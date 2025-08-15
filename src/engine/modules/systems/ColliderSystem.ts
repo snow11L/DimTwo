@@ -4,14 +4,14 @@ import type { ECSComponent } from "../../core/ecs/ECSComponent";
 import type { ECSSystem } from "../../core/ecs/ECSSystem";
 import type { Vec2 } from "../../core/math/Vec2";
 import { SceneManager } from "../../core/scene/SceneManager";
-import { ComponentType } from "../components/component-type";
-import type { BoxCollider2D } from "../components/physics/boxCollider2D/BoxCollider2D";
-import type { CircleCollider2D } from "../components/physics/circleCollider2D/CircleCollider2D";
+import type { BoxCollider2D } from "../components/physics/BoxCollider2D";
+import type { CircleCollider2D } from "../components/physics/CircleCollider2D";
 import { resolveOverlap } from "../components/physics/collider/CollisionResolver";
 import { testOverlap } from "../components/physics/collider/CollisionTester";
 import type { Collider } from "../components/physics/collider/types";
-import { RigidBody2D } from "../components/physics/rigidBody2D/RigidBody";
-import { Transform } from "../components/spatial/transform/Transform";
+import { RigidBody2D } from "../components/physics/RigidBody2D";
+import { Transform } from "../components/spatial/Transform";
+import { ComponentType } from "../enums/ComponentType";
 
 // Util
 function makePairKey(id1: number, id2: number): string {

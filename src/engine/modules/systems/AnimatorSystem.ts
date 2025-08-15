@@ -1,13 +1,13 @@
 import { System } from "../../core/base/System";
 import Time from "../../core/time/Time";
-import { Animator } from "../components/animation/animator/Animator";
-import { ComponentType } from "../components/component-type";
-import type { SpriteRender } from "../components/render/spriteRender/SpriteRender";
+import { Animator } from "../components/animation/Animator";
+import type { SpriteRender } from "../components/render/SpriteRender";
+import { ComponentType } from "../enums/ComponentType";
 
 
 export class AnimatorSystem extends System {
+
   lateUpdate() {
-    console.log("test")
     const scene = this.getScene();
     const components = scene.components;
 

@@ -1,9 +1,19 @@
-import { Component } from "../../../../core/base/Component";
-import type { Vec2 } from "../../../../core/math/Vec2";
-import { ComponentType } from "../../component-type";
-import type { Transform } from "../../spatial/transform/Transform";
+import { Component, type Clonable } from "../../../core/base/Component";
+import { Vec2 } from "../../../core/math/Vec2";
+import { ComponentGroup, ComponentType } from "../../enums/ComponentType";
+import type { Transform } from "../spatial/Transform";
 
-export class RigidBody2D extends Component {
+export interface RigidBody2DOptions {
+  mass?: number;
+  velocity?: Vec2;
+  acceleration?: Vec2;
+  drag?: number;
+  gravityScale?: number;
+  isStatic?: boolean;
+  useGravity?: boolean;
+}
+
+export class RigidBody2D extends Component implements Clonable<RigidBody2D> {
   mass: number;
   velocity: Vec2;
   acceleration: Vec2;
@@ -12,25 +22,28 @@ export class RigidBody2D extends Component {
   isStatic: boolean;
   useGravity: boolean;
 
-  constructor(
-    mass: number = 1,
-    velocity: Vec2 = { x: 0, y: 0 },
-    acceleration: Vec2 = { x: 0, y: 0 },
-    drag: number = 0,
-    gravityScale: number = 1,
-    isStatic: boolean = false,
-    useGravity: boolean = true,
-  ) {
-    super(ComponentType.RigidBody2D, ComponentType.RigidBody2D);
-    this.mass = mass;
-    this.velocity = velocity;
-    this.acceleration = acceleration;
-    this.drag = drag;
-    this.gravityScale = gravityScale;
-    this.isStatic = isStatic;
-    this.useGravity = useGravity;
+  constructor(options: RigidBody2DOptions = {}) {
+    super(ComponentType.RigidBody2D, ComponentGroup.RigidBody2D);
+    this.mass = options.mass ?? 1;
+    this.velocity = options.velocity ?? new Vec2();
+    this.acceleration = options.acceleration ?? new Vec2();
+    this.drag = options.drag ?? 0;
+    this.gravityScale = options.gravityScale ?? 1;
+    this.isStatic = options.isStatic ?? false;
+    this.useGravity = options.useGravity ?? true;
   }
 
+  clone(): RigidBody2D {
+    return new RigidBody2D({
+      mass: this.mass,
+      velocity: this.velocity.clone(),
+      acceleration: this.acceleration.clone(),
+      drag: this.drag,
+      gravityScale: this.gravityScale,
+      isStatic: this.isStatic,
+      useGravity: this.useGravity,
+    });
+  }
 
   public static resolveRigidBody(
     aRigid: RigidBody2D | null,
@@ -48,7 +61,7 @@ export class RigidBody2D extends Component {
       this.resolveWithRigidBody(aTransform, bTransform, aRigid, bRigid, resolution);
       return;
     }
-   
+
   }
 
   public static applyResolution(transform: Transform, resolution: Vec2, factor: number) {

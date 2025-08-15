@@ -1,7 +1,7 @@
 import { Component } from "../../../../core/base/Component";
 import { Vec3 } from "../../../../core/math/Vec3";
 import { Bounds } from "../../../../core/math/geometry/Bounds";
-import { ComponentType } from "../../component-type";
+import { ComponentType } from "../../../enums/ComponentType";
 
 export class Collider extends Component {
   isColliding: boolean;

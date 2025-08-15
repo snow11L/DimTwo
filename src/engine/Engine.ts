@@ -1,61 +1,22 @@
-import type { System } from "./core/base/System";
+import { EngineSystem, EngineSystemManager } from "./core/managers/EngineSystemManager";
+import { SimpleManager } from "./core/managers/SimpleManager";
+import { SystemManager } from "./core/managers/SystemManager";
 import type { Mat4 } from "./core/math/Mat4";
 import type { Scene } from "./core/scene/scene";
 import { SceneManager } from "./core/scene/SceneManager";
 import Time from "./core/time/Time";
 import type { MeshBuffer, TextureBuffer } from "./interfaces/IMeshBuffer";
-import { ComponentType } from "./modules/components/component-type";
-import { Camera } from "./modules/components/render/camera/Camera";
+import { Camera } from "./modules/components/render/Camera";
+import { ComponentType } from "./modules/enums/ComponentType";
 import type { Mesh } from "./modules/resources/mesh/Mesh";
 import { Shader } from "./modules/resources/shader/Shader";
 import { Texture } from "./modules/resources/texture/types";
 
 
-
-
-export class SimpleManager<T> {
-
-    private readonly managerName: string;
-    private readonly data: Map<string, T> = new Map();
-
-    constructor(name: string) {
-        this.managerName = name;
-    }
-
-    public add(name: string, resource: T): T {
-        if (this.data.has(name)) {
-            console.warn(`[${this.managerName}] Recurso "${name}" já está registrado.`);
-            return this.data.get(name)!;
-        }
-        this.data.set(name, resource);
-        return resource;
-    }
-
-    public get(name: string): T | null {
-        const resource = this.data.get(name);
-        if (!resource) {
-            console.warn(`[${this.managerName}] Recurso "${name}" não encontrado.`);
-            return null;
-        }
-
-        return resource;
-    }
-
-    public remove(name: string) {
-        if (!this.data.has(name)) {
-            console.warn(`[${this.managerName}] Tentativa de remover recurso "${name}" que não existe.`);
-            return;
-        }
-        this.data.delete(name);
-    }
-
-    public clear() {
-        this.data.clear();
-    }
-}
-
 export class Engine {
-
+    public getElement() {
+        return this.gl.canvas;
+    }
     public readonly time: Time;
     private scene: Scene | null = null;
     camera: Camera | null = null;
@@ -64,28 +25,34 @@ export class Engine {
     public matrices: SimpleManager<Mat4> = new SimpleManager("Matrix Manager");
     public meshBuffers: SimpleManager<MeshBuffer> = new SimpleManager("Mesh Buffer Manager");
     public textureBuffers: SimpleManager<TextureBuffer> = new SimpleManager("Texture Buffer Manager");
-    public systems: SimpleManager<System> = new SimpleManager("System Manager");
-  
-
+    public systems: SystemManager = new SystemManager();
     private gl: WebGL2RenderingContext;
+    public usedSystems: EngineSystem[] = [];
+    public useSystem(systemType: EngineSystem) {
+        this.usedSystems.push(systemType);
+    }
 
-    constructor(WebGL: WebGL2RenderingContext) {
+    constructor() {
 
+        const canvas = document.createElement("canvas");
+        canvas.className = "engine-canvas";
+        const WebGL = canvas.getContext('webgl2');
+        if (!WebGL) throw new Error("WebGL not supported");
         this.gl = WebGL;
 
         this.time = new Time();
         this.time.on("start", () => {
-            this.scene?.systems.callStart();
+            this.systems.callStart();
         });
 
         this.time.on("fixedUpdate", () => {
             debug.innerText = Time.fps.toString()
-            this.scene?.systems.callFixedUpdate();
+            this.systems.callFixedUpdate();
         });
 
         this.time.on("update", () => {
-            this.scene?.systems.callUpdate();
-            this.scene?.systems.callLateUpdate();
+            this.systems.callUpdate();
+            this.systems.callLateUpdate();
         });
 
 
@@ -107,8 +74,8 @@ export class Engine {
 
             WebGL.clearColor(color.r, color.g, color.b, color.a);
             WebGL.clear(WebGL.COLOR_BUFFER_BIT);
-            this.scene?.systems.callRender();
-            this.scene?.systems.callDrawGizmos();
+            this.systems.callRender();
+            this.systems.callDrawGizmos();
         });
     }
 
@@ -118,9 +85,20 @@ export class Engine {
             throw new Error(`Scene "${name}" not found`);
         }
 
-        scene.load(this);
+        for (const system of this.usedSystems) {
+            let systemInstance = this.systems.getSystem(system);
+            if (systemInstance) return systemInstance;
+
+            systemInstance = EngineSystemManager.create(system);
+            if (!systemInstance) throw new Error(`System ${EngineSystem[system]} could not be created`);
+
+            systemInstance.setScene(scene);
+            systemInstance.setEngine(this);
+            this.systems.addSystem(system, systemInstance);
+        }
+
         this.scene = scene;
-        scene.systems.callStart();
+        this.systems.callStart();
     }
 
     public compileShader(name: string, vertSource: string, fragSource: string) {

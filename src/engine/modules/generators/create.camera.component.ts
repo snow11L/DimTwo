@@ -1,5 +1,5 @@
 import type { GameEntity } from "../../core/base/GameEntity";
-import { Camera } from "../components/render/camera/Camera";
+import { Camera } from "../components/render/Camera";
 
 export function createCameraEntity(gameEntity: GameEntity) {
   const camera = new Camera();

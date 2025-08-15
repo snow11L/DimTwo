@@ -1,34 +1,34 @@
 
 import { GameEntity } from "../../engine/core/base/GameEntity";
-import { createAnimator } from "../../engine/modules/generators/create.animator.component";
-import { BuildRigidBody2D } from "../../engine/modules/generators/create.rigid.body.component";
-import { createSpriteRender } from "../../engine/modules/generators/create.sprite.render.component";
-import { createTransform } from "../../engine/modules/generators/create.transform.component";
+import type { Scene } from "../../engine/core/scene/scene";
+import { Animator } from "../../engine/modules/components/animation/Animator";
+import { RigidBody2D } from "../../engine/modules/components/physics/RigidBody2D";
+import { SpriteRender } from "../../engine/modules/components/render/SpriteRender";
+import { Transform } from "../../engine/modules/components/spatial/Transform";
 import { PLAYER_ANIMATOR_CONTROLLER } from "../controllers/player.animator.controller";
 import { CharacterControler } from "../systems/character.controller.types";
 
-export function createPlayer(entity: GameEntity) {
-  const transform = createTransform(entity);
+export function createPlayer(scene: Scene, entity: GameEntity) {
+  const transform = new Transform();
+  const controller = new CharacterControler();
 
-  const character_controler = new CharacterControler();
+  const rigidBody = new RigidBody2D({
+    useGravity: false,
+    mass: 70
+  })
 
-  const rigidBody = BuildRigidBody2D(entity);
-  rigidBody.useGravity = false;
-  rigidBody.mass = 70;
+  const spriteRender = new SpriteRender({
+    layer: 2,
+    material: "advanced_material"
+  });
 
-  const spriteRender = createSpriteRender(entity);
-  spriteRender.layer = 2;
-  spriteRender.materialName = "advanced_material";
+  const animator = new Animator({
+    controller: PLAYER_ANIMATOR_CONTROLLER
+  });
 
-  const animator = createAnimator(entity);
-  animator.controller = PLAYER_ANIMATOR_CONTROLLER
-
-  GameEntity.addComponents(
-    entity,
-    transform,
-    character_controler,
-    rigidBody,
-    animator,
-    spriteRender
-  );
+  scene.addComponent(entity, transform);
+  scene.addComponent(entity, controller);
+  scene.addComponent(entity, rigidBody);
+  scene.addComponent(entity, spriteRender);
+  scene.addComponent(entity, animator);
 }

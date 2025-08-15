@@ -1,6 +1,6 @@
 
 import type { GameEntity } from "../../core/base/GameEntity";
-import { Transform } from "../components/spatial/transform/Transform";
+import { Transform } from "../components/spatial/Transform";
 
 export function createTransform(
     entity: GameEntity,

@@ -91,6 +91,10 @@ export class Vec2 {
     return out;
   }
 
+  public clone() {
+    return new Vec2(this.x, this.y);
+  }
+
   public toString() {
     return `Vec2(x: ${this.x}, y: ${this.y})`
   }

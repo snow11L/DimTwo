@@ -1,5 +1,5 @@
 import type { IComponentManager } from "../../interfaces/IComponentManager";
-import type { ComponentGroup, ComponentType } from "../../modules/components/component-type";
+import type { ComponentGroup, ComponentType } from "../../modules/enums/ComponentType";
 import type { Component } from "../base/Component";
 import type { GameEntity } from "../base/GameEntity";
 

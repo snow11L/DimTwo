@@ -1,8 +1,6 @@
-import type { Engine } from "../../Engine";
+import type { Component } from "../base/Component";
 import type { GameEntity } from "../base/GameEntity";
 import { ComponentManager } from "../managers/ComponentManager";
-import { EngineSystem, EngineSystemManager } from "../managers/EngineSystemManager";
-import { SystemManager } from "../managers/SystemManager";
 
 export class EntityManager {
     private byName: Map<string, GameEntity> = new Map();
@@ -48,15 +46,10 @@ export class EntityManager {
 
 }
 
-
-
 export class Scene {
     public name: string;
     public components: ComponentManager = new ComponentManager();
-    public systems: SystemManager = new SystemManager();
     public entities: EntityManager = new EntityManager();
-
-    public usedSystems: EngineSystem[] = [];
 
     constructor(name: string) {
         this.name = name;
@@ -64,27 +57,9 @@ export class Scene {
 
     public addEntity(entity: GameEntity) {
         this.entities.add(entity);
-        for (const component of entity.components) {
-            this.components.addComponent(entity, component);
-        }
     }
 
-    public useSystem(systemType: EngineSystem) {
-        this.usedSystems.push(systemType);
-    }
-
-    public load(engine: Engine) {
-
-        for (const system of this.usedSystems) {
-            let systemInstance = this.systems.getSystem(system);
-            if (systemInstance) return systemInstance;
-
-            systemInstance = EngineSystemManager.create(system);
-            if (!systemInstance) throw new Error(`System ${EngineSystem[system]} could not be created`);
-
-            systemInstance.setScene(this);
-            systemInstance.setEngine(engine);
-            this.systems.addSystem(system, systemInstance);
-        }
+    public addComponent(entity: GameEntity, component: Component) {
+        this.components.addComponent(entity, component);
     }
 }

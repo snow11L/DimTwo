@@ -1,7 +1,7 @@
 import { System } from "../../engine/core/base/System";
-import { Animator } from "../../engine/modules/components/animation/animator/Animator";
-import { ComponentType } from "../../engine/modules/components/component-type";
-import type { SpriteRender } from "../../engine/modules/components/render/spriteRender/SpriteRender";
+import { Animator } from "../../engine/modules/components/animation/Animator";
+import type { SpriteRender } from "../../engine/modules/components/render/SpriteRender";
+import { ComponentType } from "../../engine/modules/enums/ComponentType";
 import { WebKeyCode } from "../../engine/modules/webInput/WebKeyCode";
 import { CharacterControler } from "./character.controller.types";
 import { Input } from "./InputSystem";

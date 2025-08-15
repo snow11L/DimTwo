@@ -1,8 +1,8 @@
 import type { Render } from "../../core/base/Render";
 import { System } from "../../core/base/System";
 import { ResourcesManager } from "../../global/manager/manager";
-import { ComponentGroup, ComponentType } from "../components/component-type";
-import type { Transform } from "../components/spatial/transform/Transform";
+import type { Transform } from "../components/spatial/Transform";
+import { ComponentGroup, ComponentType } from "../enums/ComponentType";
 import { material_get } from "../generators/create.material";
 
 export class RenderSystem extends System {
@@ -39,7 +39,7 @@ export class RenderSystem extends System {
       for (const render of rendersByLayer.get(layer)!) {
         const entity = render.getGameEntity();
 
-        const material = material_get(render.materialName);
+        const material = material_get(render.material);
         if (!material) continue;
         
         const shader = shaders.get(material.shaderName)!;

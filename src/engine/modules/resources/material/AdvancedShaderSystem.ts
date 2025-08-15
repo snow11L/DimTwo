@@ -3,10 +3,10 @@ import { Mat4 } from "../../../core/math/Mat4";
 import { Vec3 } from "../../../core/math/Vec3";
 import type { Scene } from "../../../core/scene/scene";
 import type { Engine } from "../../../Engine";
-import { ComponentGroup, ComponentType } from "../../components/component-type";
-import { Camera } from "../../components/render/camera/Camera";
-import type { SpriteRender } from "../../components/render/spriteRender/SpriteRender";
-import { Transform } from "../../components/spatial/transform/Transform";
+import { Camera } from "../../components/render/Camera";
+import type { SpriteRender } from "../../components/render/SpriteRender";
+import { Transform } from "../../components/spatial/Transform";
+import { ComponentGroup, ComponentType } from "../../enums/ComponentType";
 import type { Shader } from "../shader/Shader";
 import { ShaderSystem } from "../shader/ShaderSystem";
 

@@ -1,7 +1,7 @@
-import { distanceSq, EPSILON, getClosestPoint, type Bounds } from "../../../../core/math/geometry/Bounds";
-import { Vec2 } from "../../../../core/math/Vec2";
-import { ComponentType } from "../../component-type";
-import { Collider } from "../collider/types";
+import { distanceSq, EPSILON, getClosestPoint, type Bounds } from "../../../core/math/geometry/Bounds";
+import { Vec2 } from "../../../core/math/Vec2";
+import { ComponentType } from "../../enums/ComponentType";
+import { Collider } from "./collider/types";
 
 export class CircleCollider2D extends Collider {
   radius: number;

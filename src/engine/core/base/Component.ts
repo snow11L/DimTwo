@@ -1,6 +1,10 @@
-import { ComponentGroup, ComponentType } from "../../modules/components/component-type";
+import { ComponentGroup, ComponentType } from "../../modules/enums/ComponentType";
 import type { GameEntity } from "./GameEntity";
 import { Instantiable } from "./Instantiable";
+
+export interface Clonable<T extends Component> {
+  clone(): T;
+}
 
 export abstract class Component extends Instantiable {
   private gameEntity: GameEntity | null;

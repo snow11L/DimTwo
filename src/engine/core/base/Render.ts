@@ -1,11 +1,11 @@
-import { ComponentGroup, ComponentType } from "../../modules/components/component-type";
+import { ComponentGroup, ComponentType } from "../../modules/enums/ComponentType";
 import { Color } from "../math/Color";
 import { Component } from "./Component";
 
 export abstract class Render extends Component {
   color: Color;
   alpha: number;
-  materialName: string;
+  material: string;
   meshName: string | null;
   subMeshes: number[] | null;
   layer: number = 0;
@@ -20,7 +20,7 @@ export abstract class Render extends Component {
     subMeshes: number[] | null = null
   ) {
     super(type, group);
-    this.materialName = material;
+    this.material = material;
     this.color = color;
     this.alpha = alpha;
     this.meshName = meshName;

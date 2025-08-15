@@ -1,6 +1,6 @@
 
 import type { GameEntity } from "../../core/base/GameEntity";
-import { RigidBody2D } from "../components/physics/rigidBody2D/RigidBody";
+import { RigidBody2D } from "../components/physics/RigidBody2D";
 
 export function BuildRigidBody2D(
     gameEntity: GameEntity,

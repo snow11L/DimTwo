@@ -23,26 +23,6 @@ import { CharacterControllerAnimationSystem } from "./game/systems/CharacterCont
 import { InputSystem } from "./game/systems/InputSystem";
 import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
 
-
-function getGameContext() {
-    const canvas = document.querySelector('#game') as HTMLCanvasElement;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const WebGL = canvas.getContext('webgl2');
-    if (!WebGL) throw new Error("WebGL not supported");
-    return WebGL;
-}
-
-function getEditorContext() {
-    const canvas = document.querySelector('#editor') as HTMLCanvasElement;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const WebGL = canvas.getContext('webgl2');
-    if (!WebGL) throw new Error("WebGL not supported");
-    return WebGL;
-}
-
-
 const squareMesh = createFillSquareMesh("fillSquare", new Vec3(1, 1, 0));
 ResourcesManager.MeshManager.add("fillSquare", squareMesh);
 
@@ -66,8 +46,8 @@ const simpleShader = new SimpleShaderSystem();
 ResourcesManager.ShaderSystemManager.add(simpleMaterial.name, simpleShader);
 
 
-const game = new Engine(getGameContext());
-const editor = new Engine(getEditorContext());
+const game = new Engine();
+const editor = new Engine();
 
 EngineResourceManager.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
 EngineResourceManager.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
@@ -95,10 +75,10 @@ game.compileTexture(slimeTexture);
 game.compileMesh(squareMesh);
 
 
-/* editor.compileTexture(playerTexture);
+editor.compileTexture(playerTexture);
 editor.compileTexture(slimeTexture);
 editor.compileMesh(squareMesh);
- */
+
 
 EngineSystemManager.register(EngineSystem.RenderSystem, () => new RenderSystem());
 EngineSystemManager.register(EngineSystem.TerrainSystem, () => new TerrainSystem());
@@ -110,32 +90,55 @@ EngineSystemManager.register(EngineSystem.CharacterControlerSystem, () => new Ch
 EngineSystemManager.register(EngineSystem.CharacterControlerAnimationSystem, () => new CharacterControllerAnimationSystem());
 
 const scene = new Scene("simple_scene");
+const scene2 = new Scene("simple_scene_2");
 SceneManager.addScene(scene);
+SceneManager.addScene(scene2);
+game.useSystem(EngineSystem.RenderSystem);
+game.useSystem(EngineSystem.AnimatorSystem);
+game.useSystem(EngineSystem.InputSystem);
+game.useSystem(EngineSystem.PhysicsSystem);
+game.useSystem(EngineSystem.CharacterControlerSystem);
+game.useSystem(EngineSystem.CharacterControlerAnimationSystem);
+game.useSystem(EngineSystem.CameraSystem);
+game.useSystem(EngineSystem.TerrainSystem);
 
-scene.useSystem(EngineSystem.RenderSystem);
-scene.useSystem(EngineSystem.AnimatorSystem);
-scene.useSystem(EngineSystem.InputSystem);
-scene.useSystem(EngineSystem.PhysicsSystem);
-scene.useSystem(EngineSystem.CharacterControlerSystem);
-scene.useSystem(EngineSystem.CharacterControlerAnimationSystem);
-scene.useSystem(EngineSystem.CameraSystem);
-scene.useSystem(EngineSystem.TerrainSystem);
-const playerEntity = new GameEntity("player", "Player");
-configurePlayer(playerEntity);
+editor.useSystem(EngineSystem.RenderSystem);
+editor.useSystem(EngineSystem.PhysicsSystem);
+editor.useSystem(EngineSystem.CameraSystem);
+
+
+const playerEntity = new GameEntity({ name: "player", tag: "Player" });
+configurePlayer(scene, playerEntity);
 scene.addEntity(playerEntity);
 
-const slimeEntity = new GameEntity("slime", "Enemy");
+const slimeEntity = new GameEntity({ name: "slime", tag: "Enemy" });
 configureSlime(slimeEntity);
 scene.addEntity(slimeEntity);
 
-const cameraEntity = new GameEntity("camera", "MainCamera");
-configureCamera(cameraEntity);
+const cameraEntity = new GameEntity({ name: "camera", tag: "MainCamera" });
+configureCamera(scene, cameraEntity);
 scene.addEntity(cameraEntity);
 
 game.loadScene("simple_scene");
-
+editor.loadScene("simple_scene");
 
 game.time.start();
-editor.time.start();
+editor.time.start()
 
+const editorContainer = document.querySelector(".editor-container") as HTMLDivElement;
+editorContainer.appendChild(editor.getElement() as HTMLCanvasElement);
 
+const gameContainer = document.querySelector(".game-container") as HTMLDivElement;
+gameContainer.appendChild(game.getElement() as HTMLCanvasElement);
+
+const play = document.getElementById("game-time-start") as HTMLButtonElement;
+play.addEventListener("click", () => game.time.start());
+
+const pause = document.getElementById("game-time-pause") as HTMLButtonElement;
+pause.addEventListener("click", () => game.time.pause());
+
+const resume = document.getElementById("game-time-resume") as HTMLButtonElement;
+resume.addEventListener("click", () => game.time.resume());
+
+const stop = document.getElementById("game-time-stop") as HTMLButtonElement;
+stop.addEventListener("click", () => game.time.stop());

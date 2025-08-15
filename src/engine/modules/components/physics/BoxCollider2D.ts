@@ -1,8 +1,8 @@
-import { distanceSq, getBoundsCenterInto, getBoxOverlapInto, getClosestPoint, getSeparationDirection, type Bounds } from "../../../../core/math/geometry/Bounds";
-import { Vec2 } from "../../../../core/math/Vec2";
-import { Vec3 } from "../../../../core/math/Vec3";
-import { ComponentType } from "../../component-type";
-import { Collider } from "../collider/types";
+import { distanceSq, getBoundsCenterInto, getBoxOverlapInto, getClosestPoint, getSeparationDirection, type Bounds } from "../../../core/math/geometry/Bounds";
+import { Vec2 } from "../../../core/math/Vec2";
+import { Vec3 } from "../../../core/math/Vec3";
+import { ComponentType } from "../../enums/ComponentType";
+import { Collider } from "./collider/types";
 
 export class BoxCollider2D extends Collider {
   size: Vec3;

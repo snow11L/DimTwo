@@ -1,5 +1,5 @@
 import type { GameEntity } from "../../core/base/GameEntity";
-import { BoxCollider2D } from "../components/physics/boxCollider2D/BoxCollider2D";
+import { BoxCollider2D } from "../components/physics/BoxCollider2D";
 
 export function createBoxCollider2D(gameEntity: GameEntity): BoxCollider2D {
    const c = new BoxCollider2D();

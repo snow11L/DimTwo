@@ -6,4 +6,5 @@ export abstract class Instantiable {
     constructor() {
         this.instanceID = new Id();
     }
+
 }

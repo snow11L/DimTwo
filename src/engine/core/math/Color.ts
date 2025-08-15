@@ -4,6 +4,10 @@ export class Color {
     b: number;
     a: number;
 
+    public clone() {
+        return new Color(this.r, this.g, this.b, this.a);
+    }
+
     public static readonly red = new Color(255, 0, 0);
     public static readonly green = new Color(0, 255, 0);
     public static readonly blue = new Color(0, 0, 255);

@@ -2,9 +2,9 @@ import { GameEntity } from "../../../engine/core/base/GameEntity";
 import { System } from "../../../engine/core/base/System";
 import { Vec2 } from "../../../engine/core/math/Vec2";
 import type { Scene } from "../../../engine/core/scene/scene";
-import { ComponentType } from "../../../engine/modules/components/component-type";
-import { SpriteRender } from "../../../engine/modules/components/render/spriteRender/SpriteRender";
-import { Transform } from "../../../engine/modules/components/spatial/transform/Transform";
+import { SpriteRender } from "../../../engine/modules/components/render/SpriteRender";
+import { Transform } from "../../../engine/modules/components/spatial/Transform";
+import { ComponentType } from "../../../engine/modules/enums/ComponentType";
 import { BiomeName, getBiomeColor } from "./biome";
 import { ChunkManager } from "./chunk/ChunkManager";
 import { World, type TerrainCell } from "./Word";
@@ -79,7 +79,7 @@ function generateTerrainEntities(
       scene.components.addComponent(gameEntity, transform);
 
       const spriteReder = new SpriteRender();
-      spriteReder.materialName = "simpleMaterial";
+      spriteReder.material = "simpleMaterial";
       spriteReder.color = getBiomeColor(cell.biome ?? BiomeName.DEEP_WATER);
 
 

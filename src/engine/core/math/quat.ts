@@ -37,6 +37,9 @@ export class Quat {
         q.z = z;
     }
 
+    public clone() {
+        return new Quat(this.x, this.y, this.z, this.w);
+    }
 }
 
 

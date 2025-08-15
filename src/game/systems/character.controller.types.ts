@@ -1,6 +1,6 @@
 import { Component } from "../../engine/core/base/Component";
 import { Vec2 } from "../../engine/core/math/Vec2";
-import { ComponentGroup, ComponentType } from "../../engine/modules/components/component-type";
+import { ComponentGroup, ComponentType } from "../../engine/modules/enums/ComponentType";
 
 export type CharacterState = "idle" | "walking" | "attacking";
 export type FacingDirection = "up" | "down" | "side";

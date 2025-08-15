@@ -1,23 +1,22 @@
-import { Component } from "../../../../core/base/Component";
-import { Result } from "../../../../core/managers/result";
-import type { AnimationClip } from "../../../resources/animation";
-import { ComponentType } from "../../component-type";
-import type { SpriteRender } from "../../render/spriteRender/SpriteRender";
+import { Component, type Clonable } from "../../../core/base/Component";
+import { Result } from "../../../core/managers/result";
+import { ComponentGroup, ComponentType } from "../../enums/ComponentType";
+import type { AnimationClip } from "../../resources/animation";
+import type { SpriteRender } from "../render/SpriteRender";
+import type { AnimatorController } from "./AnimatorController";
+import type { AnimatorState } from "./AnimatorState";
 
-export interface AnimatorState {
-  clip: AnimationClip;
-  loop: boolean;
+export interface AnimatorOptions {
+  controller?: AnimatorController | null;
+  currentClip?: AnimationClip | null;
+  isPlaying?: boolean;
+  time?: number;
+  locked?: boolean;
+  currentFrameIndex?: number;
+  playbackSpeed?: number;
 }
 
-export interface AnimatorController {
-  name: string;
-  currentState: string | null;
-  states: Record<string, AnimatorState>;
-  syncCollider?: boolean;
-}
-
-
-export class Animator extends Component {
+export class Animator extends Component implements Clonable<Animator> {
   controller: AnimatorController | null;
   currentClip: AnimationClip | null;
   isPlaying: boolean;
@@ -26,15 +25,27 @@ export class Animator extends Component {
   currentFrameIndex: number;
   playbackSpeed: number;
 
-  constructor() {
-    super(ComponentType.Animator, ComponentType.Animator);
-    this.controller = null;
-    this.currentClip = null;
-    this.isPlaying = false;
-    this.time = 0;
-    this.locked = false;
-    this.currentFrameIndex = 0;
-    this.playbackSpeed = 1;
+  constructor(options: AnimatorOptions = {}) {
+    super(ComponentType.Animator, ComponentGroup.Animator);
+    this.controller = options.controller ?? null;
+    this.currentClip = options.currentClip ?? null;
+    this.isPlaying = options.isPlaying ?? false;
+    this.time = options.time ?? 0;
+    this.locked = options.locked ?? false;
+    this.currentFrameIndex = options.currentFrameIndex ?? 0;
+    this.playbackSpeed = options.playbackSpeed ?? 1;
+  }
+
+  clone(): Animator {
+    return new Animator({
+      controller: this.controller,
+      currentClip: this.currentClip,
+      isPlaying: this.isPlaying,
+      time: this.time,
+      locked: this.locked,
+      currentFrameIndex: this.currentFrameIndex,
+      playbackSpeed: this.playbackSpeed,
+    });
   }
 
   public static startClip(animator: Animator, clip: AnimationClip, lock: boolean) {
@@ -103,7 +114,6 @@ export class Animator extends Component {
     const frame = animationClip.frames[frameIndex];
     spriteRender.sprite = frame.sprite;
   }
-
 
   public static getAnimatorState(animator: Animator): Result<AnimatorState> {
     const controller = animator.controller;

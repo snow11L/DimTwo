@@ -1,4 +1,4 @@
-import type { AnimatorController } from "../../engine/modules/components/animation/animator/Animator";
+import type { AnimatorController } from "../../engine/modules/components/animation/Animator";
 import { PLAYER_ANIMATIONS } from "../animations/player.animation";
 
 export const PLAYER_ANIMATOR_CONTROLLER: AnimatorController = {

@@ -1,32 +1,25 @@
 import type { Component } from "./Component";
 import { Entity } from "./Entity";
 
+export interface GameEntityOptions {
+    name?: string;
+    tag?: string;
+    active?: boolean;
+    parent?: GameEntity | null;
+    components?: Component[];
+}
+
 export class GameEntity extends Entity {
     tag: string;
     active: boolean;
     name: string;
     parent: GameEntity | null;
-    components: Component[];
 
-    constructor(
-        name: string = "",
-        tag: string = "",
-        active: boolean = true,
-        parent: GameEntity | null = null
-    ) {
+    constructor(options: GameEntityOptions = {}) {
         super();
-        this.name = name;
-        this.tag = tag;
-        this.active = active;
-        this.parent = parent;
-        this.components = [];
-    }
-
-    static addComponents(entity: GameEntity, ...components: Component[]) {
-        for (const component of components) {
-            entity.components.push(component);
-        }
-
-
+        this.name = options.name ?? "";
+        this.tag = options.tag ?? "";
+        this.active = options.active ?? true;
+        this.parent = options.parent ?? null;
     }
 }

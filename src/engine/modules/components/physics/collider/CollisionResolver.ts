@@ -2,10 +2,10 @@
 import { getBounds, type Bounds } from "../../../../core/math/geometry/Bounds";
 import { Vec2 } from "../../../../core/math/Vec2";
 import { Vec3 } from "../../../../core/math/Vec3";
-import { ComponentType } from "../../component-type";
-import { Transform } from "../../spatial/transform/Transform";
-import { BoxCollider2D } from "../boxCollider2D/BoxCollider2D";
-import { CircleCollider2D } from "../circleCollider2D/CircleCollider2D";
+import { ComponentType } from "../../../enums/ComponentType";
+import { Transform } from "../../spatial/Transform";
+import { BoxCollider2D } from "../BoxCollider2D";
+import { CircleCollider2D } from "../CircleCollider2D";
 
 
 import { isOfType } from "./isOfType";
