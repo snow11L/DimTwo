@@ -1,6 +1,6 @@
+import { Editor } from "../../../main";
 import { System } from "../../core/base/System";
 import { Vec3 } from "../../core/math/Vec3";
-import type { Scene } from "../../core/scene/scene";
 import { Camera } from "../components/render/Camera";
 import type { Transform } from "../components/spatial/Transform";
 import { ComponentType } from "../enums/ComponentType";
@@ -23,17 +23,23 @@ class Input {
     }
 }
 
+
 export class FreeCameraSystem extends System {
     private camera: Camera | null = null;
     private moveSpeed = 5;
 
     start(): void {
-        const scene: Scene = this.getScene();
-        this.camera = scene.getActiveCamera();
         Input.enable();
     }
 
     update(dt: number): void {
+
+        const engine = this.getEngine();
+
+        if(engine instanceof Editor) {
+            this.camera = engine.editorCamera.cameraComponent;
+        }
+        
         if (!this.camera) return;
         const components = this.getScene().components;
 

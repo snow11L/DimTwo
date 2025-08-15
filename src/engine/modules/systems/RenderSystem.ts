@@ -1,3 +1,4 @@
+import { Editor } from "../../../main";
 import type { Render } from "../../core/base/Render";
 import { System } from "../../core/base/System";
 import { ResourcesManager } from "../../global/manager/manager";
@@ -10,11 +11,20 @@ export class RenderSystem extends System {
   render() {
     const scene = this.getScene();
     const components = scene.components;
-
     const engine = this.getEngine();
     const shaders = engine.shaders;
     const gl = engine.getContext();
-    const camera = scene.getActiveCamera();
+
+
+    let camera = scene.getActiveCamera();
+
+    if (engine instanceof Editor) {
+      camera = engine.editorCamera.cameraComponent;
+    }
+
+    camera.aspect = engine.display.getAspectRatio();
+
+
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -25,7 +35,7 @@ export class RenderSystem extends System {
 
     const rendersByLayer = new Map<number, Render[]>();
     for (const render of renders) {
-      const layer = render.layer ?? 0; 
+      const layer = render.layer ?? 0;
       if (!rendersByLayer.has(layer)) {
         rendersByLayer.set(layer, []);
       }
@@ -42,7 +52,7 @@ export class RenderSystem extends System {
 
         const material = material_get(render.material);
         if (!material || !material.shaderName) continue;
-        
+
         const shader = shaders.get(material.shaderName)!;
         gl.useProgram(shader.program);
 
@@ -59,7 +69,7 @@ export class RenderSystem extends System {
         shaderSystem.global?.(engine, scene, shader, camera);
         shaderSystem.local?.(engine, entity, scene, shader, camera);
 
-        if(!render.meshName) return;
+        if (!render.meshName) return;
         const mesh = ResourcesManager.MeshManager.get(render.meshName);
         if (!mesh) continue;
 

@@ -1,3 +1,5 @@
+import type { Editor } from "../main";
+import { Display } from "./core/display/Display";
 import { EngineSystem, EngineSystemManager } from "./core/managers/EngineSystemManager";
 import { SimpleManager } from "./core/managers/SimpleManager";
 import { SystemManager } from "./core/managers/SystemManager";
@@ -11,30 +13,14 @@ import { Shader } from "./modules/resources/shader/Shader";
 import { Texture } from "./modules/resources/texture/types";
 
 export class Engine {
-    /** Engine selecionada atualmente */
-    private static selectedEngine: Engine | null = null;
-
-    public static getSelected(): Engine | null {
-        return Engine.selectedEngine;
-    }
-
-    private static setSelected(engine: Engine) {
-        // Remove o destaque da anterior
-        if (Engine.selectedEngine) {
-            Engine.selectedEngine.getElement().classList.remove("selected");
-        }
-
-        // Marca a nova
-        Engine.selectedEngine = engine;
-        engine.getElement().classList.add("selected");
-    }
+    public display: Display;
 
     public getElement() {
-        return this.gl.canvas;
+        return this.display.getCanvas();
     }
 
     public getContext() {
-        return this.gl;
+        return this.display.getContext();
     }
 
     public readonly time: Time;
@@ -46,7 +32,7 @@ export class Engine {
     public textureBuffers: SimpleManager<TextureBuffer> = new SimpleManager("Texture Buffer Manager");
     public systems: SystemManager = new SystemManager();
 
-    private gl: WebGL2RenderingContext;
+
     public usedSystems: EngineSystem[] = [];
 
     public useSystem(systemType: EngineSystem) {
@@ -54,16 +40,8 @@ export class Engine {
     }
 
     constructor() {
-        const canvas = document.createElement("canvas");
-        canvas.className = "engine-canvas";
 
-        canvas.addEventListener("click", () => {
-            Engine.setSelected(this);
-        });
-
-        const WebGL = canvas.getContext("webgl2");
-        if (!WebGL) throw new Error("WebGL not supported");
-        this.gl = WebGL;
+        this.display = new Display();
 
         this.time = new Time();
         this.time.on("start", () => {
@@ -79,28 +57,24 @@ export class Engine {
             this.systems.callLateUpdate(this.time.deltaTime);
         });
 
+
+        const context = this.display.getContext();
+
         this.time.on("render", () => {
             if (!this.scene) return;
             const camera = this.scene.getActiveCamera();
             if (!camera) return;
-
             const color = camera.clearColor;
-            camera.aspect = canvas.width / canvas.height;
 
-            WebGL.viewport(0, 0, canvas.width, canvas.height);
-            WebGL.clearColor(color.r, color.g, color.b, color.a);
-            WebGL.clear(WebGL.COLOR_BUFFER_BIT);
+            context.clearColor(color.r, color.g, color.b, color.a);
+            context.clear(context.COLOR_BUFFER_BIT);
 
             this.systems.callRender(this.time.deltaTime);
             this.systems.callDrawGizmos();
         });
     }
 
-    protected onLoadSceneCallback?: (scene: Scene) => void;
 
-    public onLoadScene(callback: (scene: Scene) => void) {
-        this.onLoadSceneCallback = callback;
-    }
 
     loadScene(name: string, clone: boolean = false) {
         const scene = SceneManager.getScene(name);
@@ -137,22 +111,32 @@ export class Engine {
     }
 
     getScene() {
-         console.log("a")
         return this.scene;
     }
 
     public compileShader(name: string, vertSource: string, fragSource: string) {
-        const shader = new Shader(this.gl, name, vertSource, fragSource);
+        const shader = new Shader(this.getContext(), name, vertSource, fragSource);
         this.shaders.add(name, shader);
     }
 
     public compileTexture(texture: Texture) {
-        const textureBuffer = texture.compile(this.gl);
+        const textureBuffer = texture.compile(this.getContext());
         this.textureBuffers.add(texture.name, textureBuffer);
     }
 
     public compileMesh(mesh: Mesh) {
-        const meshBuffer = mesh.compile(this.gl);
+        const meshBuffer = mesh.compile(this.getContext());
         this.meshBuffers.add(mesh.name, meshBuffer);
+    }
+
+    protected onFocusCallback?: (editor: Editor) => void;
+    protected onLoadSceneCallback?: (scene: Scene) => void;
+
+    public onLoadScene(callback: (scene: Scene) => void) {
+        this.onLoadSceneCallback = callback;
+    }
+
+    public onFocusWindow(callback: (editor: Editor) => void) {
+        this.onFocusCallback = callback;
     }
 }

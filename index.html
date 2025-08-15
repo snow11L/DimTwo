@@ -7,10 +7,10 @@
   <title>Vite + TS Game</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
+
     html,
     body {
       margin: 0;
@@ -23,117 +23,40 @@
       overflow: hidden;
     }
 
-    #app-container {
+    #app {
       display: flex;
       padding: 4px;
-      gap: 2px;
       width: 100%;
       height: 100%;
-      background-color: #666;
+      background-color: #000000;
+      gap: 2px;
     }
 
-
-    .container {
-      display: flex;
-      overflow: hidden;
-      border: 1px solid #333;
-      border-radius: 8px;
-    }
-
-    .game-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-
-    }
-
-    .options-bar {
-    
+    .engine-container {
       width: 100%;
-      background: #2c2c2c;
+      height: 100%;
+      padding: 1px;
       display: flex;
-      align-items: center;
-      padding:4px;
-      flex-shrink: 0;
-      gap: 8px;
-     
-    }
-
-    .options-bar button {
-      display: flex;
-      background: #444;
-      color: #eee;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-wrap: nowrap;
-      transition: background 0.2s;
-    }
-
-    .options-bar button:hover {
-      background: #666;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-direction: column-reverse;
+         border: 1px solid #3a3a3a;
     }
 
     .engine-canvas {
-      flex: 1;
-      display: block;
+      display: flex;
       width: 100%;
       height: 100%;
-      background: #000;
     }
 
-
-    .editor-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    #debug {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.6);
-      color: #0f0;
-      font-size: 12px;
-      padding: 4px;
-      z-index: 10;
-    }
-    .selected {
-      border: 1px solid rgb(0, 60, 255);
+    .focused {
+      border: 1px solid rgb(16, 85, 131);
     }
   </style>
 </head>
 
 <body>
-  <div id="app-container">
-    <!-- Editor -->
-    <div class="editor-container container">
-      <div class="options-bar">
-        <button id="editor-new-scene">New Scene</button>
-        <button id="editor-save-scene">Save Scene</button>
-        <button id="editor-load-scene">Load Scene</button>
-        <button id="editor-clear-scene">Clear Scene</button>
-      </div>
-    </div>
-
-    <!-- Game -->
-    <div class="game-container container">
-      <div class="options-bar">
-        <button id="game-time-start">Start</button>
-        <button id="game-time-pause">Pause</button>
-        <button id="game-time-resume">Resume</button>
-        <button id="game-time-stop">Stop</button>
-        <button id="game-time-skip-frame">Skip Frame</button>
-      </div>
-    </div>
-
-    <div id="debug"></div>
-  </div>
-
-
+  <div id="app"> </div>
   <script type="module" src="src/main.ts"></script>
 </body>
 

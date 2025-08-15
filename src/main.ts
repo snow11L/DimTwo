@@ -1,4 +1,5 @@
 import { GameEntity } from "./engine/core/base/GameEntity";
+import { Display, Resolution, ResolutionValues } from "./engine/core/display/Display";
 import { ImageFileLoader } from "./engine/core/loaders/ImageFileLoader";
 import { TextFileLoader } from "./engine/core/loaders/TextFileLoader";
 import { EngineResourceManager } from "./engine/core/managers/EngineResourceManager";
@@ -26,6 +27,8 @@ import { CharacterControllerAnimationSystem } from "./game/systems/CharacterCont
 import { InputSystem } from "./game/systems/InputSystem";
 import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
 
+import "../src/editor.css";
+
 export class EditorCamera {
     public cameraEntiy: GameEntity;
     public cameraComponent: Camera;
@@ -35,25 +38,118 @@ export class EditorCamera {
         this.cameraEntiy = new GameEntity();
         this.cameraComponent = new Camera();
         this.transformComponent = new Transform();
-        this.transformComponent.position.z = 12;
+        this.transformComponent.position.z = 6;
 
         this.cameraComponent.setGameEntity(this.cameraEntiy);
         this.transformComponent.setGameEntity(this.cameraEntiy);
     }
 }
 
+export class EditorDisplay extends Display {
+    constructor() {
+        super();
+
+        const optionsBar = document.createElement("div");
+        optionsBar.className = "editor-options-bar";
+
+        const createButton = (label: string, onClick: () => void) => {
+            const btn = document.createElement("button");
+            btn.textContent = label;
+            btn.addEventListener("click", onClick);
+            return btn;
+        };
+
+        const loadBtn = createButton("Load", () => {
+            console.log("Load clicked");
+        });
+        const saveBtn = createButton("Save", () => {
+            console.log("Save clicked");
+        });
+
+        const resolutionSelect = document.createElement("select");
+        for (const resKey in Resolution) {
+            if (isNaN(Number(resKey))) {
+                const option = document.createElement("option");
+                option.value = resKey;
+                const { width, height } = ResolutionValues[Resolution[resKey as keyof typeof Resolution]];
+                option.textContent = `${width} x ${height}`;
+                resolutionSelect.appendChild(option);
+            }
+        }
+
+        resolutionSelect.addEventListener("change", () => {
+            const selected = resolutionSelect.value as keyof typeof Resolution;
+            this.setResolution(Resolution[selected]);
+        });
+
+        optionsBar.appendChild(loadBtn);
+        optionsBar.appendChild(saveBtn);
+        optionsBar.appendChild(resolutionSelect);
+
+        this.container.appendChild(optionsBar);
+    }
+}
+
+export class GameDisplay extends Display {
+    constructor(engine: Engine) {
+        super();
+        const optionsBar = document.createElement("div");
+        optionsBar.className = "editor-options-bar";
+
+        const createButton = (label: string, onClick: () => void) => {
+            const btn = document.createElement("button");
+            btn.textContent = label;
+            btn.addEventListener("click", onClick);
+            return btn;
+        };
+
+        const startBtn = createButton("start", () => {
+            engine.time.start();
+        });
+
+        const pauseBtn = createButton("pause", () => {
+            engine.time.pause();
+        });
+
+        const resumeBtn = createButton("resume", () => {
+            engine.time.resume();
+        });
+
+        const stopBtn = createButton("stop", () => {
+            engine.time.stop();
+        });
+
+        optionsBar.appendChild(startBtn);
+        optionsBar.appendChild(pauseBtn);
+        optionsBar.appendChild(resumeBtn);
+        optionsBar.appendChild(stopBtn);
+
+        this.container.appendChild(optionsBar);
+    }
+}
+
 export class Editor extends Engine {
 
-    private editorCamera: EditorCamera = new EditorCamera();
+    public editorCamera: EditorCamera = new EditorCamera();
 
     constructor() {
         super();
+
+        this.display = new EditorDisplay();
 
         this.onLoadSceneCallback = (scene) => {
             scene.addEntity(this.editorCamera.cameraEntiy);
             scene.addComponent(this.editorCamera.cameraEntiy, this.editorCamera.cameraComponent);
             scene.addComponent(this.editorCamera.cameraEntiy, this.editorCamera.transformComponent);
         }
+    }
+}
+
+
+export class Game extends Engine {
+    constructor() {
+        super();
+        this.display = new GameDisplay(this);
     }
 }
 
@@ -80,9 +176,9 @@ const simpleShader = new SimpleShaderSystem();
 ResourcesManager.ShaderSystemManager.add(simpleMaterial.name, simpleShader);
 
 
-const game = new Engine();
-const editor = new Editor();
 
+const editor = new Editor();
+const game = new Game();
 
 EngineResourceManager.register("simpleShaderVertex", new TextFileLoader("./src/engine/assets/shaders/simpleShader.vert"));
 EngineResourceManager.register("simpleShaderFragment", new TextFileLoader("./src/engine/assets/shaders/simpleShader.frag"));
@@ -129,9 +225,6 @@ EngineSystemManager.register(EngineSystem.EditorFreeCameraSystem, () => new Free
 
 
 
-
-EngineSystemManager.register(EngineSystem.EditorRenderSystem, () => new CharacterControllerAnimationSystem());
-
 const scene = new Scene("simple_scene");
 const scene2 = new Scene("simple_scene_2");
 SceneManager.addScene(scene);
@@ -146,7 +239,7 @@ game.useSystem(EngineSystem.CameraSystem);
 game.useSystem(EngineSystem.TerrainSystem);
 
 editor.useSystem(EngineSystem.RenderSystem);
-editor.useSystem(EngineSystem.EditorFreeCameraSystem);
+
 
 
 const playerEntity = new GameEntity({ name: "player", tag: "Player" });
@@ -166,41 +259,12 @@ editor.loadScene("simple_scene");
 game.loadScene("simple_scene");
 
 editor.time.start()
-game.time.start()
 
-const editorContainer = document.querySelector(".editor-container") as HTMLDivElement;
-const editorCanvas = editor.getElement() as HTMLCanvasElement;
-editorCanvas.width = editorContainer.getBoundingClientRect().width;
-editorCanvas.height = editorContainer.getBoundingClientRect().height;
-editorContainer.appendChild(editorCanvas);
+const app = document.querySelector("#app") as HTMLDivElement;
+editor.display.addToDocument(app);
+game.display.addToDocument(app);
 
-const gameContainer = document.querySelector(".game-container") as HTMLDivElement;
-
-const gameCanvas = game.getElement() as HTMLCanvasElement;
-gameCanvas.width = gameContainer.getBoundingClientRect().width;
-gameCanvas.height = gameContainer.getBoundingClientRect().height;
-
-gameContainer.appendChild(gameCanvas);
-
-const play = document.getElementById("game-time-start") as HTMLButtonElement;
-play.addEventListener("click", () => game.time.start());
-
-const pause = document.getElementById("game-time-pause") as HTMLButtonElement;
-pause.addEventListener("click", () => game.time.pause());
-
-const resume = document.getElementById("game-time-resume") as HTMLButtonElement;
-resume.addEventListener("click", () => game.time.resume());
-
-const stop = document.getElementById("game-time-stop") as HTMLButtonElement;
-stop.addEventListener("click", () => game.time.stop());
-
-window.addEventListener("resize", () => {
-    editorCanvas.width = editorContainer.getBoundingClientRect().width;
-    editorCanvas.height = editorContainer.getBoundingClientRect().height;
-    gameCanvas.width = gameContainer.getBoundingClientRect().width;
-    gameCanvas.height = gameContainer.getBoundingClientRect().height;
-})
-
-
+game.display.setResolution(Resolution.R1920x1080)
+editor.display.setResolution(Resolution.R1920x1080)
 
 
