@@ -31,8 +31,6 @@ export class Engine {
     public meshBuffers: SimpleManager<MeshBuffer> = new SimpleManager("Mesh Buffer Manager");
     public textureBuffers: SimpleManager<TextureBuffer> = new SimpleManager("Texture Buffer Manager");
     public systems: SystemManager = new SystemManager();
-
-
     public usedSystems: EngineSystem[] = [];
 
     public useSystem(systemType: EngineSystem) {
@@ -73,6 +71,10 @@ export class Engine {
             this.systems.callRender(this.time.deltaTime);
             this.systems.callDrawGizmos();
         });
+
+        this.time.on("stop", () => {
+            this.onStopCallback?.();
+        })
     }
 
     loadScene(name: string, clone: boolean = false) {
@@ -130,7 +132,6 @@ export class Engine {
 
     getScene() {
         return this.scene;
-
     }
 
     public compileShader(name: string, vertSource: string, fragSource: string) {
@@ -150,6 +151,11 @@ export class Engine {
 
     protected onFocusCallback?: (editor: Editor) => void;
     protected onLoadSceneCallback?: (scene: Scene) => void;
+    protected onStopCallback?: () => void;
+
+    public onStop(callback: () => void) {
+        this.onStopCallback = callback;
+    }
 
     public onLoadScene(callback: (scene: Scene) => void) {
         this.onLoadSceneCallback = callback;

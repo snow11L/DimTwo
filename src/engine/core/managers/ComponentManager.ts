@@ -15,6 +15,7 @@ export class ComponentManager implements IComponentManager {
         const typeMap = this.data.get(type)!;
         if (typeMap.has(entity.id.getValue())) {
             console.warn(`GameEntity ${entity.id.getValue()} already has a component of type ${type}`);
+               console.log(`GameEntity: ${entity}`);
             return false;
         }
 

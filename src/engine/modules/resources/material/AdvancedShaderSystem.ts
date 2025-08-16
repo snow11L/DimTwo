@@ -1,9 +1,9 @@
+import { Editor } from "../../../../main";
 import type { GameEntity } from "../../../core/base/GameEntity";
 import { Mat4 } from "../../../core/math/Mat4";
 import { Vec3 } from "../../../core/math/Vec3";
 import type { Scene } from "../../../core/scene/scene";
 import type { Engine } from "../../../Engine";
-import type { Camera } from "../../components/render/Camera";
 import type { SpriteRender } from "../../components/render/SpriteRender";
 import { Transform } from "../../components/spatial/Transform";
 import { ComponentType } from "../../enums/ComponentType";
@@ -13,8 +13,16 @@ import { ShaderSystem } from "../shader/ShaderSystem";
 export class AdvancedShaderSystem extends ShaderSystem {
     private flip: Vec3 = new Vec3(0, 0, 0);
 
-    global(engine: Engine, scene: Scene, shader: Shader, camera: Camera) {
-        const cameraTransform = scene.components.getComponent<Transform>(camera.getGameEntity(), ComponentType.Transform);
+    global(engine: Engine, scene: Scene, shader: Shader) {
+
+        let camera = scene.getActiveCamera();
+        let cameraTransform = scene.components.getComponent<Transform>(camera.getGameEntity(), ComponentType.Transform);
+
+        if(engine instanceof Editor) {
+            camera = engine.camera;
+            cameraTransform = engine.cameraTransform;
+        }
+        camera.aspect = engine.display.getAspectRatio();
         if (!cameraTransform) return;
 
         const viewMatrix = camera.viewMatrix;

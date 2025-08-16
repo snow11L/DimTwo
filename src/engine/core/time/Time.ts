@@ -1,6 +1,6 @@
 import { EventEmitter, type EventCallback } from "../events/EventEmitter";
 
-export type TimeEvent = 'start' | 'update' | 'fixedUpdate' | 'lateUpdate' | 'render';
+export type TimeEvent = 'start' | 'stop' | 'update' | 'fixedUpdate' | 'lateUpdate' | 'render';
 
 export default class Time {
   private events = new EventEmitter();
@@ -45,7 +45,7 @@ export default class Time {
     }
   }
 
-  public start(): void {
+  public play(): void {
     if (this.isRunning || this.initialized) return;
 
     this.events.emit('start');
@@ -66,6 +66,8 @@ export default class Time {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = undefined;
     }
+
+    this.events.emit("stop");
   }
 
   public pause(): void {

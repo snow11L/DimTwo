@@ -26,49 +26,27 @@ import { CharacterControlerSystem } from "./game/systems/CharacterControlerSyste
 import { CharacterControllerAnimationSystem } from "./game/systems/CharacterControllerAnimationSystem";
 import { InputSystem } from "./game/systems/InputSystem";
 import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
-
-
-import { EditorDisplay } from "./engine/core/display/EditorDisplay";
-import { GameDisplay } from "./engine/core/display/GameDisplay";
-
-export class EditorCamera {
-    public cameraEntiy: GameEntity;
-    public cameraComponent: Camera;
-    public transformComponent: Transform;
-
-    constructor() {
-        this.cameraEntiy = new GameEntity();
-        this.cameraComponent = new Camera();
-        this.transformComponent = new Transform();
-        this.transformComponent.position.z = 6;
-
-        this.cameraComponent.setGameEntity(this.cameraEntiy);
-        this.transformComponent.setGameEntity(this.cameraEntiy);
-    }
-}
-
+import { EditorLayout } from "./layout/EditorLayout";
+import { GameLayout } from "./layout/GameLayout";
 
 export class Editor extends Engine {
 
-    public editorCamera: EditorCamera = new EditorCamera();
+    public camera: Camera;
+    public cameraTransform: Transform;
 
     constructor() {
         super();
-
-        this.display = new EditorDisplay();
-
-        this.onLoadSceneCallback = (scene) => {
-            scene.addEntity(this.editorCamera.cameraEntiy);
-            scene.addComponent(this.editorCamera.cameraEntiy, this.editorCamera.cameraComponent);
-            scene.addComponent(this.editorCamera.cameraEntiy, this.editorCamera.transformComponent);
-        }
+        this.display = new EditorLayout();
+        this.camera = new Camera();
+        this.cameraTransform = new Transform();
+        this.cameraTransform.position.z = 5;
     }
 }
 
 export class Game extends Engine {
     constructor() {
         super();
-        this.display = new GameDisplay(this);
+        this.display = new GameLayout(this);
     }
 }
 
@@ -142,11 +120,6 @@ EngineSystemManager.register(EngineSystem.CharacterControlerAnimationSystem, () 
 
 EngineSystemManager.register(EngineSystem.EditorFreeCameraSystem, () => new FreeCameraSystem());
 
-
-
-const scene = new Scene("simple_scene");
-SceneManager.addScene(scene);
-
 game.useSystem(EngineSystem.RenderSystem);
 game.useSystem(EngineSystem.AnimatorSystem);
 game.useSystem(EngineSystem.InputSystem);
@@ -158,8 +131,13 @@ game.useSystem(EngineSystem.TerrainSystem);
 
 editor.useSystem(EngineSystem.RenderSystem);
 
+//-------------------
+const scene = new Scene("simple_scene");
+SceneManager.addScene(scene);
+
 const playerEntity = new GameEntity({ name: "player", tag: "Player" });
 configurePlayer(scene, playerEntity);
+
 scene.addEntity(playerEntity);
 
 const slimeEntity = new GameEntity({ name: "slime", tag: "Enemy" });
@@ -178,10 +156,16 @@ game.display.addToDocument(app);
 game.display.setResolution(Resolution.R1920x1080)
 editor.display.setResolution(Resolution.R1920x1080)
 
-editor.time.start();
 
 game.onLoadScene((scene) => {
-    editor.loadSceneByInstance(scene)
+    editor.unloadScene();
+    editor.loadSceneByInstance(scene);
 });
 
+game.onStop(() => {
+    editor.unloadScene();
+    editor.loadScene("simple_scene");
+})
+editor.loadScene("simple_scene");
+editor.time.play();
 

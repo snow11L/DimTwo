@@ -1,0 +1,17 @@
+.engine-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.engine-dropdown__options {
+    display: none;
+    margin-top: 4px;
+    position: absolute;
+    flex-direction: column;
+    padding: 2px;
+    z-index: 100;
+}
+
+.engine-dropdown__options--open {
+    display: flex;
+}

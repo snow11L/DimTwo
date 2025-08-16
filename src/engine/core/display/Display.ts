@@ -4,7 +4,10 @@ export interface ResolutionSize {
 }
 
 export enum Resolution {
+    R3840x2160, 
+    R2560x1440, 
     R1920x1080,
+    R1680x1050, 
     R1600x900,
     R1440x900,
     R1366x768,
@@ -17,7 +20,10 @@ export enum Resolution {
 }
 
 export const ResolutionValues: Record<Resolution, ResolutionSize> = {
+    [Resolution.R3840x2160]: { width: 3840, height: 2160 },
+    [Resolution.R2560x1440]: { width: 2560, height: 1440 },
     [Resolution.R1920x1080]: { width: 1920, height: 1080 },
+    [Resolution.R1680x1050]: { width: 1680, height: 1050 },
     [Resolution.R1600x900]: { width: 1600, height: 900 },
     [Resolution.R1440x900]: { width: 1440, height: 900 },
     [Resolution.R1366x768]: { width: 1366, height: 768 },
@@ -43,7 +49,7 @@ export class Display {
 
     constructor() {
         this.container = document.createElement("div");
-        this.container.className = "engine-container";
+        this.container.className = "window-container";
 
         this.optionsBar = document.createElement("div");
         this.optionsBar.className = "engine-options-bar";

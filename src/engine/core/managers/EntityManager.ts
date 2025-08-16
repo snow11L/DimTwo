@@ -9,6 +9,7 @@ export class EntityManager {
 
         const id = entity.id.getValue();
         if (this.byId.has(id) || this.byName.has(entity.name)) {
+            console.log(entity)
             throw new Error(`Entity with same ID: ${id} or name: ${entity.name} already exists`);
         }
         this.byId.set(id, entity);
