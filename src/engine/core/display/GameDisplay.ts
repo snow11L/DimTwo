@@ -11,19 +11,19 @@ export class GameDisplay extends Display {
             engine.loadScene("simple_scene", true);
         });
 
-        startBtn.appendChild(LayoutHelper.loadSvg("./src/layout/play-fill.svg"));
+        startBtn.appendChild(LayoutHelper.loadSvg("./src/layout/svg/play-fill.svg"));
 
         const pauseBtn = LayoutHelper.createButton(undefined, () => {
             engine.time.pause();
         });
 
-        pauseBtn.appendChild(LayoutHelper.loadSvg("./src/layout/pause-fill.svg"));
+        pauseBtn.appendChild(LayoutHelper.loadSvg("./src/layout/svg/pause-fill.svg"));
 
         const resumeBtn = LayoutHelper.createButton(undefined, () => {
             engine.time.resume();
         });
 
-        resumeBtn.appendChild(LayoutHelper.loadSvg("./src/layout/resume-fill.svg"));
+        resumeBtn.appendChild(LayoutHelper.loadSvg("./src/layout/svg/resume-fill.svg"));
 
         const stopBtn = LayoutHelper.createButton(undefined, () => {
             engine.time.stop();
@@ -31,7 +31,7 @@ export class GameDisplay extends Display {
 
         });
 
-        stopBtn.appendChild(LayoutHelper.loadSvg("./src/layout/stop-fill.svg"));
+        stopBtn.appendChild(LayoutHelper.loadSvg("./src/layout/svg/stop-fill.svg"));
 
         this.optionsBar.appendChild(LayoutHelper.createFitContentDiv(true, false));
         this.optionsBar.appendChild(startBtn);

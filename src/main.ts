@@ -27,9 +27,7 @@ import { CharacterControllerAnimationSystem } from "./game/systems/CharacterCont
 import { InputSystem } from "./game/systems/InputSystem";
 import { TerrainSystem } from "./game/systems/procedural-world/TerrainSystem";
 
-import "../src/editor.css";
-import "../src/engine.css";
-import "../src/game.css";
+
 import { EditorDisplay } from "./engine/core/display/EditorDisplay";
 import { GameDisplay } from "./engine/core/display/GameDisplay";
 

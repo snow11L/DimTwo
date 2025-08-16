@@ -1,5 +1,4 @@
-
-.engine-options-bar.game > button {
+.engine-options-bar.game>button {
     background-color: transparent;
     color: #f0f0f0;
     border: 1px solid #3a3a3a;
@@ -11,12 +10,12 @@
     font-family: 'JetBrains Mono', monospace;
 }
 
-.engine-options-bar.game > button:hover {
+.engine-options-bar.game>button:hover {
     background-color: #2a2a2a;
     border-color: #5a5a5a;
 }
 
-.engine-options-bar.game > select {
+.engine-options-bar.game>select {
     background-color: #1e1e1e;
     color: #f0f0f0;
     border: 1px solid #3a3a3a;
@@ -28,17 +27,17 @@
     font-family: 'JetBrains Mono', monospace;
 }
 
-.engine-options-bar.game > select:hover {
+.engine-options-bar.game>select:hover {
     border-color: #5a5a5a;
 }
 
-.engine-options-bar.game > select option {
+.engine-options-bar.game>select option {
     background-color: #1e1e1e;
     color: #f0f0f0;
 }
 
-.engine-options-bar.game > select:focus,
-.engine-options-bar.game > button:focus {
+.engine-options-bar.game>select:focus,
+.engine-options-bar.game>button:focus {
     outline: none;
     border-color: #777;
     box-shadow: 0 0 4px #555;
@@ -48,11 +47,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.engine-options-bar.game > .svg-container:hover {
-    background-color: #004b55;
+    background-color: #313131;
+    padding: 2px;
     border-radius: 4px;
-    
 }
 
+.svg-container > svg {
+  fill: #c5c5c5;
+}
+
+.svg-container:hover {
+    background-color: #6363638a;
+
+}
