@@ -9,7 +9,7 @@ export class EntityManager {
 
         const id = entity.id.getValue();
         if (this.byId.has(id) || this.byName.has(entity.name)) {
-            throw new Error(`Entity with same ID or name already exists`);
+            throw new Error(`Entity with same ID: ${id} or name: ${entity.name} already exists`);
         }
         this.byId.set(id, entity);
         this.byName.set(entity.name, entity);
@@ -45,4 +45,9 @@ export class EntityManager {
         return Array.from(this.byId.values());
     }
 
+    public clear() {
+        this.byId.clear();
+        this.byName.clear();
+        this.byTag.clear();
+    }
 }

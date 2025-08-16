@@ -6,7 +6,6 @@ import { SpriteRender } from "../../../engine/modules/components/render/SpriteRe
 import { Transform } from "../../../engine/modules/components/spatial/Transform";
 import { ComponentType } from "../../../engine/modules/enums/ComponentType";
 import { BiomeName, getBiomeColor } from "./biome";
-import { ChunkManager } from "./chunk/ChunkManager";
 import { World, type TerrainCell } from "./Word";
 
 
@@ -17,40 +16,24 @@ export class TerrainSystem extends System {
   start() {
 
     const scene = this.getScene();
-
     const playerEntity = scene.entities.getByTag("Player");
-    if(!playerEntity) return;
+
+    if (!playerEntity) {
+      return
+    }
 
     const playerTranform = scene.components.getComponent<Transform>(playerEntity, ComponentType.Transform);
-    if(!playerTranform) return;
+    if (!playerTranform) return;
 
     this.playerPosition = playerTranform.position;
 
-    ChunkManager.on("chunkLoaded", (pos: Vec2) => {
-      const chunk = ChunkManager.getChunk(pos.x, pos.y);
-      if (chunk) {
-        generateTerrainEntities(this.getScene(), chunk.cells, chunk.gameEntities);
-      }
-    });
 
-    /* ChunkManager.on("chunkUnloaded", (pos: Vec2) => {
-      const chunk = ChunkManager.getChunk(pos.x, pos.y);
-      if (chunk) {
-        for (const entity of chunk.gameEntities) {
-          ECS.Component.destroyEntityAndComponents(componentState, entity);
-        }
-        chunk.gameEntities = [];
-      }
-    }); */
+    const cells = this.world.generateCells(16, 16, 0, 0);
+    const entities: GameEntity[] = [];
 
-    ChunkManager.updateAround(this.playerPosition, 1, this.world);
+    generateTerrainEntities(this.getScene(), cells, entities);
+
   }
-
-  render() {
-    
-  }
-
-
 }
 
 function generateTerrainEntities(
@@ -60,42 +43,30 @@ function generateTerrainEntities(
 ): void {
   for (const cell of terrainCells) {
 
-    if (cell.biome === BiomeName.SHALLOW_WATER) {
-
-      // const gameEntity: GameEntity = createGameEntity(`ground`, "Ground");
-
-      // const transform = createTransformComponent(gameEntity, { position: cell.position, });
-      // ECS.Component.addComponent(componentState, gameEntity, transform, false);
-
-      // const spriteReder = createSpriteRenderComponent(gameEntity, { material: "water_material" });
-      // ECS.Component.addComponent(componentState, gameEntity, spriteReder, false);
-
-      // gameEntities.push(gameEntity);
-    } else {
-
-      const gameEntity: GameEntity = new GameEntity({name: `ground`, tag: "Ground"});
-
-      const transform = new Transform({position: cell.position});
-      scene.components.addComponent(gameEntity, transform);
-
-      const spriteReder = new SpriteRender();
-      spriteReder.material = "simpleMaterial";
-      spriteReder.color = getBiomeColor(cell.biome ?? BiomeName.DEEP_WATER);
+    const gameEntity: GameEntity = new GameEntity({ tag: "Ground" });
+    gameEntity.name = `ground_${gameEntity.id.getValue()}`
+    const transform = new Transform({ position: cell.position });
 
 
-      scene.components.addComponent(gameEntity, spriteReder);
+    scene.addComponent(gameEntity, transform);
+    scene.addEntity(gameEntity);
 
-      gameEntities.push(gameEntity);
-    }
+    const spriteReder = new SpriteRender();
+    spriteReder.material = "simpleMaterial";
+    spriteReder.color = getBiomeColor(cell.biome ?? BiomeName.DEEP_WATER);
+
+    scene.addComponent(gameEntity, spriteReder);
+
+    gameEntities.push(gameEntity);
   }
 }
-
+/* 
 function seedFromXY(x: number, y: number): number {
   const PRIME1 = 73856093;
   const PRIME2 = 19349663;
   return (x * PRIME1) ^ (y * PRIME2);
 }
-
+ */
 /* export function generateTrees(
   componentState: ComponentStateType,
   terrainCells: TerrainCell[],

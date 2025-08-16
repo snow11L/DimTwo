@@ -61,6 +61,7 @@ export default class Time {
 
   public stop(): void {
     this.isRunning = false;
+    this.initialized = false;
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = undefined;

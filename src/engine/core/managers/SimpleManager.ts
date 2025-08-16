@@ -36,6 +36,10 @@ export class SimpleManager<T> {
         this.data.delete(name);
     }
 
+    public getAll() {
+        return Array.from(this.data.values());
+    }
+
     public clear() {
         this.data.clear();
     }

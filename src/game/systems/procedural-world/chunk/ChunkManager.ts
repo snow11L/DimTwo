@@ -1,4 +1,4 @@
-import type { GameEntity } from "../../../../engine/core/base/GameEntity";
+/* import type { GameEntity } from "../../../../engine/core/base/GameEntity";
 import { EventEmitter, type EventCallback } from "../../../../engine/core/events/EventEmitter";
 import type { Vec2 } from "../../../../engine/core/math/Vec2";
 import type { TerrainCell, World } from "../Word";
@@ -95,3 +95,4 @@ export class ChunkManager {
         this.events.on(event, callback);
     }
 }
+ */

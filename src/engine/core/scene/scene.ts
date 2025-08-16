@@ -1,6 +1,6 @@
 import { Camera } from "../../modules/components/render/Camera";
 import { ComponentType } from "../../modules/enums/ComponentType";
-import type { Component } from "../base/Component";
+import { Component } from "../base/Component";
 import type { GameEntity } from "../base/GameEntity";
 import { ComponentManager } from "../managers/ComponentManager";
 import { EntityManager } from "../managers/EntityManager";
@@ -31,7 +31,7 @@ export class Scene {
 
     public getActiveCamera(): Camera {
 
-        if(this.injectedCamera) return this.injectedCamera;
+        if (this.injectedCamera) return this.injectedCamera;
 
         if (this.camera && this.camera.enabled) return this.camera;
 
@@ -60,5 +60,10 @@ export class Scene {
         }
 
         return sceneClone;
+    }
+
+    public clear(): void {
+        this.components.clear();
+        this.entities.clear();
     }
 }

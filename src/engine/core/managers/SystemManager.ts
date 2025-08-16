@@ -62,4 +62,8 @@ export class SystemManager {
     public callTriggerExitEvents(event: TriggerEvent): void {
         for (const system of this.data.values()) system.onTriggerExit?.(event);
     }
+
+    public clear() {
+        this.data.clear();
+    }
 }

@@ -44,6 +44,7 @@ export class Engine {
         this.display = new Display();
 
         this.time = new Time();
+
         this.time.on("start", () => {
             this.systems.callStart();
         });
@@ -74,20 +75,37 @@ export class Engine {
         });
     }
 
-
-
     loadScene(name: string, clone: boolean = false) {
+
         const scene = SceneManager.getScene(name);
         if (!scene) {
             throw new Error(`Scene "${name}" not found`);
         }
 
-        const s = scene; // ou scene.clone() se clone for true
+        const s = clone ? scene.clone() : scene;
+        this.loadSceneByInstance(s);
+    }
 
+    public unloadScene() {
+        if (this.scene) {
+            const camera = this.scene.getActiveCamera();
+            const clearColor = camera.clearColor;
+
+            const context = this.display.getContext();
+            context.clearColor(clearColor.r, clearColor.g, clearColor.b, 1.0);
+            context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+
+            this.systems.clear();
+            this.scene = null;
+        }
+    }
+
+    loadSceneByInstance(scene: Scene) {
+        this.unloadScene();
         for (const system of this.usedSystems) {
             let systemInstance = this.systems.getSystem(system);
             if (systemInstance) {
-                systemInstance.setScene(s);
+                systemInstance.setScene(scene);
                 continue;
             }
 
@@ -96,14 +114,14 @@ export class Engine {
                 throw new Error(`System ${EngineSystem[system]} could not be created`);
             }
 
-            systemInstance.setScene(s);
+            systemInstance.setScene(scene);
             systemInstance.setEngine(this);
             this.systems.addSystem(system, systemInstance);
         }
 
-        this.scene = s;
+        this.scene = scene;
         this.systems.callStart();
-        this.onLoadSceneCallback?.(s);
+        this.onLoadSceneCallback?.(scene);
     }
 
     setScene(scene: Scene) {
@@ -112,6 +130,7 @@ export class Engine {
 
     getScene() {
         return this.scene;
+
     }
 
     public compileShader(name: string, vertSource: string, fragSource: string) {

@@ -83,5 +83,8 @@ export class ComponentManager implements IComponentManager {
         return components;
     }
 
-
+    public clear() {
+        this.data.clear();
+        this.group.clear();
+    }
 }

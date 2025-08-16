@@ -68,6 +68,8 @@ const PLAYER_ATTACK_UP_CLIP: AnimationClip = createAnimationClip(
     16,
   );
 
+  console.log(PLAYER_WALK_DOWN_CLIP.frames)
+
 const PLAYER_ATTACK_SIDE_CLIP: AnimationClip = createAnimationClip(
     "attack_side",
     "player",

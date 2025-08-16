@@ -30,22 +30,28 @@ export const ResolutionValues: Record<Resolution, ResolutionSize> = {
 };
 
 export class Display {
-    
+
     private readonly context: WebGL2RenderingContext;
     private readonly canvas: HTMLCanvasElement;
     protected readonly container: HTMLDivElement;
+    protected readonly optionsBar: HTMLDivElement;
 
     private static focused: Display | null = null;
 
-    public width: number = 800;  
+    public width: number = 800;
     public height: number = 600;
 
     constructor() {
         this.container = document.createElement("div");
         this.container.className = "engine-container";
 
+        this.optionsBar = document.createElement("div");
+        this.optionsBar.className = "engine-options-bar";
+
         this.canvas = document.createElement("canvas");
         this.canvas.className = "engine-canvas";
+
+        this.container.appendChild(this.optionsBar);
         this.container.appendChild(this.canvas);
 
         const gl = this.canvas.getContext("webgl2");
