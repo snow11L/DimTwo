@@ -27,7 +27,7 @@ export class EditorLayout extends Display {
             text: "teste",
             options: [
                 {
-                    text: "ola mundo"
+                    text: "terer"
                 },
                 {
                     text: "ola mundo"
