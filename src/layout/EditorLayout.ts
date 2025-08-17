@@ -1,7 +1,6 @@
 import { Display } from "../engine/core/display/Display";
 import { LayoutButton } from "./elements/LayoutButton";
-import { LayoutDropdown } from "./elements/LayoutDropdown";
-
+import { ResolutionSelector } from "./elements/ResolutionSelector";
 
 export class EditorLayout extends Display {
     constructor() {
@@ -23,24 +22,7 @@ export class EditorLayout extends Display {
         });
         this.optionsBar.appendChild(saveBtn.getRenderElement());
 
-        const dropdown = new LayoutDropdown({
-            text: "teste",
-            options: [
-                {
-                    text: "terer"
-                },
-                {
-                    text: "ola mundo"
-                },
-                {
-                    text: "ola mundo"
-                },
-                {
-                    text: "ola mundo"
-                }
-            ]
-        })
-       
+        const dropdown = ResolutionSelector(this);
         this.optionsBar.appendChild(dropdown.getRenderElement());
         this.optionsBar.classList.add("editor")
     }
