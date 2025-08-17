@@ -6,6 +6,9 @@ export class GameLayout extends Display {
     constructor(engine: Engine) {
         super();
 
+
+        
+
         const playBtn = LayoutHelper.createOption({
             icon: {
                 svgSrc: "./src/layout/svg/play-fill.svg"
@@ -47,19 +50,19 @@ export class GameLayout extends Display {
         const dropdown = LayoutHelper.createDropdown({
             initialOption: Resolution.R1920x1080,
             options: [
-                { text: { name: "3840x2160" }, value: Resolution.R3840x2160 },
-                { text: { name: "2560x1440" }, value: Resolution.R2560x1440 },
-                { text: { name: "1920x1080" }, value: Resolution.R1920x1080 },
-                { text: { name: "1680x1050" }, value: Resolution.R1680x1050 },
-                { text: { name: "1600x900" }, value: Resolution.R1600x900 },
-                { text: { name: "1440x900" }, value: Resolution.R1440x900 },
-                { text: { name: "1366x768" }, value: Resolution.R1366x768 },
-                { text: { name: "1280x1024" }, value: Resolution.R1280x1024 },
-                { text: { name: "1280x800" }, value: Resolution.R1280x800 },
-                { text: { name: "1280x720" }, value: Resolution.R1280x720 },
-                { text: { name: "1024x768" }, value: Resolution.R1024x768 },
-                { text: { name: "800x600" }, value: Resolution.R800x600 },
-                { text: { name: "640x480" }, value: Resolution.R640x480 }
+                { text: { text: "3840x2160" }, value: Resolution.R3840x2160 },
+                { text: { text: "2560x1440" }, value: Resolution.R2560x1440 },
+                { text: { text: "1920x1080" }, value: Resolution.R1920x1080 },
+                { text: { text: "1680x1050" }, value: Resolution.R1680x1050 },
+                { text: { text: "1600x900" }, value: Resolution.R1600x900 },
+                { text: { text: "1440x900" }, value: Resolution.R1440x900 },
+                { text: { text: "1366x768" }, value: Resolution.R1366x768 },
+                { text: { text: "1280x1024" }, value: Resolution.R1280x1024 },
+                { text: { text: "1280x800" }, value: Resolution.R1280x800 },
+                { text: { text: "1280x720" }, value: Resolution.R1280x720 },
+                { text: { text: "1024x768" }, value: Resolution.R1024x768 },
+                { text: { text: "800x600" }, value: Resolution.R800x600 },
+                { text: { text: "640x480" }, value: Resolution.R640x480 }
             ],
 
             onOptionClick: (option) => {

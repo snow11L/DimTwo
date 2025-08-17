@@ -168,4 +168,3 @@ game.onStop(() => {
 })
 editor.loadScene("simple_scene");
 editor.time.play();
-

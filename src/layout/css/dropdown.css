@@ -1,6 +1,6 @@
 .engine-dropdown {
     position: relative;
-    display: inline-block;
+  
 }
 
 .engine-dropdown__options {
@@ -12,6 +12,6 @@
     z-index: 100;
 }
 
-.engine-dropdown__options--open {
+.visible {
     display: flex;
 }

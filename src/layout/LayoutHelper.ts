@@ -1,14 +1,10 @@
-type LayoutOption = {
-    text?: LayoutText;
+type Option = {
+    text?: LayoutTextOptons;
     icon?: LayoutIcon;
     value?: any;
-    onClick?: (option: LayoutOption) => void;
+    onClick?: (option: Option) => void;
 };
 
-type LayoutText = {
-    name?: string;
-    onClick?: () => void;
-};
 
 type LayoutIcon = {
     imageSrc?: string;
@@ -19,12 +15,28 @@ type LayoutIcon = {
 
 type LayoutDropDown = {
     initialOption?: number;
-    text?: LayoutText;
+    text?: LayoutTextOptons;
     icon?: LayoutIcon;
     onClick?: () => void;
-    options?: LayoutOption[];
-    onOptionClick?: (option: LayoutOption) => void;
+    options?: Option[];
+    onOptionClick?: (option: Option) => void;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export class LayoutHelper {
@@ -90,7 +102,7 @@ export class LayoutHelper {
     }
 
 
-    public static createOption(option: LayoutOption): HTMLDivElement {
+    public static createOption(option: Option): HTMLDivElement {
         const container = this.createContainer();
         container.className = "engine-option";
 
@@ -111,7 +123,7 @@ export class LayoutHelper {
         return container;
     }
 
-    public static createText(options: LayoutText): HTMLDivElement {
+    public static createText(options: LayoutTextOptons): HTMLDivElement {
         const container = document.createElement("div");
         container.className = "engine-text";
 
@@ -121,7 +133,7 @@ export class LayoutHelper {
         const text = document.createElement("div");
         text.className = "engine-text__text";
 
-        if (options.name) text.innerText = options.name;
+        if (options.text) text.innerText = options.text;
 
         if (options.onClick) {
             container.addEventListener("click", options.onClick);
@@ -136,7 +148,7 @@ export class LayoutHelper {
         const dropdownContainer = this.createContainer();
         dropdownContainer.className = "engine-dropdown";
 
-        let initial: { text?: LayoutText, icon?: LayoutIcon } = { text: dropdown.text, icon: dropdown.icon};
+        let initial: { text?: LayoutTextOptons, icon?: LayoutIcon } = { text: dropdown.text, icon: dropdown.icon };
 
         if (typeof dropdown.initialOption === "number" && dropdown.options && dropdown.options[dropdown.initialOption]) {
             initial.text = dropdown.options[dropdown.initialOption].text;
@@ -162,11 +174,11 @@ export class LayoutHelper {
                     }
 
                     if (opt.text) {
-                        mainButton.innerText = opt.text.name ?? "";
+                        mainButton.innerText = opt.text.text ?? "";
                     }
 
                     if (opt.icon) {
-                        
+
                     }
 
                     optionsContainer.classList.remove("engine-dropdown__options--open");
