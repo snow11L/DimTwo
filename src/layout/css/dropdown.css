@@ -4,10 +4,12 @@
 }
 
 .engine-dropdown__options {
+    border-radius: 4px;
     display: none;
     margin-top: 4px;
     position: absolute;
     flex-direction: column;
+    background-color: rgb(48, 48, 48);
     padding: 2px;
     z-index: 100;
 }

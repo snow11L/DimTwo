@@ -6,12 +6,14 @@ export type LayoutButtonOptions = {
     text?: string;
     icon?: LayoutIcon;
     propagation?: boolean;
+    value?: any;
     onClick?: (element: LayoutElement) => void;
 }
 
 export class LayoutButton extends LayoutElement {
     text?: LayoutText;
     icon?: LayoutIcon;
+    value?: number;
 
     constructor(options: LayoutButtonOptions) {
         super();
@@ -21,6 +23,8 @@ export class LayoutButton extends LayoutElement {
             this.text = new LayoutText({ text: options.text });
             this.appendElements(this.text);
         }
+
+        this.value = options.value;
 
         if (options.icon) {
             this.icon = options.icon;

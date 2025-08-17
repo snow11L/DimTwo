@@ -1,13 +1,12 @@
 import type { Engine } from "../engine/Engine";
-import { Display, Resolution } from "../engine/core/display/Display";
+import { Display } from "../engine/core/display/Display";
 import { LayoutHelper } from "./LayoutHelper";
+import { ResolutionSelector } from "./elements/ResolutionSelector";
 
 export class GameLayout extends Display {
     constructor(engine: Engine) {
         super();
 
-
-        
 
         const playBtn = LayoutHelper.createOption({
             icon: {
@@ -47,30 +46,9 @@ export class GameLayout extends Display {
             },
         });
 
-        const dropdown = LayoutHelper.createDropdown({
-            initialOption: Resolution.R1920x1080,
-            options: [
-                { text: { text: "3840x2160" }, value: Resolution.R3840x2160 },
-                { text: { text: "2560x1440" }, value: Resolution.R2560x1440 },
-                { text: { text: "1920x1080" }, value: Resolution.R1920x1080 },
-                { text: { text: "1680x1050" }, value: Resolution.R1680x1050 },
-                { text: { text: "1600x900" }, value: Resolution.R1600x900 },
-                { text: { text: "1440x900" }, value: Resolution.R1440x900 },
-                { text: { text: "1366x768" }, value: Resolution.R1366x768 },
-                { text: { text: "1280x1024" }, value: Resolution.R1280x1024 },
-                { text: { text: "1280x800" }, value: Resolution.R1280x800 },
-                { text: { text: "1280x720" }, value: Resolution.R1280x720 },
-                { text: { text: "1024x768" }, value: Resolution.R1024x768 },
-                { text: { text: "800x600" }, value: Resolution.R800x600 },
-                { text: { text: "640x480" }, value: Resolution.R640x480 }
-            ],
+        const dropdown = ResolutionSelector(this);
+        this.optionsBar.appendChild(dropdown.getRenderElement());
 
-            onOptionClick: (option) => {
-                this.setResolution(option.value);
-            }
-        });
-
-        this.optionsBar.appendChild(dropdown);
         this.optionsBar.appendChild(LayoutHelper.createFitContentDiv(true, false));
         this.optionsBar.appendChild(playBtn);
         this.optionsBar.appendChild(pauseBtn);

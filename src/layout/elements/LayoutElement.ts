@@ -17,7 +17,7 @@ export class LayoutElement {
         this.container.classList.add(...classNames);
     }
 
-    public toogleClass(className: string) {
+    public toggleClass(className: string) {
         this.container.classList.toggle(className);
     }
 
@@ -30,4 +30,5 @@ export class LayoutElement {
     public setText(text: string) {
         this.container.innerText = text;
     }
+
 }
